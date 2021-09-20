@@ -18,5 +18,6 @@ l2_data = apro_reader.read()
 #plot Quick Look
 apro_plotter = apro.plotter.Plotter(l2_data)
 apro_plotter.plot('attenuated_backscatter_0',vmin=0, vmax=2, cmap='viridis')
-```
+``` 
 
+<img src="examples/QL-AttenuatedBackscatter-A-20210907.png" title="Example of Attenuated Backscatter Signal" width="800"/>

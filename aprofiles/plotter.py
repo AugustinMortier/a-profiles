@@ -56,6 +56,7 @@ class _PlotQLFromDataset:
         cbar = plt.colorbar()
         cbar.set_label('Attenuated backscatter Signal')
 
+        plt.tight_layout()
         plt.show()
 
 def main():
