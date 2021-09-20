@@ -1,0 +1,21 @@
+language: python
+python:
+  - 3.6
+
+# Update pip to the latest version
+before_install:
+  - python --version
+  - pip install -U pip
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - py.test
+
+deploy:
+  provider: pypi
+  username: "__token__"
+  password: "pypi-AgEIcHlwaS5vcmcCJDBkZTFmYjg2LWZlM2MtNDAzZi04YWE0LTFiOWZjMTJiNjM1NQACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYgXkirqHYTdLVUTQsykhIAMkfFJ47XrTxUP9FZvuDz5MA"
+  on:
+    branch: master

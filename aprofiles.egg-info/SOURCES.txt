@@ -1,0 +1,10 @@
+README.md
+setup.py
+aprofiles/__init__.py
+aprofiles/plotter.py
+aprofiles/reader.py
+aprofiles.egg-info/PKG-INFO
+aprofiles.egg-info/SOURCES.txt
+aprofiles.egg-info/dependency_links.txt
+aprofiles.egg-info/requires.txt
+aprofiles.egg-info/top_level.txt
