@@ -16,6 +16,6 @@ script:
 deploy:
   provider: pypi
   username: "__token__"
-  password: "pypi-AgEIcHlwaS5vcmcCJDBkZTFmYjg2LWZlM2MtNDAzZi04YWE0LTFiOWZjMTJiNjM1NQACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYgXkirqHYTdLVUTQsykhIAMkfFJ47XrTxUP9FZvuDz5MA"
+  password: "$PYPI_TOKEN"
   on:
     branch: master
