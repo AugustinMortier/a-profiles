@@ -10,6 +10,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Plotter:
+    """Base class for plotting data.
+
+    Attributes:
+        data (str): path or URL of the file to be read.
+    """
     def __init__(self, data):    
         self.data = data
 

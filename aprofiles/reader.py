@@ -9,13 +9,10 @@ import io
 import xarray as xr
 
 class ReadProfiles:
-    """Class for reading vertical profiles.
-
-    Note:
-        Do not include the `self` parameter in the ``Args`` section.
+    """Base class for reading single NetCDF file.
 
     Attributes:
-        path (str): path of path of the file to be read.
+        path (str): path or URL of the file to be read.
     """
 
     def __init__(self, path):
