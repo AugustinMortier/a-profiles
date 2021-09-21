@@ -8,10 +8,10 @@ Welcome to A-Profiles's documentation!
 
 .. toctree::
    :maxdepth: 3
-   :caption: API
+   :caption: For users
 
-   source/api/reader
-   source/api/plotter
+   Getting started <source/getting-started/index>
+   API Reference <source/api/index>
    
 
 

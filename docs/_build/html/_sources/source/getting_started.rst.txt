@@ -1,0 +1,16 @@
+===============
+Getting Started
+===============
+
+Introduction
+-----------------
+Blablbala.
+
+Installation
+-----------------
+
+For now, only supports PIP.
+
+PIP
+~~~~~~~~~~
+`pip install aprofiles`
