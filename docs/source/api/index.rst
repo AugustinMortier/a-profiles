@@ -7,4 +7,4 @@ API Reference
    :hidden:
 
    reader
-   plotter
+   profilesdata

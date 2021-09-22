@@ -74,6 +74,8 @@
 <span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
+<span class="kn">from</span> <span class="nn">aprofiles.profilesdata</span> <span class="kn">import</span> <span class="n">ProfilesData</span>
+
 <div class="viewcode-block" id="ReadProfiles"><a class="viewcode-back" href="../../source/api/reader.html#aprofiles.reader.ReadProfiles">[docs]</a><span class="k">class</span> <span class="nc">ReadProfiles</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Base class for reading single NetCDF file.</span>
 
@@ -101,21 +103,22 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Only L2 files are supported at the moment&#39;</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ReadProfiles.read"><a class="viewcode-back" href="../../source/api/reader.html#aprofiles.reader.ReadProfiles.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Method which calls the relevant reading class.</span>
 
 <span class="sd">        Note:</span>
 <span class="sd">            Based on the file name, we call the relevant reading class.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            &lt;class &#39;xarray.Dataset&#39;&gt;: xarray Dataset</span>
+<span class="sd">            &lt;class &#39;aprofiles.Profiles&#39;&gt;: Profiles object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="c1">#get the right reading class</span>
         <span class="n">reading_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_reader</span><span class="p">()</span>
         <span class="c1">#calls the read function from the right reading class</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">reading_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read_file</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">data</span></div></div>
+
+        <span class="k">return</span> <span class="n">ProfilesData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="_ReadL2EPROFILE"><a class="viewcode-back" href="../../source/api/reader.html#aprofiles.reader._ReadL2EPROFILE">[docs]</a><span class="k">class</span> <span class="nc">_ReadL2EPROFILE</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Read Level 2 data E-PROFILE single NetCDF file.</span>
