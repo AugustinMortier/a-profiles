@@ -8,6 +8,8 @@ import urllib.request
 import io
 import xarray as xr
 
+from aprofiles.profilesdata import ProfilesData
+
 class ReadProfiles:
     """Base class for reading single NetCDF file.
 
@@ -42,14 +44,15 @@ class ReadProfiles:
             Based on the file name, we call the relevant reading class.
 
         Returns:
-            <class 'xarray.Dataset'>: xarray Dataset
+            <class 'aprofiles.Profiles'>: Profiles object
         """
         
         #get the right reading class
         reading_class = self._get_reader()
         #calls the read function from the right reading class
         data = reading_class(self.path).read_file()
-        return data
+
+        return ProfilesData(data)
 
 class _ReadL2EPROFILE:
     """Read Level 2 data E-PROFILE single NetCDF file.
