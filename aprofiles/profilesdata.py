@@ -2,7 +2,7 @@
 
 # @author Augustin Mortier
 # @email augustinm@met.no
-# @desc A-Profiles Profiles
+# @desc A-Profiles ProfilesData
 
 import matplotlib.pyplot as plt
 import xarray as xr
@@ -30,6 +30,14 @@ class ProfilesData:
 
 
     def quickplot(self,var='attenuated_backscatter_0', vmin=0, vmax=1, cmap='Spectral_r'):
+        """Plot 2D Quicklook
+
+        Args:
+            var (str, optional): [Variable of ProfilesData.data Dataset to be plotted]. Defaults to 'attenuated_backscatter_0'.
+            vmin (int, optional): [Minimum value]. Defaults to 0.
+            vmax (int, optional): [Maximum value]. Defaults to 1.
+            cmap (str, optional): [Matplotlib colormap]. Defaults to 'Spectral_r'.
+        """
         fig, axs = plt.subplots(1, 1, figsize=(6, 3))
         #plot image
         #plt.imshow(self.data[self.var],origin='lower')
@@ -56,9 +64,9 @@ class ProfilesData:
 
 
 def main():
-    import reader
+    import aprofiles as apro
     path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
-    profiles = reader.ReadProfiles(path).read()
+    profiles = apro.reader.ReadProfiles(path).read()
     profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
 
 

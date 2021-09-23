@@ -22,7 +22,10 @@ class Rayleigh:
         self.altitude = altitude
         self.T0 = T0
         self.P0 = P0
-        self.wavelength = wavelength
+        self.wavelength = float(wavelength)
+        
+        #calls functions
+        self.standard_atmosphere()
     
     def standard_atmosphere(self):
 
@@ -35,9 +38,9 @@ class Rayleigh:
         p_He=8;
 
         #convert pressure from hPa to Pa
-        p_z0=p_z0*100;
+        p_z0=self.P0*100;
         #convert altitude to km
-        z = z/1000;
+        z = self.altitude/1000;
 
         #n_tpause=round(interp1(z(1:$-1),1:length(z)-1,z_tpause,'nearest','extrap'));
         #n_spause=round(interp1(z(1:$-1),1:length(z)-1,z_spause,'nearest','extrap'));
@@ -52,29 +55,25 @@ class Rayleigh:
         #amol=8.0*%pi*bmol/3.0;
         #amol = [0,1,2,3,4,5]
 
-        rayleigh = {
-            "amol": [0,1,2,3,4,5],
-            "bmol": [0,2,4,5,6,8],
-            "altitude": altitude,
-            "wavelength": wavelength
-        }
-        return rayleigh
+        self.amol = [0,1,2,3,4,5]
+        self.bmol = [0,1,2,4,6,8]
+        
+        return self
 
-  def main():
-    import reader
+def main():
+    import aprofiles as apro
     path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
-    apro_reader = reader.ReadProfiles(path)
-    l2_data = apro_reader.read()
+    apro_reader = apro.reader.ReadProfiles(path)
+    profiles = apro_reader.read()
 
-    import matplotlib.plt as plt
-    altitude = l2_data.altitude.data
-    wavelength = l2_data.l0_wavelength.data
+    altitude = profiles.data.altitude.data
+    wavelength = profiles.data.l0_wavelength.data
 
     T0=298;p_z0=1013;
     rayleigh = Rayleigh(altitude,T0,p_z0,wavelength);
     #trayleigh=exp(-2*cumsum(amol)*vresol);
     #pr2_mol=bmol.*trayleigh;
-    print(rayleigh["amol"])
+    print(rayleigh.amol)
 
 if __name__ == '__main__':
     main()
