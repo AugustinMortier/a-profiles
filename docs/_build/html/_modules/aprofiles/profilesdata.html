@@ -35,8 +35,9 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption"><span class="caption-text">For users</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../source/getting-started/index.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../source/api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
 </ul>
 
         </div>
@@ -75,7 +76,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<div class="viewcode-block" id="ProfilesData"><a class="viewcode-back" href="../../source/api/profilesdata.html#aprofiles.profilesdata.ProfilesData">[docs]</a><span class="k">class</span> <span class="nc">ProfilesData</span><span class="p">:</span>
+<div class="viewcode-block" id="ProfilesData"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData">[docs]</a><span class="k">class</span> <span class="nc">ProfilesData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Base class representing profiles data.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -95,7 +96,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
 
 
-    <span class="k">def</span> <span class="nf">quickplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral_r&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="ProfilesData.quickplot"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.quickplot">[docs]</a>    <span class="k">def</span> <span class="nf">quickplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral_r&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot 2D Quicklook</span>
 
 <span class="sd">        Args:</span>
@@ -126,14 +127,14 @@
         <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Attenuated backscatter Signal&#39;</span><span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
     <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc&quot;</span>
     <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">quickplot</span><span class="p">(</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">quickplot</span><span class="p">(</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

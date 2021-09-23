@@ -33,10 +33,10 @@ class ProfilesData:
         """Plot 2D Quicklook
 
         Args:
-            var (str, optional): [Variable of ProfilesData.data Dataset to be plotted]. Defaults to 'attenuated_backscatter_0'.
-            vmin (int, optional): [Minimum value]. Defaults to 0.
-            vmax (int, optional): [Maximum value]. Defaults to 1.
-            cmap (str, optional): [Matplotlib colormap]. Defaults to 'Spectral_r'.
+            var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to 'attenuated_backscatter_0'.
+            vmin (int, optional): Minimum value. Defaults to 0.
+            vmax (int, optional): Maximum value. Defaults to 1.
+            cmap (str, optional): Matplotlib colormap. Defaults to 'Spectral_r'.
         """
         fig, axs = plt.subplots(1, 1, figsize=(6, 3))
         #plot image
