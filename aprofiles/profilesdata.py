@@ -63,7 +63,7 @@ class ProfilesData:
         plt.show()
 
 
-def main():
+def _main():
     import aprofiles as apro
     path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
     profiles = apro.reader.ReadProfiles(path).read()
@@ -71,5 +71,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    _main()
 
