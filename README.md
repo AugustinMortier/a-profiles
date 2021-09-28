@@ -20,9 +20,7 @@ profiles.range_correction(inplace=True)
 #apply some gaussian filter for reducing the instrumental noise
 profiles.gaussian_filter(sigma=0.5, inplace=True)
 #plot Quick Look
-profiles.quickplot(log=True, vmin=10, vmax=1e4, cmap='viridis')
-
-profiles.quickplot('attenuated_backscatter_0',vmin=0, vmax=2, cmap='viridis')
+profiles.quickplot(vmin=1e2, vmax=1e5, log=True,cmap='viridis')
 ``` 
 
 <img src="examples/QL-AttenuatedBackscatter-20210909.png" title="Example of Attenuated Backscatter Signal" width="800"/>

@@ -189,7 +189,7 @@ def _main():
     #profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
     profiles.range_correction(inplace=True)
     profiles.gaussian_filter(sigma=0.0, inplace=True)
-    profiles.quickplot(vmin=1e2, vmax=1e5, log=True)
+    profiles.quickplot(vmin=1e2, vmax=1e5, log=True,cmap='viridis')
 
 
 if __name__ == '__main__':
