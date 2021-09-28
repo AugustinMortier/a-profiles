@@ -17,10 +17,11 @@ profiles = apro_reader.read()
 
 #apply range correction
 profiles.range_correction(inplace=True)
+
 #apply some gaussian filter for reducing the instrumental noise
 profiles.gaussian_filter(sigma=0.5, inplace=True)
+
 #plot Quick Look
 profiles.quickplot(vmin=1e2, vmax=1e5, log=True,cmap='viridis')
 ``` 
-
 <img src="examples/QL-AttenuatedBackscatter-20210909.png" title="Example of Attenuated Backscatter Signal" width="800"/>
