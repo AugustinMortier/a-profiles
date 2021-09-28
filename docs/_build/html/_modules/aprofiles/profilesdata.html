@@ -71,10 +71,11 @@
 <span class="c1"># @email augustinm@met.no</span>
 <span class="c1"># @desc A-Profiles ProfilesData</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
 
 <div class="viewcode-block" id="ProfilesData"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData">[docs]</a><span class="k">class</span> <span class="nc">ProfilesData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Base class representing profiles data.</span>
@@ -96,22 +97,139 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
 
 
-<div class="viewcode-block" id="ProfilesData.quickplot"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.quickplot">[docs]</a>    <span class="k">def</span> <span class="nf">quickplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral_r&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="ProfilesData.gaussian_filter"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.gaussian_filter">[docs]</a>    <span class="k">def</span> <span class="nf">gaussian_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function that applies a 2D gaussian filter in order to reduce high frequency noise.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            var (str, optional): variable of the Dataset to be processed. Defaults to &#39;attenuated_backscatter_0&#39;.</span>
+<span class="sd">            sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to 0.</span>
+<span class="sd">            inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            ProfilesData object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">copy</span>
+
+        <span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">gaussian_filter</span>
+
+        <span class="c1">#apply gaussian filter</span>
+        <span class="n">filtered_data</span> <span class="o">=</span> <span class="n">gaussian_filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">filtered_data</span>
+            <span class="n">new_dataset</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">copied_dataset</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">copied_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">filtered_data</span>
+            <span class="n">new_dataset</span> <span class="o">=</span> <span class="n">copied_dataset</span>
+        <span class="c1">#add attribute</span>
+        <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;gaussian filter&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">sigma</span>
+        <span class="k">return</span> <span class="n">new_dataset</span></div>
+
+<div class="viewcode-block" id="ProfilesData.extrapolation_lowest_layers"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers">[docs]</a>    <span class="k">def</span> <span class="nf">extrapolation_lowest_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cst&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            var (str, optional): variable of the Dataset to be processed. Defaults to &#39;attenuated_backscatter_0&#39;.</span>
+<span class="sd">            zmin (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to 0.</span>
+<span class="sd">            method (str, optional): &#39;cst&#39; or &#39;lin&#39; Method to be used for extrapolation of lowest layers. Defaults to &#39;cst&#39;.</span>
+<span class="sd">            inplace (bool, optional): if True, replace the variable. Defaults to False.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            ProfilesData object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#get index of zmin</span>
+        <span class="n">zmin_asl</span> <span class="o">=</span> <span class="n">zmin</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="o">-</span><span class="n">zmin_asl</span><span class="p">))</span>
+        
+        <span class="n">nt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;cst&#39;</span><span class="p">:</span>
+            <span class="c1">#get values at imin</span>
+            <span class="n">data_zmin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="n">imin</span><span class="p">]</span>
+            <span class="c1">#generates ones matrice with time/altitude dimension to fill up bottom</span>
+            <span class="n">ones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">nt</span><span class="p">,</span><span class="n">imin</span><span class="p">))</span>
+            <span class="c1">#replace values</span>
+            <span class="n">filling_matrice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">ones</span><span class="p">),</span><span class="n">data_zmin</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Linear extrapolation is not implemented yet&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="n">filling_matrice</span>
+            <span class="n">new_dataset</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">copied_dataset</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">copied_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="n">filling_matrice</span>
+            <span class="n">new_dataset</span> <span class="o">=</span> <span class="n">copied_dataset</span>
+        
+        <span class="c1">#add attributes</span>
+        <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;extrapolation_low_layers_altitude_agl&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">zmin</span>
+        <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;extrapolation_low_layers_method&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">method</span>
+        
+        <span class="k">return</span> <span class="n">new_dataset</span></div>
+
+    
+<div class="viewcode-block" id="ProfilesData.range_correction"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.range_correction">[docs]</a>    <span class="k">def</span> <span class="nf">range_correction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam more unlikely to be detected with the square of the altitude.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            var (str, optional): variable of the Dataset to be processed. Defaults to &#39;attenuated_backscatter_0&#39;.</span>
+<span class="sd">            inplace (bool, optional): if True, replace the variable. Defaults to False.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            ProfilesData object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#for the altitude correction, must one use the altitude above the ground level</span>
+        <span class="n">z_agl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span>
+        
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">range_corrected_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">z_agl</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inplace</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">range_corrected_data</span>
+            <span class="n">new_profiles_data</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">copied_dataset</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">copied_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">range_corrected_data</span>
+            <span class="n">new_profiles_data</span> <span class="o">=</span> <span class="n">copied_dataset</span>
+
+        <span class="c1">#add attribute</span>
+        <span class="n">new_profiles_data</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;range correction&#39;</span><span class="p">]</span><span class="o">=</span><span class="kc">True</span>
+        <span class="k">return</span> <span class="n">new_profiles_data</span></div>
+
+
+<div class="viewcode-block" id="ProfilesData.quickplot"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.quickplot">[docs]</a>    <span class="k">def</span> <span class="nf">quickplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Spectral_r&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot 2D Quicklook</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to &#39;attenuated_backscatter_0&#39;.</span>
 <span class="sd">            vmin (int, optional): Minimum value. Defaults to 0.</span>
-<span class="sd">            vmax (int, optional): Maximum value. Defaults to 1.</span>
+<span class="sd">            vmax (int, optional): Maximum value. If None, calculates max from data.</span>
+<span class="sd">            log (bool, optional), Use logarithmic scale. Defaults to None.</span>
 <span class="sd">            cmap (str, optional): Matplotlib colormap. Defaults to &#39;Spectral_r&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+        <span class="c1">#calculcates max value from data</span>
+        <span class="k">if</span> <span class="n">vmax</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+            <span class="n">perc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="mi">70</span><span class="p">)</span>
+            <span class="n">pow10</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">perc</span><span class="p">))</span>
+            <span class="n">vmax</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">pow10</span><span class="p">)</span>
+
         <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
         <span class="c1">#plot image</span>
         <span class="c1">#plt.imshow(self.data[self.var],origin=&#39;lower&#39;)</span>
         <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span>
         <span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span>
         <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">colors</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">colors</span><span class="o">.</span><span class="n">LogNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">vmin</span><span class="p">]),</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
         
         <span class="c1">#set title and axis</span>
         <span class="n">yyyy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">year</span>
@@ -124,7 +242,7 @@
         
         <span class="c1">#colorbar</span>
         <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-        <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Attenuated backscatter Signal&#39;</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>

@@ -11,23 +11,22 @@ class Rayleigh:
     """Class for computing a standard rayleigh profile (backscatter and extinction)
 
     Attributes:
-        altitude (array): array of altitude to be used to compute rayleigh profile, in m
-        T0 (float): Temperature at ground level, in K
-        P0 (float): Pressure at ground level, in hPa
-        wavelength (float): Wavelength of rayleigh profile to be computed
-
+        altitude (array): array of altitude to be used to compute rayleigh profile, in m.
+        T0 (float): Temperature at ground level, in K.
+        P0 (float): Pressure at ground level, in hPa.
+        wavelength (float): Wavelength of the Rayleigh profile to be computed.
     """
 
-    def __init__(self, altitude=None, T0=298, P0=1013, wavelength=1064):
+    def __init__(self, altitude=None, T0=298, P0=1013, wavelength=None):
         self.altitude = altitude
         self.T0 = T0
         self.P0 = P0
         self.wavelength = float(wavelength)
         
         #calls functions
-        self.standard_atmosphere()
+        self._standard_atmosphere()
     
-    def standard_atmosphere(self):
+    def _standard_atmosphere(self):
         """Function that returns Rayleigh backscatter and extinction profiles for a standar atmosphere at a given wavelength.
 
         Returns:
@@ -115,6 +114,6 @@ def _main():
     rayleigh = Rayleigh(altitude,T0,p_z0,wavelength);
     plt.plot(rayleigh.amol,altitude)
     plt.show()
-    
+
 if __name__ == '__main__':
     _main()

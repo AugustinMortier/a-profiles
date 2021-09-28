@@ -12,6 +12,12 @@ ProfilesData
    :members:
    :undoc-members:
 
+Rayleigh
+^^^^^^^^
+.. automodule:: aprofiles.rayleigh
+   :members:
+   :undoc-members:
+
 Reading Classes
 ---------------
 

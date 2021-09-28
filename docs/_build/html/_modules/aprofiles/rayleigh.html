@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aprofiles.rayleigh &mdash; A-Profiles  documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> A-Profiles
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">For users</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">A-Profiles</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>aprofiles.rayleigh</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for aprofiles.rayleigh</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="c1"># @author Augustin Mortier</span>
+<span class="c1"># @email augustinm@met.no</span>
+<span class="c1"># @desc A-Profiles Rayleigh Profile</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<div class="viewcode-block" id="Rayleigh"><a class="viewcode-back" href="../../api.html#aprofiles.rayleigh.Rayleigh">[docs]</a><span class="k">class</span> <span class="nc">Rayleigh</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Class for computing a standard rayleigh profile (backscatter and extinction)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        altitude (array): array of altitude to be used to compute rayleigh profile, in m.</span>
+<span class="sd">        T0 (float): Temperature at ground level, in K.</span>
+<span class="sd">        P0 (float): Pressure at ground level, in hPa.</span>
+<span class="sd">        wavelength (float): Wavelength of the Rayleigh profile to be computed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">T0</span><span class="o">=</span><span class="mi">298</span><span class="p">,</span> <span class="n">P0</span><span class="o">=</span><span class="mi">1013</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">altitude</span> <span class="o">=</span> <span class="n">altitude</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T0</span> <span class="o">=</span> <span class="n">T0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P0</span> <span class="o">=</span> <span class="n">P0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
+        
+        <span class="c1">#calls functions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_standard_atmosphere</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_standard_atmosphere</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Function that returns Rayleigh backscatter and extinction profiles for a standar atmosphere at a given wavelength.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self.bmol: Rayleigh backscatter coefficient (km-1.sr-1) at given wavelength for a standard atmosphere.</span>
+<span class="sd">            self.amol: Rayleigh extinction coefficient (km-1) at given wavelength for a standard atmosphere.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+
+        <span class="c1">#standard values at sea level</span>
+        <span class="n">T0</span> <span class="o">=</span> <span class="mi">298</span>
+        <span class="n">P0</span> <span class="o">=</span> <span class="mi">1013</span>
+                
+        <span class="c1">#standard gradients &amp; parameters</span>
+        <span class="n">atmo</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;tropo&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s1">&#39;zmax&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+                <span class="s1">&#39;dTdz&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">6.5</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;strato&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+                <span class="s1">&#39;zmax&#39;</span><span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+                <span class="s1">&#39;dTdz&#39;</span><span class="p">:</span> <span class="mf">1.4</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;meso&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+                <span class="s1">&#39;zmax&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                <span class="s1">&#39;dTdz&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.4</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">p_He</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+
+        <span class="c1">#convert pressure from hPa to Pa</span>
+        <span class="n">p_z0</span> <span class="o">=</span> <span class="n">P0</span><span class="o">*</span><span class="mi">100</span><span class="p">;</span>
+        <span class="c1">#convert altitude to km</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">altitude</span><span class="o">/</span><span class="mi">1000</span><span class="p">;</span>
+
+        <span class="c1">#vertical resolution</span>
+        <span class="n">dz</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1">#temperature profile</span>
+        <span class="n">Tz</span> <span class="o">=</span> <span class="p">[</span><span class="n">T0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">atmo</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">ibottom</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">atmo</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s1">&#39;zmin&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dz</span><span class="p">))</span>
+            <span class="n">itop</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">atmo</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s1">&#39;zmax&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">dz</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ibottom</span><span class="p">,</span><span class="n">itop</span><span class="p">):</span>
+                <span class="n">Tz</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tz</span><span class="p">[</span><span class="n">ibottom</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">ibottom</span><span class="p">)</span><span class="o">*</span><span class="n">atmo</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="s1">&#39;dTdz&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">dz</span><span class="p">)</span>
+
+        <span class="c1">#vertical coordinates for temperature</span>
+        <span class="n">z_Tz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="n">dz</span><span class="p">)</span>
+
+        <span class="c1">#pressure profile</span>
+        <span class="n">Pz</span><span class="o">=</span><span class="n">p_z0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">z_Tz</span><span class="o">/</span><span class="n">p_He</span><span class="p">);</span>
+
+        <span class="c1">#Number of molecules</span>
+        <span class="n">N_m</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">Pz</span><span class="p">,(</span><span class="mf">8.314</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mf">6.023e23</span><span class="p">,</span><span class="n">Tz</span><span class="p">)));</span>
+        <span class="c1">#molecular section</span>
+        <span class="n">section_m</span><span class="o">=</span><span class="mf">5.45</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">550</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span><span class="mf">4.09</span><span class="p">)</span><span class="o">*</span><span class="mf">1e-32</span><span class="p">;</span>
+
+        <span class="c1">#backscatter profile</span>
+        <span class="n">bmol</span><span class="o">=</span><span class="n">N_m</span><span class="o">*</span><span class="n">section_m</span><span class="p">;</span>
+        <span class="c1">#extinction profile</span>
+        <span class="n">amol</span><span class="o">=</span><span class="mf">8.0</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">bmol</span><span class="o">/</span><span class="mf">3.0</span><span class="p">;</span>
+
+        <span class="c1">#colocate vertically to input altitude</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z_Tz</span><span class="p">)</span><span class="o">-</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="n">imin</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bmol</span> <span class="o">=</span> <span class="n">bmol</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">amol</span> <span class="o">=</span> <span class="n">amol</span><span class="p">[</span><span class="n">imin</span><span class="p">:</span><span class="n">imax</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc&quot;</span>
+    <span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">altitude</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">wavelength</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="n">T0</span><span class="o">=</span><span class="mi">298</span><span class="p">;</span> <span class="n">p_z0</span><span class="o">=</span><span class="mi">1013</span><span class="p">;</span>
+    <span class="n">rayleigh</span> <span class="o">=</span> <span class="n">Rayleigh</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span><span class="n">T0</span><span class="p">,</span><span class="n">p_z0</span><span class="p">,</span><span class="n">wavelength</span><span class="p">);</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rayleigh</span><span class="o">.</span><span class="n">amol</span><span class="p">,</span><span class="n">altitude</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">_main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Augustin Mortier.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

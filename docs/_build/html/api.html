@@ -41,6 +41,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#data-classes">Data Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.profilesdata">ProfilesData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.rayleigh">Rayleigh</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#reading-classes">Reading Classes</a><ul>
@@ -93,18 +94,77 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers">
+<code class="sig-name descname">extrapolation_lowest_layers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cst'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.extrapolation_lowest_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>var (str, optional): variable of the Dataset to be processed. Defaults to ‘attenuated_backscatter_0’.
+zmin (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to 0.
+method (str, optional): ‘cst’ or ‘lin’ Method to be used for extrapolation of lowest layers. Defaults to ‘cst’.
+inplace (bool, optional): if True, replace the variable. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><p>ProfilesData object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.gaussian_filter">
+<code class="sig-name descname">gaussian_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.gaussian_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.gaussian_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that applies a 2D gaussian filter in order to reduce high frequency noise.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>var (str, optional): variable of the Dataset to be processed. Defaults to ‘attenuated_backscatter_0’.
+sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to 0.
+inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><p>ProfilesData object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.quickplot">
-<code class="sig-name descname">quickplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'Spectral_r'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.quickplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.quickplot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">quickplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'Spectral_r'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.quickplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.quickplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot 2D Quicklook</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to ‘attenuated_backscatter_0’.
 vmin (int, optional): Minimum value. Defaults to 0.
-vmax (int, optional): Maximum value. Defaults to 1.
+vmax (int, optional): Maximum value. If None, calculates max from data.
+log (bool, optional), Use logarithmic scale. Defaults to None.
 cmap (str, optional): Matplotlib colormap. Defaults to ‘Spectral_r’.</p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.range_correction">
+<code class="sig-name descname">range_correction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.range_correction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.range_correction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam more unlikely to be detected with the square of the altitude.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>var (str, optional): variable of the Dataset to be processed. Defaults to ‘attenuated_backscatter_0’.
+inplace (bool, optional): if True, replace the variable. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><p>ProfilesData object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-aprofiles.rayleigh">
+<span id="rayleigh"></span><h3>Rayleigh<a class="headerlink" href="#module-aprofiles.rayleigh" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="aprofiles.rayleigh.Rayleigh">
+<em class="property">class </em><code class="sig-prename descclassname">aprofiles.rayleigh.</code><code class="sig-name descname">Rayleigh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">T0</span><span class="o">=</span><span class="default_value">298</span></em>, <em class="sig-param"><span class="n">P0</span><span class="o">=</span><span class="default_value">1013</span></em>, <em class="sig-param"><span class="n">wavelength</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/rayleigh.html#Rayleigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.rayleigh.Rayleigh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for computing a standard rayleigh profile (backscatter and extinction)</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>altitude (array): array of altitude to be used to compute rayleigh profile, in m.
+T0 (float): Temperature at ground level, in K.
+P0 (float): Pressure at ground level, in hPa.
+wavelength (float): Wavelength of the Rayleigh profile to be computed.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
