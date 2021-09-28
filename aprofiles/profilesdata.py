@@ -85,8 +85,10 @@ class ProfilesData:
             ones = np.ones((nt,imin))
             #replace values
             filling_matrice = np.transpose(np.multiply(np.transpose(ones),data_zmin))
-        else:
+        elif method == 'lin':
             raise NotImplementedError('Linear extrapolation is not implemented yet')
+        else:
+            raise ValueError('Expected string: lin or cst')
 
         if inplace:
             self.data[var].data[:,0:imin] = filling_matrice
@@ -168,7 +170,7 @@ class ProfilesData:
 
         #plot image
         X = self.data.time
-        Y = self.data.altitude
+        Y = self.data.altitude - self.data.station_altitude.data
         C = np.transpose(self.data[var].values)
 
         #limit to altitude range
@@ -186,10 +188,13 @@ class ProfilesData:
         yyyy = pd.to_datetime(self.data.time.values[0]).year
         mm = pd.to_datetime(self.data.time.values[0]).month
         dd = pd.to_datetime(self.data.time.values[0]).day
+        latitude = self.data.station_latitude.data
+        longitude = self.data.station_longitude.data
+        altitude = self.data.station_altitude.data
         station_id = self.data.attrs['site_location']
-        plt.title('{} - {}/{:02}/{:02}'.format(station_id, yyyy, mm, dd),weight='bold')
+        plt.title('{} ({:.2f};{:.2f}) - Alt: {} m - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
         plt.xlabel('Time')
-        plt.ylabel('Altitude ASL (m)')
+        plt.ylabel('Altitude AGL (m)')
         
         #colorbar
         cbar = plt.colorbar()
