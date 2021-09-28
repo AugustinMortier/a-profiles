@@ -22,6 +22,6 @@ profiles.range_correction(inplace=True)
 profiles.gaussian_filter(sigma=0.5, inplace=True)
 
 #plot Quick Look
-profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True,cmap='viridis')
+profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True, cmap='viridis')
 ``` 
 <img src="examples/QL-AttenuatedBackscatter-20210909.png" title="Example of Attenuated Backscatter Signal" width="800"/>
