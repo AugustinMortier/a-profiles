@@ -29,7 +29,7 @@ profiles.gaussian_filter(sigma=0.5, inplace=True)
 #plot Quick Look
 profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True, cmap='viridis')
 ``` 
-<img src="examples/QL-AttenuatedBackscatter-20210909.png" title="Example of Attenuated Backscatter Signal" width="1000"/>
+<img src="examples/QL-AttenuatedBackscatter-20210909.png" title="Example of Attenuated Backscatter Signal" width="800"/>
 
 ```
 #Add Fog or Condensation Markers
@@ -38,4 +38,4 @@ profiles.detect_fog_or_condensation(zmin=200)
 #plot Quick Look
 profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True, cmap='viridis')
 ```
-<img src="examples/QL-AttenuatedBackscatter-Fog-20210909.png" title="Example of Attenuated Backscatter Signal" width="1000"/>
+<img src="examples/QL-AttenuatedBackscatter-Fog-20210909.png" title="Example of Attenuated Backscatter Signal" width="800"/>

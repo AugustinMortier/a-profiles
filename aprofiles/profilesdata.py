@@ -214,7 +214,7 @@ class ProfilesData:
         Y = Y[imin:imax]
         C = C[imin:imax,:]
 
-        fig, axs = plt.subplots(1, 1, figsize=(8, 2))
+        fig, axs = plt.subplots(1, 1, figsize=(5, 1.5))
         if log:
             import matplotlib.colors as colors
             plt.pcolormesh(X, Y, C, norm=colors.LogNorm(vmin=np.max([1e-3,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
@@ -224,7 +224,7 @@ class ProfilesData:
         #add addition information
         if add_fog:
             fog_markers = [1 if x==True else np.nan for x in self.data.fog_or_condensation.data]
-            plt.plot(X, fog_markers,"^:m",lw=0, label='fog or condensation')
+            plt.plot(X, fog_markers,"^:m",ms=10,lw=0, label='fog or condensation')
         
         #set title and axis
         yyyy = pd.to_datetime(self.data.time.values[0]).year
