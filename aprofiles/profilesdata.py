@@ -133,7 +133,7 @@ class ProfilesData:
         return new_profiles_data
 
 
-    def quickplot(self,var='attenuated_backscatter_0', vmin=0, vmax=None, log=False, cmap='Spectral_r'):
+    def quickplot(self,var='attenuated_backscatter_0', vmin=0, vmax=None, log=False, cmap='RdYlBu_r'):
         """Plot 2D Quicklook
 
         Args:
@@ -151,7 +151,7 @@ class ProfilesData:
             pow10 = np.ceil(np.log10(perc))
             vmax = 10**(pow10)
 
-        fig, axs = plt.subplots(1, 1, figsize=(6, 3))
+        fig, axs = plt.subplots(1, 1, figsize=(6, 2))
         #plot image
         #plt.imshow(self.data[self.var],origin='lower')
         X = self.data.time
@@ -189,7 +189,7 @@ def _main():
     #profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
     profiles.range_correction(inplace=True)
     profiles.gaussian_filter(sigma=0.5, inplace=True)
-    profiles.quickplot(log=True, vmin=10, vmax=1e4, cmap='viridis')
+    profiles.quickplot(vmin=1e2, vmax=1e5, log=True)
 
 
 if __name__ == '__main__':

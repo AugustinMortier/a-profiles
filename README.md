@@ -25,4 +25,4 @@ profiles.quickplot(log=True, vmin=10, vmax=1e4, cmap='viridis')
 profiles.quickplot('attenuated_backscatter_0',vmin=0, vmax=2, cmap='viridis')
 ``` 
 
-<img src="examples/QL-AttenuatedBackscatter-A-20210909.png" title="Example of Attenuated Backscatter Signal" width="800"/>
+<img src="examples/QL-AttenuatedBackscatter-20210909.png" title="Example of Attenuated Backscatter Signal" width="800"/>
