@@ -169,7 +169,7 @@ class ProfilesData:
         mm = pd.to_datetime(self.data.time.values[0]).month
         dd = pd.to_datetime(self.data.time.values[0]).day
         station_id = self.data.attrs['site_location']
-        plt.title('{} - {}/{:02}/{:02}'.format(station_id, yyyy, mm, dd))
+        plt.title('{} - {}/{:02}/{:02}'.format(station_id, yyyy, mm, dd),weight='bold')
         plt.xlabel('Time')
         plt.ylabel('Altitude ASL (m)')
         
