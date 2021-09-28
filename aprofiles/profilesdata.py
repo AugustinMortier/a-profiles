@@ -214,7 +214,7 @@ class ProfilesData:
         Y = Y[imin:imax]
         C = C[imin:imax,:]
 
-        fig, axs = plt.subplots(1, 1, figsize=(6, 2))
+        fig, axs = plt.subplots(1, 1, figsize=(8, 2))
         if log:
             import matplotlib.colors as colors
             plt.pcolormesh(X, Y, C, norm=colors.LogNorm(vmin=np.max([1e-3,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
@@ -239,7 +239,8 @@ class ProfilesData:
         plt.ylabel('Altitude AGL (m)')
         
         #add legend
-        plt.legend()
+        if add_fog or add_clouds or add_pbl:
+            plt.legend(loc='upper right')
 
         #colorbar
         cbar = plt.colorbar()
@@ -259,10 +260,10 @@ def _main():
     profiles.range_correction(inplace=True)
     profiles.gaussian_filter(sigma=0.0, inplace=True)
     profiles.extrapolation_lowest_layers(zmin=500, inplace=True)
-    #profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True,cmap='viridis')
+    profiles.quickplot(zmax=12000, vmin=1e1, vmax=1e5, log=True, cmap='viridis')
 
     profiles.detect_fog_or_condensation(zmin=200)
-    profiles.quickplot(zmin=0, zmax=10000, vmin=1e2, vmax=1e5, log=True, add_fog=True)
+    profiles.quickplot(zmax=12000, vmin=1e1, vmax=1e5, log=True, add_fog=True, cmap='viridis')
 
 if __name__ == '__main__':
     _main()
