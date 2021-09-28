@@ -133,13 +133,15 @@ class ProfilesData:
         return new_profiles_data
 
 
-    def quickplot(self,var='attenuated_backscatter_0', vmin=0, vmax=None, log=False, cmap='RdYlBu_r'):
+    def quickplot(self,var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=0, vmax=None, log=False, cmap='RdYlBu_r'):
         """Plot 2D Quicklook
 
         Args:
             var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to 'attenuated_backscatter_0'.
-            vmin (int, optional): Minimum value. Defaults to 0.
-            vmax (int, optional): Maximum value. If None, calculates max from data.
+            zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
+            zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
+            vmin (float, optional): Minimum value. Defaults to 0.
+            vmax (float, optional): Maximum value. If None, calculates max from data.
             log (bool, optional), Use logarithmic scale. Defaults to None.
             cmap (str, optional): Matplotlib colormap. Defaults to 'Spectral_r'.
         """
@@ -151,13 +153,29 @@ class ProfilesData:
             pow10 = np.ceil(np.log10(perc))
             vmax = 10**(pow10)
 
-        fig, axs = plt.subplots(1, 1, figsize=(6, 2))
+        #altitude range
+        if zmin==None:
+            imin = 0
+        else:
+            zmin_asl = zmin + self.data.station_altitude.data
+            imin = np.argmin(abs(self.data.altitude.data-zmin_asl))
+        if zmax==None:
+            imax=len(self.data.altitude)
+        else:
+            zmax_asl = zmax + self.data.station_altitude.data
+            imax = np.argmin(abs(self.data.altitude.data-zmax_asl))
+
+
         #plot image
-        #plt.imshow(self.data[self.var],origin='lower')
         X = self.data.time
         Y = self.data.altitude
         C = np.transpose(self.data[var].values)
 
+        #limit to altitude range
+        Y = Y[imin:imax]
+        C = C[imin:imax,:]
+
+        fig, axs = plt.subplots(1, 1, figsize=(6, 2))
         if log:
             import matplotlib.colors as colors
             plt.pcolormesh(X, Y, C, norm=colors.LogNorm(vmin=np.max([1e-3,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
@@ -189,7 +207,7 @@ def _main():
     #profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
     profiles.range_correction(inplace=True)
     profiles.gaussian_filter(sigma=0.0, inplace=True)
-    profiles.quickplot(vmin=1e2, vmax=1e5, log=True,cmap='viridis')
+    profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True,cmap='viridis')
 
 
 if __name__ == '__main__':
