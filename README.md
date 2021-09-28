@@ -1,6 +1,9 @@
-### A-Profiles
+# A-Profiles
 
 Python library for reading and processing [E-PROFILE](https://e-profile.eu/#/cm_profile) ceilometer data. This library is used by [V-Profiles](https://aerocom-vprofiles.met.no).
+
+## Documentation
+The official documentation is available [here](https://a-profiles.readthedocs.io/).
 
 ## Installation
 `pip install aprofiles`
