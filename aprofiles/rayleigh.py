@@ -14,7 +14,7 @@ class Rayleigh:
         altitude (array): array of altitude to be used to compute rayleigh profile, in m.
         T0 (float): Temperature at ground level, in K.
         P0 (float): Pressure at ground level, in hPa.
-        wavelength (float): Wavelength of the Rayleigh profile to be computed.
+        wavelength (float): Wavelength of the Rayleigh profile to be computed, in nm.
     """
 
     def __init__(self, altitude=None, T0=298, P0=1013, wavelength=None):
