@@ -19,6 +19,9 @@ profiles.range_correction(var='attenuated_backscatter_0', inplace=True).quickplo
 profiles.gaussian_filter(var='attenuated_backscatter_0', inplace=True).quickplot()
 
 
+profiles.detect_fog_or_condensation(zmin=300)
+profiles.quickplot(zmin=0, zmax=10000, vmin=1e2, vmax=1e5, log=True, add_fog=True)
+
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data
 #wavelength = profiles.data.l0_wavelength.data

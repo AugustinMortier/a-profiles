@@ -30,6 +30,7 @@ class ProfilesData:
         self._data = data
 
 
+
     def gaussian_filter(self, var='attenuated_backscatter_0', sigma=0.5, inplace=False):
         """Function that applies a 2D gaussian filter in order to reduce high frequency noise.
 
@@ -58,6 +59,8 @@ class ProfilesData:
         #add attribute
         new_dataset.data[var].attrs['gaussian filter']=sigma
         return new_dataset
+
+
 
     def extrapolation_lowest_layers(self, var='attenuated_backscatter_0', zmin=0, method='cst', inplace=False):
         """Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
@@ -101,8 +104,8 @@ class ProfilesData:
         #add attributes
         new_dataset.data[var].attrs['extrapolation_low_layers_altitude_agl']=zmin
         new_dataset.data[var].attrs['extrapolation_low_layers_method']=method
-        
         return new_dataset
+
 
     
     def range_correction(self, var='attenuated_backscatter_0', inplace=False):
@@ -135,7 +138,38 @@ class ProfilesData:
         return new_profiles_data
 
 
-    def quickplot(self,var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=0, vmax=None, log=False, cmap='RdYlBu_r'):
+
+    def detect_fog_or_condensation(self, zmin):
+        """Detects fog or condensation relying on the cloud base height 'cloud_base_height' given by the constructor.
+        Adds DataArray to DataSet
+
+        Args:
+            zmin (float): Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.
+            add_dataarray (bool, optional): Add dataset to datarray if True. Defaults to True.
+        
+        Returns:
+            :class: `ProfilesData object` with additional data array 'fog_or_condensation'.
+        """
+
+        first_cloud_base_height = self.data.cloud_base_height.data[:,0]
+        fog_or_condensation = [True if x<=zmin else False for x in first_cloud_base_height]
+
+        #creates dataarray
+        self.data["fog_or_condensation"] = xr.DataArray(
+            data=fog_or_condensation,
+            dims=["time"],
+            coords=dict(
+                time=self.data.time.data,
+            ),
+            attrs=dict(
+                description="Fog or condensation mask.",
+            )
+        )
+
+        return self
+
+
+    def quickplot(self,var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=0, vmax=None, log=False, add_fog=False, add_pbl=False, add_clouds=False, cmap='RdYlBu_r'):
         """Plot 2D Quicklook
 
         Args:
@@ -145,6 +179,9 @@ class ProfilesData:
             vmin (float, optional): Minimum value. Defaults to 0.
             vmax (float, optional): Maximum value. If None, calculates max from data.
             log (bool, optional), Use logarithmic scale. Defaults to None.
+            add_fog (bool, optional): Add fog detection. Defaults to False.
+            add_pbl (bool, optional): Add PBL height. Defaults to False.
+            add_clouds (bool, optional): Add clouds detection. Defaults to False.
             cmap (str, optional): Matplotlib colormap. Defaults to 'Spectral_r'.
         """
         import matplotlib.pyplot as plt
@@ -184,6 +221,11 @@ class ProfilesData:
         else:
             plt.pcolormesh(X, Y, C, vmin=vmin, vmax=vmax, cmap=cmap, shading='nearest')
         
+        #add addition information
+        if add_fog:
+            fog_markers = [1 if x==True else np.nan for x in self.data.fog_or_condensation.data]
+            plt.plot(X, fog_markers,"^:m",lw=0, label='fog or condensation')
+        
         #set title and axis
         yyyy = pd.to_datetime(self.data.time.values[0]).year
         mm = pd.to_datetime(self.data.time.values[0]).month
@@ -196,12 +238,16 @@ class ProfilesData:
         plt.xlabel('Time')
         plt.ylabel('Altitude AGL (m)')
         
+        #add legend
+        plt.legend()
+
         #colorbar
         cbar = plt.colorbar()
         cbar.set_label(self.data[var].long_name)
 
         plt.tight_layout()
         plt.show()
+    
 
 
 def _main():
@@ -212,8 +258,11 @@ def _main():
     #profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
     profiles.range_correction(inplace=True)
     profiles.gaussian_filter(sigma=0.0, inplace=True)
-    profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True,cmap='viridis')
+    profiles.extrapolation_lowest_layers(zmin=500, inplace=True)
+    #profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True,cmap='viridis')
 
+    profiles.detect_fog_or_condensation(zmin=200)
+    profiles.quickplot(zmin=0, zmax=10000, vmin=1e2, vmax=1e5, log=True, add_fog=True)
 
 if __name__ == '__main__':
     _main()

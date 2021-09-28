@@ -97,6 +97,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span>
 
 
+
 <div class="viewcode-block" id="ProfilesData.gaussian_filter"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.gaussian_filter">[docs]</a>    <span class="k">def</span> <span class="nf">gaussian_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Function that applies a 2D gaussian filter in order to reduce high frequency noise.</span>
 
@@ -125,6 +126,8 @@
         <span class="c1">#add attribute</span>
         <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;gaussian filter&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">sigma</span>
         <span class="k">return</span> <span class="n">new_dataset</span></div>
+
+
 
 <div class="viewcode-block" id="ProfilesData.extrapolation_lowest_layers"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers">[docs]</a>    <span class="k">def</span> <span class="nf">extrapolation_lowest_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cst&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.</span>
@@ -168,8 +171,8 @@
         <span class="c1">#add attributes</span>
         <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;extrapolation_low_layers_altitude_agl&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">zmin</span>
         <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;extrapolation_low_layers_method&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">method</span>
-        
         <span class="k">return</span> <span class="n">new_dataset</span></div>
+
 
     
 <div class="viewcode-block" id="ProfilesData.range_correction"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.range_correction">[docs]</a>    <span class="k">def</span> <span class="nf">range_correction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -202,7 +205,38 @@
         <span class="k">return</span> <span class="n">new_profiles_data</span></div>
 
 
-<div class="viewcode-block" id="ProfilesData.quickplot"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.quickplot">[docs]</a>    <span class="k">def</span> <span class="nf">quickplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProfilesData.detect_fog_or_condensation"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.detect_fog_or_condensation">[docs]</a>    <span class="k">def</span> <span class="nf">detect_fog_or_condensation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zmin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Detects fog or condensation relying on the cloud base height &#39;cloud_base_height&#39; given by the constructor.</span>
+<span class="sd">        Adds DataArray to DataSet</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            zmin (float): Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.</span>
+<span class="sd">            add_dataarray (bool, optional): Add dataset to datarray if True. Defaults to True.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            :class: `ProfilesData object` with additional data array &#39;fog_or_condensation&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">first_cloud_base_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">cloud_base_height</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">fog_or_condensation</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span> <span class="k">if</span> <span class="n">x</span><span class="o">&lt;=</span><span class="n">zmin</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">first_cloud_base_height</span><span class="p">]</span>
+
+        <span class="c1">#creates dataarray</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fog_or_condensation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">fog_or_condensation</span><span class="p">,</span>
+            <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span>
+            <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Fog or condensation mask.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="ProfilesData.quickplot"><a class="viewcode-back" href="../../api.html#aprofiles.profilesdata.ProfilesData.quickplot">[docs]</a>    <span class="k">def</span> <span class="nf">quickplot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">add_fog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">add_pbl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">add_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;RdYlBu_r&#39;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot 2D Quicklook</span>
 
 <span class="sd">        Args:</span>
@@ -212,6 +246,9 @@
 <span class="sd">            vmin (float, optional): Minimum value. Defaults to 0.</span>
 <span class="sd">            vmax (float, optional): Maximum value. If None, calculates max from data.</span>
 <span class="sd">            log (bool, optional), Use logarithmic scale. Defaults to None.</span>
+<span class="sd">            add_fog (bool, optional): Add fog detection. Defaults to False.</span>
+<span class="sd">            add_pbl (bool, optional): Add PBL height. Defaults to False.</span>
+<span class="sd">            add_clouds (bool, optional): Add clouds detection. Defaults to False.</span>
 <span class="sd">            cmap (str, optional): Matplotlib colormap. Defaults to &#39;Spectral_r&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -251,6 +288,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">shading</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
         
+        <span class="c1">#add addition information</span>
+        <span class="k">if</span> <span class="n">add_fog</span><span class="p">:</span>
+            <span class="n">fog_markers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="kc">True</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fog_or_condensation</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fog_markers</span><span class="p">,</span><span class="s2">&quot;^:m&quot;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;fog or condensation&#39;</span><span class="p">)</span>
+        
         <span class="c1">#set title and axis</span>
         <span class="n">yyyy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">year</span>
         <span class="n">mm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">month</span>
@@ -263,12 +305,16 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Altitude AGL (m)&#39;</span><span class="p">)</span>
         
+        <span class="c1">#add legend</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
         <span class="c1">#colorbar</span>
         <span class="n">cbar</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
         <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">long_name</span><span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
+    
 
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
@@ -279,8 +325,11 @@
     <span class="c1">#profiles.quickplot(&#39;attenuated_backscatter_0&#39;, vmin=0, vmax=1, cmap=&#39;viridis&#39;)</span>
     <span class="n">profiles</span><span class="o">.</span><span class="n">range_correction</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">profiles</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">quickplot</span><span class="p">(</span><span class="n">zmax</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolation_lowest_layers</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#profiles.quickplot(zmax=10000, vmin=1e1, vmax=1e5, log=True,cmap=&#39;viridis&#39;)</span>
 
+    <span class="n">profiles</span><span class="o">.</span><span class="n">detect_fog_or_condensation</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">quickplot</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e5</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">add_fog</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">_main</span><span class="p">()</span>
