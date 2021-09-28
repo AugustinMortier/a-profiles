@@ -168,14 +168,14 @@ class ProfilesData:
         yyyy = pd.to_datetime(self.data.time.values[0]).year
         mm = pd.to_datetime(self.data.time.values[0]).month
         dd = pd.to_datetime(self.data.time.values[0]).day
-        station_id = self.data.instrument_id
+        station_id = self.data.attrs['site_location']
         plt.title('{} - {}/{:02}/{:02}'.format(station_id, yyyy, mm, dd))
         plt.xlabel('Time')
-        plt.ylabel('Altitude (m)')
+        plt.ylabel('Altitude ASL (m)')
         
         #colorbar
         cbar = plt.colorbar()
-        cbar.set_label(var)
+        cbar.set_label(self.data[var].long_name)
 
         plt.tight_layout()
         plt.show()
@@ -184,8 +184,12 @@ class ProfilesData:
 def _main():
     import aprofiles as apro
     path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
+    path = "data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
-    profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
+    #profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
+    profiles.range_correction(inplace=True)
+    profiles.gaussian_filter(sigma=0.5, inplace=True)
+    profiles.quickplot(log=True, vmin=10, vmax=1e4, cmap='viridis')
 
 
 if __name__ == '__main__':
