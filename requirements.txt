@@ -1,4 +1,6 @@
-numpy
-xarray
-netcdf4
 matplotlib
+netcdf4
+numpy
+scipy
+tqdm
+xarray
