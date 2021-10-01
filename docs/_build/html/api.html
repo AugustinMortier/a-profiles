@@ -94,6 +94,25 @@
 </dd></dl>
 
 <dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.detect_clouds">
+<code class="sig-name descname">detect_clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">loading</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.detect_clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.detect_clouds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module for clouds detection.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>time_avg (int, optional): in minutes, the time during which we aggregates the profiles before detecting clouds. Defaults to 1.
+zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to 0. We recommend using the same value as used in the extrapolation_low_layers method.
+thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] &gt;= thr_noise * noise(z). Defaults to 5.
+thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds. Defaults to 1.5.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">class</dt>
+<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data arrays ‘clouds_bases’, ‘clouds_peaks’, and ‘clouds_tops’. ‘clouds_bases’ correspond to the bases of the clouds. ‘clouds_peaks’ correspond to the maximum of backscatter signal measured in the clouds. ‘clouds_tops’ correspond to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.detect_fog_or_condensation">
 <code class="sig-name descname">detect_fog_or_condensation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">zmin</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.detect_fog_or_condensation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.detect_fog_or_condensation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detects fog or condensation relying on the cloud base height ‘cloud_base_height’ given by the constructor.
@@ -114,7 +133,8 @@ add_dataarray (bool, optional): Add dataset to datarray if True. Defaults to Tru
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers">
 <code class="sig-name descname">extrapolation_lowest_layers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cst'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.extrapolation_lowest_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.</p>
+<dd><p>Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
+We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>var (str, optional): variable of the Dataset to be processed. Defaults to ‘attenuated_backscatter_0’.
 zmin (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to 0.
@@ -141,19 +161,20 @@ inplace (bool, optional): if True, replace the variable, else use a copy. Defaul
 </dd></dl>
 
 <dl class="py method">
-<dt id="aprofiles.profilesdata.ProfilesData.quickplot">
-<code class="sig-name descname">quickplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">add_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">add_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">add_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'RdYlBu_r'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.quickplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.quickplot" title="Permalink to this definition">¶</a></dt>
+<dt id="aprofiles.profilesdata.ProfilesData.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'RdYlBu_r'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot 2D Quicklook</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to ‘attenuated_backscatter_0’.
+time (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to None
 zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
 zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
 vmin (float, optional): Minimum value. Defaults to 0.
 vmax (float, optional): Maximum value. If None, calculates max from data.
 log (bool, optional), Use logarithmic scale. Defaults to None.
-add_fog (bool, optional): Add fog detection. Defaults to False.
-add_pbl (bool, optional): Add PBL height. Defaults to False.
-add_clouds (bool, optional): Add clouds detection. Defaults to False.
+show_fog (bool, optional): Add fog detection. Defaults to False.
+show_pbl (bool, optional): Add PBL height. Defaults to False.
+show_clouds (bool, optional): Add clouds detection. Defaults to False.
 cmap (str, optional): Matplotlib colormap. Defaults to ‘Spectral_r’.</p>
 </dd>
 </dl>

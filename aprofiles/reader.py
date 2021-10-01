@@ -2,13 +2,12 @@
 
 # @author Augustin Mortier
 # @email augustinm@met.no
-# @desc A-Profiles Reader
+# @desc A-Profiles - Reader class
 
-import urllib.request
-import io
 import xarray as xr
 
 from aprofiles.profilesdata import ProfilesData
+
 
 class ReadProfiles:
     """Base class for reading single NetCDF file.
