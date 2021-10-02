@@ -33,7 +33,7 @@ profiles.detect_fog_or_condensation(zmin=300)
 profiles.detect_clouds(time_avg=15, zmin=300, thr_noise=5, thr_clouds=4, verbose=True).plot(show_fog=True, show_clouds=True, log=True, vmin=1e1, vmax=1e5);
 
 #plot single profile
-#profiles.plot(time=np.datetime64('2021-09-09T19:25:00'), show_fog=True, show_clouds=True, log=False)
+profiles.plot(datetime=np.datetime64('2021-09-09T19:25:00'), show_fog=True, show_clouds=True, log=False)
 
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data

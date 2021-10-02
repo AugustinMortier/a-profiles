@@ -56,12 +56,12 @@ def _plot_clouds(da, time, var, altitude):
     
 
 
-def plot(da, time, var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False):
+def plot(da, datetime, var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False):
     """Plot image of profiles.
 
     Args:
         da (xr.DataArray): DataArray.
-        time (np.datetime64): time for which we plot the profile.
+        datetime (np.datetime64): time for which we plot the profile.
         var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
         zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
         zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
@@ -73,11 +73,11 @@ def plot(da, time, var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=N
         show_clouds (bool, optional): Add clouds detection. Defaults to False.
     """
 
-    if time==None:
-        raise ValueError("time needs to be a np.datetime object, e.g. time=np.datetime(2021-09-09T16:00:00)")
+    if datetime==None:
+        raise ValueError("datetime needs to be a np.datetime object, e.g. time=np.datetime(2021-09-09T16:00:00)")
     #get index of closest profile
     da_time = da.time.data
-    itime = np.argmin(abs(da_time-time))
+    itime = np.argmin(abs(da_time-datetime))
 
     #altitude AGL
     altitude = da.altitude.data - da.station_altitude.data

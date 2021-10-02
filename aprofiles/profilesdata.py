@@ -448,12 +448,12 @@ class ProfilesData:
         return self
 
 
-    def plot(self, var='attenuated_backscatter_0', time=None, zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='RdYlBu_r'):
+    def plot(self, var='attenuated_backscatter_0', datetime=None, zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='RdYlBu_r'):
         """Plot 2D Quicklook
 
         Args:
             var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to 'attenuated_backscatter_0'.
-            time (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to None
+            datetime (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to None
             zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
             zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
             vmin (float, optional): Minimum value. Defaults to 0.
@@ -464,10 +464,10 @@ class ProfilesData:
             show_clouds (bool, optional): Add clouds detection. Defaults to False.
             cmap (str, optional): Matplotlib colormap. Defaults to 'Spectral_r'.
         """
-        if time==None:
+        if datetime==None:
             apro.plot.image.plot(self.data, var, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds, cmap=cmap)
         else:
-            apro.plot.profile.plot(self.data, time, var, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds) 
+            apro.plot.profile.plot(self.data, datetime, var, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds) 
     
 
 

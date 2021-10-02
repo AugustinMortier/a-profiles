@@ -56,6 +56,7 @@ profiles.plot(show_fog=True, show_clouds=True, vmin=1e1, vmax=1e5, log=True)
 ##### Single Profile
 ```
 #Plot single profile at 19:25
-profiles.plot(time=np.datetime64('2021-09-09T19:25:00'), show_fog=True, show_clouds=True, log=False)
+datetime = np.datetime64('2021-09-09T19:25:00')
+profiles.plot(datetime=datetime, show_fog=True, show_clouds=True, log=False)
 ```
 <img src="examples/img/Profile-Oslo-20210909T192505.png" title="Single Profile View" width="400"/>
