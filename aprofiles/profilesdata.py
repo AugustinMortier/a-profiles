@@ -174,14 +174,15 @@ class ProfilesData:
         return self
     
     
-    def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=1.5, loading=False):
+    def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, verbose=False):
         """Module for clouds detection.
 
         Args:
             time_avg (int, optional): in minutes, the time during which we aggregates the profiles before detecting clouds. Defaults to 1.
             zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to 0. We recommend using the same value as used in the extrapolation_low_layers method.
             thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z). Defaults to 5.
-            thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds. Defaults to 1.5.
+            thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds. Defaults to 4.
+            verbose (bool, optional): verbose mode. Defaults to False.
 
         Returns:
             :class: `ProfilesData object` with additional data arrays 'clouds_bases', 'clouds_peaks', and 'clouds_tops'. 'clouds_bases' correspond to the bases of the clouds. 'clouds_peaks' correspond to the maximum of backscatter signal measured in the clouds. 'clouds_tops' correspond to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
@@ -389,7 +390,7 @@ class ProfilesData:
         rcs = rcs.rolling(time=nt_avg, min_periods=1, center=True).median()
 
         clouds_bases, clouds_peaks, clouds_tops = [], [], []
-        for i in (tqdm(range(len(self.data.time.data))) if loading else range(len(self.data.time.data))):
+        for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
             data = rcs.data[i,:]
             clouds = _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds)
             
@@ -486,7 +487,7 @@ def _main():
     profiles.detect_fog_or_condensation(zmin=200)
     #profiles.quickplot(zmax=12000, vmin=1e1, vmax=1e5, log=True, add_fog=True, cmap='viridis')
 
-    profiles.detect_clouds(loading=True)
+    profiles.detect_clouds(verbose=True)
 
 if __name__ == '__main__':
     _main()

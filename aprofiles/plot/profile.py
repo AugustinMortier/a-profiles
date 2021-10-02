@@ -17,8 +17,9 @@ def _plot_fog(da, time):
     da_time = da.time.data
     itime = np.argmin(abs(da_time-time))
 
-    fog_markers = [1 if x==True else np.nan for x in da.fog_or_condensation.data]
-    plt.plot(fog_markers[itime], 0,"^:m",ms=10,lw=0, label='fog or condensation')
+    fog_markers = [1 if x==True else False for x in da.fog_or_condensation.data]
+    if fog_markers[itime]:
+        plt.plot(fog_markers[itime], 0,"^:m",ms=10,lw=0, label='fog or condensation')
 
 def _plot_clouds(da, time, var, altitude):
     """Plot clouds layers
@@ -44,7 +45,10 @@ def _plot_clouds(da, time, var, altitude):
     #plot some pretty lines around each cloud
     for i, _ in enumerate(b_indexes):
         #bottom line
-        plt.plot([da[var].data[itime,b_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[b_indexes[i]], altitude[b_indexes[i]]],':k', label='cloud layer')
+        if i==0:
+            plt.plot([da[var].data[itime,b_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[b_indexes[i]], altitude[b_indexes[i]]],':k', label='cloud layer')
+        else:
+            plt.plot([da[var].data[itime,b_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[b_indexes[i]], altitude[b_indexes[i]]],':k')
         #top line
         plt.plot([da[var].data[itime,t_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[t_indexes[i]], altitude[t_indexes[i]]],':k')
         #vertical line
@@ -78,7 +82,7 @@ def plot(da, time, var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=N
     #altitude AGL
     altitude = da.altitude.data - da.station_altitude.data
     
-    fig, axs = plt.subplots(1, 1, figsize=(5, 1.5))
+    fig, axs = plt.subplots(1, 1, figsize=(6, 6))
     plt.plot(da[var].data[itime], altitude)
 
     if log:
@@ -100,7 +104,7 @@ def plot(da, time, var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=N
     longitude = da.station_longitude.data
     altitude = da.station_altitude.data
     station_id = da.attrs['site_location']
-    plt.title('{} ({:.2f};{:.2f}) - Alt: {} m - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[itime]).split('.')[0]), weight='bold')
+    plt.title('{} ({:.2f};{:.2f}) - Alt: {} m - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[itime]).split('.')[0]), weight='bold', fontsize=10)
     plt.xlabel(da[var].long_name)
     plt.ylabel('Altitude AGL (m)')
 

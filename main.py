@@ -8,8 +8,11 @@ import aprofiles as apro
 import numpy as np
 
 #read some data
-path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
+#path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
 #path = "data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc"
+path = "examples/data/L2_0-20000-006735_A20210908.nc"
+path = "examples/data/L2_0-20000-001492_A20210909.nc"
+
 
 apro_reader = apro.reader.ReadProfiles(path)
 profiles = apro_reader.read()
@@ -21,16 +24,16 @@ profiles.range_correction(var='attenuated_backscatter_0', inplace=True)
 profiles.extrapolation_lowest_layers(zmin=300, inplace=True)
 
 #add some gaussian filtering
-profiles.gaussian_filter(var='attenuated_backscatter_0', inplace=True)
+profiles.gaussian_filter(var='attenuated_backscatter_0', sigma=0.50, inplace=True)
 
 #detect fog or condensation
-profiles.detect_fog_or_condensation(zmin=300)#.quickplot(show_fog=True)
+profiles.detect_fog_or_condensation(zmin=300)
 
 #detect clouds
-profiles.detect_clouds(time_avg=15, zmin=300, thr_noise=5, thr_clouds=4).plot(show_clouds=True, log=True, vmin=1e0, vmax=1e5);
+profiles.detect_clouds(time_avg=15, zmin=300, thr_noise=5, thr_clouds=4, verbose=True).plot(show_fog=True, show_clouds=True, log=True, vmin=1e1, vmax=1e5);
 
 #plot single profile
-profiles.plot(time=np.datetime64('2021-09-08T22:00:00'), show_fog=True, show_clouds=True, log=False)
+#profiles.plot(time=np.datetime64('2021-09-09T19:25:00'), show_fog=True, show_clouds=True, log=False)
 
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data

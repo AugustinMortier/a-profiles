@@ -77,7 +77,8 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
     C = np.transpose(da[var].data)
 
 
-    fig, axs = plt.subplots(1, 1, figsize=(5, 1.5))
+    fig, axs = plt.subplots(1, 1, figsize=(12, 4))
+
     if log:
         import matplotlib.colors as colors
         plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([1e-3,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
