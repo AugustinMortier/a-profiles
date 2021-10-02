@@ -95,13 +95,14 @@
 
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.detect_clouds">
-<code class="sig-name descname">detect_clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">1.5</span></em>, <em class="sig-param"><span class="n">loading</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.detect_clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.detect_clouds" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">detect_clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.detect_clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.detect_clouds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module for clouds detection.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>time_avg (int, optional): in minutes, the time during which we aggregates the profiles before detecting clouds. Defaults to 1.
 zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to 0. We recommend using the same value as used in the extrapolation_low_layers method.
 thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] &gt;= thr_noise * noise(z). Defaults to 5.
-thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds. Defaults to 1.5.</p>
+thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds. Defaults to 4.
+verbose (bool, optional): verbose mode. Defaults to False.</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">class</dt>
