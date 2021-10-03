@@ -1,6 +1,7 @@
 matplotlib
 netcdf4
 numpy
+seaborn
 scipy
 tqdm
 xarray
