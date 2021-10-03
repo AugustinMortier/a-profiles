@@ -84,6 +84,8 @@ def plot(da, datetime, var='attenuated_backscatter_0', zmin=None, zmax= None, vm
     
     fig, axs = plt.subplots(1, 1, figsize=(6, 6))
     plt.plot(da[var].data[itime], altitude)
+    #add zeros
+    plt.plot(np.zeros(len(altitude)), altitude, ':k', alpha=0.2)
 
     if log:
         axs.set_xscale('log')
@@ -104,7 +106,7 @@ def plot(da, datetime, var='attenuated_backscatter_0', zmin=None, zmax= None, vm
     longitude = da.station_longitude.data
     altitude = da.station_altitude.data
     station_id = da.attrs['site_location']
-    plt.title('{} ({:.2f};{:.2f}) - Alt: {} m - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[itime]).split('.')[0]), weight='bold', fontsize=10)
+    plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[itime]).split('.')[0]), weight='bold', fontsize=12)
     plt.xlabel(da[var].long_name)
     plt.ylabel('Altitude AGL (m)')
 

@@ -21,7 +21,7 @@ profiles = apro_reader.read()
 profiles.range_correction(var='attenuated_backscatter_0', inplace=True)
 
 #extrapolate lowest layers where random signal is measured
-profiles.extrapolation_lowest_layers(zmin=300, inplace=True)
+profiles.extrapolation_lowest_layers(zmin=300, inplace=True).plot(log=True, vmin=1e1, vmax=1e5)
 
 #add some gaussian filtering
 profiles.gaussian_filter(var='attenuated_backscatter_0', sigma=0.50, inplace=True)

@@ -448,7 +448,7 @@ class ProfilesData:
         return self
 
 
-    def plot(self, var='attenuated_backscatter_0', datetime=None, zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='RdYlBu_r'):
+    def plot(self, var='attenuated_backscatter_0', datetime=None, zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
         """Plot 2D Quicklook
 
         Args:
@@ -462,7 +462,7 @@ class ProfilesData:
             show_fog (bool, optional): Add fog detection. Defaults to False.
             show_pbl (bool, optional): Add PBL height. Defaults to False.
             show_clouds (bool, optional): Add clouds detection. Defaults to False.
-            cmap (str, optional): Matplotlib colormap. Defaults to 'Spectral_r'.
+            cmap (str, optional): Matplotlib colormap. Defaults to 'coolwarm'.
         """
         if datetime==None:
             apro.plot.image.plot(self.data, var, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds, cmap=cmap)

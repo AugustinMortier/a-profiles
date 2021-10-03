@@ -8,6 +8,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+import seaborn as sns
+sns.set_theme()
+
+
 
 def _plot_fog(da, time):
     """Plot fog at the bottom of the image
@@ -45,7 +49,7 @@ def _plot_clouds(da, time, altitude):
         plt.plot(t, altitude[t_indexes], 'k.')
         
 
-def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='RdYlBu_r'):
+def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
     """Plot image of profiles.
 
     Args:
@@ -59,7 +63,7 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
         show_fog (bool, optional): Add fog detection. Defaults to False.
         show_pbl (bool, optional): Add PBL height. Defaults to False.
         show_clouds (bool, optional): Add clouds detection. Defaults to False.
-        cmap (str, optional): Matplotlib colormap. Defaults to 'Spectral_r'.
+        cmap (str, optional): Matplotlib colormap. Defaults to 'coolwarm' cmap from seaborn.
     """
 
     #calculates max value from data
@@ -68,6 +72,9 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
         pow10 = np.ceil(np.log10(perc))
         vmax = 10**(pow10)
 
+    #use seaborn coolwarm colormap
+    #if cmap=='coolwarm':
+    #    cmap = sns.color_palette("coolwarm", as_cmap=True)
 
     #time
     time = da.time.data #time
@@ -102,7 +109,7 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
     longitude = da.station_longitude.data
     altitude = da.station_altitude.data
     station_id = da.attrs['site_location']
-    plt.title('{} ({:.2f};{:.2f}) - Alt: {} m - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
+    plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
     plt.xlabel('Time')
     plt.ylabel('Altitude AGL (m)')
 
