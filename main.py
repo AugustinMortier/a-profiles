@@ -21,7 +21,7 @@ profiles = apro_reader.read()
 profiles.range_correction(var='attenuated_backscatter_0', inplace=True)
 
 #extrapolate lowest layers where random signal is measured
-profiles.extrapolation_lowest_layers(zmin=300, inplace=True).plot(log=True, vmin=1e1, vmax=1e5)
+profiles.extrapolation_lowest_layers(zmin=300, inplace=True)#.plot(log=True, vmin=1e1, vmax=1e5)
 
 #add some gaussian filtering
 profiles.gaussian_filter(var='attenuated_backscatter_0', sigma=0.50, inplace=True)
@@ -33,7 +33,7 @@ profiles.detect_fog_or_condensation(zmin=300)
 profiles.detect_clouds(time_avg=15, zmin=300, thr_noise=5, thr_clouds=4, verbose=True).plot(show_fog=True, show_clouds=True, log=True, vmin=1e1, vmax=1e5);
 
 #plot single profile
-profiles.plot(datetime=np.datetime64('2021-09-09T19:25:00'), show_fog=True, show_clouds=True, log=False)
+#profiles.plot(datetime=np.datetime64('2021-09-09T19:25:00'), show_fog=True, show_clouds=True, log=False)
 
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data

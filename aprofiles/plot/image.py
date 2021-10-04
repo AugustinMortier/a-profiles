@@ -13,40 +13,52 @@ sns.set_theme()
 
 
 
-def _plot_fog(da, time):
+def _plot_fog(da):
     """Plot fog at the bottom of the image
     Args:
         da ([type]): [description]
-        time ([type]): [description]
-    """    
-    fog_markers = [1 if x==True else np.nan for x in da.fog_or_condensation.data]
-    plt.plot(time, fog_markers,"^:m",ms=10,lw=0, label='fog or condensation')
+    """
+    time = da.time.data #time
+    altitude = da.altitude.data - da.station_altitude.data #altitude AGL
 
-def _plot_clouds(da, time, altitude):
+    fog_markers = [altitude[0] if x==True else np.nan for x in da.fog_or_condensation.data]
+    plt.plot([],[],"^m", ms=10, lw=0, label='fog or condensation')
+    plt.plot(time, fog_markers,"m", marker=10, ms=10, lw=0)
+
+def _plot_clouds(da):
     """Plot clouds as markers.
     Args:
         da ([type]): [description]
-        time ([type]): [description]
-        altitude ([type]): [description]
-    """    
+    """
+    time = da.time.data #time
+    altitude = da.altitude.data - da.station_altitude.data #altitude AGL
+
     for i in range(len(time)):
         #plot bases
         b_indexes = [i for i, x in enumerate(da.clouds_bases[i,:].data) if x]
-        t = [time[i] for _ in b_indexes]
-        if i==0:
-            plt.plot(t, altitude[b_indexes], 'k.', label='clouds')
-        else:
-            plt.plot(t, altitude[b_indexes], 'k.')
-
-        #plot peaks
         p_indexes = [i for i, x in enumerate(da.clouds_peaks[i,:].data) if x]
-        t = [time[i] for _ in p_indexes]
-        plt.plot(t, altitude[p_indexes], 'k.')
-        
-        #plot tops
         t_indexes = [i for i, x in enumerate(da.clouds_tops[i,:].data) if x]
-        t = [time[i] for _ in t_indexes]
-        plt.plot(t, altitude[t_indexes], 'k.')
+        """
+        #plot line from base to peak
+        for j, _ in enumerate(b_indexes):
+            y = altitude[b_indexes[j]:p_indexes[j]]
+            x = [time[i] for _ in y]
+            plt.plot(x, y, 'w-', lw=1.75, alpha=0.9)
+
+        #plot line from peak to base
+        for j, _ in enumerate(b_indexes):
+            y = altitude[p_indexes[j]:t_indexes[j]]
+            x = [time[i] for _ in y]
+            plt.plot(x, y, 'w-', lw=1.75, alpha=0.9)
+        """
+        #plot markers
+        t = [time[i] for _ in p_indexes]
+        if i==0:
+            plt.plot(t, altitude[b_indexes], 'k.', ms=3, label='clouds')
+        else:
+            plt.plot(t, altitude[b_indexes], 'k.', ms=3)
+        plt.plot(t, altitude[p_indexes], 'k.', ms=3)
+        plt.plot(t, altitude[t_indexes], 'k.', ms=3)
         
 
 def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
@@ -88,15 +100,15 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
 
     if log:
         import matplotlib.colors as colors
-        plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([1e-3,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
+        plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([1e0,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
     else:
         plt.pcolormesh(time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading='nearest')
 
     #add addition information
     if show_fog:
-        _plot_fog(da, time)
+        _plot_fog(da)
     if show_clouds:
-        _plot_clouds(da, time, altitude)
+        _plot_clouds(da)
 
     #limit to altitude range
     plt.ylim([zmin,zmax])
