@@ -33,10 +33,103 @@ class ProfilesData:
             raise ValueError("Wrong data type: an xarray Dataset is expected.")
         self._data = data
 
+    def _get_index_from_altitude_AGL(self, altitude):
+        """Returns the closest index of the ProfilesData vertical dimension to a given AGL altitude
+
+        Args:
+            altitude (float): in m, altitude AGL to look for
+
+        Returns:
+            [int]: Closest index of the vertical dimension to the given altitude AGL
+        """    
+        altitude_asl = altitude + self.data.station_altitude.data
+        return np.argmin(abs(self.data.altitude.data-altitude_asl))
+
+    def _get_resolution(self, which):
+        """Returns the resolution of a given dimension. Support 'altitude' and 'time'. The altitude resolution is given in meters, while the time resolution is given in seconds.
+
+        Args:
+            which ([int]): 'altitude' or 'time'
+
+        Returns:
+            [type]: resolution, in m (if which=='altitude') or in s (if which=='time')
+        """
+        if which == 'altitude':
+            return min(np.diff(self.data.altitude.data))
+        elif which == 'time':
+            return min(np.diff(self.data.time.data)).astype('timedelta64[s]').astype(int)
+
+    def _get_lowest_clouds(self):
+        #returns an array of the altitude (in m, ASL) of the lowest cloud for each timestamp
+
+        def get_true_indexes(mask):
+        #mask: list of Bool
+        #returns a list indexes where the mask is True
+            return [i for i, x in enumerate(mask) if x]
+            
+        lowest_clouds = []
+        for i in np.arange(len(self.data.time.data)):
+            i_clouds = get_true_indexes(self.data.clouds_bases.data[i,:])
+            if len(i_clouds)>0:
+                lowest_clouds.append(self.data.altitude.data[i_clouds[0]])
+            else:
+                lowest_clouds.append(np.nan)
+
+        return lowest_clouds
+
+
+    def snr(self, var='attenuated_backscatter_0', step=4, verbose=False):
+        """Method that calculates the SNR. 
+        Note: This calculation is relatively heavy in terms of calculation costs.
+
+        Args:
+            var (str, optional): Variable of the DataArray to calculate the SNR from. Defaults to 'attenuated_backscatter_0'.
+            step (int, optional): Number of steps around we calculate the SNR for a given altitude. Defaults to 4.
+            verbose (bool, optional): Verbose mode. Defaults to False.
+
+        Returns:
+            :class: `ProfilesData object` with additional data array 'fog_or_condensation'.
+        """
+
+        def _1D_snr(array, step):
+            array = np.asarray(array)
+            snr = []
+            for i in np.arange(len(array)):
+                gates = np.arange(i-step,i+step)
+                indexes = [i for i in gates if i>0 and i<len(array)]
+                mean = np.nanmean(array[indexes])
+                std = np.nanstd(array[indexes], ddof=0)
+                if std!=0:
+                    snr.append(mean/std)
+                else:
+                    snr.append(0)
+            return np.asarray(snr)
+        
+        snr = []
+        for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
+            snr.append(_1D_snr(self.data[var].data[i,:], step))
+
+        
+        #creates dataarrays
+        self.data["snr"] = xr.DataArray(
+            data=np.asarray(snr),
+            dims=["time", "altitude"],
+            coords=dict(
+                time=self.data.time.data,
+                altitude=self.data.altitude.data,
+            ),
+            attrs=dict(
+                long_name="Signal to Noise Ratio",
+                units="bool",
+                step=step
+            )
+        )
+        
+        return self
 
 
     def gaussian_filter(self, var='attenuated_backscatter_0', sigma=0.5, inplace=False):
-        """Function that applies a 2D gaussian filter in order to reduce high frequency noise.
+        """Method that applies a 2D gaussian filter in order to reduce high frequency noise.
 
         Args:
             var (str, optional): variable of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
@@ -81,8 +174,7 @@ class ProfilesData:
         """
 
         #get index of zmin
-        zmin_asl = zmin + self.data.station_altitude.data
-        imin = np.argmin(abs(self.data.altitude.data-zmin_asl))
+        imin = self._get_index_from_altitude_AGL(zmin)
         
         nt = np.shape(self.data[var].data)[0]
 
@@ -144,20 +236,56 @@ class ProfilesData:
 
 
 
-    def detect_fog_or_condensation(self, zmin):
-        """Detects fog or condensation relying on the cloud base height 'cloud_base_height' given by the constructor.
+    def detect_fog_or_condensation(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
+        """Detects fog or condensation.
         Adds DataArray to DataSet
 
         Args:
-            zmin (float): Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.
-            add_dataarray (bool, optional): Add dataset to datarray if True. Defaults to True.
+            method (str, optional): Expected values: 'snr' or 'cloud_base'. Defaults to 'cloud_base'.
+            var (str, optional). Used for 'snr' method. Variable from ProfilesData to calculate SNR from. Defaults to 'attenuated_backscatter_0'.
+            z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR.
+            min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation.
+            zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.
         
         Returns:
             :class: `ProfilesData object` with additional data array 'fog_or_condensation'.
         """
 
-        first_cloud_base_height = self.data.cloud_base_height.data[:,0]
-        fog_or_condensation = [True if x<=zmin else False for x in first_cloud_base_height]
+        def _detect_fog_from_cloud_base_height(self, zmin_cloud):
+            #returns a bool list with True where fog/condensation cases
+            #if the base of the first cloud (given by the constructor) is below 
+            first_cloud_base_height = self.data.cloud_base_height.data[:,0]
+            #condition
+            fog_or_condensation = [True if x<=zmin_cloud else False for x in first_cloud_base_height]
+            return fog_or_condensation
+        
+        def _detect_fog_from_snr(self, z_snr, var, min_snr):
+            #returns a bool list with True where fog/condensation cases
+
+            def _snr_at_iz(array, iz, step):
+                #calculates the snr from array at iz around step points
+                gates = np.arange(iz-step,iz+step)
+                indexes = [i for i in gates if i>0 and i<len(array)]
+                mean = np.nanmean(array[indexes])
+                std = np.nanstd(array[indexes], ddof=0)
+                if std!=0:
+                    return mean/std
+                else:
+                    return 0
+
+            #calculates snr at z_snr
+            iz_snr = self._get_index_from_altitude_AGL(z_snr)
+            #calculates snr at each timestamp
+            snr = [_snr_at_iz(self.data[var].data[i,:], iz_snr, step=4) for i in range(len(self.data.time.data))]
+            #condition
+            fog_or_condensation = [True if x<=min_snr else False for x in snr]
+            return fog_or_condensation
+
+
+        if method=='cloud_base':
+            fog_or_condensation = _detect_fog_from_cloud_base_height(self, zmin_cloud)
+        elif method.upper() == 'SNR':
+            fog_or_condensation = _detect_fog_from_snr(self, z_snr, var, min_snr)
 
         #creates dataarray
         self.data["fog_or_condensation"] = xr.DataArray(
@@ -167,14 +295,14 @@ class ProfilesData:
                 time=self.data.time.data,
             ),
             attrs=dict(
-                description="Fog or condensation mask.",
+                long_name="Fog or condensation mask.",
             )
         )
 
         return self
     
     
-    def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, verbose=False):
+    def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
         """Module for clouds detection.
 
         Args:
@@ -182,17 +310,19 @@ class ProfilesData:
             zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to 0. We recommend using the same value as used in the extrapolation_low_layers method.
             thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z). Defaults to 5.
             thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds. Defaults to 4.
+            min_snr (float, optional). Minimum SNR required at the clouds peak value to consider the cloud as valid. Defaults to 0.
             verbose (bool, optional): verbose mode. Defaults to False.
 
         Returns:
             :class: `ProfilesData object` with additional data arrays 'clouds_bases', 'clouds_peaks', and 'clouds_tops'. 'clouds_bases' correspond to the bases of the clouds. 'clouds_peaks' correspond to the maximum of backscatter signal measured in the clouds. 'clouds_tops' correspond to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
         """
 
-        def _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds):
+        def _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds, min_snr):
             #data: 1D range corrected signal (rcs)
             #zmin: altitude AGL, in m, above which we detect clouds
-            #thr_noise = 10 #threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z)
-            #thr_clouds = 1.5 #threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds
+            #thr_noise: threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z)
+            #thr_clouds: threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds
+            #min_snr: minimum SNR required at the clouds peak value to consider the cloud as valid. Defaults to 2.
             
             from scipy import signal
             from scipy.ndimage.filters import uniform_filter1d
@@ -209,6 +339,17 @@ class ProfilesData:
                 mask = np.array([False for x in np.ones(length)])
                 mask[indexes_where_True] = len(indexes_where_True)*[True]
                 return mask
+            
+            def _snr_at_iz(array, iz, step):
+                #calculates the snr from array at iz around step points
+                gates = np.arange(iz-step,iz+step)
+                indexes = [i for i in gates if i>0 and i<len(array)]
+                mean = np.nanmean(array[indexes])
+                std = np.nanstd(array[indexes], ddof=0)
+                if std!=0:
+                    return mean/std
+                else:
+                    return 0
 
             #0. rolling average
             avg_data = uniform_filter1d(data, size=3)
@@ -223,8 +364,7 @@ class ProfilesData:
             all_bases = sign_changes==2
             all_peaks = sign_changes==-2
             #limit to bases above zmin
-            zmin_asl = zmin + self.data.station_altitude.data
-            imin = np.argmin(abs(self.data.altitude.data-zmin_asl))
+            imin = self._get_index_from_altitude_AGL(zmin)
             all_bases[0:imin] = [False for i in range(len(all_bases[0:imin]))]
             all_peaks[0:imin] = [False for i in range(len(all_peaks[0:imin]))]
             
@@ -237,8 +377,11 @@ class ProfilesData:
             if i_bases[0]>i_peaks[0] and i_peaks[0]>=1:
                 #set base as the minimum between peak and n gates under
                 gates = np.arange(i_peaks[0]-5,i_peaks[0])
-                i_base = np.argmin([data[gates[gates>=0]]])
-                all_bases[i_base]=True
+                i_base = gates[np.argmin([data[gates[gates>=0]]])]
+                if i_base>=imin:
+                    all_bases[i_base]=True
+                else:
+                    i_peaks[0] = False
             #update indexes
             i_bases = get_indexes(all_bases)
 
@@ -259,7 +402,7 @@ class ProfilesData:
 
             # data[peak(z)] - data[base(z)] >= thr_noise * noise(z)
             bases, peaks = all_bases, all_peaks
-            for i, _ in enumerate(i_bases):
+            for i in range(len(i_bases)):
                 #data_around_peak = np.mean(data[i_peaks[i]-1:i_peaks[i]+1])
                 #data_around_base = np.mean(data[i_bases[i]-1:i_bases[i]+1])
                 data_around_peak = avg_data[i_peaks[i]]
@@ -278,7 +421,7 @@ class ProfilesData:
                 i_bases.pop()
 
             #6. distinction between aerosol and clouds
-            for i, _ in enumerate(i_bases):
+            for i in range(len(i_bases)):
                 data_around_peak = data[i_peaks[i]]
                 data_around_base = data[i_bases[i]]
                 if abs((data_around_peak - data_around_base) / data_around_base) <= thr_clouds:
@@ -292,7 +435,7 @@ class ProfilesData:
             #7. find tops of clouds layers
             tops = np.array([False for x in np.ones(len(data))])
             # conditions: look for bases above i_peaks[i], and data[top[i]] <= data[base[i]]
-            for i, _ in enumerate(i_bases):
+            for i in range(len(i_bases)):
                 mask_value = np.array(data<data[i_bases[i]])
                 mask_altitude = np.array([False for x in np.ones(len(data))])
                 mask_altitude[i_bases[i]:] = True
@@ -326,15 +469,28 @@ class ProfilesData:
                     i_tops.remove(i_tops[i])
 
             
-            #9. rebuild base and top masks
+            #9. finds peaks as maximum value between base and top
+            i_peaks = [i_bases[i]+np.argmax(data[i_bases[i]:i_tops[i]]) for i in range(len(i_bases))]
+
+
+            #10. check snr at peak levels
+            remove_bases, remove_peaks, remove_tops = [], [], []
+            for i in range(len(i_peaks)):
+                if _snr_at_iz(data, i_peaks[i], step=4)<=min_snr:
+                    remove_bases.append(i_bases[i])
+                    remove_peaks.append(i_peaks[i])
+                    remove_tops.append(i_tops[i])
+            # remove indexes
+            i_bases = [i_base for i_base in i_bases if i_base not in remove_bases]
+            i_peaks = [i_peak for i_peak in i_peaks if i_peak not in remove_peaks]
+            i_tops = [i_top for i_top in i_tops if i_top not in remove_tops]
+
+
+            #11. rebuild masks from indexes
             bases = make_mask(len(data), i_bases)
-            peaks = make_mask(len(data), [])
+            peaks = make_mask(len(data), i_peaks)
             tops = make_mask(len(data), i_tops)
-            #find peaks between bases and tops
-            for i in np.arange(len(i_bases)):
-                peaks[i_bases[i]+np.argmax(data[i_bases[i]:i_tops[i]])] = True
-            #get new indexes
-            i_peaks = get_indexes(peaks)
+            
             
             """
             #some plotting
@@ -384,7 +540,7 @@ class ProfilesData:
         rcs = self.data.attenuated_backscatter_0
         t_avg = time_avg * 60 #s
         #time resolution in profiles data
-        dt_s = min(np.diff(self.data.time.data)).astype('timedelta64[s]').astype(int)
+        dt_s = self._get_resolution('time')
         #number of timestamps to be to averaged
         nt_avg = max([1,round(t_avg/dt_s)])
         rcs = rcs.rolling(time=nt_avg, min_periods=1, center=True).median()
@@ -392,7 +548,7 @@ class ProfilesData:
         clouds_bases, clouds_peaks, clouds_tops = [], [], []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
             data = rcs.data[i,:]
-            clouds = _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds)
+            clouds = _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds, min_snr)
             
             #store info in 2D array
             clouds_bases.append(clouds['bases'])
@@ -408,7 +564,7 @@ class ProfilesData:
                 altitude=self.data.altitude.data,
             ),
             attrs=dict(
-                description="Mask - Base height of clouds",
+                long_name="Mask - Base height of clouds",
                 units="bool",
                 time_avg=time_avg,
                 thr_noise=thr_noise,
@@ -423,7 +579,7 @@ class ProfilesData:
                 altitude=self.data.altitude.data,
             ),
             attrs=dict(
-                description="Mask - Peak height of clouds",
+                long_name="Mask - Peak height of clouds",
                 units="bool",
                 time_avg=time_avg,
                 thr_noise=thr_noise,
@@ -438,7 +594,7 @@ class ProfilesData:
                 altitude=self.data.altitude.data,
             ),
             attrs=dict(
-                description="Mask - Top height of clouds",
+                long_name="Mask - Top height of clouds",
                 units="bool",
                 time_avg=time_avg,
                 thr_noise=thr_noise,
@@ -447,13 +603,113 @@ class ProfilesData:
         )
         return self
 
+    def detect_pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
+        """Detects Planetary Boundary Layer Height between zmin and zmax using convolution with a wavelet.
 
-    def plot(self, var='attenuated_backscatter_0', datetime=None, zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
+        Args:
+            time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to 1.
+            zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL. Defaults to 100.
+            zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to 3000.
+            wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to 200.
+            under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile.
+            min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to 2.
+            verbose (bool, optional): verbose mode. Defaults to False.
+        
+        Returns:
+            :class: `ProfilesData object` with additional data array 'pbl'.
+        """        
+
+        def _snr_at_iz(array, iz, step):
+            #calculates the snr from array at iz around step points
+            gates = np.arange(iz-step,iz+step)
+            indexes = [i for i in gates if i>0 and i<len(array)]
+            mean = np.nanmean(array[indexes])
+            std = np.nanstd(array[indexes], ddof=0)
+            if std!=0:
+                return mean/std
+            else:
+                return 0
+
+
+        def _detect_pbl_from_rcs(data, zmin, zmax, wav_width, lowest_cloud, min_snr):
+            #detect pbl from range corrected signal between zmin and zmax using convolution with a wavelet.
+            #if lowest clouds is not np.nan, looks for PBL below the given altitude.
+
+            from scipy import signal
+
+            #define wavelet with constant width
+            npoints = len(data)
+            width = wav_width #in meter
+            wav = signal.ricker(npoints, width/self._get_resolution('altitude'))
+
+            #simple convolution
+            convolution = signal.convolve(data, wav, mode='same')
+
+            #the PBL is the maximum of the convolution
+            #sets to nan outside of PBL search range
+            convolution[0:self._get_index_from_altitude_AGL(zmin):] = np.nan
+            convolution[self._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud])):] = np.nan
+            i_pbl = np.nanargmax(abs(convolution))
+            
+            #calculates SNR
+            snr =  _snr_at_iz(data, i_pbl, step=4)
+
+            if snr>2:
+                return self.data.altitude.data[i_pbl]
+            else:
+                return np.nan
+        
+        #we work on profiles averaged in time to reduce the noise
+        rcs = self.data.attenuated_backscatter_0
+        t_avg = time_avg * 60 #s
+        #time resolution in profiles data
+        dt_s = self._get_resolution('time')
+        #number of timestamps to be averaged
+        nt_avg = max([1,round(t_avg/dt_s)])
+        rcs = rcs.rolling(time=nt_avg, min_periods=1, center=True).median()
+
+
+        #if under_clouds, check if clouds_bases is available
+        if under_clouds and 'clouds_bases' in list(self.data.data_vars):
+            lowest_clouds = self._get_lowest_clouds()
+        elif under_clouds and not 'clouds_bases' in list(self.data.data_vars):
+            import warnings
+            warnings.warn("under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.")
+            lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
+        else:
+            lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
+
+
+        pbl = []
+        for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
+            data = rcs.data[i,:]
+            lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
+            pbl.append(_detect_pbl_from_rcs(data, zmin, zmax, wav_width, lowest_cloud_agl, min_snr))
+
+         #creates dataarrays
+        self.data["pbl"] = xr.DataArray(
+            data=pbl,
+            dims=["time"],
+            coords=dict(
+                time=self.data.time.data
+            ),
+            attrs=dict(
+                long_name="Planetary Boundary Layer Height, ASL",
+                units="m",
+                time_avg=time_avg,
+                zmin=zmin,
+                zmax=zmax
+            )
+        )
+
+
+    def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
         """Plot 2D Quicklook
 
         Args:
             var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to 'attenuated_backscatter_0'.
             datetime (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to None
+            zref (str, optional): Reference altitude. Expected values: 'agl' (above ground level) or 'asl' (above ea level). Defaults to 'agl'
             zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
             zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
             vmin (float, optional): Minimum value. Defaults to 0.
@@ -465,9 +721,9 @@ class ProfilesData:
             cmap (str, optional): Matplotlib colormap. Defaults to 'coolwarm'.
         """
         if datetime==None:
-            apro.plot.image.plot(self.data, var, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds, cmap=cmap)
+            apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds, cmap=cmap)
         else:
-            apro.plot.profile.plot(self.data, datetime, var, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds) 
+            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds) 
     
 
 

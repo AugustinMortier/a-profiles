@@ -12,26 +12,35 @@ import seaborn as sns
 sns.set_theme()
 
 
-
-def _plot_fog(da):
+def _plot_fog(da, zref):
     """Plot fog at the bottom of the image
     Args:
         da ([type]): [description]
     """
-    time = da.time.data #time
-    altitude = da.altitude.data - da.station_altitude.data #altitude AGL
+    #time
+    time = da.time.data
+    #altitude
+    if zref.upper()=='AGL':
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        altitude = da.altitude.data
 
     fog_markers = [altitude[0] if x==True else np.nan for x in da.fog_or_condensation.data]
     plt.plot([],[],"^m", ms=10, lw=0, label='fog or condensation')
     plt.plot(time, fog_markers,"m", marker=10, ms=10, lw=0)
 
-def _plot_clouds(da):
+def _plot_clouds(da, zref):
     """Plot clouds as markers.
     Args:
         da ([type]): [description]
     """
-    time = da.time.data #time
-    altitude = da.altitude.data - da.station_altitude.data #altitude AGL
+    #time
+    time = da.time.data
+    #altitude
+    if zref.upper()=='AGL':
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        altitude = da.altitude.data
 
     for i in range(len(time)):
         #plot bases
@@ -52,21 +61,37 @@ def _plot_clouds(da):
             plt.plot(x, y, 'w-', lw=1.75, alpha=0.9)
         """
         #plot markers
-        t = [time[i] for _ in p_indexes]
+        t = [time[i] for _ in b_indexes]
         if i==0:
             plt.plot(t, altitude[b_indexes], 'k.', ms=3, label='clouds')
         else:
             plt.plot(t, altitude[b_indexes], 'k.', ms=3)
+        t = [time[i] for _ in p_indexes]
         plt.plot(t, altitude[p_indexes], 'k.', ms=3)
+        t = [time[i] for _ in t_indexes]
         plt.plot(t, altitude[t_indexes], 'k.', ms=3)
-        
 
-def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
+def _plot_pbl(da, zref):
+    """Plot PBL as markers
+    Args:
+        da ([type]): [description]
+    """
+    #time
+    time = da.time.data
+    #altitude
+    if zref.upper()=='AGL':
+        pbl = da.pbl.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        pbl = da.pbl.data
+    plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
+
+def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
     """Plot image of profiles.
 
     Args:
         da (xr.DataArray): DataArray.
         var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
+        zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
         zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
         zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
         vmin (float, optional): Minimum value. Defaults to 0.
@@ -89,9 +114,13 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
     #    cmap = sns.color_palette("coolwarm", as_cmap=True)
 
     #time
-    time = da.time.data #time
-    #altitude AGL
-    altitude = da.altitude.data - da.station_altitude.data
+    time = da.time.data
+    #altitude
+    if zref.upper()=='AGL':
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        altitude = da.altitude.data
+
     #2D array
     C = np.transpose(da[var].data)
 
@@ -106,9 +135,11 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
 
     #add addition information
     if show_fog:
-        _plot_fog(da)
+        _plot_fog(da, zref)
     if show_clouds:
-        _plot_clouds(da)
+        _plot_clouds(da, zref)
+    if show_pbl:
+        _plot_pbl(da, zref)
 
     #limit to altitude range
     plt.ylim([zmin,zmax])
@@ -123,7 +154,7 @@ def plot(da, var='attenuated_backscatter_0', zmin=None, zmax=None, vmin=0, vmax=
     station_id = da.attrs['site_location']
     plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
     plt.xlabel('Time')
-    plt.ylabel('Altitude AGL (m)')
+    plt.ylabel('Altitude {} (m)'.format(zref.upper()))
 
     #add legend
     if show_fog or show_clouds or show_pbl:

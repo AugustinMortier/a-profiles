@@ -21,7 +21,7 @@ apro_reader = apro.reader.ReadProfiles(path)
 profiles = apro_reader.read()
 ``` 
 
-### Basic corrections and Image
+### Basic corrections and Image plotting
 ``` 
 #apply range correction
 profiles.range_correction(inplace=True)
@@ -38,10 +38,14 @@ profiles.plot(var="attenuated_backscatter_0", vmin=1e0, vmax=1e5, log=True)
 ### Profiles Analysis
 ```
 #Fog/condensation detection
-profiles.detect_fog_or_condensation()
+profiles.detect_fog_or_condensation(zmin_cloud=200) 
 
 #Clouds detection
-profiles.detect_clouds(time_avg=15, zmin=300, thr_noise=5, thr_clouds=4)
+profiles.detect_clouds(zmin=300, thr_noise=5, thr_clouds=4)
+
+#Planetary Boundary Layer
+profiles.detect_pbl(zmin=100, zmax=3000, under_clouds=True)
+
 ```
 
 ### Visualization
@@ -49,14 +53,15 @@ profiles.detect_clouds(time_avg=15, zmin=300, thr_noise=5, thr_clouds=4)
 #### Image
 ```
 #image plotting with additional retrievals
-profiles.plot(show_fog=True, show_clouds=True, vmin=1e1, vmax=1e5, log=True)
+profiles.plot(show_fog=True, show_clouds=True, show_pbl=True, vmin=1e1, vmax=1e5, log=True)
 ```
-<img src="examples/img/QL-Fog&Clouds-Oslo-20210909.png" title="Fog or Condensation and Clouds Detection" width="800"/>
+<img src="examples/img/QL-Fog&Clouds&PBL-Oslo-20210909.png" title="Fog or Condensation and Clouds Detection" width="800"/>
 
 ##### Single Profile
 ```
 #Plot single profile at 19:25
 datetime = np.datetime64('2021-09-09T19:25:00')
+profiles.plot(datetime=datetime, vmax=1e5, show_fog=True, show_clouds=True, show_pbl=True)
 profiles.plot(datetime=datetime, show_fog=True, show_clouds=True, log=False)
 ```
 <img src="examples/img/Profile-Oslo-20210909T192505.png" title="Single Profile View" width="400"/>

@@ -7,62 +7,99 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+import seaborn as sns
+sns.set_theme()
 
-def _plot_fog(da, time):
+
+def _plot_fog(da, time, zref):
     """Plot fog at the bottom of the image
     Args:
         da ([type]): [description]
         time ([type]): time for which to plot the fog
     """
+    #time
     da_time = da.time.data
-    itime = np.argmin(abs(da_time-time))
+    i_time = np.argmin(abs(da_time-time))
+    #altitude
+    if zref.upper()=='AGL':
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        altitude = da.altitude.data
 
-    fog_markers = [1 if x==True else False for x in da.fog_or_condensation.data]
-    if fog_markers[itime]:
-        plt.plot(fog_markers[itime], 0,"^:m",ms=10,lw=0, label='fog or condensation')
+    fog_markers = [altitude[0] if x==True else np.nan for x in da.fog_or_condensation.data]
+    if not np.isnan(fog_markers[i_time]):
+        plt.plot([],[],"^m", ms=10, lw=0, label='fog or condensation')
+        plt.plot(0, fog_markers[i_time],"m", marker=10, ms=10, lw=0)
 
-def _plot_clouds(da, time, var, altitude):
+def _plot_clouds(da, time, var, zref):
     """Plot clouds layers
     Args:
         da ([type]): [description]
         time ([type]): time for which to plot the clouds
     """
+    #time
     da_time = da.time.data
-    itime = np.argmin(abs(da_time-time))
+    i_time = np.argmin(abs(da_time-time))
+    #altitude
+    if zref.upper()=='AGL':
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        altitude = da.altitude.data
 
     #plot bases
-    b_indexes = [i for i, x in enumerate(da.clouds_bases[itime,:].data) if x]
-    plt.plot(da[var].data[itime,b_indexes], altitude[b_indexes], 'k.')
+    b_indexes = [i for i, x in enumerate(da.clouds_bases[i_time,:].data) if x]
+    plt.plot(da[var].data[i_time,b_indexes], altitude[b_indexes], 'k.')
 
     #plot peaks
-    p_indexes = [i for i, x in enumerate(da.clouds_peaks[itime,:].data) if x]
-    plt.plot(da[var].data[itime,p_indexes], altitude[p_indexes], 'k.')
+    p_indexes = [i for i, x in enumerate(da.clouds_peaks[i_time,:].data) if x]
+    plt.plot(da[var].data[i_time,p_indexes], altitude[p_indexes], 'k.')
     
     #plot tops
-    t_indexes = [i for i, x in enumerate(da.clouds_tops[itime,:].data) if x]
-    plt.plot(da[var].data[itime,t_indexes], altitude[t_indexes], 'k.')
+    t_indexes = [i for i, x in enumerate(da.clouds_tops[i_time,:].data) if x]
+    plt.plot(da[var].data[i_time,t_indexes], altitude[t_indexes], 'k.')
 
     #plot some pretty lines around each cloud
     for i, _ in enumerate(b_indexes):
         #bottom line
         if i==0:
-            plt.plot([da[var].data[itime,b_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[b_indexes[i]], altitude[b_indexes[i]]],':k', label='cloud layer')
+            plt.plot([da[var].data[i_time,b_indexes[i]], da[var].data[i_time,p_indexes[i]]],[altitude[b_indexes[i]], altitude[b_indexes[i]]],':k', label='cloud layer')
         else:
-            plt.plot([da[var].data[itime,b_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[b_indexes[i]], altitude[b_indexes[i]]],':k')
+            plt.plot([da[var].data[i_time,b_indexes[i]], da[var].data[i_time,p_indexes[i]]],[altitude[b_indexes[i]], altitude[b_indexes[i]]],':k')
         #top line
-        plt.plot([da[var].data[itime,t_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[t_indexes[i]], altitude[t_indexes[i]]],':k')
+        plt.plot([da[var].data[i_time,t_indexes[i]], da[var].data[i_time,p_indexes[i]]],[altitude[t_indexes[i]], altitude[t_indexes[i]]],':k')
         #vertical line
-        plt.plot([da[var].data[itime,p_indexes[i]], da[var].data[itime,p_indexes[i]]],[altitude[b_indexes[i]], altitude[t_indexes[i]]],':k')
+        plt.plot([da[var].data[i_time,p_indexes[i]], da[var].data[i_time,p_indexes[i]]],[altitude[b_indexes[i]], altitude[t_indexes[i]]],':k')
+
+def _plot_pbl(da, time, var, zref):
+    """Plot planetary boundary layer
+    Args:
+        da ([type]): [description]
+        time ([type]): time for which to plot the clouds
+    """
+    #time
+    da_time = da.time.data
+    i_time = np.argmin(abs(da_time-time))
+    #altitude
+    if zref.upper()=='AGL':
+        pbl = da.pbl.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        pbl = da.pbl.data
     
+    #get index of pbl
+    i_pbl = np.argmin(abs(da.altitude.data-pbl[i_time]))
+
+    #plot pbl
+    plt.plot(da[var].data[i_time,i_pbl], pbl[i_time], 'gX', label='PBL')
 
 
-def plot(da, datetime, var='attenuated_backscatter_0', zmin=None, zmax= None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False):
+def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax= None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False):
     """Plot image of profiles.
 
     Args:
         da (xr.DataArray): DataArray.
         datetime (np.datetime64): time for which we plot the profile.
         var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
+        zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
         zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
         zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
         vmin (float, optional): Minimum value. Defaults to 0.
@@ -77,13 +114,16 @@ def plot(da, datetime, var='attenuated_backscatter_0', zmin=None, zmax= None, vm
         raise ValueError("datetime needs to be a np.datetime object, e.g. time=np.datetime(2021-09-09T16:00:00)")
     #get index of closest profile
     da_time = da.time.data
-    itime = np.argmin(abs(da_time-datetime))
+    i_time = np.argmin(abs(da_time-datetime))
 
-    #altitude AGL
-    altitude = da.altitude.data - da.station_altitude.data
+    #altitude
+    if zref.upper()=='AGL':
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper()=='ASL':
+        altitude = da.altitude.data
     
     fig, axs = plt.subplots(1, 1, figsize=(6, 6))
-    plt.plot(da[var].data[itime], altitude)
+    plt.plot(da[var].data[i_time], altitude)
     #add zeros
     plt.plot(np.zeros(len(altitude)), altitude, ':k', alpha=0.2)
 
@@ -92,13 +132,16 @@ def plot(da, datetime, var='attenuated_backscatter_0', zmin=None, zmax= None, vm
 
     #add addition information
     if show_fog:
-        _plot_fog(da, da_time[itime])
+        _plot_fog(da, da_time[i_time], zref)
     if show_clouds:
-        _plot_clouds(da, da_time[itime], var, altitude)
+        _plot_clouds(da, da_time[i_time], var, zref)
+    if show_pbl:
+        _plot_pbl(da, da_time[i_time], var, zref)
+    
 
     #set scales
     plt.ylim([zmin, zmax])
-    if vmin!=None and vmax!=None:
+    if vmin!=None or vmax!=None:
         plt.xlim([vmin, vmax])
 
     #set title and axis
@@ -106,9 +149,9 @@ def plot(da, datetime, var='attenuated_backscatter_0', zmin=None, zmax= None, vm
     longitude = da.station_longitude.data
     altitude = da.station_altitude.data
     station_id = da.attrs['site_location']
-    plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[itime]).split('.')[0]), weight='bold', fontsize=12)
+    plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[i_time]).split('.')[0]), weight='bold', fontsize=12)
     plt.xlabel(da[var].long_name)
-    plt.ylabel('Altitude AGL (m)')
+    plt.ylabel('Altitude {} (m)'.format(zref.upper()))
 
     #add legend
     if show_fog or show_clouds or show_pbl:

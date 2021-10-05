@@ -27,13 +27,20 @@ profiles.extrapolation_lowest_layers(zmin=300, inplace=True)#.plot(log=True, vmi
 profiles.gaussian_filter(var='attenuated_backscatter_0', sigma=0.50, inplace=True)
 
 #detect fog or condensation
-profiles.detect_fog_or_condensation(zmin=300)
+profiles.detect_fog_or_condensation(zmin_cloud=200)
 
 #detect clouds
-profiles.detect_clouds(time_avg=15, zmin=300, thr_noise=5, thr_clouds=4, verbose=True).plot(show_fog=True, show_clouds=True, log=True, vmin=1e1, vmax=1e5);
+profiles.detect_clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
+
+#detect PBL
+profiles.detect_pbl(zmin=100, zmax=3000, under_clouds=True, verbose=True)
+
+#plot image
+profiles.plot(zref='agl', show_fog=True, show_clouds=True, show_pbl=True, log=True, vmin=1e1, vmax=1e5)
 
 #plot single profile
-#profiles.plot(datetime=np.datetime64('2021-09-09T19:25:00'), show_fog=True, show_clouds=True, log=False)
+datetime = np.datetime64('2021-09-09T19:25:00')
+profiles.plot(datetime=datetime, vmax=1e5, zmax=12000, show_fog=True, show_clouds=True, show_pbl=True)
 
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data
