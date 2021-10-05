@@ -40,7 +40,7 @@ profiles.detect_pbl(zmin=100, zmax=3000, under_clouds=True, verbose=True)
 
 #plot single profile
 datetime = np.datetime64('2021-09-09T19:25:00')
-profiles.plot(datetime=datetime, vmin=-1e4, vmax=5e4, zmax=12000, show_fog=True, show_clouds=True, show_pbl=True)
+profiles.plot(datetime=datetime, vmin=-5e3, vmax=5e4, zmax=12000, show_fog=True, show_clouds=True, show_pbl=True)
 
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data
