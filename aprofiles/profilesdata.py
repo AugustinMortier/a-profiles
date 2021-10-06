@@ -98,7 +98,7 @@ class ProfilesData:
                 gates = np.arange(i-step,i+step)
                 indexes = [i for i in gates if i>0 and i<len(array)]
                 mean = np.nanmean(array[indexes])
-                std = np.nanstd(array[indexes], ddof=0)
+                std = np.nanstd(array[indexes])
                 if std!=0:
                     snr.append(mean/std)
                 else:
@@ -120,7 +120,7 @@ class ProfilesData:
             ),
             attrs=dict(
                 long_name="Signal to Noise Ratio",
-                units="bool",
+                units=None,
                 step=step
             )
         )
@@ -232,6 +232,8 @@ class ProfilesData:
 
         #add attribute
         new_profiles_data.data[var].attrs['range correction']=True
+        #remove units
+        new_profiles_data.data[var].attrs['units']=None
         return new_profiles_data
 
 
@@ -336,7 +338,7 @@ class ProfilesData:
             def make_mask(length, indexes_where_True):
                 #length: int: length of the mask
                 #indexes_where_true: list
-                mask = np.array([False for x in np.ones(length)])
+                mask = np.asarray([False for x in np.ones(length)])
                 mask[indexes_where_True] = len(indexes_where_True)*[True]
                 return mask
             
@@ -433,11 +435,11 @@ class ProfilesData:
             
 
             #7. find tops of clouds layers
-            tops = np.array([False for x in np.ones(len(data))])
+            tops = np.asarray([False for x in np.ones(len(data))])
             # conditions: look for bases above i_peaks[i], and data[top[i]] <= data[base[i]]
             for i in range(len(i_bases)):
-                mask_value = np.array(data<data[i_bases[i]])
-                mask_altitude = np.array([False for x in np.ones(len(data))])
+                mask_value = np.asarray(data<data[i_bases[i]])
+                mask_altitude = np.asarray([False for x in np.ones(len(data))])
                 mask_altitude[i_bases[i]:] = True
                 #the top is the first value that corresponds to the intersection of the two masks
                 cross_mask = np.logical_and(mask_value, mask_altitude)
@@ -543,12 +545,11 @@ class ProfilesData:
         dt_s = self._get_resolution('time')
         #number of timestamps to be to averaged
         nt_avg = max([1,round(t_avg/dt_s)])
-        rcs = rcs.rolling(time=nt_avg, min_periods=1, center=True).median()
+        rcs_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
 
         clouds_bases, clouds_peaks, clouds_tops = [], [], []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
-            data = rcs.data[i,:]
-            clouds = _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds, min_snr)
+            clouds = _detect_clouds_from_rcs(rcs_data[i,:], zmin, thr_noise, thr_clouds, min_snr)
             
             #store info in 2D array
             clouds_bases.append(clouds['bases'])
@@ -631,9 +632,8 @@ class ProfilesData:
                 return 0
 
 
-        def _detect_pbl_from_rcs(data, zmin, zmax, wav_width, lowest_cloud, min_snr):
-            #detect pbl from range corrected signal between zmin and zmax using convolution with a wavelet.
-            #if lowest clouds is not np.nan, looks for PBL below the given altitude.
+        def _detect_pbl_from_rcs(data, zmin, zmax, wav_width, min_snr):
+            #detect pbl from range corrected signal between zmin and zmax using convolution with a wavelet..
 
             from scipy import signal
 
@@ -648,7 +648,7 @@ class ProfilesData:
             #the PBL is the maximum of the convolution
             #sets to nan outside of PBL search range
             convolution[0:self._get_index_from_altitude_AGL(zmin):] = np.nan
-            convolution[self._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud])):] = np.nan
+            convolution[self._get_index_from_altitude_AGL(zmax):] = np.nan
             i_pbl = np.nanargmax(abs(convolution))
             
             #calculates SNR
@@ -666,7 +666,7 @@ class ProfilesData:
         dt_s = self._get_resolution('time')
         #number of timestamps to be averaged
         nt_avg = max([1,round(t_avg/dt_s)])
-        rcs = rcs.rolling(time=nt_avg, min_periods=1, center=True).median()
+        rcs_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
 
 
         #if under_clouds, check if clouds_bases is available
@@ -682,9 +682,8 @@ class ProfilesData:
 
         pbl = []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
-            data = rcs.data[i,:]
             lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
-            pbl.append(_detect_pbl_from_rcs(data, zmin, zmax, wav_width, lowest_cloud_agl, min_snr))
+            pbl.append(_detect_pbl_from_rcs(rcs_data[i,:], zmin, np.nanmin([zmax, lowest_cloud_agl]), wav_width, min_snr))
 
          #creates dataarrays
         self.data["pbl"] = xr.DataArray(
@@ -699,6 +698,162 @@ class ProfilesData:
                 time_avg=time_avg,
                 zmin=zmin,
                 zmax=zmax
+            )
+        )
+    
+    def klett_inversion(self, time_avg=1, zmin=4000., zmax=6000., under_clouds=True, method='backward', apriori={'lr': 50.}, verbose=False):
+        """Klett inversion using an apriori.
+
+        Args:
+            time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to 1.
+            zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000.
+            zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000.
+            under_clouds (bool, optional): If True, and if clouds detection have been called before, force the initialization altitude to be found below the first cloud detected in the profile.
+            method (string, optional). 'backward' or 'forward. Defaults to 'forward'.
+            apriori (dict, optional). A Priori value to be used to constrain the inversion. Valid keys: 'lr' (Lidar Ratio, in sr) and 'aod' (unitless). Defaults to {'lr': 50}
+            verbose (bool, optional): verbose mode. Defaults to False.
+        
+        Returns:
+            :class: `ProfilesData object` with additional data array 'ext'.
+        """
+
+        def _iref(data, imin, imax):
+            #function that returns best index to be used for initializing the Klett inversion
+    
+            #it is important to copy the data not to modify it outside of the function
+            import copy
+            data = data.copy()
+
+            if imin<imax:
+                #limit from imin to imax
+                maxdata = np.nanmax(data)
+                data[0:imin] = maxdata
+                data[imax:] = maxdata
+                
+                #running average
+                from scipy.ndimage.filters import uniform_filter1d
+                avg_data = uniform_filter1d(data, size=3)
+
+                #get minimum from the averaged signal
+                ilow = np.nanargmin(avg_data)
+
+                #around minimum, get index of closest signal to average signal
+                n_around_min = 3
+                iclose = np.nanargmin(abs(data[ilow-n_around_min:ilow+n_around_min] - avg_data[ilow-n_around_min:ilow+n_around_min]))
+                
+                return ilow+iclose
+            else:
+                return None
+
+        def klett(data, iref, method, apriori, rayleigh):
+            #returns array of extinction in km-1
+            #rayleigh: aprofiles.rayleigh.Rayleigh object
+
+            if iref!=None:
+                if 'aod' in apriori:
+                    #search by dichotomy the LR that matches the apriori aod
+                    raise NotImplementedError('AOD apriori is not implemented yet')
+                    lr_aer = 50
+                else:
+                    #if we assume the LR, no need to minimize for matching aod 
+                    lr_aer = apriori['lr']
+            
+                import math
+                lr_mol = 8.*math.pi/3.
+                    
+                #calculation
+                if method=='backward':
+                    
+                    #vertical resolution
+                    dz = min(np.diff(rayleigh.altitude))
+
+                    int1_a = np.cumsum((lr_aer-lr_mol)*rayleigh.backscatter[:iref]*dz)
+                    int1_b = [2*int1_a[-1] - 2*int1_a[i] for i in range(iref)]
+                    phi = [np.log(abs(data[i]/data[iref])) + int1_b[i] for i in range(iref)]
+
+                    int2_a = 2*np.nancumsum(lr_aer*np.exp(phi)*dz)
+                    int2_b = [int2_a[-1] - int2_a[i] for i in range(iref)]
+
+                    #initialize total backscatter
+                    back_aer_iref = 0 #m-1
+                    beta_tot_iref = rayleigh.backscatter[iref] + back_aer_iref
+
+                    #total backscatter
+                    beta_tot = [np.exp(phi[i])/((1/beta_tot_iref)+int2_b[i]) for i in range(iref)]
+                    #aerosol backsatter (m-1.sr-1)
+                    beta_aer = beta_tot - rayleigh.backscatter[:iref]
+                    #aerosol extinction (m-1)
+                    sigma_aer=lr_aer*beta_aer
+                    #returns extinction in km-1 when valid, and np.nan elsewhere
+                    ext = [sigma_aer[i]*1e3 if i<len(sigma_aer) else np.nan for i in range(len(data))]
+            else:
+                ext = [np.nan for i in range(len(data))]
+
+            return ext
+
+        #we work on profiles averaged in time to reduce the noise
+        rcs = self.data.attenuated_backscatter_0
+        t_avg = time_avg * 60 #s
+        #time resolution in profiles data
+        dt_s = self._get_resolution('time')
+        #number of timestamps to be averaged
+        nt_avg = max([1,round(t_avg/dt_s)])
+
+        #if clouds detected, set to nan profiles where cloud is found below 4000m
+        lowest_clouds = self._get_lowest_clouds()
+        for i in range(len(self.data.time.data)):
+            if lowest_clouds[i]<=4000:
+                rcs.data[i,:] = [np.nan for _ in rcs.data[i,:]]
+
+        #average profiles
+        rcs_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
+
+
+        #if under_clouds, check if clouds_bases is available
+        if under_clouds and 'clouds_bases' in list(self.data.data_vars):
+            lowest_clouds = self._get_lowest_clouds()
+        elif under_clouds and not 'clouds_bases' in list(self.data.data_vars):
+            import warnings
+            warnings.warn("under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.")
+            lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
+        else:
+            lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
+        
+        #aerosol retrieval requires a molecular profile
+        altitude = self.data.altitude.data
+        wavelength = self.data.l0_wavelength.data
+        rayleigh = apro.rayleigh.Rayleigh(altitude, T0=298, P0=1013, wavelength=wavelength);
+
+        #aerosol inversion
+        ext = []
+        for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
+
+            #reference altitude
+            lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
+            imin = self._get_index_from_altitude_AGL(zmin)
+            imax = self._get_index_from_altitude_AGL(np.min([zmax, lowest_cloud_agl]))
+            iref = _iref(rcs_data[i,:], imin, imax)
+
+            #klett inversion
+            ext.append(klett(rcs_data[i,:], iref, method, apriori, rayleigh))
+
+
+        #creates dataarrays
+        self.data["ext"] = xr.DataArray(
+            data=ext,
+            dims=["time", "altitude"],
+            coords=dict(
+                time=self.data.time.data,
+                altitude=self.data.altitude.data
+            ),
+            attrs=dict(
+                long_name="Extinction Coefficient",
+                method="{} Klett".format(method.capitalize()),
+                units="km-1",
+                time_avg=time_avg,
+                zmin=zmin,
+                zmax=zmax,
+                apriori=apriori
             )
         )
 

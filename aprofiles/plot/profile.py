@@ -144,13 +144,19 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
     if vmin!=None or vmax!=None:
         plt.xlim([vmin, vmax])
 
-    #set title and axis
+    #set title and axis labels
     latitude = da.station_latitude.data
     longitude = da.station_longitude.data
     altitude = da.station_altitude.data
     station_id = da.attrs['site_location']
+    #title
     plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[i_time]).split('.')[0]), weight='bold', fontsize=12)
-    plt.xlabel(da[var].long_name)
+    #labels
+    if 'units' in list(da[var].attrs) and da[var].units!=None:
+        xlabel = '{} ({})'.format(da[var].long_name, da[var].units)
+    else:
+        xlabel = '{}'.format(da[var].long_name)
+    plt.xlabel(xlabel)
     plt.ylabel('Altitude {} (m)'.format(zref.upper()))
 
     #add legend

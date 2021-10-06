@@ -93,9 +93,7 @@ class _ReadL2EPROFILE:
 
 
 def main():
-    #path = "https://dap.ceda.ac.uk/badc/eprofile/data/norway/oslo/met-norway-jenoptick-chm15k-nimbus_A/2021/06/26/L2_0-20000-0-01492_A202106260005.nc"
-    path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
-    #path = "tests/data/test.txt"
+    path = "examples/data/L2_0-20000-001492_A20210909.nc"
     l2_data = ReadProfiles(path).read()
     print(l2_data)
 

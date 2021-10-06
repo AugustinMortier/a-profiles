@@ -144,7 +144,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
     #limit to altitude range
     plt.ylim([zmin,zmax])
 
-    #set title and axis
+    #set title and axis labels
     yyyy = pd.to_datetime(da.time.values[0]).year
     mm = pd.to_datetime(da.time.values[0]).month
     dd = pd.to_datetime(da.time.values[0]).day
@@ -152,7 +152,9 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
     longitude = da.station_longitude.data
     altitude = da.station_altitude.data
     station_id = da.attrs['site_location']
+    #title
     plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
+    #labels
     plt.xlabel('Time')
     plt.ylabel('Altitude {} (m)'.format(zref.upper()))
 
@@ -162,7 +164,12 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
 
     #colorbar
     cbar = plt.colorbar()
-    cbar.set_label(da[var].long_name)
+    #label
+    if 'units' in list(da[var].attrs) and da[var].units!=None:
+        label = '{} ({})'.format(da[var].long_name, da[var].units)
+    else:
+        label = '{}'.format(da[var].long_name)
+    cbar.set_label(label)
 
     plt.tight_layout()
     plt.show()

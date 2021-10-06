@@ -188,6 +188,28 @@ inplace (bool, optional): if True, replace the variable, else use a copy. Defaul
 </dd></dl>
 
 <dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.klett_inversion">
+<code class="sig-name descname">klett_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'backward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.klett_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.klett_inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Klett inversion using an apriori.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to 1.
+zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000.
+zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000.
+under_clouds (bool, optional): If True, and if clouds detection have been called before, force the initialization altitude to be found below the first cloud detected in the profile.
+method (string, optional). ‘backward’ or ‘forward. Defaults to ‘forward’.
+apriori (dict, optional). A Priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to {‘lr’: 50}
+verbose (bool, optional): verbose mode. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">class</dt>
+<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘ext’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.plot">
 <code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">datetime</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot 2D Quicklook</p>
@@ -247,13 +269,13 @@ verbose (bool, optional): Verbose mode. Defaults to False.</p>
 <span id="rayleigh"></span><h3>Rayleigh<a class="headerlink" href="#module-aprofiles.rayleigh" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
 <dt id="aprofiles.rayleigh.Rayleigh">
-<em class="property">class </em><code class="sig-prename descclassname">aprofiles.rayleigh.</code><code class="sig-name descname">Rayleigh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">T0</span><span class="o">=</span><span class="default_value">298</span></em>, <em class="sig-param"><span class="n">P0</span><span class="o">=</span><span class="default_value">1013</span></em>, <em class="sig-param"><span class="n">wavelength</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/rayleigh.html#Rayleigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.rayleigh.Rayleigh" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">aprofiles.rayleigh.</code><code class="sig-name descname">Rayleigh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">wavelength</span></em>, <em class="sig-param"><span class="n">T0</span><span class="o">=</span><span class="default_value">298</span></em>, <em class="sig-param"><span class="n">P0</span><span class="o">=</span><span class="default_value">1013</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/rayleigh.html#Rayleigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.rayleigh.Rayleigh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for computing a standard rayleigh profile (backscatter and extinction)</p>
 <dl class="simple">
-<dt>Attributes:</dt><dd><p>altitude (array): array of altitude to be used to compute rayleigh profile, in m.
+<dt>Attributes:</dt><dd><p>altitude (array): array of altitude ASL to be used to compute the rayleigh profile, in m.
+wavelength (float): Wavelength of the Rayleigh profile to be computed, in nm.
 T0 (float): Temperature at ground level, in K.
-P0 (float): Pressure at ground level, in hPa.
-wavelength (float): Wavelength of the Rayleigh profile to be computed, in nm.</p>
+P0 (float): Pressure at ground level, in hPa.</p>
 </dd>
 </dl>
 </dd></dl>

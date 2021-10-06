@@ -23,7 +23,7 @@ setup(
     url="https://aprofiles.readthedocs.io/",
     author="Augustin Mortier",
     author_email="augustinm@met.no",
-    license="MIT",
+    license="GPL-3.0",
     classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
