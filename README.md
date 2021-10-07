@@ -45,7 +45,6 @@ profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
 
 #Planetary Boundary Layer
 profiles.pbl(zmin=100, zmax=3000, under_clouds=True)
-
 ```
 
 ### Visualization
