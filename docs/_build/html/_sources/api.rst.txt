@@ -3,6 +3,15 @@ API
 
 Documentation of the core API of aprofiles.
 
+Reading Classes
+---------------
+
+ReadProfiles
+^^^^^^^^^^^^
+.. automodule:: aprofiles.reader
+   :members:
+   :undoc-members:
+
 Data Classes
 ------------
 
@@ -18,11 +27,3 @@ Rayleigh
    :members:
    :undoc-members:
 
-Reading Classes
----------------
-
-ReadProfiles
-^^^^^^^^^^^^
-.. automodule:: aprofiles.reader
-   :members:
-   :undoc-members:

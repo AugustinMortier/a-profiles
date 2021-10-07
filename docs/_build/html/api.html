@@ -39,13 +39,13 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reading-classes">Reading Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.reader">ReadProfiles</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#data-classes">Data Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.profilesdata">ProfilesData</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.rayleigh">Rayleigh</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#reading-classes">Reading Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.reader">ReadProfiles</a></li>
 </ul>
 </li>
 </ul>
@@ -79,6 +79,39 @@
   <div class="section" id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
 <p>Documentation of the core API of aprofiles.</p>
+<div class="section" id="reading-classes">
+<h2>Reading Classes<a class="headerlink" href="#reading-classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aprofiles.reader">
+<span id="readprofiles"></span><h3>ReadProfiles<a class="headerlink" href="#module-aprofiles.reader" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="aprofiles.reader.ReadProfiles">
+<em class="property">class </em><code class="sig-prename descclassname">aprofiles.reader.</code><code class="sig-name descname">ReadProfiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#ReadProfiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.ReadProfiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for reading single NetCDF file.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>path (str): path or URL of the file to be read.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="aprofiles.reader.ReadProfiles.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#ReadProfiles.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.ReadProfiles.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method which calls the relevant reading class.</p>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Based on the file name, we call the relevant reading class.</p>
+</dd>
+<dt>Returns:</dt><dd><p>&lt;class ‘aprofiles.Profiles’&gt;: Profiles object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="aprofiles.reader.main">
+<code class="sig-prename descclassname">aprofiles.reader.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
 <div class="section" id="data-classes">
 <h2>Data Classes<a class="headerlink" href="#data-classes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-aprofiles.profilesdata">
@@ -293,39 +326,6 @@ P0 (float): Pressure at ground level, in hPa.</p>
 </dd>
 </dl>
 </dd></dl>
-
-</div>
-</div>
-<div class="section" id="reading-classes">
-<h2>Reading Classes<a class="headerlink" href="#reading-classes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-aprofiles.reader">
-<span id="readprofiles"></span><h3>ReadProfiles<a class="headerlink" href="#module-aprofiles.reader" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
-<dt id="aprofiles.reader.ReadProfiles">
-<em class="property">class </em><code class="sig-prename descclassname">aprofiles.reader.</code><code class="sig-name descname">ReadProfiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#ReadProfiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.ReadProfiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for reading single NetCDF file.</p>
-<dl class="simple">
-<dt>Attributes:</dt><dd><p>path (str): path or URL of the file to be read.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt id="aprofiles.reader.ReadProfiles.read">
-<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#ReadProfiles.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.ReadProfiles.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method which calls the relevant reading class.</p>
-<dl class="simple">
-<dt>Note:</dt><dd><p>Based on the file name, we call the relevant reading class.</p>
-</dd>
-<dt>Returns:</dt><dd><p>&lt;class ‘aprofiles.Profiles’&gt;: Profiles object</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="aprofiles.reader.main">
-<code class="sig-prename descclassname">aprofiles.reader.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 </div>
