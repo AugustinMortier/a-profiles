@@ -148,28 +148,6 @@ verbose (bool, optional): verbose mode. Defaults to False.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="aprofiles.profilesdata.ProfilesData.detect_pbl">
-<code class="sig-name descname">detect_pbl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">100.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">3000.0</span></em>, <em class="sig-param"><span class="n">wav_width</span><span class="o">=</span><span class="default_value">200.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.detect_pbl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.detect_pbl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Detects Planetary Boundary Layer Height between zmin and zmax using convolution with a wavelet.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to 1.
-zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL. Defaults to 100.
-zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to 3000.
-wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to 200.
-under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile.
-min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to 2.
-verbose (bool, optional): verbose mode. Defaults to False.</p>
-</dd>
-<dt>Returns:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">class</dt>
-<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘pbl’.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.extrapolate_below">
 <code class="sig-name descname">extrapolate_below</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cst'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.extrapolate_below"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.extrapolate_below" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
@@ -243,9 +221,31 @@ verbose (bool, optional): verbose mode. Defaults to False.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.pbl">
+<code class="sig-name descname">pbl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">100.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">3000.0</span></em>, <em class="sig-param"><span class="n">wav_width</span><span class="o">=</span><span class="default_value">200.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.pbl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.pbl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects Planetary Boundary Layer Height between zmin and zmax using convolution with a wavelet.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to 1.
+zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL. Defaults to 100.
+zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to 3000.
+wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to 200.
+under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile.
+min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to 2.
+verbose (bool, optional): verbose mode. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">class</dt>
+<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘pbl’.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.plot">
 <code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">datetime</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot 2D Quicklook</p>
+<dd><p>Plotting method. Quicklook or single profile.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to ‘attenuated_backscatter_0’.
 datetime (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to None

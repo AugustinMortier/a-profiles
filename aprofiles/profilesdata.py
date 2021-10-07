@@ -884,7 +884,7 @@ class ProfilesData:
 
 
     def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
-        """Plot 2D Quicklook
+        """Plotting method. Quicklook or single profile.
 
         Args:
             var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to 'attenuated_backscatter_0'.
