@@ -21,13 +21,13 @@ profiles = apro_reader.read()
 profiles.range_correction(var='attenuated_backscatter_0', inplace=True)
 
 #extrapolate lowest layers where random signal is measured
-profiles.extrapolation_lowest_layers(zmin=300, inplace=True)#.plot(log=True, vmin=1e1, vmax=1e5)
+profiles.extrapolate_below(zmin=300, inplace=True)#.plot(log=True, vmin=1e1, vmax=1e5)
 
 #add some gaussian filtering
 profiles.gaussian_filter(var='attenuated_backscatter_0', sigma=0.50, inplace=True)
 
 #detect fog or condensation
-profiles.detect_fog_or_condensation(zmin_cloud=200)
+profiles.foc(zmin_cloud=200)
 
 #detect clouds
 profiles.detect_clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)

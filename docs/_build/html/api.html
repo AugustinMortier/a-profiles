@@ -88,14 +88,8 @@
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.profilesdata.</code><code class="sig-name descname">ProfilesData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class representing profiles data.</p>
 <dl class="py method">
-<dt id="aprofiles.profilesdata.ProfilesData.data">
-<em class="property">property </em><code class="sig-name descname">data</code><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Data attribute (instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="aprofiles.profilesdata.ProfilesData.detect_clouds">
-<code class="sig-name descname">detect_clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.detect_clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.detect_clouds" title="Permalink to this definition">¶</a></dt>
+<dt id="aprofiles.profilesdata.ProfilesData.clouds">
+<code class="sig-name descname">clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.clouds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module for clouds detection.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>time_avg (int, optional): in minutes, the time during which we aggregates the profiles before detecting clouds. Defaults to 1.
@@ -115,24 +109,9 @@ verbose (bool, optional): verbose mode. Defaults to False.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="aprofiles.profilesdata.ProfilesData.detect_fog_or_condensation">
-<code class="sig-name descname">detect_fog_or_condensation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cloud_base'</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">z_snr</span><span class="o">=</span><span class="default_value">2000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">zmin_cloud</span><span class="o">=</span><span class="default_value">200.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.detect_fog_or_condensation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.detect_fog_or_condensation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Detects fog or condensation.
-Adds DataArray to DataSet</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>method (str, optional): Expected values: ‘snr’ or ‘cloud_base’. Defaults to ‘cloud_base’.
-var (str, optional). Used for ‘snr’ method. Variable from ProfilesData to calculate SNR from. Defaults to ‘attenuated_backscatter_0’.
-z_snr (float, optional): Used for ‘snr’ method. Altitude AGL (in m) at which we calculate the SNR.
-min_snr (float, optional): Used for ‘snr’ method. Minimum SNR under which the profile is considered as containing fog or condensation.
-zmin_cloud (float, optional): Used for ‘cloud_base’ method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.</p>
-</dd>
-<dt>Returns:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">class</dt>
-<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘fog_or_condensation’.</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<dt id="aprofiles.profilesdata.ProfilesData.data">
+<em class="property">property </em><code class="sig-name descname">data</code><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data attribute (instance of <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -158,8 +137,8 @@ verbose (bool, optional): verbose mode. Defaults to False.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers">
-<code class="sig-name descname">extrapolation_lowest_layers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cst'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.extrapolation_lowest_layers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.extrapolation_lowest_layers" title="Permalink to this definition">¶</a></dt>
+<dt id="aprofiles.profilesdata.ProfilesData.extrapolate_below">
+<code class="sig-name descname">extrapolate_below</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cst'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.extrapolate_below"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.extrapolate_below" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
 We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.</p>
 <dl class="simple">
@@ -169,6 +148,27 @@ method (str, optional): ‘cst’ or ‘lin’ Method to be used for extrapolati
 inplace (bool, optional): if True, replace the variable. Defaults to False.</p>
 </dd>
 <dt>Returns:</dt><dd><p>ProfilesData object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.foc">
+<code class="sig-name descname">foc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cloud_base'</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">z_snr</span><span class="o">=</span><span class="default_value">2000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">zmin_cloud</span><span class="o">=</span><span class="default_value">200.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.foc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.foc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects fog or condensation.
+Adds DataArray to DataSet</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>method (str, optional): Expected values: ‘snr’ or ‘cloud_base’. Defaults to ‘cloud_base’.
+var (str, optional). Used for ‘snr’ method. Variable from ProfilesData to calculate SNR from. Defaults to ‘attenuated_backscatter_0’.
+z_snr (float, optional): Used for ‘snr’ method. Altitude AGL (in m) at which we calculate the SNR.
+min_snr (float, optional): Used for ‘snr’ method. Minimum SNR under which the profile is considered as containing fog or condensation.
+zmin_cloud (float, optional): Used for ‘cloud_base’ method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">class</dt>
+<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘foc’.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -255,7 +255,7 @@ verbose (bool, optional): Verbose mode. Defaults to False.</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">class</dt>
-<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘fog_or_condensation’.</p>
+<dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘foc’.</p>
 </dd>
 </dl>
 </dd>

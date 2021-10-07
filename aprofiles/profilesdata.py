@@ -88,7 +88,7 @@ class ProfilesData:
             verbose (bool, optional): Verbose mode. Defaults to False.
 
         Returns:
-            :class: `ProfilesData object` with additional data array 'fog_or_condensation'.
+            :class: `ProfilesData object` with additional data array 'foc'.
         """
 
         def _1D_snr(array, step):
@@ -191,7 +191,7 @@ class ProfilesData:
         return new_dataset
 
 
-    def extrapolation_lowest_layers(self, var='attenuated_backscatter_0', zmin=0, method='cst', inplace=False):
+    def extrapolate_below(self, var='attenuated_backscatter_0', zmin=0, method='cst', inplace=False):
         """Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
         We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.
 
@@ -270,7 +270,7 @@ class ProfilesData:
 
 
 
-    def detect_fog_or_condensation(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
+    def foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
         """Detects fog or condensation.
         Adds DataArray to DataSet
 
@@ -282,7 +282,7 @@ class ProfilesData:
             zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.
         
         Returns:
-            :class: `ProfilesData object` with additional data array 'fog_or_condensation'.
+            :class: `ProfilesData object` with additional data array 'foc'.
         """
 
         def _detect_fog_from_cloud_base_height(self, zmin_cloud):
@@ -290,8 +290,8 @@ class ProfilesData:
             #if the base of the first cloud (given by the constructor) is below 
             first_cloud_base_height = self.data.cloud_base_height.data[:,0]
             #condition
-            fog_or_condensation = [True if x<=zmin_cloud else False for x in first_cloud_base_height]
-            return fog_or_condensation
+            foc = [True if x<=zmin_cloud else False for x in first_cloud_base_height]
+            return foc
         
         def _detect_fog_from_snr(self, z_snr, var, min_snr):
             #returns a bool list with True where fog/condensation cases
@@ -312,18 +312,18 @@ class ProfilesData:
             #calculates snr at each timestamp
             snr = [_snr_at_iz(self.data[var].data[i,:], iz_snr, step=4) for i in range(len(self.data.time.data))]
             #condition
-            fog_or_condensation = [True if x<=min_snr else False for x in snr]
-            return fog_or_condensation
+            foc = [True if x<=min_snr else False for x in snr]
+            return foc
 
 
         if method=='cloud_base':
-            fog_or_condensation = _detect_fog_from_cloud_base_height(self, zmin_cloud)
+            foc = _detect_fog_from_cloud_base_height(self, zmin_cloud)
         elif method.upper() == 'SNR':
-            fog_or_condensation = _detect_fog_from_snr(self, z_snr, var, min_snr)
+            foc = _detect_fog_from_snr(self, z_snr, var, min_snr)
 
         #creates dataarray
-        self.data["fog_or_condensation"] = xr.DataArray(
-            data=fog_or_condensation,
+        self.data["foc"] = xr.DataArray(
+            data=foc,
             dims=["time"],
             coords=dict(
                 time=self.data.time.data,
@@ -336,7 +336,7 @@ class ProfilesData:
         return self
     
     
-    def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
+    def clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
         """Module for clouds detection.
 
         Args:
@@ -917,13 +917,13 @@ def _main():
     profiles.gaussian_filter(sigma=0.5, inplace=True)
     profiles.plot(log=True, vmin=1e0, vmax=1e5)
 
-    profiles.extrapolation_lowest_layers(zmin=150, inplace=True)
+    profiles.extrapolate_below(zmin=150, inplace=True)
     #profiles.plot(zmax=12000, vmin=1e1, vmax=1e5, log=True, cmap='viridis')
 
-    profiles.detect_fog_or_condensation(zmin=200)
+    profiles.foc(zmin=200)
     #profiles.quickplot(zmax=12000, vmin=1e1, vmax=1e5, log=True, add_fog=True, cmap='viridis')
 
-    profiles.detect_clouds(verbose=True)
+    profiles.clouds(verbose=True)
 
 if __name__ == '__main__':
     _main()
