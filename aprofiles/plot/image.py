@@ -25,7 +25,7 @@ def _plot_fog(da, zref):
     elif zref.upper()=='ASL':
         altitude = da.altitude.data
 
-    fog_markers = [altitude[0] if x==True else np.nan for x in da.fog_or_condensation.data]
+    fog_markers = [altitude[0] if x==True else np.nan for x in da.foc.data]
     plt.plot([],[],"^m", ms=10, lw=0, label='fog or condensation')
     plt.plot(time, fog_markers,"m", marker=10, ms=10, lw=0)
 

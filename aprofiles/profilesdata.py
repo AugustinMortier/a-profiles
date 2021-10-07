@@ -630,7 +630,7 @@ class ProfilesData:
         )
         return self
 
-    def detect_pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
+    def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
         """Detects Planetary Boundary Layer Height between zmin and zmax using convolution with a wavelet.
 
         Args:
@@ -857,10 +857,10 @@ class ProfilesData:
             lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
             imin = self._get_index_from_altitude_AGL(zmin)
             imax = self._get_index_from_altitude_AGL(np.min([zmax, lowest_cloud_agl]))
-            iref = _iref(rcs_data[i,:], imin, imax)
+            iref = _iref(rcs.data[i,:], imin, imax)
 
             #klett inversion
-            ext.append(klett(rcs_data[i,:], iref, method, apriori, rayleigh))
+            ext.append(klett(rcs.data[i,:], iref, method, apriori, rayleigh))
 
 
         #creates dataarrays
