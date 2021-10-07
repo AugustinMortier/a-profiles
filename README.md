@@ -27,7 +27,7 @@ profiles = apro_reader.read()
 profiles.range_correction(inplace=True)
 
 #extrapolate lowest layers for removing outliers
-profiles.extrapolation_lowest_layers(zmin=300, inplace=True)
+profiles.extrapolate_below(zmin=300, inplace=True)
 
 #image plotting of backscatter signal in log scale
 profiles.plot(var="attenuated_backscatter_0", vmin=1e0, vmax=1e5, log=True)
@@ -38,13 +38,13 @@ profiles.plot(var="attenuated_backscatter_0", vmin=1e0, vmax=1e5, log=True)
 ### Profiles Analysis
 ```
 #Fog/condensation detection
-profiles.detect_fog_or_condensation(zmin_cloud=200) 
+profiles.foc(zmin_cloud=200) 
 
 #Clouds detection
-profiles.detect_clouds(zmin=300, thr_noise=5, thr_clouds=4)
+profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
 
 #Planetary Boundary Layer
-profiles.detect_pbl(zmin=100, zmax=3000, under_clouds=True)
+profiles.pbl(zmin=100, zmax=3000, under_clouds=True)
 
 ```
 
