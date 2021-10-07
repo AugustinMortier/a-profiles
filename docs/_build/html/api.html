@@ -175,11 +175,11 @@ inplace (bool, optional): if True, replace the variable. Defaults to False.</p>
 
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.gaussian_filter">
-<code class="sig-name descname">gaussian_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.gaussian_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.gaussian_filter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method that applies a 2D gaussian filter in order to reduce high frequency noise.</p>
+<code class="sig-name descname">gaussian_filter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sigma</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.gaussian_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.gaussian_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a 2D gaussian filter in order to reduce high frequency noise.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>var (str, optional): variable of the Dataset to be processed. Defaults to ‘attenuated_backscatter_0’.
-sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to 0.
+<dt>Args:</dt><dd><p>sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to 0.
+var (str, optional): variable name of the Dataset to be processed. Defaults to ‘attenuated_backscatter_0’.
 inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.</p>
 </dd>
 <dt>Returns:</dt><dd><p>ProfilesData object</p>
@@ -258,6 +258,20 @@ verbose (bool, optional): Verbose mode. Defaults to False.</p>
 <dd class="field-odd"><p><cite>ProfilesData object</cite> with additional data array ‘fog_or_condensation’.</p>
 </dd>
 </dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.time_avg">
+<code class="sig-name descname">time_avg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">minutes</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.time_avg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.time_avg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rolling meadian on the time dimension.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>minutes (float): Number of minutes to average over.
+var (str, optional): variable of the Dataset to be processed. Defaults to ‘attenuated_backscatter_0’.
+inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.</p>
+</dd>
+<dt>Returns:</dt><dd><p>ProfilesData object</p>
 </dd>
 </dl>
 </dd></dl>

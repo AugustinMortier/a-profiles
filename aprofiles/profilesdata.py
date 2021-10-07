@@ -128,12 +128,12 @@ class ProfilesData:
         return self
 
 
-    def gaussian_filter(self, var='attenuated_backscatter_0', sigma=0.5, inplace=False):
-        """Method that applies a 2D gaussian filter in order to reduce high frequency noise.
+    def gaussian_filter(self, sigma=0.5, var='attenuated_backscatter_0', inplace=False):
+        """Applies a 2D gaussian filter in order to reduce high frequency noise.
 
         Args:
-            var (str, optional): variable of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
             sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to 0.
+            var (str, optional): variable name of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
             inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.
         
         Returns:
@@ -157,6 +157,38 @@ class ProfilesData:
         new_dataset.data[var].attrs['gaussian filter']=sigma
         return new_dataset
 
+        
+    def time_avg(self, minutes, var='attenuated_backscatter_0',  inplace=False):
+        """Rolling meadian on the time dimension.
+
+        Args:
+            minutes (float): Number of minutes to average over.
+            var (str, optional): variable of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
+            inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.
+        
+        Returns:
+            ProfilesData object
+        """
+        rcs = self.data[var].copy()
+        #time conversion from minutes to seconds
+        t_avg = minutes * 60
+        #time resolution in profiles data in seconds
+        dt_s = self._get_resolution('time')
+        #number of timestamps to be to averaged
+        nt_avg = max([1,round(t_avg/dt_s)])
+        #rolling median
+        filtered_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
+
+        if inplace:
+            self.data[var].data = filtered_data
+            new_dataset = self
+        else:
+            copied_dataset = copy.deepcopy(self)
+            copied_dataset.data[var].data = filtered_data
+            new_dataset = copied_dataset
+        #add attribute
+        new_dataset.data[var].attrs['time averaged (minutes)']=minutes
+        return new_dataset
 
 
     def extrapolation_lowest_layers(self, var='attenuated_backscatter_0', zmin=0, method='cst', inplace=False):
@@ -539,17 +571,11 @@ class ProfilesData:
         #    pass
 
         #we work on profiles averaged in time to reduce the noise
-        rcs = self.data.attenuated_backscatter_0
-        t_avg = time_avg * 60 #s
-        #time resolution in profiles data
-        dt_s = self._get_resolution('time')
-        #number of timestamps to be to averaged
-        nt_avg = max([1,round(t_avg/dt_s)])
-        rcs_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
+        rcs = self.time_avg(time_avg, var='attenuated_backscatter_0', inplace=False).data.attenuated_backscatter_0
 
         clouds_bases, clouds_peaks, clouds_tops = [], [], []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
-            clouds = _detect_clouds_from_rcs(rcs_data[i,:], zmin, thr_noise, thr_clouds, min_snr)
+            clouds = _detect_clouds_from_rcs(rcs.data[i,:], zmin, thr_noise, thr_clouds, min_snr)
             
             #store info in 2D array
             clouds_bases.append(clouds['bases'])
@@ -660,13 +686,7 @@ class ProfilesData:
                 return np.nan
         
         #we work on profiles averaged in time to reduce the noise
-        rcs = self.data.attenuated_backscatter_0
-        t_avg = time_avg * 60 #s
-        #time resolution in profiles data
-        dt_s = self._get_resolution('time')
-        #number of timestamps to be averaged
-        nt_avg = max([1,round(t_avg/dt_s)])
-        rcs_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
+        rcs = self.time_avg(time_avg, var='attenuated_backscatter_0', inplace=False).data.attenuated_backscatter_0
 
 
         #if under_clouds, check if clouds_bases is available
@@ -683,7 +703,7 @@ class ProfilesData:
         pbl = []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
             lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
-            pbl.append(_detect_pbl_from_rcs(rcs_data[i,:], zmin, np.nanmin([zmax, lowest_cloud_agl]), wav_width, min_snr))
+            pbl.append(_detect_pbl_from_rcs(rcs.data[i,:], zmin, np.nanmin([zmax, lowest_cloud_agl]), wav_width, min_snr))
 
          #creates dataarrays
         self.data["pbl"] = xr.DataArray(
@@ -790,7 +810,7 @@ class ProfilesData:
                 ext = [np.nan for i in range(len(data))]
 
             return ext
-
+        """
         #we work on profiles averaged in time to reduce the noise
         rcs = self.data.attenuated_backscatter_0
         t_avg = time_avg * 60 #s
@@ -799,15 +819,20 @@ class ProfilesData:
         #number of timestamps to be averaged
         nt_avg = max([1,round(t_avg/dt_s)])
 
+        #average profiles
+        rcs_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
+        """
+        
+        #we work on profiles averaged in time to reduce the noise
+        rcs = self.time_avg(time_avg, var='attenuated_backscatter_0', inplace=False).data.attenuated_backscatter_0
+
+        """
         #if clouds detected, set to nan profiles where cloud is found below 4000m
         lowest_clouds = self._get_lowest_clouds()
         for i in range(len(self.data.time.data)):
             if lowest_clouds[i]<=4000:
                 rcs.data[i,:] = [np.nan for _ in rcs.data[i,:]]
-
-        #average profiles
-        rcs_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
-
+        """
 
         #if under_clouds, check if clouds_bases is available
         if under_clouds and 'clouds_bases' in list(self.data.data_vars):

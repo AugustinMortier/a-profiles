@@ -36,7 +36,7 @@ profiles.detect_clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
 profiles.detect_pbl(zmin=100, zmax=3000, under_clouds=True, verbose=True)
 
 #plot image
-#profiles.plot(zref='agl', show_fog=True, show_clouds=True, show_pbl=True, log=True, vmin=1e1, vmax=1e5)
+profiles.plot(zref='agl', show_fog=True, show_clouds=True, show_pbl=True, log=True, vmin=1e1, vmax=1e5)
 
 #plot single profile
 datetime = np.datetime64('2021-09-09T19:25:00')
