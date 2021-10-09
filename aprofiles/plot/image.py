@@ -86,7 +86,7 @@ def _plot_pbl(da, zref):
     plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
 
 def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
-    """Plot image of profiles.
+    """Plot image of selected variable from  :class: :ref:`ProfilesData` object.
 
     Args:
         - da (xr.DataArray): DataArray.
@@ -120,58 +120,53 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
 
     fig, axs = plt.subplots(1, 1, figsize=(12, 4))
     
-    #if 2 dimensions, plot var agauinst time and altitude
-    if len(list(da[var].dims))==2:
-        #2D array
-        C = np.transpose(da[var].data)
 
-        if log:
-            import matplotlib.colors as colors
-            plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([1e0,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
-        else:
-            plt.pcolormesh(time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading='nearest')
+    #2D array
+    C = np.transpose(da[var].data)
 
-        #add addition information
-        if show_fog:
-            _plot_fog(da, zref)
-        if show_clouds:
-            _plot_clouds(da, zref)
-        if show_pbl:
-            _plot_pbl(da, zref)
-
-        #limit to altitude range
-        plt.ylim([zmin,zmax])
-
-        #set title and axis labels
-        yyyy = pd.to_datetime(da.time.values[0]).year
-        mm = pd.to_datetime(da.time.values[0]).month
-        dd = pd.to_datetime(da.time.values[0]).day
-        latitude = da.station_latitude.data
-        longitude = da.station_longitude.data
-        altitude = da.station_altitude.data
-        station_id = da.attrs['site_location']
-        #title
-        plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
-        #labels
-        plt.xlabel('Time')
-        plt.ylabel('Altitude {} (m)'.format(zref.upper()))
-
-        #add legend
-        if show_fog or show_clouds or show_pbl:
-            plt.legend(loc='upper right')
-
-        #colorbar
-        cbar = plt.colorbar()
-        #label
-        if 'units' in list(da[var].attrs) and da[var].units!=None:
-            label = '{} ({})'.format(da[var].long_name, da[var].units)
-        else:
-            label = '{}'.format(da[var].long_name)
-        cbar.set_label(label)
-    
+    if log:
+        import matplotlib.colors as colors
+        plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([1e0,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
     else:
-        #plot time series
-        plt.plot(time, da[var].data)
+        plt.pcolormesh(time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading='nearest')
+
+    #add addition information
+    if show_fog:
+        _plot_fog(da, zref)
+    if show_clouds:
+        _plot_clouds(da, zref)
+    if show_pbl:
+        _plot_pbl(da, zref)
+
+    #limit to altitude range
+    plt.ylim([zmin,zmax])
+
+    #set title and axis labels
+    yyyy = pd.to_datetime(da.time.values[0]).year
+    mm = pd.to_datetime(da.time.values[0]).month
+    dd = pd.to_datetime(da.time.values[0]).day
+    latitude = da.station_latitude.data
+    longitude = da.station_longitude.data
+    altitude = da.station_altitude.data
+    station_id = da.attrs['site_location']
+    #title
+    plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
+    #labels
+    plt.xlabel('Time')
+    plt.ylabel('Altitude {} (m)'.format(zref.upper()))
+
+    #add legend
+    if show_fog or show_clouds or show_pbl:
+        plt.legend(loc='upper right')
+
+    #colorbar
+    cbar = plt.colorbar()
+    #label
+    if 'units' in list(da[var].attrs) and da[var].units!=None:
+        label = '{} ({})'.format(da[var].long_name, da[var].units)
+    else:
+        label = '{}'.format(da[var].long_name)
+    cbar.set_label(label)
 
     plt.tight_layout()
     plt.show()

@@ -36,3 +36,7 @@ Plotting
 .. automodule:: aprofiles.plot.profile
    :members:
    :undoc-members:
+
+.. automodule:: aprofiles.plot.timeseries
+   :members:
+   :undoc-members:

@@ -110,6 +110,7 @@ class ProfilesData:
         snr = []
         if verbose:
             print('snr')
+        
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
             snr.append(_1D_snr(self.data[var].data[i,:], step))
 
@@ -942,7 +943,7 @@ class ProfilesData:
         )
 
 
-    def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
+    def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm', **kwargs):
         """Plotting method. Quicklook or single profile.
 
         Args:
@@ -962,9 +963,13 @@ class ProfilesData:
 
         #here, check the dimension. If the variable has only the time dimention, calls timeseries method
         if datetime==None:
-            apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds, cmap=cmap)
+            #check dimension of var
+            if len(list(self.data[var].dims))==2:
+                apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds, cmap=cmap)
+            else:
+                apro.plot.timeseries.plot(self.data, var, **kwargs)
         else:
-            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds) 
+            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds)
     
 
 
