@@ -29,13 +29,23 @@ Rayleigh
 
 Plotting
 ------------
+
+Image
+^^^^^^^^^^^^
+
 .. automodule:: aprofiles.plot.image
    :members:
    :undoc-members:
 
+Profile
+^^^^^^^^^^^^
+
 .. automodule:: aprofiles.plot.profile
    :members:
    :undoc-members:
+
+Time Series
+^^^^^^^^^^^^
 
 .. automodule:: aprofiles.plot.timeseries
    :members:

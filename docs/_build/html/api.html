@@ -48,7 +48,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.rayleigh">Rayleigh</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-aprofiles.plot.image">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.plot.image">Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.plot.profile">Profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.plot.timeseries">Time Series</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -376,8 +381,10 @@ P0 (float): Pressure at ground level, in hPa.</p>
 
 </div>
 </div>
+<div class="section" id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-aprofiles.plot.image">
-<span id="plotting"></span><h2>Plotting<a class="headerlink" href="#module-aprofiles.plot.image" title="Permalink to this headline">¶</a></h2>
+<span id="image"></span><h3>Image<a class="headerlink" href="#module-aprofiles.plot.image" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt id="aprofiles.plot.image.plot">
 <code class="sig-prename descclassname">aprofiles.plot.image.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/image.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.image.plot" title="Permalink to this definition">¶</a></dt>
@@ -401,7 +408,10 @@ P0 (float): Pressure at ground level, in hPa.</p>
 </dl>
 </dd></dl>
 
-<span class="target" id="module-aprofiles.plot.profile"></span><dl class="py function">
+</div>
+<div class="section" id="module-aprofiles.plot.profile">
+<span id="profile"></span><h3>Profile<a class="headerlink" href="#module-aprofiles.plot.profile" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
 <dt id="aprofiles.plot.profile.plot">
 <code class="sig-prename descclassname">aprofiles.plot.profile.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">datetime</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/profile.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.profile.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot single profile of selected variable from :class: <a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object.</p>
@@ -424,7 +434,10 @@ P0 (float): Pressure at ground level, in hPa.</p>
 </dl>
 </dd></dl>
 
-<span class="target" id="module-aprofiles.plot.timeseries"></span><dl class="py function">
+</div>
+<div class="section" id="module-aprofiles.plot.timeseries">
+<span id="time-series"></span><h3>Time Series<a class="headerlink" href="#module-aprofiles.plot.timeseries" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
 <dt id="aprofiles.plot.timeseries.plot">
 <code class="sig-prename descclassname">aprofiles.plot.timeseries.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'aod'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/timeseries.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.timeseries.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot time series of selected variable from :class: <a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object.</p>
@@ -435,6 +448,7 @@ var (str, optional): [description]. Defaults to ‘aod’.</p>
 </dl>
 </dd></dl>
 
+</div>
 </div>
 </div>
 
