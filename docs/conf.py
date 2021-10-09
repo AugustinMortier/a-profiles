@@ -30,7 +30,8 @@ author = 'Augustin Mortier'
 extensions = [
     'recommonmark',
     'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode'
+    'sphinx.ext.viewcode',
+    'sphinx.ext.autosectionlabel'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

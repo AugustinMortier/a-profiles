@@ -10,7 +10,7 @@ from aprofiles.profilesdata import ProfilesData
 
 
 class ReadProfiles:
-    """Base class for reading single NetCDF file.
+    """Base class for reading profile data.
 
     Attributes:
         path (str): path or URL of the file to be read.
@@ -26,7 +26,7 @@ class ReadProfiles:
             Based on the file name, we return the relevant reading class.
 
         Returns:
-            <class '__main__._ReadL2EPROFILE'>: reader class
+            :class:`__main__._ReadL2EPROFILE`: reader class
         """
 
         #check if the filename starts with L2
@@ -37,13 +37,23 @@ class ReadProfiles:
             raise NotImplementedError('Only L2 files are supported at the moment')
 
     def read(self):
-        """Method which calls the relevant reading class.
-
-        Note:
-            Based on the file name, we call the relevant reading class.
+        """Method which calls the relevant reading class based on the file name.
 
         Returns:
-            <class 'aprofiles.Profiles'>: Profiles object
+            :class:`aprofiles.Profiles`: Profiles object
+
+        Example:
+
+            >>> #import library
+            >>> import aprofiles as apro
+            
+            >>> #Initialize reading class with file path
+            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+            >>> reader = apro.ReadProfiles(path)
+
+            >>> #calls the read method
+            >>> profiles = reader.read()
+            
         """
         
         #get the right reading class
@@ -92,10 +102,10 @@ class _ReadL2EPROFILE:
         return dataset
 
 
-def main():
+def _main():
     path = "examples/data/L2_0-20000-001492_A20210909.nc"
     l2_data = ReadProfiles(path).read()
     print(l2_data)
 
 if __name__ == '__main__':
-    main()
+    _main()

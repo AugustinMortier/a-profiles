@@ -96,18 +96,18 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
     """Plot image of profiles.
 
     Args:
-        da (xr.DataArray): DataArray.
-        datetime (np.datetime64): time for which we plot the profile.
-        var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
-        zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
-        zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
-        zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
-        vmin (float, optional): Minimum value. Defaults to 0.
-        vmax (float, optional): Maximum value. If None, calculates max from data.
-        log (bool, optional), Use logarithmic scale. Defaults to None.
-        show_fog (bool, optional): Add fog detection. Defaults to False.
-        show_pbl (bool, optional): Add PBL height. Defaults to False.
-        show_clouds (bool, optional): Add clouds detection. Defaults to False.
+        - da (xr.DataArray): DataArray.
+        - datetime (np.datetime64): time for which we plot the profile.
+        - var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
+        - zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
+        - zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
+        - zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
+        - vmin (float, optional): Minimum value. Defaults to 0.
+        - vmax (float, optional): Maximum value. If None, calculates max from data.
+        - log (bool, optional), Use logarithmic scale. Defaults to None.
+        - show_fog (bool, optional): Add fog detection. Defaults to False.
+        - show_pbl (bool, optional): Add PBL height. Defaults to False.
+        - show_clouds (bool, optional): Add clouds detection. Defaults to False.
     """
 
     if datetime==None:

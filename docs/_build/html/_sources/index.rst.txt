@@ -2,8 +2,8 @@ A-Profiles
 ==========
 
 .. toctree::
-   :maxdepth: 1
-   :caption: For users
+   :maxdepth: 2
+   :caption: Documentation
 
    introduction
    installation

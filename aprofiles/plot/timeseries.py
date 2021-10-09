@@ -2,7 +2,7 @@
 
 # @author Augustin Mortier
 # @email augustinm@met.no
-# @desc A-Profiles - Image plot
+# @desc A-Profiles - Time Series plot
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -85,7 +85,7 @@ def _plot_pbl(da, zref):
         pbl = da.pbl.data
     plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
 
-def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
+def plot(da, var='aod', ymin=0, ymax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
     """Plot image of profiles.
 
     Args:

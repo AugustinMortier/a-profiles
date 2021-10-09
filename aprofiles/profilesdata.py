@@ -40,7 +40,7 @@ class ProfilesData:
             altitude (float): in m, altitude AGL to look for
 
         Returns:
-            [int]: Closest index of the vertical dimension to the given altitude AGL
+            int: Closest index of the vertical dimension to the given altitude AGL
         """    
         altitude_asl = altitude + self.data.station_altitude.data
         return np.argmin(abs(self.data.altitude.data-altitude_asl))
@@ -49,10 +49,10 @@ class ProfilesData:
         """Returns the resolution of a given dimension. Support 'altitude' and 'time'. The altitude resolution is given in meters, while the time resolution is given in seconds.
 
         Args:
-            which ([int]): 'altitude' or 'time'
+            which ({'altitude','time'}): Defaults to `'altitude'`.
 
         Returns:
-            [type]: resolution, in m (if which=='altitude') or in s (if which=='time')
+            float: resolution, in m (if which=='altitude') or in s (if which=='time')
         """
         if which == 'altitude':
             return min(np.diff(self.data.altitude.data))
@@ -79,16 +79,18 @@ class ProfilesData:
 
 
     def snr(self, var='attenuated_backscatter_0', step=4, verbose=False):
-        """Method that calculates the SNR. 
-        Note: This calculation is relatively heavy in terms of calculation costs.
+        """Method that calculates the Signal to Noise Ratio. 
 
         Args:
-            var (str, optional): Variable of the DataArray to calculate the SNR from. Defaults to 'attenuated_backscatter_0'.
-            step (int, optional): Number of steps around we calculate the SNR for a given altitude. Defaults to 4.
-            verbose (bool, optional): Verbose mode. Defaults to False.
+            - var (str, optional): Variable of the DataArray to calculate the SNR from. Defaults to 'attenuated_backscatter_0'.
+            - step (int, optional): Number of steps around we calculate the SNR for a given altitude. Defaults to 4.
+            - verbose (bool, optional): Verbose mode. Defaults to `False`.
 
         Returns:
-            :class: `ProfilesData object` with additional data array 'foc'.
+            :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` 'snr'.
+
+        .. note::
+            This calculation is relatively heavy in terms of calculation costs.
         """
 
         def _1D_snr(array, step):
@@ -106,6 +108,8 @@ class ProfilesData:
             return np.asarray(snr)
         
         snr = []
+        if verbose:
+            print('snr')
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
             snr.append(_1D_snr(self.data[var].data[i,:], step))
 
@@ -128,16 +132,16 @@ class ProfilesData:
         return self
 
 
-    def gaussian_filter(self, sigma=0.5, var='attenuated_backscatter_0', inplace=False):
+    def gaussian_filter(self, sigma=0.25, var='attenuated_backscatter_0', inplace=False):
         """Applies a 2D gaussian filter in order to reduce high frequency noise.
 
         Args:
-            sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to 0.
-            var (str, optional): variable name of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
-            inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.
+            - sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to `0.25`.
+            - var (str, optional): variable name of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to `False`.
         
         Returns:
-            ProfilesData object
+            :class: :ref:`ProfilesData` object.
         """
         import copy
 
@@ -162,12 +166,12 @@ class ProfilesData:
         """Rolling meadian on the time dimension.
 
         Args:
-            minutes (float): Number of minutes to average over.
-            var (str, optional): variable of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
-            inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to False.
+            - minutes (float): Number of minutes to average over.
+            - var (str, optional): variable of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to `False`.
         
         Returns:
-            ProfilesData object
+            :class: :ref:`ProfilesData` object.
         """
         rcs = self.data[var].copy()
         #time conversion from minutes to seconds
@@ -196,13 +200,13 @@ class ProfilesData:
         We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.
 
         Args:
-            var (str, optional): variable of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
-            zmin (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to 0.
-            method (str, optional): 'cst' or 'lin' Method to be used for extrapolation of lowest layers. Defaults to 'cst'.
-            inplace (bool, optional): if True, replace the variable. Defaults to False.
+            - var (str, optional): variable of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - zmin (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to `0`.
+            - method ({'cst', 'lin'}, optional): Method to be used for extrapolation of lowest layers. Defaults to `'cst'`.
+            - inplace (bool, optional): if True, replace the variable. Defaults to `False`.
         
         Returns:
-            ProfilesData object
+            :class: :ref:`ProfilesData` object.
         """
 
         #get index of zmin
@@ -241,11 +245,11 @@ class ProfilesData:
         """Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam more unlikely to be detected with the square of the altitude.
 
         Args:
-            var (str, optional): variable of the Dataset to be processed. Defaults to 'attenuated_backscatter_0'.
-            inplace (bool, optional): if True, replace the variable. Defaults to False.
+            - var (str, optional): variable of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - inplace (bool, optional): if True, replace the variable. Defaults to `False`.
         
         Returns:
-            ProfilesData object
+            :class: :ref:`ProfilesData` object.
         """
 
         #for the altitude correction, must one use the altitude above the ground level
@@ -272,17 +276,16 @@ class ProfilesData:
 
     def foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
         """Detects fog or condensation.
-        Adds DataArray to DataSet
 
         Args:
-            method (str, optional): Expected values: 'snr' or 'cloud_base'. Defaults to 'cloud_base'.
-            var (str, optional). Used for 'snr' method. Variable from ProfilesData to calculate SNR from. Defaults to 'attenuated_backscatter_0'.
-            z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR.
-            min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation.
-            zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Note: 200 m seems to give good results.
+            - method ({'cloud_base', 'snr'}, optional): Defaults to `'cloud_base'`.
+            - var (str, optional). Used for 'snr' method. Variable from ProfilesData to calculate SNR from. Defaults to `'attenuated_backscatter_0'`.
+            - z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR. Defaults to `2000.`.
+            - min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation. Defaults to `2.`.
+            - zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Defaults to `200.`.
         
         Returns:
-            :class: `ProfilesData object` with additional data array 'foc'.
+            :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` 'foc'.
         """
 
         def _detect_fog_from_cloud_base_height(self, zmin_cloud):
@@ -340,15 +343,15 @@ class ProfilesData:
         """Module for clouds detection.
 
         Args:
-            time_avg (int, optional): in minutes, the time during which we aggregates the profiles before detecting clouds. Defaults to 1.
-            zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to 0. We recommend using the same value as used in the extrapolation_low_layers method.
-            thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z). Defaults to 5.
-            thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds. Defaults to 4.
-            min_snr (float, optional). Minimum SNR required at the clouds peak value to consider the cloud as valid. Defaults to 0.
-            verbose (bool, optional): verbose mode. Defaults to False.
+            - time_avg (int, optional): in minutes, the time during which we aggregates the profiles before detecting clouds. Defaults to `1`.
+            - zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to `0`. We recommend using the same value as used in the extrapolation_low_layers method.
+            - thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z). Defaults to `5`.
+            - thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds. Defaults to `4`.
+            - min_snr (float, optional). Minimum SNR required at the clouds peak value to consider the cloud as valid. Defaults to `0`.
+            - verbose (bool, optional): verbose mode. Defaults to `False`.
 
         Returns:
-            :class: `ProfilesData object` with additional data arrays 'clouds_bases', 'clouds_peaks', and 'clouds_tops'. 'clouds_bases' correspond to the bases of the clouds. 'clouds_peaks' correspond to the maximum of backscatter signal measured in the clouds. 'clouds_tops' correspond to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
+            :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray`: 'clouds_bases', 'clouds_peaks', and 'clouds_tops'. 'clouds_bases' correspond to the bases of the clouds. 'clouds_peaks' correspond to the maximum of backscatter signal measured in the clouds. 'clouds_tops' correspond to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
         """
 
         def _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds, min_snr):
@@ -573,6 +576,9 @@ class ProfilesData:
         #we work on profiles averaged in time to reduce the noise
         rcs = self.time_avg(time_avg, var='attenuated_backscatter_0', inplace=False).data.attenuated_backscatter_0
 
+        if verbose:
+            print('clouds')
+        
         clouds_bases, clouds_peaks, clouds_tops = [], [], []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
             clouds = _detect_clouds_from_rcs(rcs.data[i,:], zmin, thr_noise, thr_clouds, min_snr)
@@ -634,16 +640,16 @@ class ProfilesData:
         """Detects Planetary Boundary Layer Height between zmin and zmax using convolution with a wavelet.
 
         Args:
-            time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to 1.
-            zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL. Defaults to 100.
-            zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to 3000.
-            wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to 200.
-            under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile.
-            min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to 2.
-            verbose (bool, optional): verbose mode. Defaults to False.
+            - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to `1`.
+            - zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL. Defaults to `100`.
+            - zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to `3000`.
+            - wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to `200`.
+            - under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile. Defaults to `True`.
+            - min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to `2.`.
+            - verbose (bool, optional): verbose mode. Defaults to `False`.
         
         Returns:
-            :class: `ProfilesData object` with additional data array 'pbl'.
+            :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` 'pbl'.
         """        
 
         def _snr_at_iz(array, iz, step):
@@ -699,6 +705,8 @@ class ProfilesData:
         else:
             lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
 
+        if verbose:
+            print('pbl')
 
         pbl = []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
@@ -721,20 +729,21 @@ class ProfilesData:
             )
         )
     
-    def klett_inversion(self, time_avg=1, zmin=4000., zmax=6000., under_clouds=True, method='backward', apriori={'lr': 50.}, verbose=False):
+    def klett_inversion(self, time_avg=1, zmin=4000., zmax=6000., under_clouds=True, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
         """Klett inversion using an apriori.
 
         Args:
-            time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to 1.
-            zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000.
-            zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000.
-            under_clouds (bool, optional): If True, and if clouds detection have been called before, force the initialization altitude to be found below the first cloud detected in the profile.
-            method (string, optional). 'backward' or 'forward. Defaults to 'forward'.
-            apriori (dict, optional). A Priori value to be used to constrain the inversion. Valid keys: 'lr' (Lidar Ratio, in sr) and 'aod' (unitless). Defaults to {'lr': 50}
-            verbose (bool, optional): verbose mode. Defaults to False.
+            - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to `1`.
+            - zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to `4000.`.
+            - zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to `6000.`.
+            - under_clouds (bool, optional): If True, and if clouds detection have been called before, force the initialization altitude to be found below the first cloud detected in the profile. Defaults to `True`.
+            - method ({'backward', 'forward'}, optional). Defaults to `'forward'`.
+            - apriori (dict, optional). A Priori value to be used to constrain the inversion. Valid keys: 'lr' (Lidar Ratio, in sr) and 'aod' (unitless). Defaults to `{'lr': 50}`.
+            - remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation ([>0, <1]). Defaults to `False` (while development. to be changed afterwards).
+            - verbose (bool, optional): verbose mode. Defaults to `False`.
         
         Returns:
-            :class: `ProfilesData object` with additional data array 'ext'.
+            :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` `ext`.
         """
 
         def _iref(data, imin, imax):
@@ -744,6 +753,7 @@ class ProfilesData:
             import copy
             data = data.copy()
 
+            #check if imin below imax
             if imin<imax:
                 #limit from imin to imax
                 maxdata = np.nanmax(data)
@@ -754,14 +764,17 @@ class ProfilesData:
                 from scipy.ndimage.filters import uniform_filter1d
                 avg_data = uniform_filter1d(data, size=3)
 
-                #get minimum from the averaged signal
-                ilow = np.nanargmin(avg_data)
+                if not np.isnan( np.nanmin(avg_data)):
+                    #get minimum from the averaged signal
+                    ilow = np.nanargmin(avg_data)
 
-                #around minimum, get index of closest signal to average signal
-                n_around_min = 3
-                iclose = np.nanargmin(abs(data[ilow-n_around_min:ilow+n_around_min] - avg_data[ilow-n_around_min:ilow+n_around_min]))
-                
-                return ilow+iclose
+                    #around minimum, get index of closest signal to average signal
+                    n_around_min = 3
+                    iclose = np.nanargmin(abs(data[ilow-n_around_min:ilow+n_around_min] - avg_data[ilow-n_around_min:ilow+n_around_min]))
+                    
+                    return ilow+iclose
+                else :
+                    return None
             else:
                 return None
 
@@ -849,18 +862,40 @@ class ProfilesData:
         wavelength = self.data.l0_wavelength.data
         rayleigh = apro.rayleigh.Rayleigh(altitude, T0=298, P0=1013, wavelength=wavelength);
 
+        if verbose:
+            print('klett')
+
         #aerosol inversion
-        ext = []
+        ext, lr, aod = [], [], []
+        aod_min, aod_max = 0, 1
+        vertical_resolution = self._get_resolution('altitude')
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
 
             #reference altitude
             lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
             imin = self._get_index_from_altitude_AGL(zmin)
-            imax = self._get_index_from_altitude_AGL(np.min([zmax, lowest_cloud_agl]))
+            imax = self._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
             iref = _iref(rcs.data[i,:], imin, imax)
 
             #klett inversion
-            ext.append(klett(rcs.data[i,:], iref, method, apriori, rayleigh))
+            _ext = klett(rcs.data[i,:], iref, method, apriori, rayleigh)
+
+            #add aod and lr
+            if 'aod' in apriori:
+                    #search by dichotomy the LR that matches the apriori aod
+                    raise NotImplementedError('AOD apriori is not implemented yet')
+            else:
+                #if we assume the LR, no need to minimize for matching aod
+                _lr = apriori['lr']
+                _aod = np.nancumsum(np.asarray(_ext)*vertical_resolution)[-1]
+                if remove_outliers and _aod<aod_min or remove_outliers and _aod>aod_max:
+                    lr.append(np.nan)
+                    aod.append(np.nan)
+                    ext.append([np.nan for x in _ext])
+                else:
+                    lr.append(_lr)
+                    aod.append(_aod)
+                    ext.append(_ext)
 
 
         #creates dataarrays
@@ -882,24 +917,50 @@ class ProfilesData:
             )
         )
 
+        self.data["aod"] = xr.DataArray(
+            data=aod,
+            dims=["time"],
+            coords=dict(
+                time=self.data.time.data
+            ),
+            attrs=dict(
+                long_name="Aerosol Optical Depth",
+                units=None
+            )
+        )
+
+        self.data["lr"] = xr.DataArray(
+            data=lr,
+            dims=["time"],
+            coords=dict(
+                time=self.data.time.data
+            ),
+            attrs=dict(
+                long_name="Lidar Ratio",
+                units="sr"
+            )
+        )
+
 
     def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
         """Plotting method. Quicklook or single profile.
 
         Args:
-            var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to 'attenuated_backscatter_0'.
-            datetime (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to None
-            zref (str, optional): Reference altitude. Expected values: 'agl' (above ground level) or 'asl' (above ea level). Defaults to 'agl'
-            zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
-            zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
-            vmin (float, optional): Minimum value. Defaults to 0.
-            vmax (float, optional): Maximum value. If None, calculates max from data.
-            log (bool, optional), Use logarithmic scale. Defaults to None.
-            show_fog (bool, optional): Add fog detection. Defaults to False.
-            show_pbl (bool, optional): Add PBL height. Defaults to False.
-            show_clouds (bool, optional): Add clouds detection. Defaults to False.
-            cmap (str, optional): Matplotlib colormap. Defaults to 'coolwarm'.
+            - var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to `'attenuated_backscatter_0'`.
+            - datetime (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to `None`.
+            - zref (str, optional): Reference altitude. Expected values: 'agl' (above ground level) or 'asl' (above ea level). Defaults to 'agl'
+            - zmin (float, optional): Minimum altitude AGL (m). Defaults to `None`. If `None`, sets to minimum available altitude.
+            - zmax (float, optional): Maximum altitude AGL (m). Defaults to `None`. If `None`, sets maximum available altitude.
+            - vmin (float, optional): Minimum value. Defaults to `None`.
+            - vmax (float, optional): Maximum value. Defaults to `None`. If `None`, calculates max from data.
+            - log (bool, optional), Use logarithmic scale. Defaults to `False`.
+            - show_fog (bool, optional): Add fog detection. Defaults to `False`.
+            - show_pbl (bool, optional): Add PBL height. Defaults to `False`.
+            - show_clouds (bool, optional): Add clouds detection. Defaults to `False`.
+            - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'`.
         """
+
+        #here, check the dimension. If the variable has only the time dimention, calls timeseries method
         if datetime==None:
             apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_fog, show_pbl, show_clouds, cmap=cmap)
         else:
@@ -914,7 +975,7 @@ def _main():
     profiles = apro.reader.ReadProfiles(path).read()
     #profiles.quickplot('attenuated_backscatter_0', vmin=0, vmax=1, cmap='viridis')
     profiles.range_correction(inplace=True)
-    profiles.gaussian_filter(sigma=0.5, inplace=True)
+    profiles.gaussian_filter(sigma=0.25, inplace=True)
     profiles.plot(log=True, vmin=1e0, vmax=1e5)
 
     profiles.extrapolate_below(zmin=150, inplace=True)

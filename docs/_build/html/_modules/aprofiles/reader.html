@@ -33,7 +33,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption"><span class="caption-text">For users</span></p>
+              <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
@@ -77,7 +77,7 @@
 
 
 <div class="viewcode-block" id="ReadProfiles"><a class="viewcode-back" href="../../api.html#aprofiles.reader.ReadProfiles">[docs]</a><span class="k">class</span> <span class="nc">ReadProfiles</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Base class for reading single NetCDF file.</span>
+    <span class="sd">&quot;&quot;&quot;Base class for reading profile data.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        path (str): path or URL of the file to be read.</span>
@@ -93,7 +93,7 @@
 <span class="sd">            Based on the file name, we return the relevant reading class.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            &lt;class &#39;__main__._ReadL2EPROFILE&#39;&gt;: reader class</span>
+<span class="sd">            :class:`__main__._ReadL2EPROFILE`: reader class</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1">#check if the filename starts with L2</span>
@@ -104,13 +104,23 @@
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Only L2 files are supported at the moment&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ReadProfiles.read"><a class="viewcode-back" href="../../api.html#aprofiles.reader.ReadProfiles.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Method which calls the relevant reading class.</span>
-
-<span class="sd">        Note:</span>
-<span class="sd">            Based on the file name, we call the relevant reading class.</span>
+        <span class="sd">&quot;&quot;&quot;Method which calls the relevant reading class based on the file name.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            &lt;class &#39;aprofiles.Profiles&#39;&gt;: Profiles object</span>
+<span class="sd">            :class:`aprofiles.Profiles`: Profiles object</span>
+
+<span class="sd">        Example:</span>
+
+<span class="sd">            &gt;&gt;&gt; #import library</span>
+<span class="sd">            &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; #Initialize reading class with file path</span>
+<span class="sd">            &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">            &gt;&gt;&gt; reader = apro.ReadProfiles(path)</span>
+
+<span class="sd">            &gt;&gt;&gt; #calls the read method</span>
+<span class="sd">            &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">            </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="c1">#get the right reading class</span>
@@ -159,13 +169,13 @@
         <span class="k">return</span> <span class="n">dataset</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../api.html#aprofiles.reader.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
     <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
     <span class="n">l2_data</span> <span class="o">=</span> <span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">l2_data</span><span class="p">)</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="n">l2_data</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">main</span><span class="p">()</span>
+    <span class="n">_main</span><span class="p">()</span>
 </pre></div>
 
            </div>

@@ -27,3 +27,12 @@ Rayleigh
    :members:
    :undoc-members:
 
+Plotting
+------------
+.. automodule:: aprofiles.plot.image
+   :members:
+   :undoc-members:
+
+.. automodule:: aprofiles.plot.profile
+   :members:
+   :undoc-members:
