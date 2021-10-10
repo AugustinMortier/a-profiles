@@ -85,7 +85,7 @@ def _plot_pbl(da, zref):
         pbl = da.pbl.data
     plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
 
-def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=0, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
+def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
     """Plot image of selected variable from  :class: :ref:`ProfilesData` object.
 
     Args:
@@ -94,7 +94,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
         - zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
         - zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
         - zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
-        - vmin (float, optional): Minimum value. Defaults to 0.
+        - vmin (float, optional): Minimum value. Defaults to None.
         - vmax (float, optional): Maximum value. If None, calculates max from data.
         - log (bool, optional), Use logarithmic scale. Defaults to None.
         - show_fog (bool, optional): Add fog detection. Defaults to False.
@@ -126,7 +126,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
 
     if log:
         import matplotlib.colors as colors
-        plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([1e0,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
+        plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([0,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
     else:
         plt.pcolormesh(time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading='nearest')
 
@@ -163,9 +163,9 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
     cbar = plt.colorbar()
     #label
     if 'units' in list(da[var].attrs) and da[var].units!=None:
-        label = '{} ({})'.format(da[var].long_name, da[var].units)
+        label = '{} ({})'.format(da[var].long_name.replace('wavelength 0',str(da.l0_wavelength.data)), da[var].units)
     else:
-        label = '{}'.format(da[var].long_name)
+        label = '{}'.format(da[var].long_name.replace('wavelength 0',str(da.l0_wavelength.data)))
     cbar.set_label(label)
 
     plt.tight_layout()

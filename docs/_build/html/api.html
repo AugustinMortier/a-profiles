@@ -228,13 +228,14 @@ We recommend to use a value of zmin=150m due to random values often found below 
 
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.klett_inversion">
-<code class="sig-name descname">klett_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'backward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.klett_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.klett_inversion" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">klett_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'backward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.klett_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.klett_inversion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Klett inversion using an apriori.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to <cite>1</cite>.</p></li>
 <li><p>zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to <cite>4000.</cite>.</p></li>
 <li><p>zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to <cite>6000.</cite>.</p></li>
+<li><p>min_snr (float, optional). Minimum SNR required at the reference altitude to be valid. Defaults to <cite>0</cite>.</p></li>
 <li><p>under_clouds (bool, optional): If True, and if clouds detection have been called before, force the initialization altitude to be found below the first cloud detected in the profile. Defaults to <cite>True</cite>.</p></li>
 <li><p>method ({‘backward’, ‘forward’}, optional). Defaults to <cite>‘forward’</cite>.</p></li>
 <li><p>apriori (dict, optional). A Priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to <cite>{‘lr’: 50}</cite>.</p></li>
@@ -272,6 +273,8 @@ We recommend to use a value of zmin=150m due to random values often found below 
 </dd>
 </dl>
 </dd>
+<dt>Todo:</dt><dd><p>for now, returns strongets gradient. Must return the highest negative gradient!</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -301,7 +304,7 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.range_correction">
 <code class="sig-name descname">range_correction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.range_correction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.range_correction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam more unlikely to be detected with the square of the altitude.</p>
+<dd><p>Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam is more unlikely to be detected with the square of the altitude.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>var (str, optional): variable of the Dataset to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
@@ -315,6 +318,10 @@ We recommend to use a value of zmin=150m due to random values often found below 
 </dl>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure that the range correction is not already applied to the selected variable.</p>
+</div>
 </dd></dl>
 
 <dl class="py method">
@@ -387,7 +394,7 @@ P0 (float): Pressure at ground level, in hPa.</p>
 <span id="image"></span><h3>Image<a class="headerlink" href="#module-aprofiles.plot.image" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt id="aprofiles.plot.image.plot">
-<code class="sig-prename descclassname">aprofiles.plot.image.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/image.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.image.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">aprofiles.plot.image.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/image.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.image.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot image of selected variable from  :class: <a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
@@ -396,7 +403,7 @@ P0 (float): Pressure at ground level, in hPa.</p>
 <li><p>zref (str,optional): Base for altitude. Expected values: ‘agl’ (above ground level) or ‘asl’ (above sea level). Defaults to ‘agl’.</p></li>
 <li><p>zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.</p></li>
 <li><p>zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.</p></li>
-<li><p>vmin (float, optional): Minimum value. Defaults to 0.</p></li>
+<li><p>vmin (float, optional): Minimum value. Defaults to None.</p></li>
 <li><p>vmax (float, optional): Maximum value. If None, calculates max from data.</p></li>
 <li><p>log (bool, optional), Use logarithmic scale. Defaults to None.</p></li>
 <li><p>show_fog (bool, optional): Add fog detection. Defaults to False.</p></li>

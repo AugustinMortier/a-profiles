@@ -243,7 +243,7 @@ class ProfilesData:
 
     
     def range_correction(self, var='attenuated_backscatter_0', inplace=False):
-        """Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam more unlikely to be detected with the square of the altitude.
+        """Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam is more unlikely to be detected with the square of the altitude.
 
         Args:
             - var (str, optional): variable of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
@@ -251,6 +251,9 @@ class ProfilesData:
         
         Returns:
             :class: :ref:`ProfilesData` object.
+        
+        .. warning::
+            Make sure that the range correction is not already applied to the selected variable.
         """
 
         #for the altitude correction, must one use the altitude above the ground level
@@ -514,7 +517,7 @@ class ProfilesData:
             #10. check snr at peak levels
             remove_bases, remove_peaks, remove_tops = [], [], []
             for i in range(len(i_peaks)):
-                if _snr_at_iz(data, i_peaks[i], step=4)<=min_snr:
+                if _snr_at_iz(data, i_peaks[i], step=4)<min_snr:
                     remove_bases.append(i_bases[i])
                     remove_peaks.append(i_peaks[i])
                     remove_tops.append(i_tops[i])
@@ -574,12 +577,12 @@ class ProfilesData:
         #    print('The range correction has not been applied to the backscatter profiles')
         #    pass
 
-        #we work on profiles averaged in time to reduce the noise
-        rcs = self.time_avg(time_avg, var='attenuated_backscatter_0', inplace=False).data.attenuated_backscatter_0
-
         if verbose:
             print('clouds')
-        
+
+        #we work on profiles averaged in time to reduce the noise
+        rcs = self.time_avg(time_avg, var='attenuated_backscatter_0').data.attenuated_backscatter_0
+
         clouds_bases, clouds_peaks, clouds_tops = [], [], []
         for i in (tqdm(range(len(self.data.time.data))) if verbose else range(len(self.data.time.data))):
             clouds = _detect_clouds_from_rcs(rcs.data[i,:], zmin, thr_noise, thr_clouds, min_snr)
@@ -651,6 +654,9 @@ class ProfilesData:
         
         Returns:
             :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` 'pbl'.
+        
+        Todo:
+            for now, returns strongets gradient. Must return the highest negative gradient!
         """        
 
         def _snr_at_iz(array, iz, step):
@@ -683,6 +689,8 @@ class ProfilesData:
             convolution[0:self._get_index_from_altitude_AGL(zmin):] = np.nan
             convolution[self._get_index_from_altitude_AGL(zmax):] = np.nan
             i_pbl = np.nanargmax(abs(convolution))
+            #i_pbl = np.nanargmin(convolution)
+            
             
             #calculates SNR
             snr =  _snr_at_iz(data, i_pbl, step=4)
@@ -730,13 +738,14 @@ class ProfilesData:
             )
         )
     
-    def klett_inversion(self, time_avg=1, zmin=4000., zmax=6000., under_clouds=True, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
+    def klett_inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=True, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
         """Klett inversion using an apriori.
 
         Args:
             - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to `1`.
             - zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to `4000.`.
             - zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to `6000.`.
+            - min_snr (float, optional). Minimum SNR required at the reference altitude to be valid. Defaults to `0`.
             - under_clouds (bool, optional): If True, and if clouds detection have been called before, force the initialization altitude to be found below the first cloud detected in the profile. Defaults to `True`.
             - method ({'backward', 'forward'}, optional). Defaults to `'forward'`.
             - apriori (dict, optional). A Priori value to be used to constrain the inversion. Valid keys: 'lr' (Lidar Ratio, in sr) and 'aod' (unitless). Defaults to `{'lr': 50}`.
@@ -747,8 +756,19 @@ class ProfilesData:
             :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` `ext`.
         """
 
-        def _iref(data, imin, imax):
+        def _iref(data, imin, imax, min_snr):
             #function that returns best index to be used for initializing the Klett inversion
+
+            def _snr_at_iz(array, iz, step):
+                #calculates the snr from array at iz around step points
+                gates = np.arange(iz-step,iz+step)
+                indexes = [i for i in gates if i>0 and i<len(array)]
+                mean = np.nanmean(array[indexes])
+                std = np.nanstd(array[indexes], ddof=0)
+                if std!=0:
+                    return mean/std
+                else:
+                    return 0
     
             #it is important to copy the data not to modify it outside of the function
             import copy
@@ -772,8 +792,11 @@ class ProfilesData:
                     #around minimum, get index of closest signal to average signal
                     n_around_min = 3
                     iclose = np.nanargmin(abs(data[ilow-n_around_min:ilow+n_around_min] - avg_data[ilow-n_around_min:ilow+n_around_min]))
-                    
-                    return ilow+iclose
+
+                    if _snr_at_iz(data, iclose, step=4)<min_snr:
+                        return None
+                    else:
+                        return ilow+iclose
                 else :
                     return None
             else:
@@ -876,7 +899,7 @@ class ProfilesData:
             lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
             imin = self._get_index_from_altitude_AGL(zmin)
             imax = self._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
-            iref = _iref(rcs.data[i,:], imin, imax)
+            iref = _iref(rcs.data[i,:], imin, imax, min_snr)
 
             #klett inversion
             _ext = klett(rcs.data[i,:], iref, method, apriori, rayleigh)
@@ -908,7 +931,7 @@ class ProfilesData:
                 altitude=self.data.altitude.data
             ),
             attrs=dict(
-                long_name="Extinction Coefficient",
+                long_name="Extinction Coefficient at {}".format(wavelength),
                 method="{} Klett".format(method.capitalize()),
                 units="km-1",
                 time_avg=time_avg,

@@ -153,9 +153,9 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
     plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}'.format(station_id, latitude, longitude, altitude, np.datetime_as_string(da_time[i_time]).split('.')[0]), weight='bold', fontsize=12)
     #labels
     if 'units' in list(da[var].attrs) and da[var].units!=None:
-        xlabel = '{} ({})'.format(da[var].long_name, da[var].units)
+        xlabel = '{} ({})'.format(da[var].long_name.replace('wavelength 0',str(da.l0_wavelength.data)), da[var].units)
     else:
-        xlabel = '{}'.format(da[var].long_name)
+        xlabel = '{}'.format(da[var].long_name.replace('wavelength 0',str(da.l0_wavelength.data)))
     plt.xlabel(xlabel)
     plt.ylabel('Altitude {} (m)'.format(zref.upper()))
 
