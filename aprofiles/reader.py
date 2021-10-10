@@ -99,6 +99,9 @@ class _ReadL2EPROFILE:
     def read_file(self):
         self.check_path()
         dataset = xr.open_dataset(self.path)
+        #replace wavelength with actual value in attenuated backscatter longname
+        dataset.attenuated_backscatter_0.attrs['long_name'] = dataset.attenuated_backscatter_0.long_name.replace('wavelength 0','{} nm'.format(int(dataset.l0_wavelength.data)))
+
         return dataset
 
 

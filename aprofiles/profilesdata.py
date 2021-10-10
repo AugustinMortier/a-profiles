@@ -931,7 +931,7 @@ class ProfilesData:
                 altitude=self.data.altitude.data
             ),
             attrs=dict(
-                long_name="Extinction Coefficient at {}".format(wavelength),
+                long_name="Extinction Coefficient at {} nm".format(int(wavelength)),
                 method="{} Klett".format(method.capitalize()),
                 units="km-1",
                 time_avg=time_avg,

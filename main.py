@@ -38,8 +38,8 @@ datetime = np.datetime64('2021-09-09T19:25:00')
 profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_fog=True, show_clouds=True, show_pbl=True)
 
 #klett inversion
-profiles.klett_inversion(zmin=4000, zmax=6000, remove_outliers=False, verbose=True)
-profiles.plot(var='ext', zmax=8000, vmax=5e-2)
+#profiles.klett_inversion(zmin=4000, zmax=6000, remove_outliers=False, verbose=True)
+#profiles.plot(var='ext', zmax=8000, vmax=5e-2)
 
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data

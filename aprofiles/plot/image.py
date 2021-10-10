@@ -163,9 +163,9 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
     cbar = plt.colorbar()
     #label
     if 'units' in list(da[var].attrs) and da[var].units!=None:
-        label = '{} ({})'.format(da[var].long_name.replace('wavelength 0',str(da.l0_wavelength.data)), da[var].units)
+        label = '{} ({})'.format(da[var].long_name, da[var].units)
     else:
-        label = '{}'.format(da[var].long_name.replace('wavelength 0',str(da.l0_wavelength.data)))
+        label = '{}'.format(da[var].long_name)
     cbar.set_label(label)
 
     plt.tight_layout()
