@@ -335,7 +335,7 @@ class ProfilesData:
         """Aerosol inversion using an apriori.
         See :ref:`Aerosols Profiles`.
         """
-        apro.inversion.aerosol.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
+        apro.inversion.aerosols.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         
         
         
