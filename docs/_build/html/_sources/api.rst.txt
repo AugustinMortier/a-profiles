@@ -8,7 +8,7 @@ Reading Classes
 
 ReadProfiles
 ^^^^^^^^^^^^
-.. automodule:: aprofiles.reader
+.. automodule:: aprofiles.io.reader
    :members:
    :undoc-members:
 

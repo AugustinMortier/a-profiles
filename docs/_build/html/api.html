@@ -40,7 +40,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#reading-classes">Reading Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.reader">ReadProfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.io.reader">ReadProfiles</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#data-classes">Data Classes</a><ul>
@@ -97,8 +97,42 @@
 <p>Documentation of the core API of aprofiles.</p>
 <div class="section" id="reading-classes">
 <h2>Reading Classes<a class="headerlink" href="#reading-classes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-aprofiles.reader">
-<span id="readprofiles"></span><h3>ReadProfiles<a class="headerlink" href="#module-aprofiles.reader" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-aprofiles.io.reader">
+<span id="readprofiles"></span><h3>ReadProfiles<a class="headerlink" href="#module-aprofiles.io.reader" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="aprofiles.io.reader.ReadProfiles">
+<em class="property">class </em><code class="sig-prename descclassname">aprofiles.io.reader.</code><code class="sig-name descname">ReadProfiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/io/reader.html#ReadProfiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.io.reader.ReadProfiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for reading profile data.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>path (str): path or URL of the file to be read.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="aprofiles.io.reader.ReadProfiles.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/io/reader.html#ReadProfiles.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.io.reader.ReadProfiles.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method which calls the relevant reading class based on the file name.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.Profiles</span></code>: Profiles object</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#import library</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#Initialize reading class with file path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#calls the read method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="data-classes">
@@ -108,7 +142,7 @@
 <dl class="py class">
 <dt id="aprofiles.profilesdata.ProfilesData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.profilesdata.</code><code class="sig-name descname">ProfilesData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class representing profiles data returned by <a class="reference internal" href="#module-aprofiles.reader"><span class="std std-ref">ReadProfiles</span></a>.</p>
+<dd><p>Base class representing profiles data returned by <a class="reference internal" href="#module-aprofiles.io.reader"><span class="std std-ref">ReadProfiles</span></a>.</p>
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.clouds">
 <code class="sig-name descname">clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.clouds" title="Permalink to this definition">¶</a></dt>
