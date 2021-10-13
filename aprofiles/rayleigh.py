@@ -133,7 +133,7 @@ def _main():
     altitude = profiles.data.altitude.data
     wavelength = profiles.data.l0_wavelength.data
 
-    rayleigh = Rayleigh(altitude,wavelength);
+    rayleigh = RayleighData(altitude,wavelength);
 
     #plot
     fig, ax = plt.subplots(1, 1, figsize=(6, 6))
