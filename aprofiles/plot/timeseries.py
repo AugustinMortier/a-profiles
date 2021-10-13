@@ -57,3 +57,6 @@ def plot(da, var='aod', **kwargs):
     else:
         ylabel = '{}'.format(da[var].long_name)
     plt.ylabel(ylabel)
+
+    plt.tight_layout()
+    plt.show()

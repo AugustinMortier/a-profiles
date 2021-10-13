@@ -66,16 +66,14 @@ class ReadProfiles:
 class _ReadL2EPROFILE:
     """Read Level 2 data E-PROFILE single NetCDF file.
     
-    Note:
-        This function can also fetch data from the E-PROFILE hub:
-        https://data.ceda.ac.uk/badc/eprofile/data/
+    Data:
         https://data.ceda.ac.uk/badc/eprofile/data/daily_files/
 
     Attributes:
         path (str): The path of the file to be read (path or URL).
 
     Returns:
-        <class 'xarray.Dataset'>
+        <:class: `xarray.Dataset`>
     """
 
     def __init__(self, path):
@@ -101,6 +99,7 @@ class _ReadL2EPROFILE:
         dataset = xr.open_dataset(self.path)
         #replace wavelength with actual value in attenuated backscatter longname
         dataset.attenuated_backscatter_0.attrs['long_name'] = dataset.attenuated_backscatter_0.long_name.replace('wavelength 0','{} nm'.format(int(dataset.l0_wavelength.data)))
+        dataset.attenuated_backscatter_0.attrs['units'] = dataset.attenuated_backscatter_0.attrs['units'].replace('1E-6*1/(m*sr)', ('E-6 m-1.sr-1'))
 
         return dataset
 

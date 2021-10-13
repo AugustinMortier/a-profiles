@@ -1,8 +1,7 @@
 # Some scripts to be run when aprofiles is loaded
 
-# This line of code will allow shorter imports
-from . import reader
-from . import profilesdata
-from . import rayleigh
-from .plot import image
-from .plot import profile
+from . import profilesdata, rayleigh
+from .detection import clouds, foc, pbl
+from .inversion import aerosol, ref_altitude
+from .io import reader
+from .plot import image, profile

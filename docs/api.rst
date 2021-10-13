@@ -27,6 +27,27 @@ Rayleigh
    :members:
    :undoc-members:
 
+Detection
+------------
+
+Fog or Condensation
+^^^^^^^^^^^^^^^^^^^
+.. automodule:: aprofiles.detection.foc
+   :members:
+   :undoc-members:
+
+Clouds
+^^^^^^
+.. automodule:: aprofiles.detection.clouds
+   :members:
+   :undoc-members:
+
+Planetary Boundary Layer
+^^^^^^^^^^^^^^^^^^^^^^^^
+.. automodule:: aprofiles.detection.pbl
+   :members:
+   :undoc-members:
+
 Plotting
 ------------
 

@@ -7,7 +7,7 @@
 import numpy as np
 import math
 
-class Rayleigh:
+class RayleighData:
     """Class for computing a standard rayleigh profile (backscatter and extinction)
 
     Attributes:

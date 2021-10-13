@@ -11,11 +11,11 @@ import seaborn as sns
 sns.set_theme()
 
 
-def _plot_fog(da, time, zref):
-    """Plot fog at the bottom of the image
+def _plot_foc(da, time, zref):
+    """Plot foc at the bottom of the image
     Args:
         da ([type]): [description]
-        time ([type]): time for which to plot the fog
+        time ([type]): time for which to plot the foc
     """
     #time
     da_time = da.time.data
@@ -26,10 +26,10 @@ def _plot_fog(da, time, zref):
     elif zref.upper()=='ASL':
         altitude = da.altitude.data
 
-    fog_markers = [altitude[0] if x==True else np.nan for x in da.foc.data]
-    if not np.isnan(fog_markers[i_time]):
-        plt.plot([],[],"^m", ms=10, lw=0, label='fog or condensation')
-        plt.plot(0, fog_markers[i_time],"m", marker=10, ms=10, lw=0)
+    foc_markers = [altitude[0] if x==True else np.nan for x in da.foc.data]
+    if not np.isnan(foc_markers[i_time]):
+        plt.plot([],[],"^m", ms=10, lw=0, label='foc or condensation')
+        plt.plot(0, foc_markers[i_time],"m", marker=10, ms=10, lw=0)
 
 def _plot_clouds(da, time, var, zref):
     """Plot clouds layers
@@ -76,23 +76,24 @@ def _plot_pbl(da, time, var, zref):
         da ([type]): [description]
         time ([type]): time for which to plot the clouds
     """
+
     #time
     da_time = da.time.data
     i_time = np.argmin(abs(da_time-time))
     #altitude
     if zref.upper()=='AGL':
-        pbl = da.pbl.data - da.station_altitude.data
+        altitude = da.altitude.data - da.station_altitude.data
     elif zref.upper()=='ASL':
-        pbl = da.pbl.data
+        altitude = da.altitude.data
     
     #get index of pbl
-    i_pbl = np.argmin(abs(da.altitude.data-pbl[i_time]))
+    i_pbl = np.argmin(abs(da.altitude.data-da.pbl.data[i_time]))
 
     #plot pbl
-    plt.plot(da[var].data[i_time,i_pbl], pbl[i_time], 'gX', label='PBL')
+    plt.plot(da[var].data[i_time,i_pbl], altitude[i_pbl], 'gX', label='PBL')
 
 
-def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax= None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False):
+def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax= None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False):
     """Plot single profile of selected variable from :class: :ref:`ProfilesData` object.
 
     Args:
@@ -105,7 +106,7 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
         - vmin (float, optional): Minimum value. Defaults to 0.
         - vmax (float, optional): Maximum value. If None, calculates max from data.
         - log (bool, optional), Use logarithmic scale. Defaults to None.
-        - show_fog (bool, optional): Add fog detection. Defaults to False.
+        - show_foc (bool, optional): Add foc detection. Defaults to False.
         - show_pbl (bool, optional): Add PBL height. Defaults to False.
         - show_clouds (bool, optional): Add clouds detection. Defaults to False.
     """
@@ -131,8 +132,8 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
         axs.set_xscale('log')
 
     #add addition information
-    if show_fog:
-        _plot_fog(da, da_time[i_time], zref)
+    if show_foc:
+        _plot_foc(da, da_time[i_time], zref)
     if show_clouds:
         _plot_clouds(da, da_time[i_time], var, zref)
     if show_pbl:
@@ -160,7 +161,7 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
     plt.ylabel('Altitude {} (m)'.format(zref.upper()))
 
     #add legend
-    if show_fog or show_clouds or show_pbl:
+    if show_foc or show_clouds or show_pbl:
         plt.legend(loc='upper right')
 
     plt.tight_layout()

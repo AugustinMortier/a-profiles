@@ -12,8 +12,8 @@ import seaborn as sns
 sns.set_theme()
 
 
-def _plot_fog(da, zref):
-    """Plot fog at the bottom of the image
+def _plot_foc(da, zref):
+    """Plot foc at the bottom of the image
     Args:
         da ([type]): [description]
     """
@@ -25,9 +25,15 @@ def _plot_fog(da, zref):
     elif zref.upper()=='ASL':
         altitude = da.altitude.data
 
-    fog_markers = [altitude[0] if x==True else np.nan for x in da.foc.data]
-    plt.plot([],[],"^m", ms=10, lw=0, label='fog or condensation')
-    plt.plot(time, fog_markers,"m", marker=10, ms=10, lw=0)
+    foc_markers = [altitude[0] if x==True else np.nan for x in da.foc.data]
+
+    #plot line from peak to base
+    for i, _ in enumerate(foc_markers):
+        if foc_markers[i] is not np.nan:
+            plt.plot([time[i],time[i]], [altitude[0],altitude[-1]], 'm-', color='gray', lw=2., alpha=0.2)
+    #plot markers
+    plt.plot([],[],"^m", ms=10, lw=0, label='foc or condensation')
+    plt.plot(time, foc_markers,"m", marker=10, ms=10, lw=0)
 
 def _plot_clouds(da, zref):
     """Plot clouds as markers.
@@ -47,18 +53,25 @@ def _plot_clouds(da, zref):
         b_indexes = [i for i, x in enumerate(da.clouds_bases[i,:].data) if x]
         p_indexes = [i for i, x in enumerate(da.clouds_peaks[i,:].data) if x]
         t_indexes = [i for i, x in enumerate(da.clouds_tops[i,:].data) if x]
-        """
+        
         #plot line from base to peak
         for j, _ in enumerate(b_indexes):
             y = altitude[b_indexes[j]:p_indexes[j]]
             x = [time[i] for _ in y]
-            plt.plot(x, y, 'w-', lw=1.75, alpha=0.9)
+            plt.plot(x, y, 'w-', color='white', lw=2., alpha=0.2)
 
         #plot line from peak to base
         for j, _ in enumerate(b_indexes):
             y = altitude[p_indexes[j]:t_indexes[j]]
             x = [time[i] for _ in y]
-            plt.plot(x, y, 'w-', lw=1.75, alpha=0.9)
+            plt.plot(x, y, 'w-', color='white', lw=2., alpha=0.2)
+        
+        """
+        #plot line from base to top
+        for j, _ in enumerate(b_indexes):
+            y = altitude[b_indexes[j]:t_indexes[j]]
+            x = [time[i] for _ in y]
+            plt.plot(x, y, 'w-', lw=2, alpha=0.9)
         """
         #plot markers
         t = [time[i] for _ in b_indexes]
@@ -85,7 +98,7 @@ def _plot_pbl(da, zref):
         pbl = da.pbl.data
     plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
 
-def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_fog=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
+def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
     """Plot image of selected variable from  :class: :ref:`ProfilesData` object.
 
     Args:
@@ -97,7 +110,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
         - vmin (float, optional): Minimum value. Defaults to None.
         - vmax (float, optional): Maximum value. If None, calculates max from data.
         - log (bool, optional), Use logarithmic scale. Defaults to None.
-        - show_fog (bool, optional): Add fog detection. Defaults to False.
+        - show_foc (bool, optional): Add foc detection. Defaults to False.
         - show_pbl (bool, optional): Add PBL height. Defaults to False.
         - show_clouds (bool, optional): Add clouds detection. Defaults to False.
         - cmap (str, optional): Matplotlib colormap. Defaults to 'coolwarm' cmap from seaborn.
@@ -131,8 +144,8 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
         plt.pcolormesh(time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading='nearest')
 
     #add addition information
-    if show_fog:
-        _plot_fog(da, zref)
+    if show_foc:
+        _plot_foc(da, zref)
     if show_clouds:
         _plot_clouds(da, zref)
     if show_pbl:
@@ -156,7 +169,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
     plt.ylabel('Altitude {} (m)'.format(zref.upper()))
 
     #add legend
-    if show_fog or show_clouds or show_pbl:
+    if show_foc or show_clouds or show_pbl:
         plt.legend(loc='upper right')
 
     #colorbar
