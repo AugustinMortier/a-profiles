@@ -68,6 +68,7 @@
 <span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 <div class="viewcode-block" id="detect_foc"><a class="viewcode-back" href="../../../api.html#aprofiles.detection.foc.detect_foc">[docs]</a><span class="k">def</span> <span class="nf">detect_foc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cloud_base&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Detects fog or condensation.</span>

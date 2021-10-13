@@ -78,11 +78,11 @@
 <span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">_plot_fog</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">zref</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot fog at the bottom of the image</span>
+<span class="k">def</span> <span class="nf">_plot_foc</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">zref</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot foc at the bottom of the image</span>
 <span class="sd">    Args:</span>
 <span class="sd">        da ([type]): [description]</span>
-<span class="sd">        time ([type]): time for which to plot the fog</span>
+<span class="sd">        time ([type]): time for which to plot the foc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#time</span>
     <span class="n">da_time</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span>
@@ -93,10 +93,10 @@
     <span class="k">elif</span> <span class="n">zref</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;ASL&#39;</span><span class="p">:</span>
         <span class="n">altitude</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span>
 
-    <span class="n">fog_markers</span> <span class="o">=</span> <span class="p">[</span><span class="n">altitude</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="kc">True</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">foc</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">fog_markers</span><span class="p">[</span><span class="n">i_time</span><span class="p">]):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([],[],</span><span class="s2">&quot;^m&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;fog or condensation&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fog_markers</span><span class="p">[</span><span class="n">i_time</span><span class="p">],</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">foc_markers</span> <span class="o">=</span> <span class="p">[</span><span class="n">altitude</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="kc">True</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">da</span><span class="o">.</span><span class="n">foc</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">foc_markers</span><span class="p">[</span><span class="n">i_time</span><span class="p">]):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([],[],</span><span class="s2">&quot;^m&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;foc or condensation&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">foc_markers</span><span class="p">[</span><span class="n">i_time</span><span class="p">],</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">_plot_clouds</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">zref</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Plot clouds layers</span>
@@ -143,23 +143,24 @@
 <span class="sd">        da ([type]): [description]</span>
 <span class="sd">        time ([type]): time for which to plot the clouds</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1">#time</span>
     <span class="n">da_time</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span>
     <span class="n">i_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">da_time</span><span class="o">-</span><span class="n">time</span><span class="p">))</span>
     <span class="c1">#altitude</span>
     <span class="k">if</span> <span class="n">zref</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;AGL&#39;</span><span class="p">:</span>
-        <span class="n">pbl</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">pbl</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">da</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">da</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span>
     <span class="k">elif</span> <span class="n">zref</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">==</span><span class="s1">&#39;ASL&#39;</span><span class="p">:</span>
-        <span class="n">pbl</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">pbl</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">altitude</span> <span class="o">=</span> <span class="n">da</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span>
     
     <span class="c1">#get index of pbl</span>
-    <span class="n">i_pbl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="o">-</span><span class="n">pbl</span><span class="p">[</span><span class="n">i_time</span><span class="p">]))</span>
+    <span class="n">i_pbl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="o">-</span><span class="n">da</span><span class="o">.</span><span class="n">pbl</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i_time</span><span class="p">]))</span>
 
     <span class="c1">#plot pbl</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i_time</span><span class="p">,</span><span class="n">i_pbl</span><span class="p">],</span> <span class="n">pbl</span><span class="p">[</span><span class="n">i_time</span><span class="p">],</span> <span class="s1">&#39;gX&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PBL&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">da</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i_time</span><span class="p">,</span><span class="n">i_pbl</span><span class="p">],</span> <span class="n">altitude</span><span class="p">[</span><span class="n">i_pbl</span><span class="p">],</span> <span class="s1">&#39;gX&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PBL&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../../api.html#aprofiles.plot.profile.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zref</span><span class="o">=</span><span class="s1">&#39;agl&#39;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_fog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_pbl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../../api.html#aprofiles.plot.profile.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zref</span><span class="o">=</span><span class="s1">&#39;agl&#39;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_foc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_pbl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Plot single profile of selected variable from :class: :ref:`ProfilesData` object.</span>
 
 <span class="sd">    Args:</span>
@@ -172,7 +173,7 @@
 <span class="sd">        - vmin (float, optional): Minimum value. Defaults to 0.</span>
 <span class="sd">        - vmax (float, optional): Maximum value. If None, calculates max from data.</span>
 <span class="sd">        - log (bool, optional), Use logarithmic scale. Defaults to None.</span>
-<span class="sd">        - show_fog (bool, optional): Add fog detection. Defaults to False.</span>
+<span class="sd">        - show_foc (bool, optional): Add foc detection. Defaults to False.</span>
 <span class="sd">        - show_pbl (bool, optional): Add PBL height. Defaults to False.</span>
 <span class="sd">        - show_clouds (bool, optional): Add clouds detection. Defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -198,8 +199,8 @@
         <span class="n">axs</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 
     <span class="c1">#add addition information</span>
-    <span class="k">if</span> <span class="n">show_fog</span><span class="p">:</span>
-        <span class="n">_plot_fog</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_time</span><span class="p">[</span><span class="n">i_time</span><span class="p">],</span> <span class="n">zref</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">show_foc</span><span class="p">:</span>
+        <span class="n">_plot_foc</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_time</span><span class="p">[</span><span class="n">i_time</span><span class="p">],</span> <span class="n">zref</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">show_clouds</span><span class="p">:</span>
         <span class="n">_plot_clouds</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">da_time</span><span class="p">[</span><span class="n">i_time</span><span class="p">],</span> <span class="n">var</span><span class="p">,</span> <span class="n">zref</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">show_pbl</span><span class="p">:</span>
@@ -227,7 +228,7 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Altitude </span><span class="si">{}</span><span class="s1"> (m)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zref</span><span class="o">.</span><span class="n">upper</span><span class="p">()))</span>
 
     <span class="c1">#add legend</span>
-    <span class="k">if</span> <span class="n">show_fog</span> <span class="ow">or</span> <span class="n">show_clouds</span> <span class="ow">or</span> <span class="n">show_pbl</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">show_foc</span> <span class="ow">or</span> <span class="n">show_clouds</span> <span class="ow">or</span> <span class="n">show_pbl</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>

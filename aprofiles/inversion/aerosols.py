@@ -19,6 +19,7 @@ def backward_inversion(data, iref, apriori, rayleigh):
     """Backward (Klett) inversion method.
 
     Ref:
+        The method is described in [1]_.
         .. [1] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.
 
     Args:

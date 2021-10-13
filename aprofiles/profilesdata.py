@@ -333,7 +333,7 @@ class ProfilesData:
     
     def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
         """Aerosol inversion using an apriori.
-        See :ref:`Aerosol Inversion`
+        See :ref:`Aerosols Profiles`.
         """
         apro.inversion.aerosol.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         

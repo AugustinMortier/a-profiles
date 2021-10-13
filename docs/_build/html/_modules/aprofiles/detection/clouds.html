@@ -68,6 +68,7 @@
 <span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 <div class="viewcode-block" id="detect_clouds"><a class="viewcode-back" href="../../../api.html#aprofiles.detection.clouds.detect_clouds">[docs]</a><span class="k">def</span> <span class="nf">detect_clouds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Module for clouds detection.</span>
@@ -99,14 +100,29 @@
             <span class="c1">#mask: list of Bool</span>
             <span class="c1">#returns a list indexes where the mask is True</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
-        
+
+        <span class="k">def</span> <span class="nf">_get_all_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span><span class="o">=</span><span class="p">[]):</span>
+            <span class="c1">#get True indexes of bases, peaks and tops, based on masks</span>
+            <span class="n">i_bases</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">)</span>
+            <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
+            <span class="n">i_tops</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">tops</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span>
+
         <span class="k">def</span> <span class="nf">make_mask</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">indexes_where_True</span><span class="p">):</span>
             <span class="c1">#length: int: length of the mask</span>
             <span class="c1">#indexes_where_true: list</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span>
             <span class="n">mask</span><span class="p">[</span><span class="n">indexes_where_True</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexes_where_True</span><span class="p">)</span><span class="o">*</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">mask</span>
-        
+
+        <span class="k">def</span> <span class="nf">_make_all_masks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="o">=</span><span class="p">[]):</span>
+            <span class="c1">#return masks for bases, peaks and tops based on input indexes</span>
+            <span class="n">bases</span> <span class="o">=</span> <span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_bases</span><span class="p">)</span>
+            <span class="n">peaks</span> <span class="o">=</span> <span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_peaks</span><span class="p">)</span>
+            <span class="n">tops</span> <span class="o">=</span> <span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_tops</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span>
+
+
         <span class="k">def</span> <span class="nf">_snr_at_iz</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">iz</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
             <span class="c1">#calculates the snr from array at iz around step points</span>
             <span class="n">gates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">iz</span><span class="o">-</span><span class="n">step</span><span class="p">,</span><span class="n">iz</span><span class="o">+</span><span class="n">step</span><span class="p">)</span>
@@ -118,23 +134,105 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="mi">0</span>
 
+        <span class="k">def</span> <span class="nf">_merge_layers</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">):</span>
+            <span class="c1">#merge layers depending on the altitude of the bases and the tops</span>
+            <span class="n">remove_mode</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">while</span> <span class="n">remove_mode</span><span class="p">:</span>
+                <span class="n">remove_bases</span><span class="p">,</span> <span class="n">remove_peaks</span><span class="p">,</span> <span class="n">remove_tops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="c1">#filters based on the index</span>
+                    <span class="k">if</span> <span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> 
+                        <span class="n">remove_bases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="c1">#remove the weakest peak</span>
+                        <span class="n">imin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]])</span>
+                        <span class="n">remove_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">imin</span><span class="p">])</span>
+                        <span class="c1">#remove lowest top</span>
+                        <span class="n">imin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">([</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]])</span>
+                        <span class="n">remove_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">imin</span><span class="p">])</span>
+                        <span class="c1">#start again from the bottom</span>
+                        <span class="k">break</span>
+
+                <span class="n">i_bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_bases</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_bases</span><span class="p">]</span>
+                <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_peaks</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_peaks</span><span class="p">]</span>
+                <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_tops</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_tops</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remove_bases</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="n">remove_mode</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">return</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span>
+
+
+        <span class="k">def</span> <span class="nf">_find_tops</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">):</span>
+            <span class="c1">#function that finds the top of the layers by identifying the first value above thepeak for which the signal is lower than the base</span>
+            <span class="c1">#if no top is found, the layer is removed</span>
+            <span class="c1">#retruns lists of indexes of the bases, peaks and tops</span>
+            <span class="n">tops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+            <span class="c1"># conditions: look for bases above i_peaks[i], and data[top[i]] &lt;= data[base[i]]</span>
+            
+            <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
+                <span class="n">mask_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">True</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+                <span class="n">mask_altitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">True</span> <span class="k">if</span> <span class="n">j</span><span class="o">&gt;</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+                <span class="c1">#the top is the first value that corresponds to the intersection of the two masks</span>
+                <span class="n">cross_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">mask_value</span><span class="p">,</span> <span class="n">mask_altitude</span><span class="p">)</span>
+                <span class="n">i_cross_mask</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">cross_mask</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_cross_mask</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
+                        <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>    
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="n">i_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1">#it is important to keep the tops in the same order, so not to use get_indexes() function here</span>
+            <span class="k">return</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">),</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span> <span class="n">i_tops</span>
+        
+        <span class="k">def</span> <span class="nf">_find_tops2</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">):</span>
+            <span class="c1">#function that finds the top of the layers by identifying the positive gradient above the peak</span>
+            <span class="n">tops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+            <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
+                <span class="n">mask_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">True</span> <span class="k">if</span> <span class="n">gradient</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+                <span class="n">mask_altitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">True</span> <span class="k">if</span> <span class="n">j</span><span class="o">&gt;</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+                <span class="c1">#the top is the first value that corresponds to the intersection of the two masks</span>
+                <span class="n">cross_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">mask_value</span><span class="p">,</span> <span class="n">mask_altitude</span><span class="p">)</span>
+                <span class="n">i_cross_mask</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">cross_mask</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_cross_mask</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
+                        <span class="c1">#print(&#39;top already found. remove current layer&#39;)</span>
+                        <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>    
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="n">i_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1">#print(&#39;no top found for base&#39;,i_bases[i])</span>
+                    <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1">#it is important to keep the tops in the same order, so not to use get_indexes() function here</span>
+            <span class="k">return</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">),</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span> <span class="n">i_tops</span>
+
+
+
         <span class="c1">#0. rolling average</span>
-        <span class="n">avg_data</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">avg_data</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 
         <span class="c1">#1. first derivative</span>
-        <span class="n">ddata_dz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">prepend</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">avg_data</span><span class="p">)</span>
 
 
         <span class="c1">#2. identifies peaks and base by checking the sign changes of the derivative</span>
-        <span class="n">sign_changes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">ddata_dz</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">sign_changes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">gradient</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">all_bases</span> <span class="o">=</span> <span class="n">sign_changes</span><span class="o">==</span><span class="mi">2</span>
         <span class="n">all_peaks</span> <span class="o">=</span> <span class="n">sign_changes</span><span class="o">==-</span><span class="mi">2</span>
         <span class="c1">#limit to bases above zmin</span>
         <span class="n">imin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span>
         <span class="n">all_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]))]</span>
         <span class="n">all_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]))]</span>
-        
         <span class="c1">#get indexes</span>
         <span class="n">i_bases</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">all_bases</span><span class="p">)</span>
         <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">all_peaks</span><span class="p">)</span>
@@ -148,11 +246,12 @@
             <span class="k">if</span> <span class="n">i_base</span><span class="o">&gt;=</span><span class="n">imin</span><span class="p">:</span>
                 <span class="n">all_bases</span><span class="p">[</span><span class="n">i_base</span><span class="p">]</span><span class="o">=</span><span class="kc">True</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">all_peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1">#update indexes</span>
         <span class="n">i_bases</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">all_bases</span><span class="p">)</span>
+        <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">all_peaks</span><span class="p">)</span>
 
-        
+
         <span class="c1">#4. keeps significant couples (base,peak)</span>
         <span class="c1"># a layer can be considered as a proper layer if the difference of signal between the peak and the base is significant (larger than the noise level)</span>
         <span class="c1"># noise evaluation (using a high passing frequency filter)</span>
@@ -165,13 +264,8 @@
             <span class="n">min_len</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)])</span>
             <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">min_len</span><span class="p">]</span>
             <span class="n">i_bases</span> <span class="o">=</span> <span class="n">i_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">min_len</span><span class="p">]</span>
-            
-
-        <span class="c1"># data[peak(z)] - data[base(z)] &gt;= thr_noise * noise(z)</span>
         <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span> <span class="o">=</span> <span class="n">all_bases</span><span class="p">,</span> <span class="n">all_peaks</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
-            <span class="c1">#data_around_peak = np.mean(data[i_peaks[i]-1:i_peaks[i]+1])</span>
-            <span class="c1">#data_around_base = np.mean(data[i_bases[i]-1:i_bases[i]+1])</span>
             <span class="n">data_around_peak</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
             <span class="n">data_around_base</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
             <span class="k">if</span> <span class="n">data_around_peak</span> <span class="o">-</span> <span class="n">data_around_base</span> <span class="o">&lt;=</span> <span class="n">thr_noise</span> <span class="o">*</span> <span class="n">avg_abs_noise</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]:</span>
@@ -182,82 +276,63 @@
         <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
 
 
-        <span class="c1">#5. make sure we finish by a peak: remove last base </span>
+        <span class="c1">#5. make sure we finish by a peak: remove last base if necessary</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)</span><span class="o">&gt;</span><span class="nb">len</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">):</span>
             <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
             <span class="n">i_bases</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
 
-        <span class="c1">#6. distinction between aerosol and clouds</span>
+        <span class="c1">#6. find tops of clouds layers</span>
+        <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span> <span class="o">=</span> <span class="n">_find_tops</span><span class="p">(</span><span class="n">avg_data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">)</span>
+
+
+        <span class="c1">#7. merge layers: for a couple of base and peaks 1,2 if data(b2)&gt;data(p1), then merge layers 1 and 2 by removing p1 and b2</span>
+        <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span> <span class="o">=</span> <span class="n">_merge_layers</span><span class="p">(</span><span class="n">avg_data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">)</span>
+
+
+        <span class="c1">#8. find peaks as maximum between base and top</span>
+        <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">))]</span>
+        <span class="c1">#reconstruct masks</span>
+        <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span> <span class="o">=</span> <span class="n">_make_all_masks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">)</span>
+
+
+        <span class="c1">#9. distinction between aerosol and clouds</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
-            <span class="n">data_around_peak</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
-            <span class="n">data_around_base</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">data_around_peak</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">data_around_base</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
             <span class="k">if</span> <span class="nb">abs</span><span class="p">((</span><span class="n">data_around_peak</span> <span class="o">-</span> <span class="n">data_around_base</span><span class="p">)</span> <span class="o">/</span> <span class="n">data_around_base</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">thr_clouds</span><span class="p">:</span>
                 <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
                 <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">tops</span><span class="p">[</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="c1">#get indexes</span>
-        <span class="n">i_bases</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">)</span>
-        <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
-        
+        <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span> <span class="o">=</span> <span class="n">_get_all_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span><span class="p">)</span>
 
-        <span class="c1">#7. find tops of clouds layers</span>
-        <span class="n">tops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
-        <span class="c1"># conditions: look for bases above i_peaks[i], and data[top[i]] &lt;= data[base[i]]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
-            <span class="n">mask_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="o">&lt;</span><span class="n">data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-            <span class="n">mask_altitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
-            <span class="n">mask_altitude</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]:]</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="c1">#the top is the first value that corresponds to the intersection of the two masks</span>
-            <span class="n">cross_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">mask_value</span><span class="p">,</span> <span class="n">mask_altitude</span><span class="p">)</span>
-            <span class="n">i_cross_mask</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">cross_mask</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_cross_mask</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
-                    <span class="c1">#print(&#39;top already found. remove current layer&#39;)</span>
-                    <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
-                    <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>    
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1">#print(&#39;found top at &#39;,i_cross_mask[0], &#39;for base &#39;,i_bases[i])</span>
-                    <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1">#print(&#39;no top found for base&#39;,i_bases[i])</span>
-                <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        #10. set base a closest index</span>
+<span class="sd">        for i, _ in enumerate(i_peaks):</span>
+<span class="sd">            mask_value = np.asarray([True if gradient[j]&lt;0 else False for j in range(len(data))])</span>
+<span class="sd">            mask_altitude = np.asarray([True if j&lt;i_peaks[i] else False for j in range(len(data))])</span>
+<span class="sd">            #the top is the first value that corresponds to the intersection of the two masks</span>
+<span class="sd">            cross_mask = np.logical_and(mask_value, mask_altitude)</span>
+<span class="sd">            i_cross_mask = get_indexes(cross_mask)</span>
+<span class="sd">            i_bases[i] = i_cross_mask[-1]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1">#get indexes</span>
-        <span class="n">i_bases</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">)</span>
-        <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
-        <span class="n">i_tops</span> <span class="o">=</span> <span class="n">get_indexes</span><span class="p">(</span><span class="n">tops</span><span class="p">)</span>
-        
-
-        <span class="c1">#8. merge layers: just focus on bases and tops</span>
-        <span class="c1">#drop layer if base of next layer below top of current layer top of current layer</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">i</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                <span class="n">i_bases</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
-                <span class="n">i_tops</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
-        
-        <span class="c1">#9. finds peaks as maximum value between base and top</span>
-        <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">))]</span>
-
-
-        <span class="c1">#10. check snr at peak levels</span>
+        <span class="c1">#11. check snr at peak levels</span>
         <span class="n">remove_bases</span><span class="p">,</span> <span class="n">remove_peaks</span><span class="p">,</span> <span class="n">remove_tops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">)):</span>
-            <span class="k">if</span> <span class="n">_snr_at_iz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">&lt;</span><span class="n">min_snr</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_snr_at_iz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="o">&lt;</span><span class="n">min_snr</span><span class="p">:</span>
                 <span class="n">remove_bases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="n">remove_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                 <span class="n">remove_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
         <span class="c1"># remove indexes</span>
-        <span class="n">i_bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">i_base</span> <span class="k">for</span> <span class="n">i_base</span> <span class="ow">in</span> <span class="n">i_bases</span> <span class="k">if</span> <span class="n">i_base</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_bases</span><span class="p">]</span>
-        <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i_peak</span> <span class="k">for</span> <span class="n">i_peak</span> <span class="ow">in</span> <span class="n">i_peaks</span> <span class="k">if</span> <span class="n">i_peak</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_peaks</span><span class="p">]</span>
-        <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[</span><span class="n">i_top</span> <span class="k">for</span> <span class="n">i_top</span> <span class="ow">in</span> <span class="n">i_tops</span> <span class="k">if</span> <span class="n">i_top</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_tops</span><span class="p">]</span>
+        <span class="n">i_bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_bases</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_bases</span><span class="p">]</span>
+        <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_peaks</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_peaks</span><span class="p">]</span>
+        <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_tops</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_tops</span><span class="p">]</span>
 
 
         <span class="c1">#11. rebuild masks from indexes</span>
-        <span class="n">bases</span> <span class="o">=</span> <span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_bases</span><span class="p">)</span>
-        <span class="n">peaks</span> <span class="o">=</span> <span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_peaks</span><span class="p">)</span>
-        <span class="n">tops</span> <span class="o">=</span> <span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_tops</span><span class="p">)</span>
+        <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span> <span class="o">=</span> <span class="n">_make_all_masks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">)</span>
         
         
         
@@ -305,7 +380,7 @@
     <span class="n">rcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span><span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
 
     <span class="n">clouds_bases</span><span class="p">,</span> <span class="n">clouds_peaks</span><span class="p">,</span> <span class="n">clouds_tops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;clouds</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span><span class="n">desc</span><span class="o">=</span><span class="s1">&#39;clouds&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">verbose</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))):</span>
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">_detect_clouds_from_rcs</span><span class="p">(</span><span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
         
         <span class="c1">#store info in 2D array</span>
@@ -360,6 +435,26 @@
         <span class="p">)</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span></div>
+
+<span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc&quot;</span>
+    <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1">#basic corrections</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">150.</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#profiles.desaturate_below(z=4000., inplace=True)</span>
+    
+    <span class="c1">#detection</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">)</span>
+    <span class="c1">#plot single profile</span>
+    <span class="n">datetime</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;2021-09-09T14:00:00&#39;</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">datetime</span><span class="o">=</span><span class="n">datetime</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">12000</span><span class="p">,</span> <span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">_main</span><span class="p">()</span>
 </pre></div>
 
            </div>

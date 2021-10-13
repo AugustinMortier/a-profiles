@@ -48,6 +48,15 @@ Planetary Boundary Layer
    :members:
    :undoc-members:
 
+Inversion
+------------
+
+Aerosols Profiles
+^^^^^^^^^^^^^^^^^
+.. automodule:: aprofiles.inversion.aerosols
+   :members:
+   :undoc-members:
+
 Plotting
 ------------
 

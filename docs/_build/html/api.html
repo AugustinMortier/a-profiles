@@ -54,6 +54,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.detection.pbl">Planetary Boundary Layer</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#inversion">Inversion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.inversion.aerosols">Aerosols Profiles</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.plot.image">Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.plot.profile">Profile</a></li>
@@ -95,40 +99,6 @@
 <h2>Reading Classes<a class="headerlink" href="#reading-classes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="module-aprofiles.reader">
 <span id="readprofiles"></span><h3>ReadProfiles<a class="headerlink" href="#module-aprofiles.reader" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
-<dt id="aprofiles.reader.ReadProfiles">
-<em class="property">class </em><code class="sig-prename descclassname">aprofiles.reader.</code><code class="sig-name descname">ReadProfiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#ReadProfiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.ReadProfiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for reading profile data.</p>
-<dl class="simple">
-<dt>Attributes:</dt><dd><p>path (str): path or URL of the file to be read.</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt id="aprofiles.reader.ReadProfiles.read">
-<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#ReadProfiles.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.ReadProfiles.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method which calls the relevant reading class based on the file name.</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.Profiles</span></code>: Profiles object</p>
-</dd>
-</dl>
-<p>Example:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#import library</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#Initialize reading class with file path</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#calls the read method</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 </div>
 <div class="section" id="data-classes">
@@ -138,7 +108,7 @@
 <dl class="py class">
 <dt id="aprofiles.profilesdata.ProfilesData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.profilesdata.</code><code class="sig-name descname">ProfilesData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class representing profiles data.</p>
+<dd><p>Base class representing profiles data returned by <a class="reference internal" href="#module-aprofiles.reader"><span class="std std-ref">ReadProfiles</span></a>.</p>
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.clouds">
 <code class="sig-name descname">clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.clouds" title="Permalink to this definition">¶</a></dt>
@@ -153,14 +123,29 @@ See <a class="reference internal" href="#module-aprofiles.detection.clouds"><spa
 </dd></dl>
 
 <dl class="py method">
+<dt id="aprofiles.profilesdata.ProfilesData.desaturate_below">
+<code class="sig-name descname">desaturate_below</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">z</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.desaturate_below"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.desaturate_below" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove saturation caused by clouds at low altitude which results in negative values above the maximum.
+For now, we just take the absolute value of the signal below a maximum altitude.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>var (str, optional): variable of the Dataset to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
+<li><p>z (float, optional): Altitude (in m, AGL) below which the signal is unsaturated. Defaults to <cite>4000.</cite>.</p></li>
+<li><p>inplace (bool, optional): if True, replace the variable. Defaults to <cite>False</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.extrapolate_below">
-<code class="sig-name descname">extrapolate_below</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cst'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.extrapolate_below"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.extrapolate_below" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">extrapolate_below</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">z</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cst'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.extrapolate_below"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.extrapolate_below" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
 We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>var (str, optional): variable of the Dataset to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
-<li><p>zmin (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to <cite>0</cite>.</p></li>
+<li><p>z (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to <cite>0</cite>.</p></li>
 <li><p>method ({‘cst’, ‘lin’}, optional): Method to be used for extrapolation of lowest layers. Defaults to <cite>‘cst’</cite>.</p></li>
 <li><p>inplace (bool, optional): if True, replace the variable. Defaults to <cite>False</cite>.</p></li>
 </ul>
@@ -202,29 +187,10 @@ See <a class="reference internal" href="#module-aprofiles.detection.foc"><span c
 </dd></dl>
 
 <dl class="py method">
-<dt id="aprofiles.profilesdata.ProfilesData.klett_inversion">
-<code class="sig-name descname">klett_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'backward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.klett_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.klett_inversion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Klett inversion using an apriori.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><ul class="simple">
-<li><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to <cite>1</cite>.</p></li>
-<li><p>zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to <cite>4000.</cite>.</p></li>
-<li><p>zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to <cite>6000.</cite>.</p></li>
-<li><p>min_snr (float, optional). Minimum SNR required at the reference altitude to be valid. Defaults to <cite>0</cite>.</p></li>
-<li><p>under_clouds (bool, optional): If True, and if clouds detection have been called before, force the initialization altitude to be found below the first cloud detected in the profile. Defaults to <cite>True</cite>.</p></li>
-<li><p>method ({‘backward’, ‘forward’}, optional). Defaults to <cite>‘forward’</cite>.</p></li>
-<li><p>apriori (dict, optional). A Priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to <cite>{‘lr’: 50}</cite>.</p></li>
-<li><p>remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation ([&gt;0, &lt;1]). Defaults to <cite>False</cite> (while development. to be changed afterwards).</p></li>
-<li><p>verbose (bool, optional): verbose mode. Defaults to <cite>False</cite>.</p></li>
-</ul>
-</dd>
-<dt>Returns:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">class</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object with additional <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> <cite>ext</cite>.</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<dt id="aprofiles.profilesdata.ProfilesData.inversion">
+<code class="sig-name descname">inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'backward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aerosol inversion using an apriori.
+See <a class="reference internal" href="#module-aprofiles.inversion.aerosols"><span class="std std-ref">Aerosols Profiles</span></a>.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -236,7 +202,7 @@ See <a class="reference internal" href="#module-aprofiles.detection.pbl"><span c
 
 <dl class="py method">
 <dt id="aprofiles.profilesdata.ProfilesData.plot">
-<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">datetime</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">datetime</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_foc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profilesdata.html#ProfilesData.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profilesdata.ProfilesData.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plotting method. Quicklook or single profile.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
@@ -248,9 +214,9 @@ See <a class="reference internal" href="#module-aprofiles.detection.pbl"><span c
 <li><p>vmin (float, optional): Minimum value. Defaults to <cite>None</cite>.</p></li>
 <li><p>vmax (float, optional): Maximum value. Defaults to <cite>None</cite>. If <cite>None</cite>, calculates max from data.</p></li>
 <li><p>log (bool, optional), Use logarithmic scale. Defaults to <cite>False</cite>.</p></li>
-<li><p>show_fog (bool, optional): Add fog detection. Defaults to <cite>False</cite>.</p></li>
-<li><p>show_pbl (bool, optional): Add PBL height. Defaults to <cite>False</cite>.</p></li>
-<li><p>show_clouds (bool, optional): Add clouds detection. Defaults to <cite>False</cite>.</p></li>
+<li><p>show_foc (bool, optional): Show fog or condensation retrievals. Defaults to <cite>False</cite>.</p></li>
+<li><p>show_pbl (bool, optional): Show PBL height retrievals. Defaults to <cite>False</cite>.</p></li>
+<li><p>show_clouds (bool, optional): Show clouds retrievals. Defaults to <cite>False</cite>.</p></li>
 <li><p>cmap (str, optional): Matplotlib colormap. Defaults to <cite>‘coolwarm’</cite>.</p></li>
 </ul>
 </dd>
@@ -330,8 +296,8 @@ See <a class="reference internal" href="#module-aprofiles.detection.pbl"><span c
 <div class="section" id="module-aprofiles.rayleigh">
 <span id="rayleigh"></span><h3>Rayleigh<a class="headerlink" href="#module-aprofiles.rayleigh" title="Permalink to this headline">¶</a></h3>
 <dl class="py class">
-<dt id="aprofiles.rayleigh.Rayleigh">
-<em class="property">class </em><code class="sig-prename descclassname">aprofiles.rayleigh.</code><code class="sig-name descname">Rayleigh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">wavelength</span></em>, <em class="sig-param"><span class="n">T0</span><span class="o">=</span><span class="default_value">298</span></em>, <em class="sig-param"><span class="n">P0</span><span class="o">=</span><span class="default_value">1013</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/rayleigh.html#Rayleigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.rayleigh.Rayleigh" title="Permalink to this definition">¶</a></dt>
+<dt id="aprofiles.rayleigh.RayleighData">
+<em class="property">class </em><code class="sig-prename descclassname">aprofiles.rayleigh.</code><code class="sig-name descname">RayleighData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span></em>, <em class="sig-param"><span class="n">wavelength</span></em>, <em class="sig-param"><span class="n">T0</span><span class="o">=</span><span class="default_value">298</span></em>, <em class="sig-param"><span class="n">P0</span><span class="o">=</span><span class="default_value">1013</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/rayleigh.html#RayleighData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.rayleigh.RayleighData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for computing a standard rayleigh profile (backscatter and extinction)</p>
 <dl class="simple">
 <dt>Attributes:</dt><dd><p>altitude (array): array of altitude ASL to be used to compute the rayleigh profile, in m.
@@ -416,11 +382,85 @@ P0 (float): Pressure at ground level, in hPa.</p>
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">class</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object with additional <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> ‘pbl’.</p>
+<dd class="field-odd"><p><a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object with additional <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> <cite>pbl</cite>.</p>
 </dd>
 </dl>
 </dd>
-<dt>Todo:</dt><dd><p>for now, returns strongest gradient. Must return the highest negative gradient!</p>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="inversion">
+<h2>Inversion<a class="headerlink" href="#inversion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-aprofiles.inversion.aerosols">
+<span id="aerosols-profiles"></span><h3>Aerosols Profiles<a class="headerlink" href="#module-aprofiles.inversion.aerosols" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
+<dt id="aprofiles.inversion.aerosols.backward_inversion">
+<code class="sig-prename descclassname">aprofiles.inversion.aerosols.</code><code class="sig-name descname">backward_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">iref</span></em>, <em class="sig-param"><span class="n">apriori</span></em>, <em class="sig-param"><span class="n">rayleigh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/inversion/aerosols.html#backward_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.inversion.aerosols.backward_inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backward (Klett) inversion method.</p>
+<dl class="simple">
+<dt>Ref:</dt><dd><p>The method is described in <a href="#id2"><span class="problematic" id="id1">[1]_</span></a>.
+.. [1] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</p>
+</dd>
+<dt>Args:</dt><dd><p>data (array_like): single profile of attenuated backscatter coefficient.
+iref (float): index of the reference altitude returned by <cite>get_iref()</cite> function.
+apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
+rayleigh (:class: <cite>aprofiles.rayleigh.RayleighData</cite>): aprofiles RayleighData object.</p>
+</dd>
+<dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
+</dd>
+<dt>Returns:</dt><dd><p>array_like: Extinction coefficient, in m-1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aprofiles.inversion.aerosols.forward_inversion">
+<code class="sig-prename descclassname">aprofiles.inversion.aerosols.</code><code class="sig-name descname">forward_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">iref</span></em>, <em class="sig-param"><span class="n">apriori</span></em>, <em class="sig-param"><span class="n">rayleigh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/inversion/aerosols.html#forward_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.inversion.aerosols.forward_inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward iterative inversion method.</p>
+<p>Method principle:</p>
+<p>At z0, the aerosol transmission is first assumed a being close to 1. We evaluate the aerosol extinction based on this assumption. 
+This evaluation gives a refined aerosol extinction that is used to calculate a second time the aerosol transmission.
+The aerosol extinction retrieval will converge after a certain number iterations.
+After the convergence, the aerosol extinction is retrieved in the next upper layer.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>data (array_like): single profile of attenuated backscatter coefficient.
+iref (float): index of the reference altitude returned by <cite>get_iref()</cite> function.
+apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
+rayleigh (:class: <cite>aprofiles.rayleigh.RayleighData</cite>): aprofiles RayleighData object.</p>
+</dd>
+<dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
+</dd>
+<dt>Returns:</dt><dd><p>array_like: Extinction coefficient, in m-1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aprofiles.inversion.aerosols.inversion">
+<code class="sig-prename descclassname">aprofiles.inversion.aerosols.</code><code class="sig-name descname">inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'forward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/inversion/aerosols.html#inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.inversion.aerosols.inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aerosol inversion of the attenuated backscatter profiles using an apriori.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles. Defaults to 1.</p></li>
+<li><p>zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000..</p></li>
+<li><p>zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000..</p></li>
+<li><p>min_snr (float, optional). Minimum SNR required at the reference altitude to be valid. Defaults to 0.</p></li>
+<li><p>under_clouds (bool, optional): If True, and if the <cite>ProfilesData</cite> has a <cite>cloud_base</cite> variable (returned by the <cite>clouds</cite> method), forces the initialization altitude to be found below the first cloud detected in the profile. Defaults to True.</p></li>
+<li><p>method ({‘backward’, ‘forward’}, optional). Defaults to ‘forward’.</p></li>
+<li><p>apriori (dict, optional). A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to {‘lr’: 50}.</p></li>
+<li><p>remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation ([&gt;0, &lt;1]). Defaults to False (while development. to be changed afterwards).</p></li>
+<li><p>verbose (bool, optional): verbose mode. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">class</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object with additional <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> ‘ext’.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -433,7 +473,7 @@ P0 (float): Pressure at ground level, in hPa.</p>
 <span id="image"></span><h3>Image<a class="headerlink" href="#module-aprofiles.plot.image" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt id="aprofiles.plot.image.plot">
-<code class="sig-prename descclassname">aprofiles.plot.image.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/image.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.image.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">aprofiles.plot.image.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_foc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/image.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.image.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot image of selected variable from  :class: <a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
@@ -445,7 +485,7 @@ P0 (float): Pressure at ground level, in hPa.</p>
 <li><p>vmin (float, optional): Minimum value. Defaults to None.</p></li>
 <li><p>vmax (float, optional): Maximum value. If None, calculates max from data.</p></li>
 <li><p>log (bool, optional), Use logarithmic scale. Defaults to None.</p></li>
-<li><p>show_fog (bool, optional): Add fog detection. Defaults to False.</p></li>
+<li><p>show_foc (bool, optional): Add foc detection. Defaults to False.</p></li>
 <li><p>show_pbl (bool, optional): Add PBL height. Defaults to False.</p></li>
 <li><p>show_clouds (bool, optional): Add clouds detection. Defaults to False.</p></li>
 <li><p>cmap (str, optional): Matplotlib colormap. Defaults to ‘coolwarm’ cmap from seaborn.</p></li>
@@ -459,7 +499,7 @@ P0 (float): Pressure at ground level, in hPa.</p>
 <span id="profile"></span><h3>Profile<a class="headerlink" href="#module-aprofiles.plot.profile" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt id="aprofiles.plot.profile.plot">
-<code class="sig-prename descclassname">aprofiles.plot.profile.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">datetime</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_fog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/profile.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.profile.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">aprofiles.plot.profile.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">datetime</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_foc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/profile.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.profile.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot single profile of selected variable from :class: <a class="reference internal" href="#module-aprofiles.profilesdata"><span class="std std-ref">ProfilesData</span></a> object.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
@@ -472,7 +512,7 @@ P0 (float): Pressure at ground level, in hPa.</p>
 <li><p>vmin (float, optional): Minimum value. Defaults to 0.</p></li>
 <li><p>vmax (float, optional): Maximum value. If None, calculates max from data.</p></li>
 <li><p>log (bool, optional), Use logarithmic scale. Defaults to None.</p></li>
-<li><p>show_fog (bool, optional): Add fog detection. Defaults to False.</p></li>
+<li><p>show_foc (bool, optional): Add foc detection. Defaults to False.</p></li>
 <li><p>show_pbl (bool, optional): Add PBL height. Defaults to False.</p></li>
 <li><p>show_clouds (bool, optional): Add clouds detection. Defaults to False.</p></li>
 </ul>

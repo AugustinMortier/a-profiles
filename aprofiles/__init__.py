@@ -2,6 +2,6 @@
 
 from . import profilesdata, rayleigh
 from .detection import clouds, foc, pbl
-from .inversion import aerosol, ref_altitude
+from .inversion import aerosols, ref_altitude
 from .io import reader
 from .plot import image, profile
