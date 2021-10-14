@@ -72,7 +72,8 @@
 
 
 <div class="viewcode-block" id="detect_pbl"><a class="viewcode-back" href="../../../api.html#aprofiles.detection.pbl.detect_pbl">[docs]</a><span class="k">def</span> <span class="nf">detect_pbl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">100.</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">3000.</span><span class="p">,</span> <span class="n">wav_width</span><span class="o">=</span><span class="mf">200.</span><span class="p">,</span> <span class="n">under_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Detects Planetary Boundary Layer Height between zmin and zmax using convolution with a wavelet.</span>
+    <span class="sd">&quot;&quot;&quot;Module for *Planetary Boundary Layer Height* detection.</span>
+<span class="sd">    Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to `1`.</span>
@@ -84,7 +85,26 @@
 <span class="sd">        - verbose (bool, optional): verbose mode. Defaults to `False`.</span>
 <span class="sd">    </span>
 <span class="sd">    Returns:</span>
-<span class="sd">        :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` `pbl`.</span>
+<span class="sd">        :class:`ProfilesData` object with additional Data Array.</span>
+<span class="sd">            - :class:`xarray.DataArray &#39;pbl&#39; (time, altitude)`: mask array corresponding to the pbl height.</span>
+<span class="sd">    </span>
+<span class="sd">        Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">        &gt;&gt;&gt; #read example file</span>
+<span class="sd">        &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">        &gt;&gt;&gt; #pbl detection</span>
+<span class="sd">        &gt;&gt;&gt; profiles.pbl(zmin=100., zmax=3000.)</span>
+<span class="sd">        &gt;&gt;&gt; #attenuated backscatter image with pbl up to 6km of altitude</span>
+<span class="sd">        &gt;&gt;&gt; profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)</span>
+
+<span class="sd">        .. figure:: _build/html/_images/pbl.png</span>
+<span class="sd">            :scale: 50 %</span>
+<span class="sd">            :alt: clouds detection</span>
+
+<span class="sd">            PLanetary Boundary Layer Height detection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">scipy.ndimage.filters</span> <span class="kn">import</span> <span class="n">uniform_filter1d</span>

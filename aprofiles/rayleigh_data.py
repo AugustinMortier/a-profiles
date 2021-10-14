@@ -8,30 +8,63 @@ import numpy as np
 import math
 
 class RayleighData:
-    """Class for computing a standard rayleigh profile (backscatter and extinction)
+    """Class for computing *rayleigh profile* in a standard atmosphere.
+    This class calls the :func:`aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo()` method, which produces profiles of `backscatter` and `extinction` coefficients.
 
     Attributes:
-        altitude (array): array of altitude ASL to be used to compute the rayleigh profile, in m.
-        wavelength (float): Wavelength of the Rayleigh profile to be computed, in nm.
-        T0 (float): Temperature at ground level, in K.
-        P0 (float): Pressure at ground level, in hPa.
+        - altitude (array-like): array of altitude ASL to be used to compute the rayleigh profile, in m.
+        - wavelength (float): Wavelength of the Rayleigh profile to be computed, in nm.
+        - T0 (float): Temperature at ground level, in K.
+        - P0 (float): Pressure at ground level, in hPa.
+    
+    Example:
+        >>> #some imports
+        >>> import aprofiles as apro
+        >>> import numpy as np
+        >>> #creates altitude array
+        >>> altitude = np.arange(15,15000,15)
+        >>> wavelength = 1064. 
+        >>> #produce rayleigh profile
+        >>> rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
+        #checkout the class attributes
+        >>> rayleigh.__dict__.keys()
+        dict_keys(['altitude', 'T0', 'P0', 'wavelength', 'cross_section', 'backscatter', 'extinction'])
+
+        >>> #plot profile
+        >>> fig, ax = plt.subplots(1, 1, figsize=(6, 6))
+        >>> plt.plot(rayleigh.extinction,altitude)
+        >>> plt.text(0.95, 0.94, r'$\sigma_m: {:.2e} cm-2$'.format(rayleigh.cross_section), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
+        >>> plt.title('Rayleigh Profile in a Standard Atmosphere ({}hPa, {}K)'.format(rayleigh.P0, rayleigh.T0), weight='bold')
+        >>> plt.xlabel('Extinction coefficient @ {}nm (m-1)'.format(rayleigh.wavelength))
+        >>> plt.ylabel('Altitude ASL (m)')
+        >>> plt.tight_layout()
+        >>> plt.show()
+
+        .. figure:: _build/html/_images/rayleigh.png
+            :scale: 80 %
+            :alt: rayleigh profile
+
+            Rayleigh extinction profile for a standard atmosphere.
     """
 
-    def __init__(self, altitude, wavelength, T0=298, P0=1013):
-        self.altitude = altitude
+    def __init__(self, altitude: list, wavelength: float, T0=298, P0=1013):
+        self.altitude = np.asarray(altitude)
         self.T0 = T0
         self.P0 = P0
         self.wavelength = float(wavelength)
         
         #calls functions
-        self._standard_atmosphere()
+        self.get_optics_in_std_atmo()
     
-    def _standard_atmosphere(self):
-        """Function that returns Rayleigh backscatter and extinction profiles for a standar atmosphere at a given wavelength.
+
+    def get_optics_in_std_atmo(self):        
+        """Function that returns *backscatter* and *extinction* profiles for a given :class:`RayleighData` class.
 
         Returns:
-            self.backscatter: Rayleigh backscatter coefficient (m-1.sr-1) at given wavelength for a standard atmosphere.
-            self.extinction: Rayleigh extinction coefficient (m-1) at given wavelength for a standard atmosphere.
+            :class:`aprofiles.rayleigh.RayleighData` object with additional attributes.
+                - `extinction` <:class:`numpy.ndarray`>: extinction coefficient (m-1)
+                - `backscatter` <:class:`numpy.ndarray`>: backscatter coefficient (m-1.sr-1)
+                - `cross_section` <:class:`numpy.ndarray`>: cross section (cm-2)
         """
 
         def _refi_air(wavelength):

@@ -97,8 +97,8 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
     """Plot single profile of selected variable from :class: :ref:`ProfilesData` object.
 
     Args:
-        - da (xr.DataArray): DataArray.
-        - datetime (np.datetime64): time for which we plot the profile.
+        - da (:class:`xarray.DataArray`): DataArray.
+        - datetime (:class:`numpy.datetime64`): time for which we plot the profile.
         - var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
         - zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
         - zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.

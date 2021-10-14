@@ -81,7 +81,26 @@
 <span class="sd">            - zmin_cloud (float, optional): Used for &#39;cloud_base&#39; method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Defaults to `200.`.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` &#39;foc&#39;.</span>
+<span class="sd">            :class:`ProfilesData` object with additional Data Array.</span>
+<span class="sd">                - :class:`xarray.DataArray &#39;foc&#39; (time)`: mask array corresponding to the presence of foc.</span>
+<span class="sd">    </span>
+<span class="sd">        Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">        &gt;&gt;&gt; #read example file</span>
+<span class="sd">        &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">        &gt;&gt;&gt; #foc detection</span>
+<span class="sd">        &gt;&gt;&gt; profiles.foc()</span>
+<span class="sd">        &gt;&gt;&gt; #attenuated backscatter image with pbl up to 6km of altitude</span>
+<span class="sd">        &gt;&gt;&gt; profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)</span>
+
+<span class="sd">        .. figure:: _build/html/_images/foc.png</span>
+<span class="sd">            :scale: 50 %</span>
+<span class="sd">            :alt: foc detection</span>
+
+<span class="sd">            Fog or condensation (foc) detection.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">_detect_fog_from_cloud_base_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="p">):</span>

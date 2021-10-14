@@ -80,7 +80,7 @@
     <span class="sd">&quot;&quot;&quot;Base class for reading profile data.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        path (str): path or URL of the file to be read.</span>
+<span class="sd">        path (str): path of the file to be read.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -107,20 +107,20 @@
         <span class="sd">&quot;&quot;&quot;Method which calls the relevant reading class based on the file name.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            :class:`aprofiles.Profiles`: Profiles object</span>
+<span class="sd">            :class:`aprofiles.profilesdata.ProfilesData`: Profiles object</span>
 
 <span class="sd">        Example:</span>
 
 <span class="sd">            &gt;&gt;&gt; #import library</span>
 <span class="sd">            &gt;&gt;&gt; import aprofiles as apro</span>
-<span class="sd">            </span>
-<span class="sd">            &gt;&gt;&gt; #Initialize reading class with file path</span>
 <span class="sd">            &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
-<span class="sd">            &gt;&gt;&gt; reader = apro.ReadProfiles(path)</span>
-
+<span class="sd">            &gt;&gt;&gt; #Initialize reading class with file path</span>
+<span class="sd">            &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">            &gt;&gt;&gt; #calls the read method</span>
 <span class="sd">            &gt;&gt;&gt; profiles = reader.read()</span>
-<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; print(profiles)</span>
+<span class="sd">            &lt;aprofiles.profilesdata.ProfilesData object at 0x7f011055fad0&gt;</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="c1">#get the right reading class</span>
@@ -165,7 +165,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">check_path</span><span class="p">()</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
         <span class="c1">#replace wavelength with actual value in attenuated backscatter longname</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">long_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;wavelength 0&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> nm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
+        <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">long_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;at wavelength 0&#39;</span><span class="p">,</span><span class="s1">&#39;@ </span><span class="si">{}</span><span class="s1"> nm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
         <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;1E-6*1/(m*sr)&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;E-6 m-1.sr-1&#39;</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">dataset</span>

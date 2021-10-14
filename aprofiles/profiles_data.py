@@ -15,7 +15,7 @@ import aprofiles as apro
 
 
 class ProfilesData:
-    """Base class representing profiles data returned by :ref:`ReadProfiles`.
+    """Base class representing profiles data returned by :class:`aprofiles.io.reader.ReadProfiles`.
     """
 
     def __init__(self, data):
@@ -29,6 +29,7 @@ class ProfilesData:
     
     @data.setter 
     def data(self, data):
+        print(data)
         if not isinstance(data, xr.Dataset):
             raise ValueError("Wrong data type: an xarray Dataset is expected.")
         self._data = data
@@ -89,15 +90,33 @@ class ProfilesData:
         """Method that calculates the Signal to Noise Ratio. 
 
         Args:
-            - var (str, optional): Variable of the DataArray to calculate the SNR from. Defaults to 'attenuated_backscatter_0'.
-            - step (int, optional): Number of steps around we calculate the SNR for a given altitude. Defaults to 4.
+            - var (str, optional): Variable of the DataArray to calculate the SNR from. Defaults to `'attenuated_backscatter_0'`.
+            - step (int, optional): Number of steps around we calculate the SNR for a given altitude. Defaults to `4`.
             - verbose (bool, optional): Verbose mode. Defaults to `False`.
 
         Returns:
-            :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` 'snr'.
+            :class: :class:`ProfilesData` object with additional :class:`xarray.DataArray` 'snr'.
 
         .. note::
             This calculation is relatively heavy in terms of calculation costs.
+        
+        Example:
+        
+            >>> import aprofiles as apro
+            >>> #read example file
+            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+            >>> reader = apro.reader.ReadProfiles(path)
+            >>> profiles = reader.read()
+            >>> #snr calculcation
+            >>> profiles.snr()
+            >>> #snr image
+            >>> profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
+
+            .. figure:: _build/html/_images/snr.png
+                :scale: 50 %
+                :alt: snr
+
+                Signal to Noise Ratio.
         """
 
         def _1D_snr(array, step):
@@ -116,7 +135,7 @@ class ProfilesData:
         
         snr = []
         
-        for i in (tqdm(range(len(self.data.time.data)),desc='snr\t') if verbose else range(len(self.data.time.data))):
+        for i in (tqdm(range(len(self.data.time.data)),desc='snr   ') if verbose else range(len(self.data.time.data))):
             snr.append(_1D_snr(self.data[var].data[i,:], step))
 
         
@@ -201,18 +220,41 @@ class ProfilesData:
         return new_dataset
 
 
-    def extrapolate_below(self, var='attenuated_backscatter_0', z=0, method='cst', inplace=False):
+    def extrapolate_below(self, var='attenuated_backscatter_0', z=150, method='cst', inplace=False):
         """Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
         We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.
 
         Args:
-            - var (str, optional): variable of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
-            - z (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to `0`.
+            - var (str, optional): variable of the :class:`xarray.DataSet` to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - z (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to `150`.
             - method ({'cst', 'lin'}, optional): Method to be used for extrapolation of lowest layers. Defaults to `'cst'`.
             - inplace (bool, optional): if True, replace the variable. Defaults to `False`.
         
         Returns:
-            :class: :ref:`ProfilesData` object.
+            :class:`ProfilesData` object with additional attributes `extrapolation_low_layers_altitude_agl` and `extrapolation_low_layers_method` for the processed :class:`xr.DataArray`.
+
+        Examples:
+            >>> import aprofiles as apro
+            >>> #read example file
+            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+            >>> reader = apro.reader.ReadProfiles(path)
+            >>> profiles = reader.read()
+            >>> #desaturation below 4000m
+            >>> profiles.extrapolate_below(z=150., inplace=True)
+            >>> profiles.data.attenuated_backscatter_0.extrapolation_low_layers_altitude_agl
+            150
+
+            .. figure:: _build/html/_images/lowest.png
+                :scale: 50 %
+                :alt: before extrapolation
+
+                Before extrapolation.
+            
+            .. figure:: _build/html/_images/lowest_extrap.png
+                :scale: 50 %
+                :alt: after desaturation
+
+                After extrapolation.
         """
 
         #get index of z
@@ -234,16 +276,16 @@ class ProfilesData:
 
         if inplace:
             self.data[var].data[:,0:imax] = filling_matrice
-            new_dataset = self
+            new_profiles_data = self
         else:
             copied_dataset = copy.deepcopy(self)
             copied_dataset.data[var].data[:,0:imax] = filling_matrice
-            new_dataset = copied_dataset
+            new_profiles_data = copied_dataset
         
         #add attributes
-        new_dataset.data[var].attrs['extrapolation_low_layers_altitude_agl']=z
-        new_dataset.data[var].attrs['extrapolation_low_layers_method']=method
-        return new_dataset
+        new_profiles_data.data[var].attrs['extrapolation_low_layers_altitude_agl']=z
+        new_profiles_data.data[var].attrs['extrapolation_low_layers_method']=method
+        return new_profiles_data
 
 
     
@@ -281,14 +323,49 @@ class ProfilesData:
         new_profiles_data.data[var].attrs['units']=None
         return new_profiles_data
 
+
+
     def desaturate_below(self, var='attenuated_backscatter_0', z=4000., inplace=False):
         """Remove saturation caused by clouds at low altitude which results in negative values above the maximum.
-        For now, we just take the absolute value of the signal below a maximum altitude.
+        The absolute value of the signal is returned below the prescribed altitude.
         
         Args:
-            - var (str, optional): variable of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - var (str, optional): variable of the :class:`xarray.DataSet` to be processed. Defaults to `'attenuated_backscatter_0'`.
             - z (float, optional): Altitude (in m, AGL) below which the signal is unsaturated. Defaults to `4000.`.
-            - inplace (bool, optional): if True, replace the variable. Defaults to `False`.
+            - inplace (bool, optional): if True, replace the :class:`aprofiles.profiles_data.ProfilesData`. Defaults to `False`.
+        
+        Todo:
+            Refine method to desaturate only saturated areas.
+        
+        Returns:
+            :class:`ProfilesData` object with additional attribute `desaturate` for the processed :class:`xr.DataArray`.
+        
+        .. warning::
+            For now, absolute values are returned everywhere below the prescribed altitude.
+        
+        Examples:
+            >>> import aprofiles as apro
+            >>> #read example file
+            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+            >>> reader = apro.reader.ReadProfiles(path)
+            >>> profiles = reader.read()
+            >>> #desaturation below 4000m
+            >>> profiles.desaturate_below(z=4000., inplace=True)
+            >>> profiles.data.attenuated_backscatter_0.desaturated
+            True
+
+            .. figure:: _build/html/_images/saturated.png
+                :scale: 50 %
+                :alt: before desaturation
+
+                Before desaturation.
+            
+            .. figure:: _build/html/_images/desaturated.png
+                :scale: 50 %
+                :alt: after desaturation
+
+                After desaturation.
+        
         """
         
         imax = self._get_index_from_altitude_AGL(z)
@@ -305,48 +382,47 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         #add attribute
-        new_profiles_data.data[var].attrs['desaturate']=True
+        new_profiles_data.data[var].attrs['desaturated']=True
         return new_profiles_data
+
+
 
     def foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
         """Calls :class:`aprofiles.detection.foc.detect_foc()` method.
-        See :ref:`Fog or Condensation`
         """
         apro.detection.foc.detect_foc(self, method, var, z_snr, min_snr, zmin_cloud)
     
     
+
     def clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
-        """Calls :class:`aprofiles.detection.clouds.detect_clouds()` method.
-        See :ref:`Clouds`
+        """Calls :func:`aprofiles.detection.clouds.detect_clouds()` method.
         """
-        apro.detection.clouds.detect_clouds(self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
+        apro.detection.clouds.detect_clouds(self.data, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
 
 
 
     def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
         """Calls :class:`aprofiles.detection.clouds.detect_pbl()` method.
-        See :ref:`Planetary Boundary Layer`
         """     
         apro.detection.pbl.detect_pbl(self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose)
         
 
     
     def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
-        """Aerosol inversion using an apriori.
-        See :ref:`Aerosols Profiles`.
-        """
+        """Calls :class:`aprofiles.inversion.aerosols.inversion()` method.
+        """ 
         apro.inversion.aerosols.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         
         
-        
-
 
     def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm', **kwargs):
-        """Plotting method. Quicklook or single profile.
+        """Plotting method. 
+        Depending on the variable selected, this method will plot an image, a single profile or a time series of the requested variable.
+        See also :ref:`Plotting`.
 
         Args:
-            - var (str, optional): Variable of ProfilesData.data Dataset to be plotted. Defaults to `'attenuated_backscatter_0'`.
-            - datetime (np.datetime64, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to `None`.
+            - var (str, optional): Variable of :class:`aprofiles.profiles_data.ProfilesData.data` object to be plotted. Defaults to `'attenuated_backscatter_0'`.
+            - datetime (:class:`numpy.datetime64`, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to `None`.
             - zref (str, optional): Reference altitude. Expected values: 'agl' (above ground level) or 'asl' (above ea level). Defaults to 'agl'
             - zmin (float, optional): Minimum altitude AGL (m). Defaults to `None`. If `None`, sets to minimum available altitude.
             - zmax (float, optional): Maximum altitude AGL (m). Defaults to `None`. If `None`, sets maximum available altitude.
@@ -373,8 +449,7 @@ class ProfilesData:
 
 def _main():
     import aprofiles as apro
-    path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
-    path = "data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc"
+    path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
 
     #basic corrections

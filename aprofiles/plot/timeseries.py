@@ -16,7 +16,7 @@ def plot(da, var='aod', **kwargs):
     """Plot time series of selected variable from :class: :ref:`ProfilesData` object.
 
     Args:
-        da ([type]): [description]
+        da (:class:`xarray.DataArray`): DataArray
         var (str, optional): [description]. Defaults to 'aod'.
     """
 

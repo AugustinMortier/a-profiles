@@ -3,12 +3,10 @@ API
 
 Documentation of the core API of aprofiles.
 
-Reading Classes
----------------
+Reader
+------
 
-ReadProfiles
-^^^^^^^^^^^^
-.. automodule:: aprofiles.io.reader
+.. automodule:: aprofiles.reader
    :members:
    :undoc-members:
 
@@ -17,18 +15,26 @@ Data Classes
 
 ProfilesData
 ^^^^^^^^^^^^
-.. automodule:: aprofiles.profilesdata
+.. automodule:: aprofiles.profiles_data
+   :members:
+   :undoc-members:
+
+Aeronet
+^^^^^^^
+.. automodule:: aprofiles.aeronet_data
    :members:
    :undoc-members:
 
 Rayleigh
 ^^^^^^^^
-.. automodule:: aprofiles.rayleigh
+.. automodule:: aprofiles.rayleigh_data
    :members:
    :undoc-members:
 
 Detection
 ------------
+
+The following functions are methods from the class :class:`aprofiles.profiles_data.ProfilesData`.
 
 Fog or Condensation
 ^^^^^^^^^^^^^^^^^^^
@@ -50,6 +56,8 @@ Planetary Boundary Layer
 
 Inversion
 ------------
+
+The following functions are methods from the class :class:`aprofiles.profiles_data.ProfilesData`.
 
 Aerosols Profiles
 ^^^^^^^^^^^^^^^^^

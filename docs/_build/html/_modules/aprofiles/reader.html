@@ -73,105 +73,53 @@
 
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
-<span class="kn">from</span> <span class="nn">aprofiles.profilesdata</span> <span class="kn">import</span> <span class="n">ProfilesData</span>
-
+<span class="kn">from</span> <span class="nn">aprofiles.profiles_data</span> <span class="kn">import</span> <span class="n">ProfilesData</span>
+<span class="kn">from</span> <span class="nn">aprofiles.io</span> <span class="kn">import</span> <span class="n">read_aeronet</span><span class="p">,</span> <span class="n">read_eprofile</span>
 
 <div class="viewcode-block" id="ReadProfiles"><a class="viewcode-back" href="../../api.html#aprofiles.reader.ReadProfiles">[docs]</a><span class="k">class</span> <span class="nc">ReadProfiles</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Base class for reading profile data.</span>
+    <span class="sd">&quot;&quot;&quot;Base class for reading profiles data.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        path (str): path or URL of the file to be read.</span>
+<span class="sd">        path (str): path of the file to be read.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-
-    <span class="k">def</span> <span class="nf">_get_reader</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Method which gets the right reader class.</span>
-
-<span class="sd">        Note:</span>
-<span class="sd">            Based on the file name, we return the relevant reading class.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            :class:`__main__._ReadL2EPROFILE`: reader class</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="c1">#check if the filename starts with L2</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;L2&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">_ReadL2EPROFILE</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Only L2 files are supported at the moment&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ReadProfiles.read"><a class="viewcode-back" href="../../api.html#aprofiles.reader.ReadProfiles.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Method which calls the relevant reading class based on the file name.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            :class:`aprofiles.Profiles`: Profiles object</span>
+<span class="sd">            :class:`aprofiles.profiles_data.ProfilesData`</span>
 
 <span class="sd">        Example:</span>
 
 <span class="sd">            &gt;&gt;&gt; #import library</span>
 <span class="sd">            &gt;&gt;&gt; import aprofiles as apro</span>
-<span class="sd">            </span>
-<span class="sd">            &gt;&gt;&gt; #Initialize reading class with file path</span>
 <span class="sd">            &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
-<span class="sd">            &gt;&gt;&gt; reader = apro.ReadProfiles(path)</span>
-
+<span class="sd">            &gt;&gt;&gt; #Initialize reading class with file path</span>
+<span class="sd">            &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">            &gt;&gt;&gt; #calls the read method</span>
 <span class="sd">            &gt;&gt;&gt; profiles = reader.read()</span>
-<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; print(profiles)</span>
+<span class="sd">            &lt;aprofiles.profilesdata.ProfilesData object at 0x7f011055fad0&gt;</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="c1">#get the right reading class</span>
-        <span class="n">reading_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_reader</span><span class="p">()</span>
-        <span class="c1">#calls the read function from the right reading class</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">reading_class</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read_file</span><span class="p">()</span>
-
+        <span class="n">data</span> <span class="o">=</span> <span class="n">read_eprofile</span><span class="o">.</span><span class="n">ReadEPROFILE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">ProfilesData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div></div>
 
-<span class="k">class</span> <span class="nc">_ReadL2EPROFILE</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Read Level 2 data E-PROFILE single NetCDF file.</span>
-<span class="sd">    </span>
-<span class="sd">    Note:</span>
-<span class="sd">        This function can also fetch data from the E-PROFILE hub:</span>
-<span class="sd">        https://data.ceda.ac.uk/badc/eprofile/data/</span>
-<span class="sd">        https://data.ceda.ac.uk/badc/eprofile/data/daily_files/</span>
+<div class="viewcode-block" id="ReadAeronet"><a class="viewcode-back" href="../../api.html#aprofiles.reader.ReadAeronet">[docs]</a><span class="k">class</span> <span class="nc">ReadAeronet</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Base class for reading Aeronet data.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        path (str): The path of the file to be read (path or URL).</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        &lt;class &#39;xarray.Dataset&#39;&gt;</span>
+<span class="sd">        path (str): path of the file to be read.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-
-    <span class="k">def</span> <span class="nf">check_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Check the path</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            OSError: [description]</span>
-<span class="sd">            NotImplementedError: [description]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">#check if file is NetCDF</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">filename</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span> <span class="o">!=</span> <span class="s1">&#39;.nc&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;NetCDF: Unknown file format:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-        <span class="c1">#check if web address</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;The reading of CEDA Archive is not implemented yet&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">check_path</span><span class="p">()</span>
-        <span class="n">dataset</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-        <span class="c1">#replace wavelength with actual value in attenuated backscatter longname</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">long_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;wavelength 0&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> nm&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
-        <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;1E-6*1/(m*sr)&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;E-6 m-1.sr-1&#39;</span><span class="p">))</span>
-
-        <span class="k">return</span> <span class="n">dataset</span>
-
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;ReadAeronet class is not implemented yet&#39;</span><span class="p">)</span></div>
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
     <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>

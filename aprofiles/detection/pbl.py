@@ -5,7 +5,8 @@ from tqdm import tqdm
 
 
 def detect_pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
-    """Detects Planetary Boundary Layer Height between zmin and zmax using convolution with a wavelet.
+    """Module for *Planetary Boundary Layer Height* detection.
+    Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.
 
     Args:
         - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to `1`.
@@ -17,7 +18,26 @@ def detect_pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_cl
         - verbose (bool, optional): verbose mode. Defaults to `False`.
     
     Returns:
-        :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` `pbl`.
+        :class:`ProfilesData` object with additional Data Array.
+            - :class:`xarray.DataArray 'pbl' (time, altitude)`: mask array corresponding to the pbl height.
+    
+        Example:
+
+        >>> import aprofiles as apro
+        >>> #read example file
+        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        >>> reader = apro.reader.ReadProfiles(path)
+        >>> profiles = reader.read()
+        >>> #pbl detection
+        >>> profiles.pbl(zmin=100., zmax=3000.)
+        >>> #attenuated backscatter image with pbl up to 6km of altitude
+        >>> profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
+
+        .. figure:: _build/html/_images/pbl.png
+            :scale: 50 %
+            :alt: clouds detection
+
+            PLanetary Boundary Layer Height detection.
     """
 
     from scipy.ndimage.filters import uniform_filter1d

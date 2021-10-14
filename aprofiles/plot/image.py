@@ -102,7 +102,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
     """Plot image of selected variable from  :class: :ref:`ProfilesData` object.
 
     Args:
-        - da (xr.DataArray): DataArray.
+        - da (:class:`xarray.DataArray`): DataArray.
         - var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
         - zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
         - zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
