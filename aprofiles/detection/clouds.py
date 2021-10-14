@@ -392,7 +392,7 @@ def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr
 
 def _main():
     import aprofiles as apro
-    path = "data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc"
+    path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
 
     #basic corrections

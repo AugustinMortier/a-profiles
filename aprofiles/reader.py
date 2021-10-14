@@ -55,7 +55,7 @@ class ReadAeronet:
         raise NotImplementedError('ReadAeronet class is not implemented yet')
 
 def _main():
-    path = "examples/data/L2_0-20000-001492_A20210909.nc"
+    path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     l2_data = ReadProfiles(path).read()
     print(l2_data)
 

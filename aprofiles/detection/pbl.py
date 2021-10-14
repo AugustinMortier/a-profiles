@@ -133,7 +133,7 @@ def detect_pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_cl
 
 def _main():
     import aprofiles as apro
-    path = "data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc"
+    path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
 
     #basic corrections
