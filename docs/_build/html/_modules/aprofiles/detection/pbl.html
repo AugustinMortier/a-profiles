@@ -100,7 +100,7 @@
 <span class="sd">        &gt;&gt;&gt; #attenuated backscatter image with pbl up to 6km of altitude</span>
 <span class="sd">        &gt;&gt;&gt; profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)</span>
 
-<span class="sd">        .. figure:: _build/html/_images/pbl.png</span>
+<span class="sd">        .. figure:: _static/_images/pbl.png</span>
 <span class="sd">            :scale: 50 %</span>
 <span class="sd">            :alt: clouds detection</span>
 
@@ -200,7 +200,7 @@
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
     <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
     <span class="c1">#basic corrections</span>
