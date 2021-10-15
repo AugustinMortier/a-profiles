@@ -8,8 +8,7 @@ import numpy as np
 import math
 
 class RayleighData:
-    """Class for computing *rayleigh profile* in a standard atmosphere.
-    This class calls the :func:`aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo()` method, which produces profiles of `backscatter` and `extinction` coefficients.
+    """Class for computing *rayleigh profile* in a standard atmosphere. This class calls the :func:`aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo()` method, which produces profiles of `backscatter` and `extinction` coefficients.
 
     Attributes:
         - altitude (array-like): array of altitude ASL to be used to compute the rayleigh profile, in m.
