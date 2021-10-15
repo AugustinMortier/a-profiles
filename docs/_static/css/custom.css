@@ -19,6 +19,6 @@ body > div.wy-grid-for-nav > section > div > div > div:nth-child(1) > ul > li:nt
     color: #30e5a9 !important;
 }
 
-body > div.wy-grid-for-nav > nav > div > div.wy-side-nav-search > div.version{
-    color: hsla(0,0,100%,.6) !important;
+.version{
+    color: hsla(0,0%,100%,.6) !important;
 }
