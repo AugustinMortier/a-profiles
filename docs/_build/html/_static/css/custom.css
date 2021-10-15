@@ -14,3 +14,11 @@
     max-width: 100%;
     height: auto !important;
 }
+
+body > div.wy-grid-for-nav > section > div > div > div:nth-child(1) > ul > li:nth-child(1) > a{
+    color: #30e5a9 !important;
+}
+
+.version{
+    color: hsla(0,0%,100%,.6) !important;
+}
