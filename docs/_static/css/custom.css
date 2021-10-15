@@ -15,7 +15,7 @@
     height: auto !important;
 }
 
-a.icon.icon-home{
+body > div.wy-grid-for-nav > section > div > div > div:nth-child(1) > ul > li:nth-child(1) > a{
     color: #30e5a9 !important;
 }
 
