@@ -13,11 +13,29 @@ sns.set_theme()
 
 
 def plot(da, var='aod', **kwargs):
-    """Plot time series of selected variable from :class: :ref:`ProfilesData` object.
+    """Plot time series of selected variable from :class:`aprofiles.profiles_data.ProfilesData` object.
 
     Args:
-        da (:class:`xarray.DataArray`): DataArray
-        var (str, optional): [description]. Defaults to 'aod'.
+        - da (:class:`xarray.DataArray`): DataArray
+        - var (str, optional): [description]. Defaults to `'aod'`.
+    
+    Example:
+
+        >>> import aprofiles as apro
+        >>> #read example file
+        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        >>> reader = apro.reader.ReadProfiles(path)
+        >>> profiles = reader.read()
+        >>> #retrieve pbl height
+        >>> profiles.pbl(zmin=200, zmax=3000)
+        >>> #attenuated backscatter image
+        >>> profiles.plot(var="pbl" ymin=0., ymax=3000., min_snr=2.)
+
+        .. figure:: _static/_images/time_series.png
+            :scale: 50 %
+            :alt: time series
+
+            Time series of Planetary Boundary Layer height.
     """
 
     def __init__(self):

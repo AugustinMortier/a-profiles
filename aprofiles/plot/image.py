@@ -99,21 +99,37 @@ def _plot_pbl(da, zref):
     plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
 
 def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
-    """Plot image of selected variable from  :class: :ref:`ProfilesData` object.
+    """Plot image of selected variable from :class:`aprofiles.profiles_data.ProfilesData` object.
 
     Args:
         - da (:class:`xarray.DataArray`): DataArray.
-        - var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
-        - zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
+        - var (str, optional): Variable of the DataArray to be plotted. Defaults to `'attenuated_backscatter_0'`.
+        - zref ({'agl', 'asl'},optional): Base reference for altitude axis. Defaults to 'agl'.
         - zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
         - zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
-        - vmin (float, optional): Minimum value. Defaults to None.
+        - vmin (float, optional): Minimum value. Defaults to `None`.
         - vmax (float, optional): Maximum value. If None, calculates max from data.
-        - log (bool, optional), Use logarithmic scale. Defaults to None.
-        - show_foc (bool, optional): Add foc detection. Defaults to False.
-        - show_pbl (bool, optional): Add PBL height. Defaults to False.
-        - show_clouds (bool, optional): Add clouds detection. Defaults to False.
-        - cmap (str, optional): Matplotlib colormap. Defaults to 'coolwarm' cmap from seaborn.
+        - log (bool, optional), Use logarithmic scale. Defaults to `None`.
+        - show_foc (bool, optional): Add foc detection. Defaults to `False`.
+        - show_pbl (bool, optional): Add PBL height. Defaults to `False`.
+        - show_clouds (bool, optional): Add clouds detection. Defaults to `False`.
+        - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'` cmap from seaborn.
+    
+    Example:
+
+        >>> import aprofiles as apro
+        >>> #read example file
+        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        >>> reader = apro.reader.ReadProfiles(path)
+        >>> profiles = reader.read()
+        >>> #attenuated backscatter image
+        >>> profiles.plot(vmin=1e-2, vmax=1e1, log=True)
+
+        .. figure:: _static/_images/attenuated_backscatter.png
+            :scale: 50 %
+            :alt: attenuated backscatter profiles
+
+            Image of attenuated backscatter profiles.
     """
 
     #calculates max value from data

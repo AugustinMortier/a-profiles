@@ -16,17 +16,15 @@ from .ref_altitude import get_iref
 
 
 def backward_inversion(data, iref, apriori, rayleigh):
-    """Backward (Klett) inversion method.
+    """Backward (Klett [#]_ ) inversion method.
 
-    Ref:
-        The method is described in [1]_.
-        .. [1] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.
+    .. [#] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.
 
     Args:
-        data (array_like): single profile of attenuated backscatter coefficient.
-        iref (float): index of the reference altitude returned by `get_iref()` function.
-        apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
-        rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.
+        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.
+        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.
+        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
+        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.
@@ -69,7 +67,9 @@ def backward_inversion(data, iref, apriori, rayleigh):
     return ext
 
 def forward_inversion(data, iref, apriori, rayleigh):
-    """Forward iterative inversion method.
+    """Forward iterative inversion method [#]_.
+
+    .. [#] Li, D., Wu, Y., Gross, B., & Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.
     
     Method principle: 
     
@@ -79,10 +79,10 @@ def forward_inversion(data, iref, apriori, rayleigh):
     After the convergence, the aerosol extinction is retrieved in the next upper layer.
 
     Args:
-        data (array_like): single profile of attenuated backscatter coefficient.
-        iref (float): index of the reference altitude returned by `get_iref()` function.
-        apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
-        rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.
+        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.
+        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.
+        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
+        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.
@@ -151,7 +151,48 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
         NotImplementedError: AOD apriori is not implemented yet.
 
     Returns:
-        :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` 'ext'.
+        :class:`ProfilesData` object with additional Data Array.
+            - :class:`xarray.DataArray 'extinction' (time, altitude)`: 2D array corresponding to the aerosol extinction.
+            - :class:`xarray.DataArray 'aod' (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.
+            - :class:`xarray.DataArray 'lidar_ratio' (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.
+
+ 
+        Example:
+            Profiles preparation
+            
+            >>> import aprofiles as apro
+            >>> #read example file
+            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+            >>> reader = apro.reader.ReadProfiles(path)
+            >>> profiles = reader.read()
+            >>> #extrapolate lowest layers
+            >>> profiles.extrapolate_below(z=150, inplace=True)
+
+            Backward inversion
+
+            >>> #aerosol inversion
+            >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='backward')
+            >>> #plot extinction profiles
+            >>> profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
+
+            .. figure:: _static/_images/backward.png
+                :scale: 50 %
+                :alt: clouds detection
+
+                Extinction profiles retrieved with the backward method.
+            
+            Forward inversion
+
+            >>> #aerosol inversion
+            >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='backward')
+            >>> #plot extinction profiles
+            >>> profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
+
+            .. figure:: _static/_images/forward.png
+                :scale: 50 %
+                :alt: clouds detection
+
+                Extinction profiles retrieved with the forward method.
     """
 
     #we work on profiles averaged in time to reduce the noise
@@ -178,7 +219,7 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
     #aerosol retrieval requires a molecular profile
     altitude = self.data.altitude.data
     wavelength = self.data.l0_wavelength.data
-    rayleigh = apro.rayleigh.RayleighData(altitude, T0=298, P0=1013, wavelength=wavelength);
+    rayleigh = apro.rayleigh_data.RayleighData(altitude, T0=298, P0=1013, wavelength=wavelength);
 
 
     #aerosol inversion
@@ -226,7 +267,7 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
 
 
     #creates dataarrays
-    self.data["ext"] = xr.DataArray(
+    self.data["extinction"] = xr.DataArray(
         data=np.asarray(ext)*1e3,
         dims=["time", "altitude"],
         coords=dict(
@@ -256,7 +297,7 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
         )
     )
 
-    self.data["lr"] = xr.DataArray(
+    self.data["lidar_ratio"] = xr.DataArray(
         data=lr,
         dims=["time"],
         coords=dict(

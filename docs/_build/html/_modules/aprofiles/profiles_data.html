@@ -233,7 +233,30 @@
 <span class="sd">            - inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to `False`.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            :class: :ref:`ProfilesData` object.</span>
+<span class="sd">            :class:`ProfilesData` object with additional attributes `gaussian_filter` for the processed :class:`xr.DataArray`.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">            &gt;&gt;&gt; #read example file</span>
+<span class="sd">            &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">            &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">            &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">            &gt;&gt;&gt; #apply gaussian filtering</span>
+<span class="sd">            &gt;&gt;&gt; profiles.gaussian_filter(sigma=0.5, inplace=True)</span>
+<span class="sd">            &gt;&gt;&gt; profiles.data.attenuated_backscatter_0.attrs.gaussian_filter</span>
+<span class="sd">            0.50</span>
+
+<span class="sd">            .. figure:: _static/_images/attenuated_backscatter.png</span>
+<span class="sd">                :scale: 50 %</span>
+<span class="sd">                :alt: before filtering</span>
+
+<span class="sd">                Before gaussian filtering.</span>
+<span class="sd">            </span>
+<span class="sd">            .. figure:: _static/_images/gaussian_filter.png</span>
+<span class="sd">                :scale: 50 %</span>
+<span class="sd">                :alt: after gaussian filtering</span>
+
+<span class="sd">                After gaussian filtering (sigma=0.5).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">copy</span>
 
@@ -250,7 +273,7 @@
             <span class="n">copied_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">filtered_data</span>
             <span class="n">new_dataset</span> <span class="o">=</span> <span class="n">copied_dataset</span>
         <span class="c1">#add attribute</span>
-        <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;gaussian filter&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">sigma</span>
+        <span class="n">new_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;gaussian_filter&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">sigma</span>
         <span class="k">return</span> <span class="n">new_dataset</span></div>
 
         
@@ -464,7 +487,7 @@
 <div class="viewcode-block" id="ProfilesData.clouds"><a class="viewcode-back" href="../../api.html#aprofiles.profiles_data.ProfilesData.clouds">[docs]</a>    <span class="k">def</span> <span class="nf">clouds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calls :func:`aprofiles.detection.clouds.detect_clouds()` method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">apro</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">clouds</span><span class="o">.</span><span class="n">detect_clouds</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">time_avg</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
+        <span class="n">apro</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">clouds</span><span class="o">.</span><span class="n">detect_clouds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_avg</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
 
 
 

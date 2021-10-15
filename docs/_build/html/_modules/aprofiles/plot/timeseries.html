@@ -80,11 +80,29 @@
 
 
 <div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../../api.html#aprofiles.plot.timeseries.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;aod&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot time series of selected variable from :class: :ref:`ProfilesData` object.</span>
+    <span class="sd">&quot;&quot;&quot;Plot time series of selected variable from :class:`aprofiles.profiles_data.ProfilesData` object.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        da (:class:`xarray.DataArray`): DataArray</span>
-<span class="sd">        var (str, optional): [description]. Defaults to &#39;aod&#39;.</span>
+<span class="sd">        - da (:class:`xarray.DataArray`): DataArray</span>
+<span class="sd">        - var (str, optional): [description]. Defaults to `&#39;aod&#39;`.</span>
+<span class="sd">    </span>
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">        &gt;&gt;&gt; #read example file</span>
+<span class="sd">        &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">        &gt;&gt;&gt; #retrieve pbl height</span>
+<span class="sd">        &gt;&gt;&gt; profiles.pbl(zmin=200, zmax=3000)</span>
+<span class="sd">        &gt;&gt;&gt; #attenuated backscatter image</span>
+<span class="sd">        &gt;&gt;&gt; profiles.plot(var=&quot;pbl&quot; ymin=0., ymax=3000., min_snr=2.)</span>
+
+<span class="sd">        .. figure:: _static/_images/time_series.png</span>
+<span class="sd">            :scale: 50 %</span>
+<span class="sd">            :alt: time series</span>
+
+<span class="sd">            Time series of Planetary Boundary Layer height.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

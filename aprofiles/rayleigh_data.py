@@ -29,22 +29,6 @@ class RayleighData:
         #checkout the class attributes
         >>> rayleigh.__dict__.keys()
         dict_keys(['altitude', 'T0', 'P0', 'wavelength', 'cross_section', 'backscatter', 'extinction'])
-
-        >>> #plot profile
-        >>> fig, ax = plt.subplots(1, 1, figsize=(6, 6))
-        >>> plt.plot(rayleigh.extinction,altitude)
-        >>> plt.text(0.95, 0.94, r'$\sigma_m: {:.2e} cm-2$'.format(rayleigh.cross_section), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
-        >>> plt.title('Rayleigh Profile in a Standard Atmosphere ({}hPa, {}K)'.format(rayleigh.P0, rayleigh.T0), weight='bold')
-        >>> plt.xlabel('Extinction coefficient @ {}nm (m-1)'.format(rayleigh.wavelength))
-        >>> plt.ylabel('Altitude ASL (m)')
-        >>> plt.tight_layout()
-        >>> plt.show()
-
-        .. figure:: _build/html/_images/rayleigh.png
-            :scale: 80 %
-            :alt: rayleigh profile
-
-            Rayleigh extinction profile for a standard atmosphere.
     """
 
     def __init__(self, altitude: list, wavelength: float, T0=298, P0=1013):
@@ -153,30 +137,50 @@ class RayleighData:
         self.extinction = amol[imin:imax]*1e2 # from cm-1 to m-1
         
         return self
+    
+    def plot(self):
+        """Plot extinction profile of the :class:`aprofiles.rayleigh_data.RayleighData` instance.
 
+        Example:
+            >>> #some imports
+            >>> import aprofiles as apro
+            >>> import numpy as np
+            >>> #creates altitude array
+            >>> altitude = np.arange(15,15000,15)
+            >>> wavelength = 1064. 
+            >>> #produce rayleigh profile
+            >>> rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
+            >>> #plot profile
+            >>> rayleigh.plot()
+
+            .. figure:: _static/_images/rayleigh.png
+                :scale: 80 %
+                :alt: rayleigh profile
+
+                Rayleigh extinction profile for a standard atmosphere.
+        """
+
+        import matplotlib.pyplot as plt
+
+        fig, ax = plt.subplots(1, 1, figsize=(6, 6))
+        plt.plot(self.extinction, self.altitude)
+        plt.text(0.95, 0.94, r'$\sigma_m: {:.2e} cm-2$'.format(self.cross_section), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
+        plt.title('Rayleigh Profile in a Standard Atmosphere ({}hPa, {}K)'.format(self.P0, self.T0), weight='bold')
+        plt.xlabel('Extinction coefficient @ {}nm (m-1)'.format(self.wavelength))
+        plt.ylabel('Altitude ASL (m)')
+        plt.tight_layout()
+        plt.show(),
 def _main():
     import aprofiles as apro
     import matplotlib.pyplot as plt
     
-    #path = "examples/data/L2_0-20000-006735_A20210908.nc"
-    path = "examples/data/L2_0-20000-001492_A20210909.nc"
-    apro_reader = apro.reader.ReadProfiles(path)
-    profiles = apro_reader.read()
+    altitude = np.arange(15,15000,15)
+    wavelength = 1064.
 
-    altitude = profiles.data.altitude.data
-    wavelength = profiles.data.l0_wavelength.data
-
-    rayleigh = RayleighData(altitude,wavelength);
+    rayleigh = RayleighData(altitude, wavelength);
 
     #plot
-    fig, ax = plt.subplots(1, 1, figsize=(6, 6))
-    plt.plot(rayleigh.extinction,altitude)
-    plt.text(0.95, 0.94, r'$\sigma_m: {:.2e} cm-2$'.format(rayleigh.cross_section), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
-    plt.title('Rayleigh Profile in a Standard Atmosphere ({}hPa, {}K)'.format(rayleigh.P0, rayleigh.T0), weight='bold')
-    plt.xlabel('Extinction coefficient @ {}nm (m-1)'.format(rayleigh.wavelength))
-    plt.ylabel('Altitude ASL (m)')
-    plt.tight_layout()
-    plt.show()
+    rayleigh.plot()
 
 if __name__ == '__main__':
     _main()

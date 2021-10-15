@@ -29,7 +29,7 @@ def detect_foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=
         >>> #attenuated backscatter image with pbl up to 6km of altitude
         >>> profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
 
-        .. figure:: _build/html/_images/foc.png
+        .. figure:: _static/_images/foc.png
             :scale: 50 %
             :alt: foc detection
 

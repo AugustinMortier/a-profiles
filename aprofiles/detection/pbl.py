@@ -33,7 +33,7 @@ def detect_pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_cl
         >>> #attenuated backscatter image with pbl up to 6km of altitude
         >>> profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
 
-        .. figure:: _build/html/_images/pbl.png
+        .. figure:: _static/_images/pbl.png
             :scale: 50 %
             :alt: clouds detection
 

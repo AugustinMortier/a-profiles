@@ -112,7 +112,7 @@ class ProfilesData:
             >>> #snr image
             >>> profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
 
-            .. figure:: _build/html/_images/snr.png
+            .. figure:: _static/_images/snr.png
                 :scale: 50 %
                 :alt: snr
 
@@ -166,7 +166,30 @@ class ProfilesData:
             - inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to `False`.
         
         Returns:
-            :class: :ref:`ProfilesData` object.
+            :class:`ProfilesData` object with additional attributes `gaussian_filter` for the processed :class:`xr.DataArray`.
+
+        Examples:
+            >>> import aprofiles as apro
+            >>> #read example file
+            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+            >>> reader = apro.reader.ReadProfiles(path)
+            >>> profiles = reader.read()
+            >>> #apply gaussian filtering
+            >>> profiles.gaussian_filter(sigma=0.5, inplace=True)
+            >>> profiles.data.attenuated_backscatter_0.attrs.gaussian_filter
+            0.50
+
+            .. figure:: _static/_images/attenuated_backscatter.png
+                :scale: 50 %
+                :alt: before filtering
+
+                Before gaussian filtering.
+            
+            .. figure:: _static/_images/gaussian_filter.png
+                :scale: 50 %
+                :alt: after gaussian filtering
+
+                After gaussian filtering (sigma=0.5).
         """
         import copy
 
@@ -183,7 +206,7 @@ class ProfilesData:
             copied_dataset.data[var].data = filtered_data
             new_dataset = copied_dataset
         #add attribute
-        new_dataset.data[var].attrs['gaussian filter']=sigma
+        new_dataset.data[var].attrs['gaussian_filter']=sigma
         return new_dataset
 
         
@@ -244,13 +267,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.extrapolation_low_layers_altitude_agl
             150
 
-            .. figure:: _build/html/_images/lowest.png
+            .. figure:: _static/_images/lowest.png
                 :scale: 50 %
                 :alt: before extrapolation
 
                 Before extrapolation.
             
-            .. figure:: _build/html/_images/lowest_extrap.png
+            .. figure:: _static/_images/lowest_extrap.png
                 :scale: 50 %
                 :alt: after desaturation
 
@@ -354,13 +377,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.desaturated
             True
 
-            .. figure:: _build/html/_images/saturated.png
+            .. figure:: _static/_images/saturated.png
                 :scale: 50 %
                 :alt: before desaturation
 
                 Before desaturation.
             
-            .. figure:: _build/html/_images/desaturated.png
+            .. figure:: _static/_images/desaturated.png
                 :scale: 50 %
                 :alt: after desaturation
 
@@ -397,7 +420,7 @@ class ProfilesData:
     def clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
         """Calls :func:`aprofiles.detection.clouds.detect_clouds()` method.
         """
-        apro.detection.clouds.detect_clouds(self.data, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
+        apro.detection.clouds.detect_clouds(self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
 
 
 

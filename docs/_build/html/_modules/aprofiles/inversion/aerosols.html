@@ -83,17 +83,15 @@
 
 
 <div class="viewcode-block" id="backward_inversion"><a class="viewcode-back" href="../../../api.html#aprofiles.inversion.aerosols.backward_inversion">[docs]</a><span class="k">def</span> <span class="nf">backward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Backward (Klett) inversion method.</span>
+    <span class="sd">&quot;&quot;&quot;Backward (Klett [#]_ ) inversion method.</span>
 
-<span class="sd">    Ref:</span>
-<span class="sd">        The method is described in [1]_.</span>
-<span class="sd">        .. [1] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</span>
+<span class="sd">    .. [#] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        data (array_like): single profile of attenuated backscatter coefficient.</span>
-<span class="sd">        iref (float): index of the reference altitude returned by `get_iref()` function.</span>
-<span class="sd">        apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
-<span class="sd">        rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.</span>
+<span class="sd">        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</span>
+<span class="sd">        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.</span>
+<span class="sd">        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
+<span class="sd">        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
@@ -136,7 +134,9 @@
     <span class="k">return</span> <span class="n">ext</span></div>
 
 <div class="viewcode-block" id="forward_inversion"><a class="viewcode-back" href="../../../api.html#aprofiles.inversion.aerosols.forward_inversion">[docs]</a><span class="k">def</span> <span class="nf">forward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Forward iterative inversion method.</span>
+    <span class="sd">&quot;&quot;&quot;Forward iterative inversion method [#]_.</span>
+
+<span class="sd">    .. [#] Li, D., Wu, Y., Gross, B., &amp; Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.</span>
 <span class="sd">    </span>
 <span class="sd">    Method principle: </span>
 <span class="sd">    </span>
@@ -146,10 +146,10 @@
 <span class="sd">    After the convergence, the aerosol extinction is retrieved in the next upper layer.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        data (array_like): single profile of attenuated backscatter coefficient.</span>
-<span class="sd">        iref (float): index of the reference altitude returned by `get_iref()` function.</span>
-<span class="sd">        apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
-<span class="sd">        rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.</span>
+<span class="sd">        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</span>
+<span class="sd">        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.</span>
+<span class="sd">        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
+<span class="sd">        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
@@ -218,7 +218,48 @@
 <span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        :class: :ref:`ProfilesData` object with additional :class:`xarray.DataArray` &#39;ext&#39;.</span>
+<span class="sd">        :class:`ProfilesData` object with additional Data Array.</span>
+<span class="sd">            - :class:`xarray.DataArray &#39;extinction&#39; (time, altitude)`: 2D array corresponding to the aerosol extinction.</span>
+<span class="sd">            - :class:`xarray.DataArray &#39;aod&#39; (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</span>
+<span class="sd">            - :class:`xarray.DataArray &#39;lidar_ratio&#39; (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.</span>
+
+<span class="sd"> </span>
+<span class="sd">        Example:</span>
+<span class="sd">            Profiles preparation</span>
+<span class="sd">            </span>
+<span class="sd">            &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">            &gt;&gt;&gt; #read example file</span>
+<span class="sd">            &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">            &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">            &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">            &gt;&gt;&gt; #extrapolate lowest layers</span>
+<span class="sd">            &gt;&gt;&gt; profiles.extrapolate_below(z=150, inplace=True)</span>
+
+<span class="sd">            Backward inversion</span>
+
+<span class="sd">            &gt;&gt;&gt; #aerosol inversion</span>
+<span class="sd">            &gt;&gt;&gt; profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;backward&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; #plot extinction profiles</span>
+<span class="sd">            &gt;&gt;&gt; profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
+
+<span class="sd">            .. figure:: _static/_images/backward.png</span>
+<span class="sd">                :scale: 50 %</span>
+<span class="sd">                :alt: clouds detection</span>
+
+<span class="sd">                Extinction profiles retrieved with the backward method.</span>
+<span class="sd">            </span>
+<span class="sd">            Forward inversion</span>
+
+<span class="sd">            &gt;&gt;&gt; #aerosol inversion</span>
+<span class="sd">            &gt;&gt;&gt; profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;backward&#39;)</span>
+<span class="sd">            &gt;&gt;&gt; #plot extinction profiles</span>
+<span class="sd">            &gt;&gt;&gt; profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
+
+<span class="sd">            .. figure:: _static/_images/forward.png</span>
+<span class="sd">                :scale: 50 %</span>
+<span class="sd">                :alt: clouds detection</span>
+
+<span class="sd">                Extinction profiles retrieved with the forward method.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#we work on profiles averaged in time to reduce the noise</span>
@@ -245,7 +286,7 @@
     <span class="c1">#aerosol retrieval requires a molecular profile</span>
     <span class="n">altitude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span>
     <span class="n">wavelength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span>
-    <span class="n">rayleigh</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">rayleigh</span><span class="o">.</span><span class="n">RayleighData</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">T0</span><span class="o">=</span><span class="mi">298</span><span class="p">,</span> <span class="n">P0</span><span class="o">=</span><span class="mi">1013</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">);</span>
+    <span class="n">rayleigh</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">rayleigh_data</span><span class="o">.</span><span class="n">RayleighData</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">T0</span><span class="o">=</span><span class="mi">298</span><span class="p">,</span> <span class="n">P0</span><span class="o">=</span><span class="mi">1013</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">);</span>
 
 
     <span class="c1">#aerosol inversion</span>
@@ -293,7 +334,7 @@
 
 
     <span class="c1">#creates dataarrays</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;ext&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span><span class="o">*</span><span class="mf">1e3</span><span class="p">,</span>
         <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
         <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
@@ -323,7 +364,7 @@
         <span class="p">)</span>
     <span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
         <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span>
         <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>

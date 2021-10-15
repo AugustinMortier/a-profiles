@@ -94,21 +94,40 @@ def _plot_pbl(da, time, var, zref):
 
 
 def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax= None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False):
-    """Plot single profile of selected variable from :class: :ref:`ProfilesData` object.
+    """Plot single profile of selected variable from :class:`aprofiles.profiles_data.ProfilesData` object.
 
     Args:
         - da (:class:`xarray.DataArray`): DataArray.
         - datetime (:class:`numpy.datetime64`): time for which we plot the profile.
-        - var (str, optional): Variable of the DataArray to be plotted. Defaults to 'attenuated_backscatter_0'.
-        - zref (str,optional): Base for altitude. Expected values: 'agl' (above ground level) or 'asl' (above sea level). Defaults to 'agl'.
+        - var (str, optional): Variable of the DataArray to be plotted. Defaults to `'attenuated_backscatter_0'`.
+        - zref ({'agl', 'asl'},optional): Base reference for altitude axis. Defaults to 'agl'.
         - zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.
         - zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.
-        - vmin (float, optional): Minimum value. Defaults to 0.
+        - vmin (float, optional): Minimum value. Defaults to `0`.
         - vmax (float, optional): Maximum value. If None, calculates max from data.
-        - log (bool, optional), Use logarithmic scale. Defaults to None.
-        - show_foc (bool, optional): Add foc detection. Defaults to False.
-        - show_pbl (bool, optional): Add PBL height. Defaults to False.
-        - show_clouds (bool, optional): Add clouds detection. Defaults to False.
+        - log (bool, optional), Use logarithmic scale. Defaults to `None`.
+        - show_foc (bool, optional): Add foc detection. Defaults to `False`.
+        - show_pbl (bool, optional): Add PBL height. Defaults to `False`.
+        - show_clouds (bool, optional): Add clouds detection. Defaults to `False`.
+    
+    Example:
+
+        >>> import aprofiles as apro
+        >>> #read example file
+        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        >>> reader = apro.reader.ReadProfiles(path)
+        >>> profiles = reader.read()
+        >>> #some detection
+        >>> profiles.clouds(inplace=True).pbl(inplace=True)
+        >>> #attenuated backscatter single profile
+        >>> datetime = np.datetime64('2021-09-09T10:25:00')
+        >>> profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
+
+        .. figure:: _static/_images/profile.png
+            :scale: 80 %
+            :alt: profile
+
+            Single profile of attenuated backscatter.
     """
 
     if datetime==None:

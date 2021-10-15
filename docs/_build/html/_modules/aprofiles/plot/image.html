@@ -166,21 +166,37 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">pbl</span><span class="p">,</span> <span class="s2">&quot;.g&quot;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;PBL&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../../api.html#aprofiles.plot.image.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">da</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zref</span><span class="o">=</span><span class="s1">&#39;agl&#39;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_foc</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_pbl</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot image of selected variable from  :class: :ref:`ProfilesData` object.</span>
+    <span class="sd">&quot;&quot;&quot;Plot image of selected variable from :class:`aprofiles.profiles_data.ProfilesData` object.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        - da (:class:`xarray.DataArray`): DataArray.</span>
-<span class="sd">        - var (str, optional): Variable of the DataArray to be plotted. Defaults to &#39;attenuated_backscatter_0&#39;.</span>
-<span class="sd">        - zref (str,optional): Base for altitude. Expected values: &#39;agl&#39; (above ground level) or &#39;asl&#39; (above sea level). Defaults to &#39;agl&#39;.</span>
+<span class="sd">        - var (str, optional): Variable of the DataArray to be plotted. Defaults to `&#39;attenuated_backscatter_0&#39;`.</span>
+<span class="sd">        - zref ({&#39;agl&#39;, &#39;asl&#39;},optional): Base reference for altitude axis. Defaults to &#39;agl&#39;.</span>
 <span class="sd">        - zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.</span>
 <span class="sd">        - zmax (float, optional): Maximum altitude AGL (m). Defaults to maximum available altitude.</span>
-<span class="sd">        - vmin (float, optional): Minimum value. Defaults to None.</span>
+<span class="sd">        - vmin (float, optional): Minimum value. Defaults to `None`.</span>
 <span class="sd">        - vmax (float, optional): Maximum value. If None, calculates max from data.</span>
-<span class="sd">        - log (bool, optional), Use logarithmic scale. Defaults to None.</span>
-<span class="sd">        - show_foc (bool, optional): Add foc detection. Defaults to False.</span>
-<span class="sd">        - show_pbl (bool, optional): Add PBL height. Defaults to False.</span>
-<span class="sd">        - show_clouds (bool, optional): Add clouds detection. Defaults to False.</span>
-<span class="sd">        - cmap (str, optional): Matplotlib colormap. Defaults to &#39;coolwarm&#39; cmap from seaborn.</span>
+<span class="sd">        - log (bool, optional), Use logarithmic scale. Defaults to `None`.</span>
+<span class="sd">        - show_foc (bool, optional): Add foc detection. Defaults to `False`.</span>
+<span class="sd">        - show_pbl (bool, optional): Add PBL height. Defaults to `False`.</span>
+<span class="sd">        - show_clouds (bool, optional): Add clouds detection. Defaults to `False`.</span>
+<span class="sd">        - cmap (str, optional): Matplotlib colormap. Defaults to `&#39;coolwarm&#39;` cmap from seaborn.</span>
+<span class="sd">    </span>
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">        &gt;&gt;&gt; #read example file</span>
+<span class="sd">        &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">        &gt;&gt;&gt; #attenuated backscatter image</span>
+<span class="sd">        &gt;&gt;&gt; profiles.plot(vmin=1e-2, vmax=1e1, log=True)</span>
+
+<span class="sd">        .. figure:: _static/_images/attenuated_backscatter.png</span>
+<span class="sd">            :scale: 50 %</span>
+<span class="sd">            :alt: attenuated backscatter profiles</span>
+
+<span class="sd">            Image of attenuated backscatter profiles.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#calculates max value from data</span>
