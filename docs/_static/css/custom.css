@@ -9,3 +9,8 @@
 .wy-nav-top{
     background-color: #404040 !important;
 }
+
+.rst-content img {
+    max-width: 100%;
+    height: auto !important;
+}
