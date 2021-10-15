@@ -446,7 +446,7 @@ class ProfilesData:
         Args:
             - var (str, optional): Variable of :class:`aprofiles.profiles_data.ProfilesData.data` object to be plotted. Defaults to `'attenuated_backscatter_0'`.
             - datetime (:class:`numpy.datetime64`, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to `None`.
-            - zref (str, optional): Reference altitude. Expected values: 'agl' (above ground level) or 'asl' (above ea level). Defaults to 'agl'
+            - zref ({'agl', 'asl'}, optional): Base reference for the altitude axis.. Defaults to `'agl'`
             - zmin (float, optional): Minimum altitude AGL (m). Defaults to `None`. If `None`, sets to minimum available altitude.
             - zmax (float, optional): Maximum altitude AGL (m). Defaults to `None`. If `None`, sets maximum available altitude.
             - vmin (float, optional): Minimum value. Defaults to `None`.

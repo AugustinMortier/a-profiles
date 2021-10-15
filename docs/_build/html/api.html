@@ -305,7 +305,7 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>var (str, optional): Variable of <a class="reference internal" href="#aprofiles.profiles_data.ProfilesData.data" title="aprofiles.profiles_data.ProfilesData.data"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData.data</span></code></a> object to be plotted. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>datetime (<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code>, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to <cite>None</cite>.</p></li>
-<li><p>zref (str, optional): Reference altitude. Expected values: ‘agl’ (above ground level) or ‘asl’ (above ea level). Defaults to ‘agl’</p></li>
+<li><p>zref ({‘agl’, ‘asl’}, optional): Base reference for the altitude axis.. Defaults to <cite>‘agl’</cite></p></li>
 <li><p>zmin (float, optional): Minimum altitude AGL (m). Defaults to <cite>None</cite>. If <cite>None</cite>, sets to minimum available altitude.</p></li>
 <li><p>zmax (float, optional): Maximum altitude AGL (m). Defaults to <cite>None</cite>. If <cite>None</cite>, sets maximum available altitude.</p></li>
 <li><p>vmin (float, optional): Minimum value. Defaults to <cite>None</cite>.</p></li>
