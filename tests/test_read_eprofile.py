@@ -1,5 +1,5 @@
 import pytest
-from aprofiles import read_eprofile
+from aprofiles import reader, read_eprofile
 import xarray as xr
  
 def test__ReadEPROFILE():
