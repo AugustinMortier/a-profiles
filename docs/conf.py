@@ -34,8 +34,28 @@ extensions = [
     'sphinx.ext.autosectionlabel'
 ]
 
+
+html_css_files = [
+    'css/custom.css',
+]
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+html_theme_options = {
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'vcs_pageview_mode': '',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
+
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
