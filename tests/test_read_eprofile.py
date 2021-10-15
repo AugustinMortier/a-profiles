@@ -9,11 +9,8 @@ def path():
 
 class TestReadEPROFILE:
 
-    def __init__(self):
-        self.path = path
-
-    def test_read(self):
-        data = read_eprofile.ReadEPROFILE(self.path).read()
+    def test_read(self, path):
+        data = read_eprofile.ReadEPROFILE(path).read()
         assert type(data) is xr.core.dataset.Dataset 
 
 #"""Check if the reading the fie returns a Dataset"""
