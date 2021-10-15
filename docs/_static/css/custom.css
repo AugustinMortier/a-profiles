@@ -5,3 +5,7 @@
 .wy-menu-vertical header, .wy-menu-vertical p.caption{
     color: #30e5a9 !important;
 }
+
+.wy-nav-top{
+    background-color: #404040 !important;
+}
