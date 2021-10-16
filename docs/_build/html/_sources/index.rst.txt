@@ -3,11 +3,10 @@ A-Profiles
 
 Welcome to A-Profiles documentation!
 
-.. figure:: _static/_images/attenuated_backscatter.png
+.. image:: _static/_images/attenuated_backscatter.png
     :scale: 50 %
     :alt: attenuated backscatter profiles
 
-    Image of attenuated backscatter profiles.
 
 A-Profiles is a python library dedicated to the analysis of atmospheric profilers measurements.
 

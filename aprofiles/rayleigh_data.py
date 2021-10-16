@@ -42,7 +42,9 @@ class RayleighData:
     
 
     def get_optics_in_std_atmo(self):        
-        """Function that returns *backscatter* and *extinction* profiles for a given :class:`RayleighData` class.
+        """Function that returns *backscatter* and *extinction* profiles [#]_ for a given :class:`RayleighData` class.
+
+        .. [#] Bucholtz, A. (1995). Rayleigh-scattering calculations for the terrestrial atmosphere. Applied optics, 34(15), 2765-2773.
 
         Returns:
             :class:`aprofiles.rayleigh.RayleighData` object with additional attributes.
@@ -52,8 +54,9 @@ class RayleighData:
         """
 
         def _refi_air(wavelength):
-            """Function that calculates the refractive index of the air at a given wavelength in a standard atmosphere.
-            This is adapted from Peek and Reeder, 1972.
+            """Function that calculates the refractive index of the air at a given wavelength in a standard atmosphere [#]_.
+
+            .. [#] Peck, E. R., & Reeder, K. (1972). Dispersion of air. JOSA, 62(8), 958-962.
 
             Args:
                 wavelength (float): wavelength, in µm.

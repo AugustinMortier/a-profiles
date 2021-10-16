@@ -109,7 +109,9 @@
     
 
 <div class="viewcode-block" id="RayleighData.get_optics_in_std_atmo"><a class="viewcode-back" href="../../api.html#aprofiles.rayleigh_data.RayleighData.get_optics_in_std_atmo">[docs]</a>    <span class="k">def</span> <span class="nf">get_optics_in_std_atmo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>        
-        <span class="sd">&quot;&quot;&quot;Function that returns *backscatter* and *extinction* profiles for a given :class:`RayleighData` class.</span>
+        <span class="sd">&quot;&quot;&quot;Function that returns *backscatter* and *extinction* profiles [#]_ for a given :class:`RayleighData` class.</span>
+
+<span class="sd">        .. [#] Bucholtz, A. (1995). Rayleigh-scattering calculations for the terrestrial atmosphere. Applied optics, 34(15), 2765-2773.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`aprofiles.rayleigh.RayleighData` object with additional attributes.</span>
@@ -119,8 +121,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">_refi_air</span><span class="p">(</span><span class="n">wavelength</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;Function that calculates the refractive index of the air at a given wavelength in a standard atmosphere.</span>
-<span class="sd">            This is adapted from Peek and Reeder, 1972.</span>
+            <span class="sd">&quot;&quot;&quot;Function that calculates the refractive index of the air at a given wavelength in a standard atmosphere [#]_.</span>
+
+<span class="sd">            .. [#] Peck, E. R., &amp; Reeder, K. (1972). Dispersion of air. JOSA, 62(8), 958-962.</span>
 
 <span class="sd">            Args:</span>
 <span class="sd">                wavelength (float): wavelength, in µm.</span>
