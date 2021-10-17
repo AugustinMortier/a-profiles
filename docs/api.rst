@@ -54,14 +54,14 @@ Planetary Boundary Layer
    :members:
    :undoc-members:
 
-Inversion
+Retrievals
 ------------
 
 The following functions are methods from the class :class:`aprofiles.profiles_data.ProfilesData`.
 
-Aerosols Profiles
-^^^^^^^^^^^^^^^^^
-.. automodule:: aprofiles.inversion.aerosols
+Aerosols Extinction
+^^^^^^^^^^^^^^^^^^^
+.. automodule:: aprofiles.retrieval.extinction
    :members:
    :undoc-members:
 

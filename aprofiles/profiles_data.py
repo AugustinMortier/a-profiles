@@ -29,7 +29,6 @@ class ProfilesData:
     
     @data.setter 
     def data(self, data):
-        print(data)
         if not isinstance(data, xr.Dataset):
             raise ValueError("Wrong data type: an xarray Dataset is expected.")
         self._data = data
@@ -432,9 +431,9 @@ class ProfilesData:
 
     
     def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
-        """Calls :class:`aprofiles.inversion.aerosols.inversion()` method.
+        """Calls :class:`aprofiles.retrieval.extinction.inversion()` method.
         """ 
-        apro.inversion.aerosols.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
+        apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         
         
 

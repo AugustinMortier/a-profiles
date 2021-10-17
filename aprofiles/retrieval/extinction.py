@@ -11,6 +11,7 @@ import numpy as np
 import xarray as xr
 from scipy.ndimage.filters import uniform_filter1d
 from tqdm import tqdm
+import warnings
 
 from .ref_altitude import get_iref
 
@@ -99,7 +100,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
         #if we assume the LR, no need to minimize for matching aod 
         lr_aer = apriori['lr']
     lr_mol = 8.*math.pi/3.
-
+    
     def _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, nloop_max=30, diff_ext=0.01):
         for _ in range(nloop_max):
             if np.isnan(Ea[0]):
@@ -132,6 +133,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
     #returns extinction in m-1
     ext = Ea
     return ext
+
 
 def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='forward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
     """Aerosol inversion of the attenuated backscatter profiles using an apriori.
@@ -210,7 +212,6 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
     if under_clouds and 'clouds_bases' in list(self.data.data_vars):
         lowest_clouds = self._get_lowest_clouds()
     elif under_clouds and not 'clouds_bases' in list(self.data.data_vars):
-        import warnings
         warnings.warn("under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.")
         lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
     else:

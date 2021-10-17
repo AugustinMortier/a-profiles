@@ -7,6 +7,9 @@
 import aprofiles as apro
 import numpy as np
 
+import time
+start_time = time.time()
+
 #read some data
 #path = "data/e-profile/2021/09/08/L2_0-20000-006735_A20210908.nc"
 #path = "data/e-profile/2021/09/09/L2_0-20000-001492_A20210909.nc"
@@ -60,10 +63,12 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=True, min_snr=2., verbose=True)
 #forward
 profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='forward', verbose=True)
 #profiles.plot(var='ext', zmax=6000, vmin=0, vmax=5e-2)
-profiles.plot('pbl', ymin=0, ymax=3000)
+#profiles.plot('pbl', ymin=0, ymax=3000)
 
 ##produce rayleigh profile
 #altitude = profiles.data.altitude.data
 #wavelength = profiles.data.l0_wavelength.data
 #rayleigh = apro.rayleigh_data.RayleighData(altitude, wavelength=wavelength, T0=298, P0=1013);
 #rayleigh.plot()
+print("--- %s seconds ---" % (time.time() - start_time))
+
