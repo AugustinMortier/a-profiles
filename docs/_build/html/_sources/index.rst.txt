@@ -15,7 +15,7 @@ Using elastic measurements performed by Lidars and/or ceilometers, A-Profiles pr
 A-Profiles supports `E-PROFILE <https://e-profile.eu/#/cm_profile>`_ data reading. This library is used by `V-Profiles <https://aerocom-vprofiles.met.no>`_.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Documentation
 
    installation
