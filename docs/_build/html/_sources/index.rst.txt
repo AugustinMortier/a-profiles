@@ -3,7 +3,7 @@ A-Profiles
 
 Welcome to A-Profiles documentation!
 
-.. image:: _static/_images/attenuated_backscatter.png
+.. image:: ../examples/images/attenuated_backscatter.png
     :scale: 50 %
     :alt: attenuated backscatter profiles
 
@@ -19,5 +19,6 @@ A-Profiles supports `E-PROFILE <https://e-profile.eu/#/cm_profile>`_ data readin
    :caption: Documentation
 
    installation
+   examples
    api
    

@@ -111,7 +111,7 @@ class ProfilesData:
             >>> #snr image
             >>> profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
 
-            .. figure:: _static/_images/snr.png
+            .. figure:: ../examples/images/snr.png
                 :scale: 50 %
                 :alt: snr
 
@@ -178,13 +178,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.attrs.gaussian_filter
             0.50
 
-            .. figure:: _static/_images/attenuated_backscatter.png
+            .. figure:: ../examples/images/attenuated_backscatter.png
                 :scale: 50 %
                 :alt: before filtering
 
                 Before gaussian filtering.
             
-            .. figure:: _static/_images/gaussian_filter.png
+            .. figure:: ../examples/images/gaussian_filter.png
                 :scale: 50 %
                 :alt: after gaussian filtering
 
@@ -266,13 +266,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.extrapolation_low_layers_altitude_agl
             150
 
-            .. figure:: _static/_images/lowest.png
+            .. figure:: ../examples/images/lowest.png
                 :scale: 50 %
                 :alt: before extrapolation
 
                 Before extrapolation.
             
-            .. figure:: _static/_images/lowest_extrap.png
+            .. figure:: ../examples/images/lowest_extrap.png
                 :scale: 50 %
                 :alt: after desaturation
 
@@ -376,13 +376,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.desaturated
             True
 
-            .. figure:: _static/_images/saturated.png
+            .. figure:: ../examples/images/saturated.png
                 :scale: 50 %
                 :alt: before desaturation
 
                 Before desaturation.
             
-            .. figure:: _static/_images/desaturated.png
+            .. figure:: ../examples/images/desaturated.png
                 :scale: 50 %
                 :alt: after desaturation
 

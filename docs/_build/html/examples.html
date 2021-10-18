@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; A-Profiles  documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> A-Profiles
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data-reading">Data reading</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-corrections">Basic corrections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extrapolation-lowest-layers">Extrapolation lowest layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gaussian-filtering">Gaussian Filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#more-advanced-detection">More advanced detection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fog-or-condensation-detection">Fog or condensation detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clouds-detection">Clouds detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#planetary-boundary-layer-tracking">Planetary Boundary Layer tracking</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aerosol-retrieval">Aerosol retrieval</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extinction">Extinction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mass-concentration">Mass concentration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">A-Profiles</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>Some basic examples for getting you started using <cite>aprofiles</cite>.</p>
+<div class="section" id="data-reading">
+<h2>Data reading<a class="headerlink" href="#data-reading" title="Permalink to this headline">¶</a></h2>
+<p>For reading ceilometers and lidars data, the class <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles" title="aprofiles.reader.ReadProfiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles</span></code></a> must be instantiated with the path of the NetCDF file to be read.
+The <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles.read" title="aprofiles.reader.ReadProfiles.read"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles.read()</span></code></a> method applied to this instance returns a <a class="reference internal" href="api.html#aprofiles.profiles_data.ProfilesData" title="aprofiles.profiles_data.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData</span></code></a> object whose <cite>data</cite> attribute contains the NetCDF file content as a <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataSet</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+<span class="c1">#path of the NetCDF file to be read</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="c1">#instantiate the ReadProfiles class with the file path</span>
+<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="c1">#call the read method of the instance</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1">#plot the attenuated backscatter profile</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">zref</span><span class="o">=</span><span class="s1">&#39;agl&#39;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id1">
+<img alt="_images/attenuated_backscatter1.png" src="_images/attenuated_backscatter1.png" />
+<p class="caption"><span class="caption-text">Attenuated Backscatter Profiles</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="basic-corrections">
+<h2>Basic corrections<a class="headerlink" href="#basic-corrections" title="Permalink to this headline">¶</a></h2>
+<p>Here is a non exhaustive list of basic corrections available to correct profile measurements. For more information, check out the <a class="reference internal" href="api.html#api"><span class="std std-ref">API</span></a>.</p>
+<div class="section" id="extrapolation-lowest-layers">
+<h3>Extrapolation lowest layers<a class="headerlink" href="#extrapolation-lowest-layers" title="Permalink to this headline">¶</a></h3>
+<p>It is frequent to observe negative values in the lowest layers of the profiles due to instrumental artifacts.
+It is recommended to eliminate those outliers prior to detect some parameters such as the planetary boundary layer height, or before retrieving the aerosol profiles.
+The <a class="reference internal" href="api.html#aprofiles.profiles_data.ProfilesData.extrapolate_below" title="aprofiles.profiles_data.ProfilesData.extrapolate_below"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData.extrapolate_below()</span></code></a> method allows to extrapolate values of the selected variable of a <a class="reference internal" href="api.html#aprofiles.profiles_data.ProfilesData" title="aprofiles.profiles_data.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData</span></code></a> object.</p>
+<div class="figure align-default" id="id2">
+<img alt="_images/lowest1.png" src="_images/lowest1.png" />
+<p class="caption"><span class="caption-text">Negative values are observed in the lowest layers</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+<span class="c1">#path of the NetCDF file to be read</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1">#extrapolate lowest layers</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#plot the attenuated backscatter profile up to 1000m of altitude</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zref</span><span class="o">=</span><span class="s1">&#39;agl&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">1000.</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id3">
+<img alt="_images/lowest_extrap1.png" src="_images/lowest_extrap1.png" />
+<p class="caption"><span class="caption-text">Extrapolation below 150m of altitude</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="gaussian-filtering">
+<h3>Gaussian Filtering<a class="headerlink" href="#gaussian-filtering" title="Permalink to this headline">¶</a></h3>
+<p>The application of a gaussian filter can help increasing the SNR (that can be determined with the <a class="reference internal" href="api.html#aprofiles.profiles_data.ProfilesData.snr" title="aprofiles.profiles_data.ProfilesData.snr"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData.snr()</span></code></a> method).</p>
+<div class="figure align-default" id="id4">
+<img alt="_images/attenuated_backscatter1.png" src="_images/attenuated_backscatter1.png" />
+<p class="caption"><span class="caption-text">Original attenuated backscatter profiles</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+<span class="c1">#path of the NetCDF file to be read</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1">#gaussian filtering</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">gaussian_filtering</span><span class="p">(</span><span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#plot the attenuated backscatter profile</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<img alt="_images/gaussian_filter1.png" src="_images/gaussian_filter1.png" />
+<p class="caption"><span class="caption-text">Backscatter profiles with gaussian filter (<cite>sigma=0.5</cite>)</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="more-advanced-detection">
+<h2>More advanced detection<a class="headerlink" href="#more-advanced-detection" title="Permalink to this headline">¶</a></h2>
+<p>For more information on the methods parameters, please check out the <a class="reference internal" href="api.html#api"><span class="std std-ref">API</span></a>.</p>
+<div class="section" id="fog-or-condensation-detection">
+<h3>Fog or condensation detection<a class="headerlink" href="#fog-or-condensation-detection" title="Permalink to this headline">¶</a></h3>
+<p>Fog or condensation prevents the laser beam to propagate into the atmosphere. It is important to detect those cases for filtering the data when trying to quantifying the aerosol content.
+The default method of the <a class="reference internal" href="api.html#aprofiles.profiles_data.ProfilesData.foc" title="aprofiles.profiles_data.ProfilesData.foc"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData.foc()</span></code></a> method relies on the constructor clouds detection which provides clouds bases.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+<span class="c1">#read some data</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1">#basic corrections</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#foc detection</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">foc</span><span class="p">(</span><span class="n">zmin_cloud</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+
+<span class="c1">#plot image below 6000m with a highlight on foc</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_foc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id6">
+<img alt="_images/foc1.png" src="_images/foc1.png" />
+<p class="caption"><span class="caption-text">Fog or Condensation detection</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="clouds-detection">
+<h3>Clouds detection<a class="headerlink" href="#clouds-detection" title="Permalink to this headline">¶</a></h3>
+<p>The clouds module aims to detect clouds in each single profiles, individually. This detection relies on the analysis of the vertical gradient of the attenuated backscatter profiles.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+<span class="c1">#read some data</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1">#basic corrections</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#clouds detection</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#plot image with clouds</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id7">
+<img alt="_images/clouds1.png" src="_images/clouds1.png" />
+<p class="caption"><span class="caption-text">Clouds detection</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="planetary-boundary-layer-tracking">
+<h3>Planetary Boundary Layer tracking<a class="headerlink" href="#planetary-boundary-layer-tracking" title="Permalink to this headline">¶</a></h3>
+<p>The Planetary Boundary Layer module identifies the PBL heigh as the strongest vertical gradient of the attenuated backscatter profiles.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+<span class="c1">#read some data</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1">#basic corrections</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#planetary boundary layer detection</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">pbl</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span> <span class="n">under_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#plot image with pbl tracking</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">show_pbl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id8">
+<img alt="_images/pbl1.png" src="_images/pbl1.png" />
+<p class="caption"><span class="caption-text">Planetary Boundary Layer height detection</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="aerosol-retrieval">
+<h2>Aerosol retrieval<a class="headerlink" href="#aerosol-retrieval" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="extinction">
+<h3>Extinction<a class="headerlink" href="#extinction" title="Permalink to this headline">¶</a></h3>
+<p>The aerosol extinction module retrieves extinction profiles by using a prescribed a priori (Lidar ratio, or AOD).
+Both backward and forward methods have been implemented and can be used in this module.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+<span class="c1">#read some data</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1">#basic corrections</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#aerosol retrievals - forward inversion</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">#plot extinction profiles</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id9">
+<img alt="_images/forward1.png" src="_images/forward1.png" />
+<p class="caption"><span class="caption-text">Aerosol extinction profiles retrieved with an iterative forward approach.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="mass-concentration">
+<h3>Mass concentration<a class="headerlink" href="#mass-concentration" title="Permalink to this headline">¶</a></h3>
+<p>Coming soon</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Augustin Mortier.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

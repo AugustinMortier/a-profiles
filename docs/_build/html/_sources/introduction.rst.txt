@@ -2,7 +2,7 @@ About
 -----
 Welcome to A-Profiles documentation!
 
-.. figure:: _static/_images/attenuated_backscatter.png
+.. figure:: ../examples/images/attenuated_backscatter.png
     :scale: 50 %
     :alt: attenuated backscatter profiles
 

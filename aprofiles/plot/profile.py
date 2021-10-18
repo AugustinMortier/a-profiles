@@ -123,7 +123,7 @@ def plot(da, datetime, var='attenuated_backscatter_0', zref='agl', zmin=None, zm
         >>> datetime = np.datetime64('2021-09-09T10:25:00')
         >>> profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
 
-        .. figure:: _static/_images/profile.png
+        .. figure:: ../examples/images/profile.png
             :scale: 80 %
             :alt: profile
 

@@ -125,7 +125,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
         >>> #attenuated backscatter image
         >>> profiles.plot(vmin=1e-2, vmax=1e1, log=True)
 
-        .. figure:: _static/_images/attenuated_backscatter.png
+        .. figure:: ../examples/images/attenuated_backscatter.png
             :scale: 50 %
             :alt: attenuated backscatter profiles
 
