@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+
+# @author Augustin Mortier
+# @email augustinm@met.no
+# @desc A-Profiles - Size Distribution
+import json
+import math
+from typing import Sized
+
+import miepython
+import numpy as np
+from tqdm import tqdm
+
+import aprofiles as apro
+import matplotlib.pyplot as plt
+
+
+class SizeDistributionData:
+    """Class for computing *size distributions* for a given aerosol type.
+    This class calls the :func:`SizeDistributionData.get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).
+
+    Attributes:
+        - aer_type ({'dust','volcanic_ash','biomass_burning','urban'}): aerosol type.
+        - aer_properties (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
+    
+    Example:
+        >>> #some imports
+        >>> import aprofiles as apro
+        >>> sd = apro.size_distribution.SizeDistributionData('urban')
+        #checkout the instance attributes
+        >>> apro.size_distribution.SizeDistributionData('dust').__dict__.keys()
+        dict_keys(['aer_type', 'aer_properties', 'radius', 'vsd', 'nsd'])
+    """
+
+    def __init__(self, aer_type):
+        self.aer_type = aer_type
+
+        #read aer_properties.json files
+        f = open('aprofiles/aer_properties.json')
+        aer_properties = json.load(f)
+        f.close()
+        self.aer_properties = aer_properties[self.aer_type]
+        self.get_sd()
+
+
+    def _gaussian(self, x, mu, sig, norm):
+        """1D Gaussian function
+
+        Args:
+            x (1D-Array): array of values for which to return the Gaussian function.
+            mu (float): Mean
+            sig (float): Standard deviation
+            norm (float): Normalization factor
+
+        Returns:
+            1D-Array: Gaussian distribution
+        """
+        return (norm/(np.sqrt(2*np.pi)*sig))*np.exp(-((x - mu)**2/(2*sig**2)))
+    
+    def _vsd_to_nsd(self):
+        """Transforms Volume Size Distribution to Number Size Distribution
+        """
+        self.nsd = [self.vsd[i]*3/(4*np.pi*self.radius[i]**3)for i in range(len(self.radius))]
+        return self
+
+    def get_sd(self):
+        """Returns the Volume and Number Size Distributions [*]_ arrays from an instance of the :class:`SizeDistributionData` class .
+
+        .. [*] Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., ... & Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. Journal of the atmospheric sciences, 59(3), 590-608.
+
+        Returns:
+            :class:`SizeDistribData` object with additional attributes.
+                - `radius` <:class:`numpy.ndarray`>: radius (µm)
+                - `vsd` <:class:`numpy.ndarray`>: Volume Size Ditribution (µm3.µm-2)
+                - `nsd` <:class:`numpy.ndarray`>: Number Size Distribution (.µm-3)
+        """
+
+        aer_properties = self.aer_properties
+        radius = np.arange(1E-3,100,1E-3) #in µm
+        vsd = np.zeros(len(radius))
+
+        #we loop though all the keys defining the different modes
+        for mode in aer_properties["vsd"].keys():
+            vsd += self._gaussian(np.log(radius), np.log(aer_properties["vsd"][mode]["reff"]), aer_properties["vsd"][mode]["rstd"], aer_properties["vsd"][mode]["conc"])
+        
+        self.radius = radius
+        self.vsd = vsd
+        self._vsd_to_nsd()
+
+        return self
+    
+    
+    def plot(self):
+        """Plot Size Distributions of an intance of the :class:`SizeDistributionData` class.
+
+        Example:
+            >>> #some imports
+            >>> import aprofiles as apro
+            >>> #get size distribution for urban particles
+            >>> sd = apro.size_distribution.SizeDistribData('urban');
+            >>> #plot profile
+            >>> sd.plot()
+
+            .. figure:: ../examples/images/urban_sd.png
+                :scale: 80 %
+                :alt: urban size distribution
+
+                Size distributions for urban particles.
+
+        """        
+        fig, ax = plt.subplots(1,1, figsize=(6,6))
+
+        #plot Volume Size Distribution in 1st axis
+        print(self.vsd)
+        ax.plot(self.radius, self.vsd, label='VSD')
+        ax.set_ylabel('dV(r)/dln r ({})'.format('µm3.µm-2'))
+
+        #plot Number Size Distribution in 2nd axis
+        if 'nsd' in self.__dict__:
+            #add secondary yaxis
+            ax2 = ax.twinx()
+            ax2.plot(self.radius, self.nsd, 'orange', label='NSD')
+            ax2.set_ylabel('dN(r)/dln r ({})'.format('.µm-3'))
+            #ax2.set_ylim([0,10])
+        
+        ax.set_xlabel('Radius (µm)')
+        ax.set_xscale('log')
+        ax.set_xlim([1E-2,20])
+        fig.legend(loc="upper right", bbox_to_anchor=(1,1), bbox_transform=ax.transAxes)
+        plt.title('Size Distribution for {} Particles'.format(self.aer_type.capitalize().replace('_',' ')),weight='bold')
+        plt.tight_layout()
+        plt.show()
+                
+
+def _main():
+    import aprofiles as apro
+    sd_data = SizeDistributionData('urban')
+    sd_data.plot()
+
+if __name__ == '__main__':
+    _main()

@@ -6,7 +6,7 @@
 
 import xarray as xr
 
-from aprofiles.profiles_data import ProfilesData
+from aprofiles.profiles import ProfilesData
 from aprofiles.io import read_aeronet, read_eprofile
 
 class ReadProfiles:
@@ -23,7 +23,7 @@ class ReadProfiles:
         """Method which calls the relevant reading class based on the file name.
 
         Returns:
-            :class:`aprofiles.profiles_data.ProfilesData`
+            :class:`aprofiles.profiles.ProfilesData`
 
         Example:
 
@@ -56,8 +56,8 @@ class ReadAeronet:
 
 def _main():
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-    l2_data = ReadProfiles(path).read()
-    print(l2_data)
+    ProfilesData = ReadProfiles(path).read()
+    print(ProfilesData)
 
 if __name__ == '__main__':
     _main()

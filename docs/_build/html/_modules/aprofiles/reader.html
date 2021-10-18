@@ -74,7 +74,7 @@
 
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
-<span class="kn">from</span> <span class="nn">aprofiles.profiles_data</span> <span class="kn">import</span> <span class="n">ProfilesData</span>
+<span class="kn">from</span> <span class="nn">aprofiles.profiles</span> <span class="kn">import</span> <span class="n">ProfilesData</span>
 <span class="kn">from</span> <span class="nn">aprofiles.io</span> <span class="kn">import</span> <span class="n">read_aeronet</span><span class="p">,</span> <span class="n">read_eprofile</span>
 
 <div class="viewcode-block" id="ReadProfiles"><a class="viewcode-back" href="../../api.html#aprofiles.reader.ReadProfiles">[docs]</a><span class="k">class</span> <span class="nc">ReadProfiles</span><span class="p">:</span>
@@ -91,7 +91,7 @@
         <span class="sd">&quot;&quot;&quot;Method which calls the relevant reading class based on the file name.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            :class:`aprofiles.profiles_data.ProfilesData`</span>
+<span class="sd">            :class:`aprofiles.profiles.ProfilesData`</span>
 
 <span class="sd">        Example:</span>
 
@@ -124,8 +124,8 @@
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
     <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
-    <span class="n">l2_data</span> <span class="o">=</span> <span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">l2_data</span><span class="p">)</span>
+    <span class="n">ProfilesData</span> <span class="o">=</span> <span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ProfilesData</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">_main</span><span class="p">()</span>

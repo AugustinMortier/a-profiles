@@ -4,8 +4,9 @@
 # @email augustinm@met.no
 # @desc A-Profiles Rayleigh Profile
 
+import matplotlib.pyplot as plt
 import numpy as np
-import math
+
 
 class RayleighData:
     """Class for computing *rayleigh profile* in a standard atmosphere.
@@ -26,7 +27,7 @@ class RayleighData:
         >>> wavelength = 1064. 
         >>> #produce rayleigh profile
         >>> rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
-        #checkout the class attributes
+        #checkout the instance attributes
         >>> rayleigh.__dict__.keys()
         dict_keys(['altitude', 'T0', 'P0', 'wavelength', 'cross_section', 'backscatter', 'extinction'])
     """
@@ -42,7 +43,7 @@ class RayleighData:
     
 
     def get_optics_in_std_atmo(self):        
-        """Function that returns *backscatter* and *extinction* profiles [#]_ for a given :class:`RayleighData` class.
+        """Function that returns *backscatter* and *extinction* profiles [#]_ for an instance of a :class:`RayleighData` class.
 
         .. [#] Bucholtz, A. (1995). Rayleigh-scattering calculations for the terrestrial atmosphere. Applied optics, 34(15), 2765-2773.
 
@@ -120,14 +121,14 @@ class RayleighData:
 
         #cross section, in cm-2 (adapted from Bodhaine et al., 1999)
         king_factor = 1.05 #tomasi et al., 2005
-        num = 24*(math.pi**3)*((_refi_air(self.wavelength*1e-3)**2-1)**2)
+        num = 24*(np.pi**3)*((_refi_air(self.wavelength*1e-3)**2-1)**2)
         denum = ((self.wavelength*1e-7)**4)*(Ns**2)*((_refi_air(self.wavelength*1e-3)**2+2)**2)
         section_m = (num/denum)*king_factor
 
         #extinction profile
         amol = N_m*np.array(section_m)
         #backscatter profile
-        lr_mol = 8*math.pi/3;
+        lr_mol = 8*np.pi/3;
         bmol = amol / lr_mol
 
         #colocate vertically to input altitude
@@ -142,7 +143,7 @@ class RayleighData:
         return self
     
     def plot(self):
-        """Plot extinction profile of the :class:`aprofiles.rayleigh_data.RayleighData` instance.
+        """Plot extinction profile of an instance of the :class:`RayleighData` class.
 
         Example:
             >>> #some imports
@@ -163,7 +164,6 @@ class RayleighData:
                 Rayleigh extinction profile for a standard atmosphere.
         """
 
-        import matplotlib.pyplot as plt
 
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
         plt.plot(self.extinction, self.altitude)
@@ -172,10 +172,11 @@ class RayleighData:
         plt.xlabel('Extinction coefficient @ {}nm (m-1)'.format(self.wavelength))
         plt.ylabel('Altitude ASL (m)')
         plt.tight_layout()
-        plt.show(),
+        plt.show()
+    
 def _main():
     import aprofiles as apro
-    import matplotlib.pyplot as plt
+    import matplotlib as plt
     
     altitude = np.arange(15,15000,15)
     wavelength = 1064.

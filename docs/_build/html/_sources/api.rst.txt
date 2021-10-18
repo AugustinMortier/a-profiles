@@ -15,19 +15,25 @@ Data Classes
 
 ProfilesData
 ^^^^^^^^^^^^
-.. automodule:: aprofiles.profiles_data
+.. automodule:: aprofiles.profiles
    :members:
    :undoc-members:
 
 Aeronet
 ^^^^^^^
-.. automodule:: aprofiles.aeronet_data
+.. automodule:: aprofiles.aeronet
    :members:
    :undoc-members:
 
 Rayleigh
 ^^^^^^^^
-.. automodule:: aprofiles.rayleigh_data
+.. automodule:: aprofiles.rayleigh
+   :members:
+   :undoc-members:
+
+Size Distribution
+^^^^^^^^^^^^^^^^^
+.. automodule:: aprofiles.size_distribution
    :members:
    :undoc-members:
 

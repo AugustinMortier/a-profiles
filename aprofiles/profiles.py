@@ -354,7 +354,7 @@ class ProfilesData:
         Args:
             - var (str, optional): variable of the :class:`xarray.DataSet` to be processed. Defaults to `'attenuated_backscatter_0'`.
             - z (float, optional): Altitude (in m, AGL) below which the signal is unsaturated. Defaults to `4000.`.
-            - inplace (bool, optional): if True, replace the :class:`aprofiles.profiles_data.ProfilesData`. Defaults to `False`.
+            - inplace (bool, optional): if True, replace the :class:`aprofiles.profiles.ProfilesData`. Defaults to `False`.
         
         Todo:
             Refine method to desaturate only saturated areas.
@@ -443,7 +443,7 @@ class ProfilesData:
         See also :ref:`Plotting`.
 
         Args:
-            - var (str, optional): Variable of :class:`aprofiles.profiles_data.ProfilesData.data` object to be plotted. Defaults to `'attenuated_backscatter_0'`.
+            - var (str, optional): Variable of :class:`aprofiles.profiles.ProfilesData.data` object to be plotted. Defaults to `'attenuated_backscatter_0'`.
             - datetime (:class:`numpy.datetime64`, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to `None`.
             - zref ({'agl', 'asl'}, optional): Base reference for the altitude axis.. Defaults to `'agl'`
             - zmin (float, optional): Minimum altitude AGL (m). Defaults to `None`. If `None`, sets to minimum available altitude.

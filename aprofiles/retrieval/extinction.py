@@ -4,8 +4,6 @@
 # @email augustinm@met.no
 # @desc A-Profiles - Aerosol Inversion
 
-import math
-
 import aprofiles as apro
 import numpy as np
 import xarray as xr
@@ -41,7 +39,7 @@ def backward_inversion(data, iref, apriori, rayleigh):
     else:
         #if we assume the LR, no need to minimize for matching aod 
         lr_aer = apriori['lr']
-    lr_mol = 8.*math.pi/3.
+    lr_mol = 8.*np.pi/3.
 
     #vertical resolution
     dz = min(np.diff(rayleigh.altitude))
@@ -99,7 +97,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
     else:
         #if we assume the LR, no need to minimize for matching aod 
         lr_aer = apriori['lr']
-    lr_mol = 8.*math.pi/3.
+    lr_mol = 8.*np.pi/3.
     
     def _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, nloop_max=30, diff_ext=0.01):
         for _ in range(nloop_max):
@@ -220,7 +218,7 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
     #aerosol retrieval requires a molecular profile
     altitude = self.data.altitude.data
     wavelength = self.data.l0_wavelength.data
-    rayleigh = apro.rayleigh_data.RayleighData(altitude, T0=298, P0=1013, wavelength=wavelength);
+    rayleigh = apro.rayleigh.RayleighData(altitude, T0=298, P0=1013, wavelength=wavelength);
 
 
     #aerosol inversion
