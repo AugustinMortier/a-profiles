@@ -178,8 +178,7 @@ The default method of the <a class="reference internal" href="api.html#aprofiles
 
 <span class="c1">#read some data</span>
 <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
-<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1">#basic corrections</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -203,8 +202,7 @@ The default method of the <a class="reference internal" href="api.html#aprofiles
 
 <span class="c1">#read some data</span>
 <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
-<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1">#basic corrections</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -228,8 +226,7 @@ The default method of the <a class="reference internal" href="api.html#aprofiles
 
 <span class="c1">#read some data</span>
 <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
-<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1">#basic corrections</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -257,8 +254,7 @@ Both backward and forward methods have been implemented and can be used in this 
 
 <span class="c1">#read some data</span>
 <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
-<span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro_reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1">#basic corrections</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

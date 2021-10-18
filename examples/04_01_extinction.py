@@ -2,8 +2,7 @@ import aprofiles as apro
 
 #read some data
 path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-apro_reader = apro.reader.ReadProfiles(path)
-profiles = apro_reader.read()
+profiles = apro.reader.ReadProfiles(path).read()
 
 #basic corrections
 profiles.extrapolate_below(z=150, inplace=True)
