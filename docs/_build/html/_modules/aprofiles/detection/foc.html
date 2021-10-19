@@ -76,13 +76,13 @@
 
 <span class="sd">        Args:</span>
 <span class="sd">            - method ({&#39;cloud_base&#39;, &#39;snr&#39;}, optional): Defaults to `&#39;cloud_base&#39;`.</span>
-<span class="sd">            - var (str, optional). Used for &#39;snr&#39; method. Variable from ProfilesData to calculate SNR from. Defaults to `&#39;attenuated_backscatter_0&#39;`.</span>
+<span class="sd">            - var (str, optional). Used for &#39;snr&#39; method. Variable to calculate SNR from. Defaults to `&#39;attenuated_backscatter_0&#39;`.</span>
 <span class="sd">            - z_snr (float, optional): Used for &#39;snr&#39; method. Altitude AGL (in m) at which we calculate the SNR. Defaults to `2000.`.</span>
 <span class="sd">            - min_snr (float, optional): Used for &#39;snr&#39; method. Minimum SNR under which the profile is considered as containing fog or condensation. Defaults to `2.`.</span>
 <span class="sd">            - zmin_cloud (float, optional): Used for &#39;cloud_base&#39; method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Defaults to `200.`.</span>
 <span class="sd">        </span>
 <span class="sd">        Returns:</span>
-<span class="sd">            :class:`ProfilesData` object with additional Data Array.</span>
+<span class="sd">            :class:`aprofiles.profiles.ProfilesData` object with additional Data Array.</span>
 <span class="sd">                - :class:`xarray.DataArray &#39;foc&#39; (time)`: mask array corresponding to the presence of foc.</span>
 <span class="sd">    </span>
 <span class="sd">        Example:</span>

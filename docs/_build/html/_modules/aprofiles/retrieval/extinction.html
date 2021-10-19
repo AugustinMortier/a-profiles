@@ -89,9 +89,9 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</span>
-<span class="sd">        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.</span>
+<span class="sd">        - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.</span>
 <span class="sd">        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
-<span class="sd">        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.</span>
+<span class="sd">        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`): :class:`RayleighData` instance.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>

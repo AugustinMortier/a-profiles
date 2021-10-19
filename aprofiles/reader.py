@@ -29,13 +29,13 @@ class ReadProfiles:
 
             >>> #import library
             >>> import aprofiles as apro
-            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+            >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
             >>> #Initialize reading class with file path
             >>> reader = apro.reader.ReadProfiles(path)
             >>> #calls the read method
             >>> profiles = reader.read()
             >>> print(profiles)
-            <aprofiles.profilesdata.ProfilesData object at 0x7f011055fad0>
+            <aprofiles.profiles.ProfilesData object at 0x7f011055fad0>
 
         """
         

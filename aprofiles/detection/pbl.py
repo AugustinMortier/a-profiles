@@ -18,7 +18,7 @@ def detect_pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_cl
         - verbose (bool, optional): verbose mode. Defaults to `False`.
     
     Returns:
-        :class:`ProfilesData` object with additional Data Array.
+        :class:`aprofiles.profiles.ProfilesData` object with additional Data Array.
             - :class:`xarray.DataArray 'pbl' (time, altitude)`: mask array corresponding to the pbl height.
     
         Example:

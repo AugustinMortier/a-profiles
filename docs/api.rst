@@ -33,6 +33,18 @@ Rayleigh
 
 Size Distribution
 ^^^^^^^^^^^^^^^^^
+
+The size distribution module reads an entry file to generate volume and number size distribution of a population of particles for a given type.
+The values describing the size distribution are taken from the literature:
+
+* `dust`, `biomass_burning`, and `urban` aerosols [#]_ 
+* `volcanic_ash` [#]_
+
+.. [#] Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., ... & Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. Journal of the atmospheric sciences, 59(3), 590-608.
+.. [#] Mortier, A., Goloub, P., Podvin, T., Deroo, C., Chaikovsky, A., Ajtai, N., ... & Derimian, Y. (2013). Detection and characterization of volcanic ash plumes over Lille during the Eyjafjallajökull eruption. Atmospheric Chemistry and Physics, 13(7), 3705-3720.
+
+Aerosol properties are defined in :download:`../aprofiles/config/aer_properties.json`
+
 .. automodule:: aprofiles.size_distribution
    :members:
    :undoc-members:
@@ -40,7 +52,7 @@ Size Distribution
 Detection
 ------------
 
-The following functions are methods from the class :class:`aprofiles.profiles_data.ProfilesData`.
+The following functions are methods from the class :class:`aprofiles.profiles.ProfilesData`.
 
 Fog or Condensation
 ^^^^^^^^^^^^^^^^^^^
@@ -63,7 +75,7 @@ Planetary Boundary Layer
 Retrieval
 ------------
 
-The following functions are methods from the class :class:`aprofiles.profiles_data.ProfilesData`.
+The following functions are methods from the class :class:`aprofiles.profiles.ProfilesData`.
 
 Aerosol Extinction
 ^^^^^^^^^^^^^^^^^^^

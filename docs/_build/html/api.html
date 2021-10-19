@@ -45,7 +45,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.profiles">ProfilesData</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.aeronet">Aeronet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.rayleigh">Rayleigh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.size_distribution">Size Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#size-distribution">Size Distribution</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#detection">Detection</a><ul>
@@ -126,13 +126,13 @@
 <p>Example:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#import library</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#Initialize reading class with file path</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#calls the read method</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">profiles</span><span class="p">)</span>
-<span class="go">&lt;aprofiles.profilesdata.ProfilesData object at 0x7f011055fad0&gt;</span>
+<span class="go">&lt;aprofiles.profiles.ProfilesData object at 0x7f011055fad0&gt;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -147,7 +147,7 @@
 <dl class="py class">
 <dt id="aprofiles.profiles.ProfilesData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.profiles.</code><code class="sig-name descname">ProfilesData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profiles.html#ProfilesData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class representing profiles data returned by <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.io.reader.ReadProfiles</span></code>.</p>
+<dd><p>Base class representing profiles data returned by <a class="reference internal" href="#aprofiles.reader.ReadProfiles" title="aprofiles.reader.ReadProfiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles</span></code></a>.</p>
 <dl class="py method">
 <dt id="aprofiles.profiles.ProfilesData.clouds">
 <code class="sig-name descname">clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profiles.html#ProfilesData.clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.clouds" title="Permalink to this definition">¶</a></dt>
@@ -169,7 +169,7 @@ The absolute value of the signal is returned below the prescribed altitude.</p>
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>var (str, optional): variable of the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataSet</span></code> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>z (float, optional): Altitude (in m, AGL) below which the signal is unsaturated. Defaults to <cite>4000.</cite>.</p></li>
-<li><p>inplace (bool, optional): if True, replace the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>. Defaults to <cite>False</cite>.</p></li>
+<li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Todo:</dt><dd><p>Refine method to desaturate only saturated areas.</p>
@@ -184,7 +184,7 @@ The absolute value of the signal is returned below the prescribed altitude.</p>
 <dl>
 <dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#read example file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#desaturation below 4000m</span>
@@ -193,13 +193,13 @@ The absolute value of the signal is returned below the prescribed altitude.</p>
 <span class="go">True</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id9">
+<div class="figure align-default" id="id11">
 <a class="reference internal image-reference" href="_images/saturated.png"><img alt="before desaturation" src="_images/saturated.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Before desaturation.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Before desaturation.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-default" id="id10">
+<div class="figure align-default" id="id12">
 <a class="reference internal image-reference" href="_images/desaturated.png"><img alt="after desaturation" src="_images/desaturated.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">After desaturation.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">After desaturation.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -215,14 +215,14 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <li><p>var (str, optional): variable of the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataSet</span></code> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>z (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to <cite>150</cite>.</p></li>
 <li><p>method ({‘cst’, ‘lin’}, optional): Method to be used for extrapolation of lowest layers. Defaults to <cite>‘cst’</cite>.</p></li>
-<li><p>inplace (bool, optional): if True, replace the variable. Defaults to <cite>False</cite>.</p></li>
+<li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>extrapolation_low_layers_altitude_agl</cite> and <cite>extrapolation_low_layers_method</cite> for the processed <code class="xref py py-class docutils literal notranslate"><span class="pre">xr.DataArray</span></code>.</p>
 </dd>
 <dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#read example file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#desaturation below 4000m</span>
@@ -231,13 +231,13 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <span class="go">150</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id11">
+<div class="figure align-default" id="id13">
 <a class="reference internal image-reference" href="_images/lowest1.png"><img alt="before extrapolation" src="_images/lowest1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Before extrapolation.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Before extrapolation.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-default" id="id12">
+<div class="figure align-default" id="id14">
 <a class="reference internal image-reference" href="_images/lowest_extrap1.png"><img alt="after desaturation" src="_images/lowest_extrap1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">After extrapolation.</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">After extrapolation.</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -257,14 +257,14 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>sigma (scalar or sequence of scalars, optional): Standard deviation for Gaussian kernel. The standard deviations of the Gaussian filter are given for each axis as a sequence, or as a single number, in which case it is equal for all axes. Defaults to <cite>0.25</cite>.</p></li>
 <li><p>var (str, optional): variable name of the Dataset to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
-<li><p>inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to <cite>False</cite>.</p></li>
+<li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>gaussian_filter</cite> for the processed <code class="xref py py-class docutils literal notranslate"><span class="pre">xr.DataArray</span></code>.</p>
 </dd>
 <dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#read example file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#apply gaussian filtering</span>
@@ -273,13 +273,13 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <span class="go">0.50</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id13">
+<div class="figure align-default" id="id15">
 <a class="reference internal image-reference" href="_images/attenuated_backscatter1.png"><img alt="before filtering" src="_images/attenuated_backscatter1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Before gaussian filtering.</span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Before gaussian filtering.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
 </div>
-<div class="figure align-default" id="id14">
+<div class="figure align-default" id="id16">
 <a class="reference internal image-reference" href="_images/gaussian_filter1.png"><img alt="after gaussian filtering" src="_images/gaussian_filter1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">After gaussian filtering (sigma=0.5).</span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">After gaussian filtering (sigma=0.5).</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -294,7 +294,7 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <dl class="py method">
 <dt id="aprofiles.profiles.ProfilesData.pbl">
 <code class="sig-name descname">pbl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">100.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">3000.0</span></em>, <em class="sig-param"><span class="n">wav_width</span><span class="o">=</span><span class="default_value">200.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profiles.html#ProfilesData.pbl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.pbl" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calls <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.detection.clouds.detect_pbl()</span></code> method.</p>
+<dd><p>Calls <a class="reference internal" href="#aprofiles.detection.pbl.detect_pbl" title="aprofiles.detection.pbl.detect_pbl"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.detection.pbl.detect_pbl()</span></code></a> method.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -305,7 +305,7 @@ Depending on the variable selected, this method will plot an image, a single pro
 See also <a class="reference internal" href="#plotting"><span class="std std-ref">Plotting</span></a>.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>var (str, optional): Variable of <a class="reference internal" href="#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a> object to be plotted. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
+<li><p>var (str, optional): Variable to be plotted. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>datetime (<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code>, optional): if provided, plot the profile for closest time. If not, plot an image constructed on all profiles.Defaults to <cite>None</cite>.</p></li>
 <li><p>zref ({‘agl’, ‘asl’}, optional): Base reference for the altitude axis.. Defaults to <cite>‘agl’</cite></p></li>
 <li><p>zmin (float, optional): Minimum altitude AGL (m). Defaults to <cite>None</cite>. If <cite>None</cite>, sets to minimum available altitude.</p></li>
@@ -329,7 +329,7 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>var (str, optional): variable of the Dataset to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
-<li><p>inplace (bool, optional): if True, replace the variable. Defaults to <cite>False</cite>.</p></li>
+<li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -358,20 +358,20 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">class</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> ‘snr’.</p>
+<dd class="field-odd"><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> <cite>snr</cite>.</p>
 </dd>
 </dl>
 </dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This calculation is relatively heavy in terms of calculation costs.</p>
+<p>This calculation is relatively heavy in terms of calculation.</p>
 </div>
 <p>Example:</p>
 <blockquote>
 <div><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#read example file</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#snr calculcation</span>
@@ -380,9 +380,9 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;snr&#39;</span><span class="p">,</span><span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id15">
+<div class="figure align-default" id="id17">
 <a class="reference internal image-reference" href="_images/snr.png"><img alt="snr" src="_images/snr.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Signal to Noise Ratio.</span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Signal to Noise Ratio.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </dd></dl>
@@ -390,12 +390,12 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 <dl class="py method">
 <dt id="aprofiles.profiles.ProfilesData.time_avg">
 <code class="sig-name descname">time_avg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">minutes</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">inplace</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profiles.html#ProfilesData.time_avg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.time_avg" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rolling meadian on the time dimension.</p>
+<dd><p>Rolling median in the time dimension.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>minutes (float): Number of minutes to average over.</p></li>
 <li><p>var (str, optional): variable of the Dataset to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
-<li><p>inplace (bool, optional): if True, replace the variable, else use a copy. Defaults to <cite>False</cite>.</p></li>
+<li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -431,7 +431,7 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 <dt id="aprofiles.rayleigh.RayleighData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.rayleigh.</code><code class="sig-name descname">RayleighData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">wavelength</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">T0</span><span class="o">=</span><span class="default_value">298</span></em>, <em class="sig-param"><span class="n">P0</span><span class="o">=</span><span class="default_value">1013</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/rayleigh.html#RayleighData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.rayleigh.RayleighData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for computing <em>rayleigh profile</em> in a standard atmosphere.
-This class calls the <a class="reference internal" href="#aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo" title="aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo()</span></code></a> method, which produces profiles of <cite>backscatter</cite> and <cite>extinction</cite> coefficients.</p>
+This class calls the <a class="reference internal" href="#aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo" title="aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_optics_in_std_atmo()</span></code></a> method, which produces profiles of <cite>backscatter</cite> and <cite>extinction</cite> coefficients.</p>
 <dl>
 <dt>Attributes:</dt><dd><ul class="simple">
 <li><p>altitude (array-like): array of altitude ASL to be used to compute the rayleigh profile, in m.</p></li>
@@ -494,9 +494,9 @@ This class calls the <a class="reference internal" href="#aprofiles.rayleigh.Ray
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rayleigh</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id16">
+<div class="figure align-default" id="id18">
 <a class="reference internal image-reference" href="_images/rayleigh.png"><img alt="rayleigh profile" src="_images/rayleigh.png" style="width: 480.0px; height: 480.0px;" /></a>
-<p class="caption"><span class="caption-text">Rayleigh extinction profile for a standard atmosphere.</span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Rayleigh extinction profile for a standard atmosphere.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -505,17 +505,32 @@ This class calls the <a class="reference internal" href="#aprofiles.rayleigh.Ray
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.size_distribution">
-<span id="size-distribution"></span><h3>Size Distribution<a class="headerlink" href="#module-aprofiles.size_distribution" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
+<div class="section" id="size-distribution">
+<h3>Size Distribution<a class="headerlink" href="#size-distribution" title="Permalink to this headline">¶</a></h3>
+<p>The size distribution module reads an entry file to generate volume and number size distribution of a population of particles for a given type.
+The values describing the size distribution are taken from the literature:</p>
+<ul class="simple">
+<li><p><cite>dust</cite>, <cite>biomass_burning</cite>, and <cite>urban</cite> aerosols <a class="footnote-reference brackets" href="#id5" id="id3">2</a></p></li>
+<li><p><cite>volcanic_ash</cite> <a class="footnote-reference brackets" href="#id6" id="id4">3</a></p></li>
+</ul>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., … &amp; Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. Journal of the atmospheric sciences, 59(3), 590-608.</p>
+</dd>
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>Mortier, A., Goloub, P., Podvin, T., Deroo, C., Chaikovsky, A., Ajtai, N., … &amp; Derimian, Y. (2013). Detection and characterization of volcanic ash plumes over Lille during the Eyjafjallajökull eruption. Atmospheric Chemistry and Physics, 13(7), 3705-3720.</p>
+</dd>
+</dl>
+<p>Aerosol properties are defined in <a class="reference download internal" download="" href="_downloads/15a4fd9d944ca03430c0c164a6436339/aer_properties.json"><code class="xref download docutils literal notranslate"><span class="pre">../aprofiles/config/aer_properties.json</span></code></a></p>
+<span class="target" id="module-aprofiles.size_distribution"></span><dl class="py class">
 <dt id="aprofiles.size_distribution.SizeDistributionData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.size_distribution.</code><code class="sig-name descname">SizeDistributionData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aer_type</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/size_distribution.html#SizeDistributionData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.size_distribution.SizeDistributionData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for computing <em>size distributions</em> for a given aerosol type.
-This class calls the <a class="reference internal" href="#aprofiles.size_distribution.SizeDistributionData.get_sd" title="aprofiles.size_distribution.SizeDistributionData.get_sd"><code class="xref py py-func docutils literal notranslate"><span class="pre">SizeDistributionData.get_sd()</span></code></a> method, which calculates VSD and NSD (Volume and Number Size Distributions).</p>
+This class calls the <a class="reference internal" href="#aprofiles.size_distribution.SizeDistributionData.get_sd" title="aprofiles.size_distribution.SizeDistributionData.get_sd"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_sd()</span></code></a> method, which calculates VSD and NSD (Volume and Number Size Distributions).</p>
 <dl>
 <dt>Attributes:</dt><dd><ul class="simple">
-<li><p>aer_type ({‘dust’,’volcanic_ash’,’biomass_burning’,’urban’}): aerosol type.</p></li>
-<li><p>aer_properties (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from <em>aer_properties.json</em>)</p></li>
+<li><p><cite>aer_type</cite> ({‘dust’,’volcanic_ash’,’biomass_burning’,’urban’}): aerosol type.</p></li>
+<li><p><cite>aer_properties</cite> (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from <em>aer_properties.json</em>)</p></li>
 </ul>
 </dd>
 <dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#some imports</span>
@@ -531,12 +546,7 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <dl class="py method">
 <dt id="aprofiles.size_distribution.SizeDistributionData.get_sd">
 <code class="sig-name descname">get_sd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/size_distribution.html#SizeDistributionData.get_sd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.size_distribution.SizeDistributionData.get_sd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Volume and Number Size Distributions <a class="footnote-reference brackets" href="#id4" id="id3">*</a> arrays from an instance of the <a class="reference internal" href="#aprofiles.size_distribution.SizeDistributionData" title="aprofiles.size_distribution.SizeDistributionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SizeDistributionData</span></code></a> class .</p>
-<dl class="footnote brackets">
-<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">*</a></span></dt>
-<dd><p>Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., … &amp; Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. Journal of the atmospheric sciences, 59(3), 590-608.</p>
-</dd>
-</dl>
+<dd><p>Returns the Volume and Number Size Distributions arrays from an instance of the <a class="reference internal" href="#aprofiles.size_distribution.SizeDistributionData" title="aprofiles.size_distribution.SizeDistributionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SizeDistributionData</span></code></a> class .</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="simple">
 <dt><code class="xref py py-class docutils literal notranslate"><span class="pre">SizeDistribData</span></code> object with additional attributes.</dt><dd><ul class="simple">
@@ -563,9 +573,9 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id17">
+<div class="figure align-default" id="id19">
 <a class="reference internal image-reference" href="_images/urban_sd.png"><img alt="urban size distribution" src="_images/urban_sd.png" style="width: 480.0px; height: 480.0px;" /></a>
-<p class="caption"><span class="caption-text">Size distributions for urban particles.</span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Size distributions for urban particles.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -577,7 +587,7 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 </div>
 <div class="section" id="detection">
 <h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h2>
-<p>The following functions are methods from the class <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData</span></code>.</p>
+<p>The following functions are methods from the class <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>.</p>
 <div class="section" id="module-aprofiles.detection.foc">
 <span id="fog-or-condensation"></span><h3>Fog or Condensation<a class="headerlink" href="#module-aprofiles.detection.foc" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
@@ -587,14 +597,14 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>method ({‘cloud_base’, ‘snr’}, optional): Defaults to <cite>‘cloud_base’</cite>.</p></li>
-<li><p>var (str, optional). Used for ‘snr’ method. Variable from ProfilesData to calculate SNR from. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
+<li><p>var (str, optional). Used for ‘snr’ method. Variable to calculate SNR from. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>z_snr (float, optional): Used for ‘snr’ method. Altitude AGL (in m) at which we calculate the SNR. Defaults to <cite>2000.</cite>.</p></li>
 <li><p>min_snr (float, optional): Used for ‘snr’ method. Minimum SNR under which the profile is considered as containing fog or condensation. Defaults to <cite>2.</cite>.</p></li>
 <li><p>zmin_cloud (float, optional): Used for ‘cloud_base’ method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Defaults to <cite>200.</cite>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code> object with additional Data Array.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional Data Array.</dt><dd><ul class="simple">
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'foc'</span> <span class="pre">(time)</span></code>: mask array corresponding to the presence of foc.</p></li>
 </ul>
 </dd>
@@ -613,9 +623,9 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_foc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id18">
+<div class="figure align-default" id="id20">
 <a class="reference internal image-reference" href="_images/foc1.png"><img alt="foc detection" src="_images/foc1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Fog or condensation (foc) detection.</span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Fog or condensation (foc) detection.</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
 </div>
 </dd></dl>
 
@@ -638,7 +648,7 @@ The detection is performed on each single profile individually. It is based on t
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code> object with additional Data Arrays.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional Data Arrays.</dt><dd><ul class="simple">
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'clouds_bases'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the bases of the clouds.</p></li>
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'clouds_peaks'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the peaks (maximum signal measured) of the clouds.</p></li>
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'clouds_tops'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.</p></li>
@@ -657,9 +667,9 @@ The detection is performed on each single profile individually. It is based on t
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id19">
+<div class="figure align-default" id="id21">
 <a class="reference internal image-reference" href="_images/clouds1.png"><img alt="clouds detection" src="_images/clouds1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Clouds detection.</span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Clouds detection.</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -685,7 +695,7 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code> object with additional Data Array.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional Data Array.</dt><dd><ul class="simple">
 <li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'pbl'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the pbl height.</p></li>
 </ul>
 </dd>
@@ -702,9 +712,9 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_pbl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id20">
+<div class="figure align-default" id="id22">
 <a class="reference internal image-reference" href="_images/pbl1.png"><img alt="clouds detection" src="_images/pbl1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">PLanetary Boundary Layer Height detection.</span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">PLanetary Boundary Layer Height detection.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -714,24 +724,24 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 </div>
 <div class="section" id="retrieval">
 <h2>Retrieval<a class="headerlink" href="#retrieval" title="Permalink to this headline">¶</a></h2>
-<p>The following functions are methods from the class <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData</span></code>.</p>
+<p>The following functions are methods from the class <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>.</p>
 <div class="section" id="module-aprofiles.retrieval.extinction">
 <span id="aerosol-extinction"></span><h3>Aerosol Extinction<a class="headerlink" href="#module-aprofiles.retrieval.extinction" title="Permalink to this headline">¶</a></h3>
 <dl class="py function">
 <dt id="aprofiles.retrieval.extinction.backward_inversion">
 <code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">backward_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">iref</span></em>, <em class="sig-param"><span class="n">apriori</span></em>, <em class="sig-param"><span class="n">rayleigh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/retrieval/extinction.html#backward_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.backward_inversion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Backward (Klett <a class="footnote-reference brackets" href="#id6" id="id5">2</a> ) inversion method.</p>
+<dd><p>Backward (Klett <a class="footnote-reference brackets" href="#id8" id="id7">4</a> ) inversion method.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id5">2</a></span></dt>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id7">4</a></span></dt>
 <dd><p>Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</p>
 </dd>
 </dl>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</p></li>
-<li><p>iref (float): index of the reference altitude returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.inversion.ref_altitude.get_iref()</span></code>.</p></li>
+<li><p>iref (float): index of the reference altitude returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.retrieval.ref_altitude.get_iref()</span></code>.</p></li>
 <li><p>apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</p></li>
-<li><p>rayleigh (:class: <cite>aprofiles.rayleigh.RayleighData</cite>): aprofiles RayleighData object.</p></li>
+<li><p>rayleigh (<a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a>): <code class="xref py py-class docutils literal notranslate"><span class="pre">RayleighData</span></code> instance.</p></li>
 </ul>
 </dd>
 <dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
@@ -744,9 +754,9 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 <dl class="py function">
 <dt id="aprofiles.retrieval.extinction.forward_inversion">
 <code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">forward_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">iref</span></em>, <em class="sig-param"><span class="n">apriori</span></em>, <em class="sig-param"><span class="n">rayleigh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/retrieval/extinction.html#forward_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.forward_inversion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Forward iterative inversion method <a class="footnote-reference brackets" href="#id8" id="id7">3</a>.</p>
+<dd><p>Forward iterative inversion method <a class="footnote-reference brackets" href="#id10" id="id9">5</a>.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id7">3</a></span></dt>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id9">5</a></span></dt>
 <dd><p>Li, D., Wu, Y., Gross, B., &amp; Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.</p>
 </dd>
 </dl>
@@ -813,9 +823,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id21">
+<div class="figure align-default" id="id23">
 <a class="reference internal image-reference" href="_images/backward.png"><img alt="clouds detection" src="_images/backward.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Extinction profiles retrieved with the backward method.</span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Extinction profiles retrieved with the backward method.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
 </div>
 <p>Forward inversion</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#aerosol inversion</span>
@@ -824,9 +834,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id22">
+<div class="figure align-default" id="id24">
 <a class="reference internal image-reference" href="_images/forward1.png"><img alt="clouds detection" src="_images/forward1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Extinction profiles retrieved with the forward method.</span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Extinction profiles retrieved with the forward method.</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
 </dl>
@@ -843,7 +853,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <dl class="py function">
 <dt id="aprofiles.plot.image.plot">
 <code class="sig-prename descclassname">aprofiles.plot.image.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_foc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/image.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.image.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot image of selected variable from <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData</span></code> object.</p>
+<dd><p>Plot image of selected variable from <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>da (<code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>): DataArray.</p></li>
@@ -872,9 +882,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id23">
+<div class="figure align-default" id="id25">
 <a class="reference internal image-reference" href="_images/attenuated_backscatter1.png"><img alt="attenuated backscatter profiles" src="_images/attenuated_backscatter1.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Image of attenuated backscatter profiles.</span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Image of attenuated backscatter profiles.</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </dd></dl>
@@ -885,7 +895,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <dl class="py function">
 <dt id="aprofiles.plot.profile.plot">
 <code class="sig-prename descclassname">aprofiles.plot.profile.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">datetime</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_foc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/profile.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.profile.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot single profile of selected variable from <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData</span></code> object.</p>
+<dd><p>Plot single profile of selected variable from <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>da (<code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>): DataArray.</p></li>
@@ -917,9 +927,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">datetime</span><span class="o">=</span><span class="n">datetime</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">12000</span><span class="p">,</span> <span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_pbl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id24">
+<div class="figure align-default" id="id26">
 <a class="reference internal image-reference" href="_images/profile.png"><img alt="profile" src="_images/profile.png" style="width: 480.0px; height: 480.0px;" /></a>
-<p class="caption"><span class="caption-text">Single profile of attenuated backscatter.</span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Single profile of attenuated backscatter.</span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </dd></dl>
@@ -930,7 +940,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <dl class="py function">
 <dt id="aprofiles.plot.timeseries.plot">
 <code class="sig-prename descclassname">aprofiles.plot.timeseries.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'aod'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/timeseries.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.timeseries.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot time series of selected variable from <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles_data.ProfilesData</span></code> object.</p>
+<dd><p>Plot time series of selected variable from <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>da (<code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>): DataArray</p></li>
@@ -951,9 +961,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s2">&quot;pbl&quot;</span> <span class="n">ymin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="mf">3000.</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="figure align-default" id="id25">
+<div class="figure align-default" id="id27">
 <a class="reference internal image-reference" href="_images/time_series.png"><img alt="time series" src="_images/time_series.png" style="width: 600.0px; height: 200.0px;" /></a>
-<p class="caption"><span class="caption-text">Time series of Planetary Boundary Layer height.</span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">Time series of Planetary Boundary Layer height.</span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
 </div>
 </div></blockquote>
 </dd></dl>

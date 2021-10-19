@@ -8,13 +8,13 @@ def detect_foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=
 
         Args:
             - method ({'cloud_base', 'snr'}, optional): Defaults to `'cloud_base'`.
-            - var (str, optional). Used for 'snr' method. Variable from ProfilesData to calculate SNR from. Defaults to `'attenuated_backscatter_0'`.
+            - var (str, optional). Used for 'snr' method. Variable to calculate SNR from. Defaults to `'attenuated_backscatter_0'`.
             - z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR. Defaults to `2000.`.
             - min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation. Defaults to `2.`.
             - zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Defaults to `200.`.
         
         Returns:
-            :class:`ProfilesData` object with additional Data Array.
+            :class:`aprofiles.profiles.ProfilesData` object with additional Data Array.
                 - :class:`xarray.DataArray 'foc' (time)`: mask array corresponding to the presence of foc.
     
         Example:

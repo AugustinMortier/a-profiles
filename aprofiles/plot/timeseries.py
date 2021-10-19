@@ -13,7 +13,7 @@ sns.set_theme()
 
 
 def plot(da, var='aod', **kwargs):
-    """Plot time series of selected variable from :class:`aprofiles.profiles_data.ProfilesData` object.
+    """Plot time series of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
     Args:
         - da (:class:`xarray.DataArray`): DataArray

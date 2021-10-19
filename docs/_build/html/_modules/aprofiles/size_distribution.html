@@ -85,11 +85,11 @@
 
 <div class="viewcode-block" id="SizeDistributionData"><a class="viewcode-back" href="../../api.html#aprofiles.size_distribution.SizeDistributionData">[docs]</a><span class="k">class</span> <span class="nc">SizeDistributionData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class for computing *size distributions* for a given aerosol type.</span>
-<span class="sd">    This class calls the :func:`SizeDistributionData.get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).</span>
+<span class="sd">    This class calls the :func:`get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        - aer_type ({&#39;dust&#39;,&#39;volcanic_ash&#39;,&#39;biomass_burning&#39;,&#39;urban&#39;}): aerosol type.</span>
-<span class="sd">        - aer_properties (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)</span>
+<span class="sd">        - `aer_type` ({&#39;dust&#39;,&#39;volcanic_ash&#39;,&#39;biomass_burning&#39;,&#39;urban&#39;}): aerosol type.</span>
+<span class="sd">        - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)</span>
 <span class="sd">    </span>
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; #some imports</span>
@@ -104,11 +104,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">aer_type</span> <span class="o">=</span> <span class="n">aer_type</span>
 
         <span class="c1">#read aer_properties.json files</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;aprofiles/aer_properties.json&#39;</span><span class="p">)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;aprofiles/config/aer_properties.json&#39;</span><span class="p">)</span>
         <span class="n">aer_properties</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">aer_properties</span> <span class="o">=</span> <span class="n">aer_properties</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">aer_type</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">get_sd</span><span class="p">()</span>
+        <span class="c1">#check if the aer_type exist in the json file</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">aer_type</span> <span class="ow">in</span> <span class="n">aer_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> not found in aer_properties.json. `aer_type` must be one of the follwowing: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">aer_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aer_properties</span> <span class="o">=</span> <span class="n">aer_properties</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">aer_type</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_sd</span><span class="p">()</span>
 
 
     <span class="k">def</span> <span class="nf">_gaussian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">norm</span><span class="p">):</span>
@@ -132,9 +136,7 @@
         <span class="k">return</span> <span class="bp">self</span>
 
 <div class="viewcode-block" id="SizeDistributionData.get_sd"><a class="viewcode-back" href="../../api.html#aprofiles.size_distribution.SizeDistributionData.get_sd">[docs]</a>    <span class="k">def</span> <span class="nf">get_sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns the Volume and Number Size Distributions [*]_ arrays from an instance of the :class:`SizeDistributionData` class .</span>
-
-<span class="sd">        .. [*] Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., ... &amp; Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. Journal of the atmospheric sciences, 59(3), 590-608.</span>
+        <span class="sd">&quot;&quot;&quot;Returns the Volume and Number Size Distributions arrays from an instance of the :class:`SizeDistributionData` class .</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`SizeDistribData` object with additional attributes.</span>

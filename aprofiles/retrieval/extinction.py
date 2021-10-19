@@ -21,9 +21,9 @@ def backward_inversion(data, iref, apriori, rayleigh):
 
     Args:
         - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.
-        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.
+        - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
         - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
-        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.
+        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`): :class:`RayleighData` instance.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.

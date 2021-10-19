@@ -17,11 +17,11 @@ import matplotlib.pyplot as plt
 
 class SizeDistributionData:
     """Class for computing *size distributions* for a given aerosol type.
-    This class calls the :func:`SizeDistributionData.get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).
+    This class calls the :func:`get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).
 
     Attributes:
-        - aer_type ({'dust','volcanic_ash','biomass_burning','urban'}): aerosol type.
-        - aer_properties (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
+        - `aer_type` ({'dust','volcanic_ash','biomass_burning','urban'}): aerosol type.
+        - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
     
     Example:
         >>> #some imports
@@ -36,11 +36,15 @@ class SizeDistributionData:
         self.aer_type = aer_type
 
         #read aer_properties.json files
-        f = open('aprofiles/aer_properties.json')
+        f = open('aprofiles/config/aer_properties.json')
         aer_properties = json.load(f)
         f.close()
-        self.aer_properties = aer_properties[self.aer_type]
-        self.get_sd()
+        #check if the aer_type exist in the json file
+        if not aer_type in aer_properties.keys():
+            raise ValueError('{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}'.format(aer_type, list(aer_properties.keys())))
+        else:
+            self.aer_properties = aer_properties[self.aer_type]
+            self.get_sd()
 
 
     def _gaussian(self, x, mu, sig, norm):
@@ -64,9 +68,7 @@ class SizeDistributionData:
         return self
 
     def get_sd(self):
-        """Returns the Volume and Number Size Distributions [*]_ arrays from an instance of the :class:`SizeDistributionData` class .
-
-        .. [*] Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., ... & Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. Journal of the atmospheric sciences, 59(3), 590-608.
+        """Returns the Volume and Number Size Distributions arrays from an instance of the :class:`SizeDistributionData` class .
 
         Returns:
             :class:`SizeDistribData` object with additional attributes.

@@ -1,4 +1,3 @@
-json
 matplotlib
 miepython
 netcdf4

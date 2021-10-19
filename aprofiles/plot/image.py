@@ -99,7 +99,7 @@ def _plot_pbl(da, zref):
     plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
 
 def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
-    """Plot image of selected variable from :class:`aprofiles.profiles_data.ProfilesData` object.
+    """Plot image of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
     Args:
         - da (:class:`xarray.DataArray`): DataArray.

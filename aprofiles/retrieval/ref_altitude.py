@@ -3,6 +3,17 @@ import numpy as np
 from scipy.ndimage.filters import uniform_filter1d
 
 def get_iref(data, imin, imax, min_snr):
+    """Function that returns best index to be used for initializing the Klett backward inversion.
+
+    Args:
+        data (1D Array): Attenuated backscatter profile.
+        imin (int): Minimum index of the altitude range in which to look for the reference point.
+        imax (int): Maximum index of the altitude range in which to look for the reference point.
+        min_snr (float): Minimum SNR required to return a valid value.
+
+    Returns:
+        int: index of the reference point.
+    """    
     #function that returns best index to be used for initializing the Klett backward inversion
 
     def _snr_at_iz(array, iz, step):
