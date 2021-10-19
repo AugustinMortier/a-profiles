@@ -1,7 +1,7 @@
 Examples
 ======================================
 
-Some basic examples for getting you started using `aprofiles`.
+Some basic examples for getting you started using *aprofiles*.
 
 Data reading
 ------------
