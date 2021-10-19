@@ -14,6 +14,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -46,6 +47,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.aeronet">Aeronet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.rayleigh">Rayleigh</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#size-distribution">Size Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aprofiles.emc">Extinction to Mass Coefficient</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#detection">Detection</a><ul>
@@ -551,7 +553,7 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <dt>Returns:</dt><dd><dl class="simple">
 <dt><code class="xref py py-class docutils literal notranslate"><span class="pre">SizeDistribData</span></code> object with additional attributes.</dt><dd><ul class="simple">
 <li><p><cite>radius</cite> &lt;<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>&gt;: radius (µm)</p></li>
-<li><p><cite>vsd</cite> &lt;<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>&gt;: Volume Size Ditribution (µm3.µm-2)</p></li>
+<li><p><cite>vsd</cite> &lt;<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>&gt;: Volume Size Distribution (µm3.µm-2)</p></li>
 <li><p><cite>nsd</cite> &lt;<code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>&gt;: Number Size Distribution (.µm-3)</p></li>
 </ul>
 </dd>
@@ -579,6 +581,66 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 </div>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-aprofiles.emc">
+<span id="extinction-to-mass-coefficient"></span><h3>Extinction to Mass Coefficient<a class="headerlink" href="#module-aprofiles.emc" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt id="aprofiles.emc.EMCData">
+<em class="property">class </em><code class="sig-prename descclassname">aprofiles.emc.</code><code class="sig-name descname">EMCData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aer_type</span></em>, <em class="sig-param"><span class="n">wavelength</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/emc.html#EMCData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.emc.EMCData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class for computing <em>Extinction to Mass Coefficient</em> for a given aerosol type.
+This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.get_emc" title="aprofiles.emc.EMCData.get_emc"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_emc()</span></code></a> method.</p>
+<dl>
+<dt>Attributes:</dt><dd><ul class="simple">
+<li><p><cite>aer_type</cite> ({‘dust’,’volcanic_ash’,’biomass_burning’,’urban’}): aerosol type.</p></li>
+<li><p><cite>wavelength</cite> (float): wavelength, in m.</p></li>
+<li><p><cite>aer_properties</cite> (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from <em>aer_properties.json</em>)</p></li>
+</ul>
+</dd>
+<dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#some imports</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">emc_data</span> <span class="o">=</span> <span class="n">EMCData</span><span class="p">(</span><span class="s1">&#39;volcanic_ash&#39;</span><span class="p">,</span> <span class="mi">1064</span><span class="o">-</span><span class="mi">9</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="p">)</span>
+<span class="go">blabla</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="aprofiles.emc.EMCData.get_emc">
+<code class="sig-name descname">get_emc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/emc.html#EMCData.get_emc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.emc.EMCData.get_emc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed VSD, density, and using the <a class="reference external" href="https://miepython.readthedocs.io">Mie theory</a> to calculate the extinction efficiency.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="simple">
+<dt><a class="reference internal" href="#aprofiles.emc.EMCData" title="aprofiles.emc.EMCData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EMCData</span></code></a> with additionnal attributes:</dt><dd><ul class="simple">
+<li><p><cite>vsd</cite> (1D Array): Volume Size Distribution</p></li>
+<li><p><cite>radius</cite> (1D Array): Radius, in µm</p></li>
+<li><p><cite>emc</cite> (float): Extinction to Mass Coefficient (m2.g-1)</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a population of particles, the extinction coefficient <span class="math notranslate nohighlight">\(\sigma_{ext}\)</span> can be written as follwowing</p>
+<p><span class="math notranslate nohighlight">\(\sigma_{ext} = \int_{r_{min}}^{r_{max}}N(r)Q_{ext}(m,r,\lambda) \pi r^2 dr\)</span></p>
+<p>And the total aerosol concentration <span class="math notranslate nohighlight">\(M_0\)</span> can be written as</p>
+<p><span class="math notranslate nohighlight">\(M_0 = \int_{r_{min}}^{r_{max}}{M(r)dr}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(M(r)\)</span> is the Mass distribution.</p>
+<p>With respect to Mass and Number distributions relation, one can write</p>
+<p><span class="math notranslate nohighlight">\(M_0 = \int_{r_{min}}^{r_{max}}{\frac{4\pi r^3}{3} \rho N(r) dr}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(rho\)</span> is the particles <cite>density</cite> (kg.m-3) and <span class="math notranslate nohighlight">\(N(r)\)</span> the <cite>Number Size Distribution</cite>.</p>
+<p>By normalizing the Number Size Distribution on the fine mode (<span class="math notranslate nohighlight">\(N(r) = N_0 N_1(r)\)</span>), the combination of the previous equations leads to</p>
+<p><span class="math notranslate nohighlight">\(M_0 = \sigma_{ext} \rho c_v\)</span></p>
+<p>where the <cite>conversion factor</cite> (m) equals to</p>
+<p><span class="math notranslate nohighlight">\(c_v = \frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
+<p>Finally, we define the <cite>Extinction to Mass Coefficient (EMC, in m2/g)</cite> as the ratio between the total <cite>extinction</cite> and <cite>mass</cite>:
+<span class="math notranslate nohighlight">\(EMC = \frac{\sigma_{ext}}{M_0} = \frac{1}{\rho c_v}\)</span></p>
+</div>
 </dd></dl>
 
 </dd></dl>

@@ -16,7 +16,7 @@
                 "conc": 0.92
             }
         },
-        "density": -99
+        "density": 2.5
     },
     "volcanic_ash": {
         "ref_index": {
@@ -49,7 +49,7 @@
                 "conc": 0.05
             }
         },
-        "density": -99
+        "density": 1.15
     },
     "urban": {
         "ref_index": {

@@ -49,6 +49,14 @@ Aerosol properties are defined in :download:`../aprofiles/config/aer_properties.
    :members:
    :undoc-members:
 
+Extinction to Mass Coefficient
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. automodule:: aprofiles.emc
+   :members:
+   :undoc-members:
+
+
 Detection
 ------------
 

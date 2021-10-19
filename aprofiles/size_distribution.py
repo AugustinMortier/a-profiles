@@ -4,12 +4,8 @@
 # @email augustinm@met.no
 # @desc A-Profiles - Size Distribution
 import json
-import math
-from typing import Sized
 
-import miepython
 import numpy as np
-from tqdm import tqdm
 
 import aprofiles as apro
 import matplotlib.pyplot as plt
@@ -73,12 +69,12 @@ class SizeDistributionData:
         Returns:
             :class:`SizeDistribData` object with additional attributes.
                 - `radius` <:class:`numpy.ndarray`>: radius (µm)
-                - `vsd` <:class:`numpy.ndarray`>: Volume Size Ditribution (µm3.µm-2)
+                - `vsd` <:class:`numpy.ndarray`>: Volume Size Distribution (µm3.µm-2)
                 - `nsd` <:class:`numpy.ndarray`>: Number Size Distribution (.µm-3)
         """
 
         aer_properties = self.aer_properties
-        radius = np.arange(1E-3,100,1E-3) #in µm
+        radius = np.arange(1E-2,2E1,1E-3) #in µm
         vsd = np.zeros(len(radius))
 
         #we loop though all the keys defining the different modes
@@ -127,7 +123,6 @@ class SizeDistributionData:
         
         ax.set_xlabel('Radius (µm)')
         ax.set_xscale('log')
-        ax.set_xlim([1E-2,20])
         fig.legend(loc="upper right", bbox_to_anchor=(1,1), bbox_transform=ax.transAxes)
         plt.title('Size Distribution for {} Particles'.format(self.aer_type.capitalize().replace('_',' ')),weight='bold')
         plt.tight_layout()
