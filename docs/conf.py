@@ -31,8 +31,7 @@ extensions = [
     'recommonmark',
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autosectionlabel',
-    'numpydoc'
+    'sphinx.ext.autosectionlabel'
 ]
 
 
