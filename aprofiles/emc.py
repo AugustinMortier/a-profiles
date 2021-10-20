@@ -28,7 +28,14 @@ class EMCData:
         blabla
     """
 
-    def __init__(self, aer_type, wavelength):
+    def __init__(self, aer_type:str, wavelength:float):
+
+        #check parameters type
+        if not isinstance(aer_type,str):
+            raise TypeError('`aer_type` is expected to be a string')
+        if not isinstance(wavelength,float):
+            raise TypeError('`wavelength` is expected to be a float')
+        
         self.aer_type = aer_type
         self.wavelength = wavelength
 
