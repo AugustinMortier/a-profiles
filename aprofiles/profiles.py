@@ -46,7 +46,8 @@ class ProfilesData:
         return np.argmin(abs(self.data.altitude.data-altitude_asl))
 
     def _get_resolution(self, which):
-        """Returns the resolution of a given dimension. Support 'altitude' and 'time'. The altitude resolution is given in meters, while the time resolution is given in seconds.
+        """Returns the resolution of a given dimension. Support 'altitude' and 'time'. 
+        The altitude resolution is given in meters, while the time resolution is given in seconds.
 
         Args:
             which ({'altitude','time'}): Defaults to `'altitude'`.
@@ -410,28 +411,28 @@ class ProfilesData:
 
 
     def foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
-        """Calls :class:`aprofiles.detection.foc.detect_foc()` method.
+        """Calls :meth:`aprofiles.detection.foc.detect_foc()`.
         """
         apro.detection.foc.detect_foc(self, method, var, z_snr, min_snr, zmin_cloud)
     
     
 
     def clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
-        """Calls :func:`aprofiles.detection.clouds.detect_clouds()` method.
+        """Calls :meth:`aprofiles.detection.clouds.detect_clouds()`.
         """
         apro.detection.clouds.detect_clouds(self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
 
 
 
     def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
-        """Calls :class:`aprofiles.detection.pbl.detect_pbl()` method.
+        """Calls :meth:`aprofiles.detection.pbl.detect_pbl()`.
         """     
         apro.detection.pbl.detect_pbl(self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose)
         
 
     
     def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
-        """Calls :class:`aprofiles.retrieval.extinction.inversion()` method.
+        """Calls :meth:`aprofiles.retrieval.extinction.inversion()`.
         """ 
         apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         
