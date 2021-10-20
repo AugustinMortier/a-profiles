@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
     """Module for *clouds detection*.
-    The detection is performed on each single profile individually. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.
+    The detection is performed on each individual profile. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.
 
     Args:
         - time_avg (int, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to `1`.

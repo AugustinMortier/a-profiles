@@ -74,7 +74,7 @@
 
 <div class="viewcode-block" id="detect_clouds"><a class="viewcode-back" href="../../../api.html#aprofiles.detection.clouds.detect_clouds">[docs]</a><span class="k">def</span> <span class="nf">detect_clouds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Module for *clouds detection*.</span>
-<span class="sd">    The detection is performed on each single profile individually. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.</span>
+<span class="sd">    The detection is performed on each individual profile. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        - time_avg (int, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to `1`.</span>

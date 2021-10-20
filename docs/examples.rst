@@ -7,7 +7,7 @@ Data reading
 ------------
 
 For reading ceilometers and lidars data, the class :class:`aprofiles.reader.ReadProfiles` must be instantiated with the path of the NetCDF file to be read.
-The :func:`aprofiles.reader.ReadProfiles.read()` method applied to this instance returns a :class:`aprofiles.profiles_data.ProfilesData` object whose `data` attribute contains the NetCDF file content as a :class:`xarray.DataSet`.
+The :func:`aprofiles.reader.ReadProfiles.read()` method applied to this instance returns a :class:`aprofiles.profiles.ProfilesData` object whose `data` attribute contains the NetCDF file content as a :class:`xarray.DataSet`.
 
 .. literalinclude:: ../examples/01_data_reading.py
 .. figure:: ../examples/images/attenuated_backscatter.png
@@ -24,7 +24,7 @@ Extrapolation lowest layers
 
 It is frequent to observe negative values in the lowest layers of the profiles due to instrumental artifacts.
 It is recommended to eliminate those outliers prior to detect some parameters such as the planetary boundary layer height, or before retrieving the aerosol profiles.
-The :func:`aprofiles.profiles_data.ProfilesData.extrapolate_below()` method allows to extrapolate values of the selected variable of a :class:`aprofiles.profiles_data.ProfilesData` object.
+The :func:`aprofiles.profiles.ProfilesData.extrapolate_below()` method allows to extrapolate values of the selected variable of a :class:`aprofiles.profiles.ProfilesData` object.
 
 .. figure:: ../examples/images/lowest.png
 
@@ -38,7 +38,7 @@ The :func:`aprofiles.profiles_data.ProfilesData.extrapolate_below()` method allo
 Gaussian Filtering
 ^^^^^^^^^^^^^^^^^^
 
-The application of a gaussian filter can help increasing the SNR (that can be determined with the :func:`aprofiles.profiles_data.ProfilesData.snr()` method).
+The application of a gaussian filter can help increasing the SNR (that can be determined with the :func:`aprofiles.profiles.ProfilesData.snr()` method).
 
 .. figure:: ../examples/images/attenuated_backscatter.png
 
@@ -58,7 +58,7 @@ Fog or condensation detection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Fog or condensation prevents the laser beam to propagate into the atmosphere. It is important to detect those cases for filtering the data when trying to quantifying the aerosol content.
-The default method of the :func:`aprofiles.profiles_data.ProfilesData.foc()` method relies on the constructor clouds detection which provides clouds bases.
+The default method of the :func:`aprofiles.profiles.ProfilesData.foc()` method relies on the constructor clouds detection which provides clouds bases.
 
 .. literalinclude:: ../examples/03_01_foc.py
 .. figure:: ../examples/images/foc.png

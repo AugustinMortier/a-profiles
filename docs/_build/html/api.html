@@ -612,10 +612,11 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 <dl class="py method">
 <dt id="aprofiles.emc.EMCData.get_emc">
 <code class="sig-name descname">get_emc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/emc.html#EMCData.get_emc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.emc.EMCData.get_emc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed VSD, density, and using the <a class="reference external" href="https://miepython.readthedocs.io">Mie theory</a> to calculate the extinction efficiency.</p>
+<dd><p>Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution, density, and using the <a class="reference external" href="https://miepython.readthedocs.io">Mie theory</a> to calculate the extinction efficiency.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="#aprofiles.emc.EMCData" title="aprofiles.emc.EMCData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EMCData</span></code></a> with additionnal attributes:</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="#aprofiles.emc.EMCData" title="aprofiles.emc.EMCData"><code class="xref py py-class docutils literal notranslate"><span class="pre">EMCData</span></code></a> with additional attributes:</dt><dd><ul class="simple">
+<li><p><cite>nsd</cite> (1D Array): Number Size Distribution</p></li>
 <li><p><cite>vsd</cite> (1D Array): Volume Size Distribution</p></li>
 <li><p><cite>radius</cite> (1D Array): Radius, in µm</p></li>
 <li><p><cite>emc</cite> (float): Extinction to Mass Coefficient (m2.g-1)</p></li>
@@ -626,20 +627,22 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For a population of particles, the extinction coefficient <span class="math notranslate nohighlight">\(\sigma_{ext}\)</span> can be written as follwowing</p>
+<p>For a population of particles, the extinction coefficient <span class="math notranslate nohighlight">\(\sigma_{ext}\)</span> (m-1) can be written as follwowing:</p>
 <p><span class="math notranslate nohighlight">\(\sigma_{ext} = \int_{r_{min}}^{r_{max}}N(r)Q_{ext}(m,r,\lambda) \pi r^2 dr\)</span></p>
-<p>And the total aerosol concentration <span class="math notranslate nohighlight">\(M_0\)</span> can be written as</p>
-<p><span class="math notranslate nohighlight">\(M_0 = \int_{r_{min}}^{r_{max}}{M(r)dr}\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(M(r)\)</span> is the Mass distribution.</p>
-<p>With respect to Mass and Number distributions relation, one can write</p>
+<p>with <span class="math notranslate nohighlight">\(Q_{ext}\)</span>, the <cite>extinction efficiency</cite> and <span class="math notranslate nohighlight">\(N(r)\)</span> the <cite>Number Size Distribution</cite> (NSD).</p>
+<p><span class="math notranslate nohighlight">\(Q_{ext}\)</span> varies with the refractive index, <span class="math notranslate nohighlight">\(m\)</span>, the wavelength, <span class="math notranslate nohighlight">\(\lambda\)</span> and can be calculated for spherical particles with the Mie therory.</p>
+<p>Total aerosol mass concentration <span class="math notranslate nohighlight">\(M_0\)</span> (µg.m-3) can be written as:</p>
+<p><span class="math notranslate nohighlight">\(M_0 = \int_{r_{min}}^{r_{max}}{M(r)dr}\)</span> where <span class="math notranslate nohighlight">\(M(r)\)</span> is the mass size distribution (MSD).</p>
+<p>This equation can be written, using the realtion between NSD and MSD, as:</p>
 <p><span class="math notranslate nohighlight">\(M_0 = \int_{r_{min}}^{r_{max}}{\frac{4\pi r^3}{3} \rho N(r) dr}\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(rho\)</span> is the particles <cite>density</cite> (kg.m-3) and <span class="math notranslate nohighlight">\(N(r)\)</span> the <cite>Number Size Distribution</cite>.</p>
-<p>By normalizing the Number Size Distribution on the fine mode (<span class="math notranslate nohighlight">\(N(r) = N_0 N_1(r)\)</span>), the combination of the previous equations leads to</p>
+<p>where <span class="math notranslate nohighlight">\(\rho\)</span> is the particles <cite>density</cite> (kg.m-3).</p>
+<p>By normalizing the NSD with respect to the fine mode (<span class="math notranslate nohighlight">\(N(r) = N_0 N_1(r)\)</span>), the combination of the previous equations leads to:</p>
+<p><span class="math notranslate nohighlight">\(M_0 = \sigma_{ext} \rho \frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
+<p>By commodity, we define the <cite>conversion factor</cite> (in m) as <span class="math notranslate nohighlight">\(c_v = \frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
+<p>so the previous equation can be simplified:</p>
 <p><span class="math notranslate nohighlight">\(M_0 = \sigma_{ext} \rho c_v\)</span></p>
-<p>where the <cite>conversion factor</cite> (m) equals to</p>
-<p><span class="math notranslate nohighlight">\(c_v = \frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
-<p>Finally, we define the <cite>Extinction to Mass Coefficient (EMC, in m2/g)</cite> as the ratio between the total <cite>extinction</cite> and <cite>mass</cite>:
-<span class="math notranslate nohighlight">\(EMC = \frac{\sigma_{ext}}{M_0} = \frac{1}{\rho c_v}\)</span></p>
+<p>Finally, the <cite>Extinction to Mass Coefficient</cite> (EMC, in m2/g) is defined as the ratio between <span class="math notranslate nohighlight">\(\sigma_{ext}\)</span> and <span class="math notranslate nohighlight">\(M_0\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(EMC = \frac{\sigma_{ext}}{M_0} = \frac{1}{\rho c_v}\)</span></p>
 </div>
 </dd></dl>
 
@@ -698,7 +701,7 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 <dt id="aprofiles.detection.clouds.detect_clouds">
 <code class="sig-prename descclassname">aprofiles.detection.clouds.</code><code class="sig-name descname">detect_clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/detection/clouds.html#detect_clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.detection.clouds.detect_clouds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module for <em>clouds detection</em>.
-The detection is performed on each single profile individually. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.</p>
+The detection is performed on each individual profile. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.</p>
 <dl>
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>time_avg (int, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to <cite>1</cite>.</p></li>

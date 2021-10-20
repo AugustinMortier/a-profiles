@@ -118,40 +118,46 @@
 
 
 <div class="viewcode-block" id="EMCData.get_emc"><a class="viewcode-back" href="../../api.html#aprofiles.emc.EMCData.get_emc">[docs]</a>    <span class="k">def</span> <span class="nf">get_emc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed VSD, density, and using the `Mie theory &lt;https://miepython.readthedocs.io&gt;`_ to calculate the extinction efficiency.</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution, density, and using the `Mie theory &lt;https://miepython.readthedocs.io&gt;`_ to calculate the extinction efficiency.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            :class:`EMCData` with additionnal attributes:</span>
+<span class="sd">            :class:`EMCData` with additional attributes:</span>
+<span class="sd">                - `nsd` (1D Array): Number Size Distribution</span>
 <span class="sd">                - `vsd` (1D Array): Volume Size Distribution</span>
 <span class="sd">                - `radius` (1D Array): Radius, in µm</span>
 <span class="sd">                - `emc` (float): Extinction to Mass Coefficient (m2.g-1)</span>
 <span class="sd">        </span>
 <span class="sd">        .. note::</span>
-<span class="sd">            For a population of particles, the extinction coefficient :math:`\sigma_{ext}` can be written as follwowing</span>
-<span class="sd">            </span>
+<span class="sd">            For a population of particles, the extinction coefficient :math:`\sigma_{ext}` (m-1) can be written as follwowing:</span>
+
 <span class="sd">            :math:`\sigma_{ext} = \int_{r_{min}}^{r_{max}}N(r)Q_{ext}(m,r,\lambda) \pi r^2 dr`</span>
-
-<span class="sd">            And the total aerosol concentration :math:`M_0` can be written as</span>
 <span class="sd">            </span>
-<span class="sd">            :math:`M_0 = \int_{r_{min}}^{r_{max}}{M(r)dr}`</span>
-
-<span class="sd">            where :math:`M(r)` is the Mass distribution.</span>
+<span class="sd">            with :math:`Q_{ext}`, the `extinction efficiency` and :math:`N(r)` the `Number Size Distribution` (NSD).</span>
 <span class="sd">            </span>
-<span class="sd">            With respect to Mass and Number distributions relation, one can write</span>
+<span class="sd">            :math:`Q_{ext}` varies with the refractive index, :math:`m`, the wavelength, :math:`\lambda` and can be calculated for spherical particles with the Mie therory.</span>
 
-<span class="sd">            :math:`M_0 = \int_{r_{min}}^{r_{max}}{\\frac{4\pi r^3}{3} \\rho N(r) dr}`</span>
-
-<span class="sd">            where :math:`rho` is the particles `density` (kg.m-3) and :math:`N(r)` the `Number Size Distribution`.</span>
+<span class="sd">            Total aerosol mass concentration :math:`M_0` (µg.m-3) can be written as:</span>
 <span class="sd">            </span>
-<span class="sd">            By normalizing the Number Size Distribution on the fine mode (:math:`N(r) = N_0 N_1(r)`), the combination of the previous equations leads to</span>
+<span class="sd">            :math:`M_0 = \int_{r_{min}}^{r_{max}}{M(r)dr}` where :math:`M(r)` is the mass size distribution (MSD).</span>
+<span class="sd">            </span>
+<span class="sd">            This equation can be written, using the realtion between NSD and MSD, as:</span>
+<span class="sd">            </span>
+<span class="sd">            :math:`M_0 = \int_{r_{min}}^{r_{max}}{\\frac{4\pi r^3}{3} \\rho N(r) dr}` </span>
+<span class="sd">            </span>
+<span class="sd">            where :math:`\\rho` is the particles `density` (kg.m-3).</span>
+<span class="sd">            </span>
+<span class="sd">            By normalizing the NSD with respect to the fine mode (:math:`N(r) = N_0 N_1(r)`), the combination of the previous equations leads to:</span>
+
+<span class="sd">            :math:`M_0 = \sigma_{ext} \\rho \\frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`</span>
+
+<span class="sd">            By commodity, we define the `conversion factor` (in m) as :math:`c_v = \\frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`</span>
+
+<span class="sd">            so the previous equation can be simplified:</span>
 <span class="sd">            </span>
 <span class="sd">            :math:`M_0 = \sigma_{ext} \\rho c_v`</span>
 
-<span class="sd">            where the `conversion factor` (m) equals to</span>
-<span class="sd">        </span>
-<span class="sd">            :math:`c_v = \\frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`</span>
-
-<span class="sd">            Finally, we define the `Extinction to Mass Coefficient (EMC, in m2/g)` as the ratio between the total `extinction` and `mass`:</span>
+<span class="sd">            Finally, the `Extinction to Mass Coefficient` (EMC, in m2/g) is defined as the ratio between :math:`\sigma_{ext}` and :math:`M_0`:</span>
+<span class="sd">            </span>
 <span class="sd">            :math:`EMC = \\frac{\sigma_{ext}}{M_0} = \\frac{1}{\\rho c_v}`</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -180,7 +186,7 @@
             <span class="n">conv_factor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">int1</span><span class="o">/</span><span class="n">int2</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">conv_factor</span>
 
-        <span class="n">sd</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">size_distribution</span><span class="o">.</span><span class="n">SizeDistributionData</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aer_type</span><span class="p">)</span>
+        <span class="n">sd</span> <span class="o">=</span> <span class="n">size_distribution</span><span class="o">.</span><span class="n">SizeDistributionData</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aer_type</span><span class="p">)</span>
 
         <span class="c1">#compute emc</span>
         <span class="n">nsd</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">nsd</span>
@@ -195,6 +201,7 @@
 
         <span class="c1">#output</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nsd</span> <span class="o">=</span> <span class="n">nsd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vsd</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">vsd</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qext</span> <span class="o">=</span> <span class="n">qext</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv_factor</span> <span class="o">=</span> <span class="n">_compute_conv_factor</span><span class="p">(</span><span class="n">nsd</span><span class="p">,</span> <span class="n">qext</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
