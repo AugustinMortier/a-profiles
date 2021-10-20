@@ -23,7 +23,7 @@ def backward_inversion(data, iref, apriori, rayleigh):
         - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.
         - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
         - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
-        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`): :class:`RayleighData` instance.
+        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.
@@ -79,9 +79,9 @@ def forward_inversion(data, iref, apriori, rayleigh):
 
     Args:
         - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.
-        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.
+        - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
         - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
-        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.
+        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.
@@ -151,10 +151,10 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
         NotImplementedError: AOD apriori is not implemented yet.
 
     Returns:
-        :class:`ProfilesData` object with additional Data Array.
-            - :class:`xarray.DataArray 'extinction' (time, altitude)`: 2D array corresponding to the aerosol extinction.
-            - :class:`xarray.DataArray 'aod' (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.
-            - :class:`xarray.DataArray 'lidar_ratio' (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.
+        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray`.
+            - `'extinction' (time, altitude)`: 2D array corresponding to the aerosol extinction.
+            - `'aod' (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.
+            - `'lidar_ratio' (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.
 
  
         Example:

@@ -16,10 +16,10 @@ def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr
         - verbose (bool, optional): verbose mode. Defaults to `False`.
 
     Returns:
-        :class:`aprofiles.profiles.ProfilesData` object with additional Data Arrays.
-            - :class:`xarray.DataArray 'clouds_bases' (time, altitude)`: mask array corresponding to the bases of the clouds.
-            - :class:`xarray.DataArray 'clouds_peaks' (time, altitude)`: mask array corresponding to the peaks (maximum signal measured) of the clouds.
-            - :class:`xarray.DataArray 'clouds_tops' (time, altitude)`: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
+        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.
+            - `'clouds_bases' (time, altitude)`: mask array corresponding to the bases of the clouds.
+            - `'clouds_peaks' (time, altitude)`: mask array corresponding to the peaks (maximum signal measured) of the clouds.
+            - `'clouds_tops' (time, altitude)`: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
 
     Example:
         >>> import aprofiles as apro

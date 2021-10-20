@@ -166,7 +166,7 @@ class ProfilesData:
             - inplace (bool, optional): if True, replace the instance of the :class:`ProfilesData` class. Defaults to `False`.
         
         Returns:
-            :class:`ProfilesData` object with additional attributes `gaussian_filter` for the processed :class:`xr.DataArray`.
+            :class:`ProfilesData` object with additional attributes `gaussian_filter` for the processed :class:`xarray.DataArray`.
 
         Examples:
             >>> import aprofiles as apro
@@ -219,7 +219,7 @@ class ProfilesData:
             - inplace (bool, optional): if True, replace the instance of the :class:`ProfilesData` class. Defaults to `False`.
         
         Returns:
-            :class: :ref:`ProfilesData` object.
+            :class: :class:`ProfilesData` object.
         """
         rcs = self.data[var].copy()
         #time conversion from minutes to seconds
@@ -248,13 +248,13 @@ class ProfilesData:
         We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.
 
         Args:
-            - var (str, optional): variable of the :class:`xarray.DataSet` to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - var (str, optional): variable of the :class:`xarray.Dataset` to be processed. Defaults to `'attenuated_backscatter_0'`.
             - z (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to `150`.
             - method ({'cst', 'lin'}, optional): Method to be used for extrapolation of lowest layers. Defaults to `'cst'`.
             - inplace (bool, optional): if True, replace the instance of the :class:`ProfilesData` class. Defaults to `False`.
         
         Returns:
-            :class:`ProfilesData` object with additional attributes `extrapolation_low_layers_altitude_agl` and `extrapolation_low_layers_method` for the processed :class:`xr.DataArray`.
+            :class:`ProfilesData` object with additional attributes `extrapolation_low_layers_altitude_agl` and `extrapolation_low_layers_method` for the processed :class:`xarray.DataArray`.
 
         Examples:
             >>> import aprofiles as apro
@@ -320,7 +320,7 @@ class ProfilesData:
             - inplace (bool, optional): if True, replace the instance of the :class:`ProfilesData` class. Defaults to `False`.
         
         Returns:
-            :class: :ref:`ProfilesData` object.
+            :class: :class:`ProfilesData` object.
         
         .. warning::
             Make sure that the range correction is not already applied to the selected variable.
@@ -353,7 +353,7 @@ class ProfilesData:
         The absolute value of the signal is returned below the prescribed altitude.
         
         Args:
-            - var (str, optional): variable of the :class:`xarray.DataSet` to be processed. Defaults to `'attenuated_backscatter_0'`.
+            - var (str, optional): variable of the :class:`xarray.Dataset` to be processed. Defaults to `'attenuated_backscatter_0'`.
             - z (float, optional): Altitude (in m, AGL) below which the signal is unsaturated. Defaults to `4000.`.
             - inplace (bool, optional): if True, replace the instance of the :class:`ProfilesData` class. Defaults to `False`.
         
@@ -361,7 +361,7 @@ class ProfilesData:
             Refine method to desaturate only saturated areas.
         
         Returns:
-            :class:`ProfilesData` object with additional attribute `desaturate` for the processed :class:`xr.DataArray`.
+            :class:`ProfilesData` object with additional attribute `desaturate` for the processed :class:`xarray.DataArray`.
         
         .. warning::
             For now, absolute values are returned everywhere below the prescribed altitude.

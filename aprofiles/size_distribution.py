@@ -68,9 +68,9 @@ class SizeDistributionData:
 
         Returns:
             :class:`SizeDistribData` object with additional attributes.
-                - `radius` <:class:`numpy.ndarray`>: radius (µm)
-                - `vsd` <:class:`numpy.ndarray`>: Volume Size Distribution (µm3.µm-2)
-                - `nsd` <:class:`numpy.ndarray`>: Number Size Distribution (.µm-3)
+                - `radius` (:class:`numpy.ndarray`): radius (µm)
+                - `vsd` (:class:`numpy.ndarray`): Volume Size Distribution (µm3.µm-2)
+                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution (.µm-3)
         """
 
         aer_properties = self.aer_properties

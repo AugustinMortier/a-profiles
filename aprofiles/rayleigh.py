@@ -49,9 +49,9 @@ class RayleighData:
 
         Returns:
             :class:`aprofiles.rayleigh.RayleighData` object with additional attributes.
-                - `extinction` <:class:`numpy.ndarray`>: extinction coefficient (m-1)
-                - `backscatter` <:class:`numpy.ndarray`>: backscatter coefficient (m-1.sr-1)
-                - `cross_section` <:class:`numpy.ndarray`>: cross section (cm-2)
+                - `extinction` (:class:`numpy.ndarray`): extinction coefficient (m-1)
+                - `backscatter` (:class:`numpy.ndarray`): backscatter coefficient (m-1.sr-1)
+                - `cross_section` (:class:`numpy.ndarray`): cross section (cm-2)
         """
 
         def _refi_air(wavelength):

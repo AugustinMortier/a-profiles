@@ -7,11 +7,8 @@ import json
 
 import miepython
 import numpy as np
-from tqdm import tqdm
 
-import aprofiles as apro
 from aprofiles import size_distribution
-import matplotlib.pyplot as plt
 
 
 class EMCData:

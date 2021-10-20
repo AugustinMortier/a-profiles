@@ -14,8 +14,8 @@ def detect_foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=
             - zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Defaults to `200.`.
         
         Returns:
-            :class:`aprofiles.profiles.ProfilesData` object with additional Data Array.
-                - :class:`xarray.DataArray 'foc' (time)`: mask array corresponding to the presence of foc.
+            :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.
+                - `'foc' (time)`: mask array corresponding to the presence of foc.
     
         Example:
 
