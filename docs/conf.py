@@ -32,18 +32,8 @@ extensions = [
     'recommonmark',
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autosectionlabel',
-    'sphinx.ext.intersphinx'
+    'sphinx.ext.autosectionlabel'
 ]
-
-intersphinx_mapping = {
-    'python'    : ('https://docs.python.org/3', None),
-    'xarray'    : ('http://xarray.pydata.org/en/stable/', None),
-    'pandas'    : ('https://pandas.pydata.org/docs/', None),
-    'numpy'     : ('https://numpy.org/doc/stable/', None),
-    'scipy'     : ('https://docs.scipy.org/doc/scipy/reference/', None),
-    'tqdm'      : ('https://https://tqdm.github.io/', None)
-}
 
 html_css_files = [
     'css/custom.css',
