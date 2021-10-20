@@ -85,10 +85,10 @@
 <span class="sd">        - verbose (bool, optional): verbose mode. Defaults to `False`.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        :class:`aprofiles.profiles.ProfilesData` object with additional Data Arrays.</span>
-<span class="sd">            - :class:`xarray.DataArray &#39;clouds_bases&#39; (time, altitude)`: mask array corresponding to the bases of the clouds.</span>
-<span class="sd">            - :class:`xarray.DataArray &#39;clouds_peaks&#39; (time, altitude)`: mask array corresponding to the peaks (maximum signal measured) of the clouds.</span>
-<span class="sd">            - :class:`xarray.DataArray &#39;clouds_tops&#39; (time, altitude)`: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.</span>
+<span class="sd">        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.</span>
+<span class="sd">            - `&#39;clouds_bases&#39; (time, altitude)`: mask array corresponding to the bases of the clouds.</span>
+<span class="sd">            - `&#39;clouds_peaks&#39; (time, altitude)`: mask array corresponding to the peaks (maximum signal measured) of the clouds.</span>
+<span class="sd">            - `&#39;clouds_tops&#39; (time, altitude)`: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>

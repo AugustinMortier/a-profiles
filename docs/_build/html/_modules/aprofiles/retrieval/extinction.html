@@ -92,7 +92,7 @@
 <span class="sd">        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</span>
 <span class="sd">        - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.</span>
 <span class="sd">        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
-<span class="sd">        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`): :class:`RayleighData` instance.</span>
+<span class="sd">        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
@@ -148,9 +148,9 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</span>
-<span class="sd">        - iref (float): index of the reference altitude returned by :func:`aprofiles.inversion.ref_altitude.get_iref()`.</span>
+<span class="sd">        - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.</span>
 <span class="sd">        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
-<span class="sd">        - rayleigh (:class: `aprofiles.rayleigh.RayleighData`): aprofiles RayleighData object.</span>
+<span class="sd">        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
@@ -220,10 +220,10 @@
 <span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        :class:`ProfilesData` object with additional Data Array.</span>
-<span class="sd">            - :class:`xarray.DataArray &#39;extinction&#39; (time, altitude)`: 2D array corresponding to the aerosol extinction.</span>
-<span class="sd">            - :class:`xarray.DataArray &#39;aod&#39; (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</span>
-<span class="sd">            - :class:`xarray.DataArray &#39;lidar_ratio&#39; (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.</span>
+<span class="sd">        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray`.</span>
+<span class="sd">            - `&#39;extinction&#39; (time, altitude)`: 2D array corresponding to the aerosol extinction.</span>
+<span class="sd">            - `&#39;aod&#39; (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</span>
+<span class="sd">            - `&#39;lidar_ratio&#39; (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.</span>
 
 <span class="sd"> </span>
 <span class="sd">        Example:</span>

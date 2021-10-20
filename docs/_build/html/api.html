@@ -169,14 +169,14 @@
 The absolute value of the signal is returned below the prescribed altitude.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>var (str, optional): variable of the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataSet</span></code> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
+<li><p>var (str, optional): variable of the <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>z (float, optional): Altitude (in m, AGL) below which the signal is unsaturated. Defaults to <cite>4000.</cite>.</p></li>
 <li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Todo:</dt><dd><p>Refine method to desaturate only saturated areas.</p>
 </dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attribute <cite>desaturate</cite> for the processed <code class="xref py py-class docutils literal notranslate"><span class="pre">xr.DataArray</span></code>.</p>
+<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attribute <cite>desaturate</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
 </dd>
 </dl>
 <div class="admonition warning">
@@ -214,13 +214,13 @@ The absolute value of the signal is returned below the prescribed altitude.</p>
 We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.</p>
 <dl>
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>var (str, optional): variable of the <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataSet</span></code> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
+<li><p>var (str, optional): variable of the <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>z (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to <cite>150</cite>.</p></li>
 <li><p>method ({‘cst’, ‘lin’}, optional): Method to be used for extrapolation of lowest layers. Defaults to <cite>‘cst’</cite>.</p></li>
 <li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>extrapolation_low_layers_altitude_agl</cite> and <cite>extrapolation_low_layers_method</cite> for the processed <code class="xref py py-class docutils literal notranslate"><span class="pre">xr.DataArray</span></code>.</p>
+<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>extrapolation_low_layers_altitude_agl</cite> and <cite>extrapolation_low_layers_method</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
 </dd>
 <dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#read example file</span>
@@ -262,7 +262,7 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>gaussian_filter</cite> for the processed <code class="xref py py-class docutils literal notranslate"><span class="pre">xr.DataArray</span></code>.</p>
+<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>gaussian_filter</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
 </dd>
 <dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#read example file</span>
@@ -336,7 +336,7 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">class</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#module-aprofiles.profiles"><span class="std std-ref">ProfilesData</span></a> object.</p>
+<dd class="field-odd"><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object.</p>
 </dd>
 </dl>
 </dd>
@@ -402,7 +402,7 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">class</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#module-aprofiles.profiles"><span class="std std-ref">ProfilesData</span></a> object.</p>
+<dd class="field-odd"><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object.</p>
 </dd>
 </dl>
 </dd>
@@ -469,9 +469,9 @@ This class calls the <a class="reference internal" href="#aprofiles.rayleigh.Ray
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="simple">
 <dt><a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a> object with additional attributes.</dt><dd><ul class="simple">
-<li><p><cite>extinction</cite> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>&gt;: extinction coefficient (m-1)</p></li>
-<li><p><cite>backscatter</cite> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>&gt;: backscatter coefficient (m-1.sr-1)</p></li>
-<li><p><cite>cross_section</cite> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>&gt;: cross section (cm-2)</p></li>
+<li><p><cite>extinction</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): extinction coefficient (m-1)</p></li>
+<li><p><cite>backscatter</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): backscatter coefficient (m-1.sr-1)</p></li>
+<li><p><cite>cross_section</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): cross section (cm-2)</p></li>
 </ul>
 </dd>
 </dl>
@@ -552,9 +552,9 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="simple">
 <dt><code class="xref py py-class docutils literal notranslate"><span class="pre">SizeDistribData</span></code> object with additional attributes.</dt><dd><ul class="simple">
-<li><p><cite>radius</cite> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>&gt;: radius (µm)</p></li>
-<li><p><cite>vsd</cite> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>&gt;: Volume Size Distribution (µm3.µm-2)</p></li>
-<li><p><cite>nsd</cite> &lt;<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>&gt;: Number Size Distribution (.µm-3)</p></li>
+<li><p><cite>radius</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): radius (µm)</p></li>
+<li><p><cite>vsd</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): Volume Size Distribution (µm3.µm-2)</p></li>
+<li><p><cite>nsd</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): Number Size Distribution (.µm-3)</p></li>
 </ul>
 </dd>
 </dl>
@@ -669,8 +669,8 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional Data Array.</dt><dd><ul class="simple">
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'foc'</span> <span class="pre">(time)</span></code>: mask array corresponding to the presence of foc.</p></li>
+<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
+<li><p><cite>‘foc’ (time)</cite>: mask array corresponding to the presence of foc.</p></li>
 </ul>
 </dd>
 </dl>
@@ -713,10 +713,10 @@ The detection is performed on each individual profile. It is based on the analys
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional Data Arrays.</dt><dd><ul class="simple">
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'clouds_bases'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the bases of the clouds.</p></li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'clouds_peaks'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the peaks (maximum signal measured) of the clouds.</p></li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'clouds_tops'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.</p></li>
+<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
+<li><p><cite>‘clouds_bases’ (time, altitude)</cite>: mask array corresponding to the bases of the clouds.</p></li>
+<li><p><cite>‘clouds_peaks’ (time, altitude)</cite>: mask array corresponding to the peaks (maximum signal measured) of the clouds.</p></li>
+<li><p><cite>‘clouds_tops’ (time, altitude)</cite>: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.</p></li>
 </ul>
 </dd>
 </dl>
@@ -760,8 +760,8 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional Data Array.</dt><dd><ul class="simple">
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'pbl'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: mask array corresponding to the pbl height.</p></li>
+<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
+<li><p><cite>‘pbl’ (time, altitude)</cite>: mask array corresponding to the pbl height.</p></li>
 </ul>
 </dd>
 </dl>
@@ -806,7 +806,7 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 <li><p>data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</p></li>
 <li><p>iref (float): index of the reference altitude returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.retrieval.ref_altitude.get_iref()</span></code>.</p></li>
 <li><p>apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</p></li>
-<li><p>rayleigh (<a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a>): <code class="xref py py-class docutils literal notranslate"><span class="pre">RayleighData</span></code> instance.</p></li>
+<li><p>rayleigh (<a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a>). Instance of the <a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a> class.</p></li>
 </ul>
 </dd>
 <dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
@@ -833,9 +833,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
 <li><p>data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</p></li>
-<li><p>iref (float): index of the reference altitude returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.inversion.ref_altitude.get_iref()</span></code>.</p></li>
+<li><p>iref (float): index of the reference altitude returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.retrieval.ref_altitude.get_iref()</span></code>.</p></li>
 <li><p>apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</p></li>
-<li><p>rayleigh (:class: <cite>aprofiles.rayleigh.RayleighData</cite>): aprofiles RayleighData object.</p></li>
+<li><p>rayleigh (<a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a>). Instance of the <a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a> class.</p></li>
 </ul>
 </dd>
 <dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
@@ -865,10 +865,10 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
 </dd>
 <dt>Returns:</dt><dd><dl>
-<dt><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code> object with additional Data Array.</dt><dd><ul class="simple">
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'extinction'</span> <span class="pre">(time,</span> <span class="pre">altitude)</span></code>: 2D array corresponding to the aerosol extinction.</p></li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'aod'</span> <span class="pre">(time)</span></code>: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</p></li>
-<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span> <span class="pre">'lidar_ratio'</span> <span class="pre">(time)</span></code>: 1D array corresponding to the lidar ratio associated to the extinction profiles.</p></li>
+<dt><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</dt><dd><ul class="simple">
+<li><p><cite>‘extinction’ (time, altitude)</cite>: 2D array corresponding to the aerosol extinction.</p></li>
+<li><p><cite>‘aod’ (time)</cite>: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</p></li>
+<li><p><cite>‘lidar_ratio’ (time)</cite>: 1D array corresponding to the lidar ratio associated to the extinction profiles.</p></li>
 </ul>
 </dd>
 <dt>Example:</dt><dd><p>Profiles preparation</p>
