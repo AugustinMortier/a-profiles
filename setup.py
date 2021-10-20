@@ -37,5 +37,5 @@ setup(
     ],
     packages=["aprofiles"],
     include_package_data=True,
-    install_requires=["numpy", "xarray", "matplotlib"]
+    install_requires=["matplotlib", "miepython", "netcdf4", "numpy", "seaborn", "scipy", "tqdm", "xarray"]
 )
