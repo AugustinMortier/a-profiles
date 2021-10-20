@@ -6,4 +6,6 @@ seaborn
 scipy
 tqdm
 xarray
-sphinx_rtd_theme #could be into docs
+#next ones are necessary for building the doc
+sphinx_rtd_theme
+recommonmark
