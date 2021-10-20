@@ -108,7 +108,7 @@ The <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles.r
 </pre></div>
 </div>
 <div class="figure align-default" id="id1">
-<img alt="_images/attenuated_backscatter1.png" src="_images/attenuated_backscatter1.png" />
+<img alt="_images/attenuated_backscatter.png" src="_images/attenuated_backscatter.png" />
 <p class="caption"><span class="caption-text">Attenuated Backscatter Profiles</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -121,7 +121,7 @@ The <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles.r
 It is recommended to eliminate those outliers prior to detect some parameters such as the planetary boundary layer height, or before retrieving the aerosol profiles.
 The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData.extrapolate_below" title="aprofiles.profiles.ProfilesData.extrapolate_below"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.extrapolate_below()</span></code></a> method allows to extrapolate values of the selected variable of a <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <div class="figure align-default" id="id2">
-<img alt="_images/lowest1.png" src="_images/lowest1.png" />
+<img alt="_images/lowest.png" src="_images/lowest.png" />
 <p class="caption"><span class="caption-text">Negative values are observed in the lowest layers</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
@@ -138,7 +138,7 @@ The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData
 </pre></div>
 </div>
 <div class="figure align-default" id="id3">
-<img alt="_images/lowest_extrap1.png" src="_images/lowest_extrap1.png" />
+<img alt="_images/lowest_extrap.png" src="_images/lowest_extrap.png" />
 <p class="caption"><span class="caption-text">Extrapolation below 150m of altitude</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -146,7 +146,7 @@ The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData
 <h3>Gaussian Filtering<a class="headerlink" href="#gaussian-filtering" title="Permalink to this headline">¶</a></h3>
 <p>The application of a gaussian filter can help increasing the SNR (that can be determined with the <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData.snr" title="aprofiles.profiles.ProfilesData.snr"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.snr()</span></code></a> method).</p>
 <div class="figure align-default" id="id4">
-<img alt="_images/attenuated_backscatter1.png" src="_images/attenuated_backscatter1.png" />
+<img alt="_images/attenuated_backscatter.png" src="_images/attenuated_backscatter.png" />
 <p class="caption"><span class="caption-text">Original attenuated backscatter profiles</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
@@ -163,7 +163,7 @@ The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData
 </pre></div>
 </div>
 <div class="figure align-default" id="id5">
-<img alt="_images/gaussian_filter1.png" src="_images/gaussian_filter1.png" />
+<img alt="_images/gaussian_filter.png" src="_images/gaussian_filter.png" />
 <p class="caption"><span class="caption-text">Backscatter profiles with gaussian filter (<cite>sigma=0.5</cite>)</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -192,7 +192,7 @@ The default method of the <a class="reference internal" href="api.html#aprofiles
 </pre></div>
 </div>
 <div class="figure align-default" id="id6">
-<img alt="_images/foc1.png" src="_images/foc1.png" />
+<img alt="_images/foc.png" src="_images/foc.png" />
 <p class="caption"><span class="caption-text">Fog or Condensation detection</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -216,7 +216,7 @@ The default method of the <a class="reference internal" href="api.html#aprofiles
 </pre></div>
 </div>
 <div class="figure align-default" id="id7">
-<img alt="_images/clouds1.png" src="_images/clouds1.png" />
+<img alt="_images/clouds.png" src="_images/clouds.png" />
 <p class="caption"><span class="caption-text">Clouds detection</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -240,7 +240,7 @@ The default method of the <a class="reference internal" href="api.html#aprofiles
 </pre></div>
 </div>
 <div class="figure align-default" id="id8">
-<img alt="_images/pbl1.png" src="_images/pbl1.png" />
+<img alt="_images/pbl.png" src="_images/pbl.png" />
 <p class="caption"><span class="caption-text">Planetary Boundary Layer height detection</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
 </div>
 </div>
@@ -268,7 +268,7 @@ Both backward and forward methods have been implemented and can be used in this 
 </pre></div>
 </div>
 <div class="figure align-default" id="id9">
-<img alt="_images/forward1.png" src="_images/forward1.png" />
+<img alt="_images/forward.png" src="_images/forward.png" />
 <p class="caption"><span class="caption-text">Aerosol extinction profiles retrieved with an iterative forward approach.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 </div>
