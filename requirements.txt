@@ -6,4 +6,3 @@ seaborn
 scipy
 tqdm
 xarray
-recommonmark
