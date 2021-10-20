@@ -12,9 +12,7 @@
 #
 import os
 import sys
-#sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('..'))
-#sys.path.insert(0, os.path.abspath('../..'))
 
 
 # -- Project information -----------------------------------------------------
@@ -30,19 +28,12 @@ author = 'Augustin Mortier'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'recommonmark',
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autosectionlabel',
-    #'sphinx.ext.intersphinx'
+    'sphinx.ext.autosectionlabel'
 ]
 
-#intersphinx_mapping = {
-#    'python'    : ('https://docs.python.org/3', None),
-#    'xarray'    : ('http://xarray.pydata.org/en/stable/', None),
-#    'pandas'    : ('https://pandas.pydata.org/docs/', None),
-#    'numpy'     : ('https://numpy.org/doc/stable/', None),
-#    'scipy'     : ('https://docs.scipy.org/doc/scipy/reference/', None)
-#}
 
 html_css_files = [
     'css/custom.css',
