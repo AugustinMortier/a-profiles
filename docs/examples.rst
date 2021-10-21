@@ -1,7 +1,7 @@
 Examples
 ======================================
 
-Some basic examples for getting you started using *aprofiles*.
+Some basic examples for getting you started using *aprofiles*. For more information, check out the :ref:`API`.
 
 Data reading
 ------------
@@ -17,7 +17,7 @@ The :func:`aprofiles.reader.ReadProfiles.read()` method applied to this instance
 Basic corrections
 -----------------
 
-Here is a non exhaustive list of basic corrections available to correct profile measurements. For more information, check out the :ref:`API`.
+Here is a non exhaustive list of basic corrections available to correct profile measurements.
 
 Extrapolation lowest layers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -52,7 +52,6 @@ The application of a gaussian filter can help increasing the SNR (that can be de
 More advanced detection
 -----------------------
 
-For more information on the methods parameters, please check out the :ref:`API`.
 
 Fog or condensation detection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
