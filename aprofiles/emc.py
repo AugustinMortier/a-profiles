@@ -94,9 +94,11 @@ class EMCData:
             
             :math:`M_0 = \sigma_{ext} \\rho c_v`
 
-            Finally, the `Extinction to Mass Coefficient` (EMC, in m2/g) is defined as the ratio between :math:`\sigma_{ext}` and :math:`M_0`:
+            Finally, the `Extinction to Mass Coefficient` (EMC, usually provided in m2/g) is defined as the ratio between :math:`\sigma_{ext}` and :math:`M_0`:
             
             :math:`EMC = \\frac{\sigma_{ext}}{M_0} = \\frac{1}{\\rho c_v}`
+
+            with :math:`\\rho` being expressed in (g.m-3).
 
         """
 
