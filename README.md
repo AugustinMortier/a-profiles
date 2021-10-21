@@ -1,5 +1,5 @@
 [![CI](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml/badge.svg)](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml)
-[![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](https://a-profiles.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/a-profiles/badge/?version=latest)](https://a-profiles.readthedocs.io/en/latest/?badge=latest)
 
 # A-Profiles
 
