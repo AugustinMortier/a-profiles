@@ -12,7 +12,7 @@ from aprofiles import size_distribution
 
 
 class EMCData:
-    """Class for computing *Extinction to Mass Coefficient* for a given aerosol type.
+    """Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.
     This class calls the :func:`get_emc()` method.
 
     Attributes:
@@ -24,8 +24,11 @@ class EMCData:
         >>> #some imports
         >>> import aprofiles as apro
         >>> emc_data = EMCData('volcanic_ash', 1064-9)
-        >>> print(emc_data.emc)
-        blabla
+        >>> emc_data.__dict__.keys()
+        dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'emc'])
+        >>> print('{:.2e} m {:.2e} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
+        1.14e-06 m 2.97e-09 m2.g-1
+
     """
 
     def __init__(self, aer_type:str, wavelength:float):
@@ -148,7 +151,7 @@ class EMCData:
 def _main():
     import aprofiles as apro
     emc_data = EMCData('volcanic_ash', 532E-9)
-    print('{} m {} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
+    print('{:.2e} m {:.2e} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
 
     #fig, ax = plt.subplots(1,1, figsize=(6,6))
     #plt.plot(emc_data.radius, emc_data.qext)
