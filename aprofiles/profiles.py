@@ -431,7 +431,7 @@ class ProfilesData:
         
 
     
-    def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='backward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
+    def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='forward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
         """Calls :meth:`aprofiles.retrieval.extinction.inversion()`.
         """ 
         apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)

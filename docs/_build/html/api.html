@@ -14,10 +14,12 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/js/custom.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
     <link rel="prev" title="Examples" href="examples.html" /> 
 </head>
 
@@ -68,6 +70,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
         </div>
@@ -289,7 +292,7 @@ We recommend to use a value of zmin=150m due to random values often found below 
 
 <dl class="py method">
 <dt id="aprofiles.profiles.ProfilesData.inversion">
-<code class="sig-name descname">inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'backward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profiles.html#ProfilesData.inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.inversion" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'forward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profiles.html#ProfilesData.inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.inversion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls <a class="reference internal" href="#aprofiles.retrieval.extinction.inversion" title="aprofiles.retrieval.extinction.inversion"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aprofiles.retrieval.extinction.inversion()</span></code></a>.</p>
 </dd></dl>
 
@@ -553,8 +556,8 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <dt>Returns:</dt><dd><dl class="simple">
 <dt><code class="xref py py-class docutils literal notranslate"><span class="pre">SizeDistribData</span></code> object with additional attributes.</dt><dd><ul class="simple">
 <li><p><cite>radius</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): radius (µm)</p></li>
-<li><p><cite>vsd</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): Volume Size Distribution (µm3.µm-2)</p></li>
-<li><p><cite>nsd</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): Number Size Distribution (.µm-3)</p></li>
+<li><p><cite>vsd</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): Volume Size Distribution</p></li>
+<li><p><cite>nsd</cite> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>): Number Size Distribution</p></li>
 </ul>
 </dd>
 </dl>
@@ -591,7 +594,7 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 <dl class="py class">
 <dt id="aprofiles.emc.EMCData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.emc.</code><code class="sig-name descname">EMCData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aer_type</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></span></em>, <em class="sig-param"><span class="n">wavelength</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/emc.html#EMCData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.emc.EMCData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for computing <em>Extinction to Mass Coefficient</em> for a given aerosol type.
+<dd><p>Class for computing the <em>Extinction to Mass Coefficient</em> for a given aerosol type.
 This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.get_emc" title="aprofiles.emc.EMCData.get_emc"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_emc()</span></code></a> method.</p>
 <dl>
 <dt>Attributes:</dt><dd><ul class="simple">
@@ -603,8 +606,10 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 <dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#some imports</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">emc_data</span> <span class="o">=</span> <span class="n">EMCData</span><span class="p">(</span><span class="s1">&#39;volcanic_ash&#39;</span><span class="p">,</span> <span class="mi">1064</span><span class="o">-</span><span class="mi">9</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="p">)</span>
-<span class="go">blabla</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">emc_data</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">dict_keys([&#39;aer_type&#39;, &#39;wavelength&#39;, &#39;aer_properties&#39;, &#39;nsd&#39;, &#39;vsd&#39;, &#39;radius&#39;, &#39;qext&#39;, &#39;conv_factor&#39;, &#39;emc&#39;])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2e}</span><span class="s1"> m </span><span class="si">{:.2e}</span><span class="s1"> m2.g-1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">emc_data</span><span class="o">.</span><span class="n">conv_factor</span><span class="p">,</span> <span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="p">))</span>
+<span class="go">1.14e-06 m 2.97e-09 m2.g-1</span>
 </pre></div>
 </div>
 </dd>
@@ -637,13 +642,20 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 <p><span class="math notranslate nohighlight">\(M_0 = \int_{r_{min}}^{r_{max}}{\frac{4\pi r^3}{3} \rho N(r) dr}\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(\rho\)</span> is the particles <cite>density</cite> (kg.m-3).</p>
 <p>By normalizing the NSD with respect to the fine mode (<span class="math notranslate nohighlight">\(N(r) = N_0 N_1(r)\)</span>), the combination of the previous equations leads to:</p>
-<p><span class="math notranslate nohighlight">\(M_0 = \sigma_{ext} \rho \frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
-<p>By commodity, we define the <cite>conversion factor</cite> (in m) as <span class="math notranslate nohighlight">\(c_v = \frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
+<p><span class="math notranslate nohighlight">\(M_0 = \sigma_{ext} \rho \frac{4}{3} \frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
+<p>By commodity, we define the <cite>conversion factor</cite> (in m) as <span class="math notranslate nohighlight">\(c_v = \frac{4}{3} \frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}\)</span></p>
 <p>so the previous equation can be simplified:</p>
 <p><span class="math notranslate nohighlight">\(M_0 = \sigma_{ext} \rho c_v\)</span></p>
-<p>Finally, the <cite>Extinction to Mass Coefficient</cite> (EMC, in m2/g) is defined as the ratio between <span class="math notranslate nohighlight">\(\sigma_{ext}\)</span> and <span class="math notranslate nohighlight">\(M_0\)</span>:</p>
+<p>Finally, the <cite>Extinction to Mass Coefficient</cite> (EMC, usually provided in m2/g) is defined as the ratio between <span class="math notranslate nohighlight">\(\sigma_{ext}\)</span> and <span class="math notranslate nohighlight">\(M_0\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(EMC = \frac{\sigma_{ext}}{M_0} = \frac{1}{\rho c_v}\)</span></p>
+<p>with <span class="math notranslate nohighlight">\(\rho\)</span> being expressed in (g.m-3).</p>
 </div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aprofiles.emc.EMCData.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/emc.html#EMCData.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.emc.EMCData.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot main information of an instance of the <code class="xref py py-class docutils literal notranslate"><span class="pre">SizeDistributionData</span></code> class.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1042,6 +1054,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

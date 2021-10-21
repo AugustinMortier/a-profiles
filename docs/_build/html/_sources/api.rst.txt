@@ -7,6 +7,7 @@ Reader
 ------
 
 .. automodule:: aprofiles.reader
+   :inherited-members:
    :members:
    :undoc-members:
 

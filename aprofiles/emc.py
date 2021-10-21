@@ -5,6 +5,7 @@
 # @desc A-Profiles - Extinction to Mass Coefficient
 import json
 
+import matplotlib.pyplot as plt
 import miepython
 import numpy as np
 
@@ -86,9 +87,9 @@ class EMCData:
             
             By normalizing the NSD with respect to the fine mode (:math:`N(r) = N_0 N_1(r)`), the combination of the previous equations leads to:
 
-            :math:`M_0 = \sigma_{ext} \\rho \\frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`
+            :math:`M_0 = \sigma_{ext} \\rho \\frac{4}{3} \\frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`
 
-            By commodity, we define the `conversion factor` (in m) as :math:`c_v = \\frac{4\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{3\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`
+            By commodity, we define the `conversion factor` (in m) as :math:`c_v = \\frac{4}{3} \\frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`
 
             so the previous equation can be simplified:
             
@@ -120,9 +121,9 @@ class EMCData:
             #integrals
             numerator = [nsd[i]*(radius[i]**3) for i in range(len(radius))]
             denominator = [nsd[i]*qext[i]*(radius[i]**2) for i in range(len(radius))]
-            int1 = np.cumsum(np.multiply(numerator,dr))[-1]
-            int2 = np.cumsum(np.multiply(denominator,dr))[-1]
-            
+            int1 = np.nancumsum(np.asarray(numerator)*dr)[-1]
+            int2 = np.nancumsum(np.asarray(denominator)*dr)[-1]
+
             conv_factor = (4/3)*(int1/int2)
             return conv_factor
 
@@ -133,9 +134,9 @@ class EMCData:
         radius = sd.radius*1E-6 #from µm to m
 
         #size parameter
-        x = 2*np.pi*radius/self.wavelength
+        x = [2*np.pi*r/self.wavelength for r in radius]
         #refractive index
-        m = complex(self.aer_properties['ref_index']['real'],self.aer_properties['ref_index']['imag'])
+        m = complex(self.aer_properties['ref_index']['real'],-abs(self.aer_properties['ref_index']['imag']))
         #mie calculation
         qext, _qsca, _qback, _g = miepython.mie(m, x)
 
@@ -143,21 +144,48 @@ class EMCData:
         self.nsd = nsd
         self.vsd = sd.vsd
         self.radius = radius
+        self.x = x
         self.qext = qext
         self.conv_factor = _compute_conv_factor(nsd, qext, radius)
-        emc = self.conv_factor * self.aer_properties['density']
-        self.emc = emc*1e-3 #conversion from m2.kg-1 to m2.g-1
+        self.emc = 1 / (self.conv_factor * self.aer_properties['density']*1e6) #convert density from g.cm-3 to g.m-3
         return self
+
+
+    def plot(self):
+        """Plot main information of an instance of the :class:`SizeDistributionData` class.
+        """        
+        fig, ax = plt.subplots(1,1, figsize=(6,6))
+
+        #plot Volume Size Distribution in 1st axis
+        ax.plot(self.x, self.vsd, label='VSD')
+        ax.set_ylabel('dV(r)/dln r')
+
+        #plot Number Size Distribution in 2nd axis
+        if 'nsd' in self.__dict__:
+            #add secondary yaxis
+            ax2 = ax.twinx()
+            ax2.plot(self.x, self.qext, 'orange', label='Qext', color='gray')
+            ax2.set_ylabel('Qext ({})'.format('unitless'))
+            #ax2.set_ylim([0,10])
+        
+        #add additional information
+        plt.text(0.975, 0.85, r'$at\ \lambda={:.0f}\ nm$'.format(self.wavelength*1e9), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
+        plt.text(0.975, 0.80, r'$c_v: {:.2e}\ m$'.format(self.conv_factor), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
+        plt.text(0.975, 0.75, r'$EMC: {:.2f}\ m^2/g$'.format(self.emc), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
+
+        ax.set_xlabel('Size Parameter (unitless)')
+        ax.set_xscale('log')
+        fig.legend(loc="upper right", bbox_to_anchor=(1,1), bbox_transform=ax.transAxes)
+        plt.title('Properties of {} Particles'.format(self.aer_type.capitalize().replace('_',' ')),weight='bold')
+        plt.tight_layout()
+        plt.show()
     
 
 def _main():
     import aprofiles as apro
-    emc_data = EMCData('volcanic_ash', 532E-9)
-    print('{:.2e} m {:.2e} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
-
-    #fig, ax = plt.subplots(1,1, figsize=(6,6))
-    #plt.plot(emc_data.radius, emc_data.qext)
-    #plt.show()
+    emc_data = EMCData('biomass_burning', 532E-9)
+    print('{:.2e} m {:.2f} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
+    emc_data.plot()
 
 if __name__ == '__main__':
     _main()

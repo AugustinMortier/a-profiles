@@ -14,6 +14,7 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/js/custom.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -75,10 +76,10 @@
 <span class="c1"># @desc A-Profiles - Size Distribution</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 
 <div class="viewcode-block" id="SizeDistributionData"><a class="viewcode-back" href="../../api.html#aprofiles.size_distribution.SizeDistributionData">[docs]</a><span class="k">class</span> <span class="nc">SizeDistributionData</span><span class="p">:</span>
@@ -139,8 +140,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            :class:`SizeDistribData` object with additional attributes.</span>
 <span class="sd">                - `radius` (:class:`numpy.ndarray`): radius (µm)</span>
-<span class="sd">                - `vsd` (:class:`numpy.ndarray`): Volume Size Distribution (µm3.µm-2)</span>
-<span class="sd">                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution (.µm-3)</span>
+<span class="sd">                - `vsd` (:class:`numpy.ndarray`): Volume Size Distribution</span>
+<span class="sd">                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">aer_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aer_properties</span>
@@ -181,14 +182,14 @@
         <span class="c1">#plot Volume Size Distribution in 1st axis</span>
         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vsd</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vsd</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;VSD&#39;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;dV(r)/dln r (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;µm3.µm-2&#39;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;dV(r)/dln r&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;µm3.µm-3.µm-1&#39;</span><span class="p">))</span>
 
         <span class="c1">#plot Number Size Distribution in 2nd axis</span>
         <span class="k">if</span> <span class="s1">&#39;nsd&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
             <span class="c1">#add secondary yaxis</span>
             <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
             <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nsd</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;NSD&#39;</span><span class="p">)</span>
-            <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;dN(r)/dln r (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;.µm-3&#39;</span><span class="p">))</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;dN(r)/dln r&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;.µm-3.µm-1&#39;</span><span class="p">))</span>
             <span class="c1">#ax2.set_ylim([0,10])</span>
         
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Radius (µm)&#39;</span><span class="p">)</span>

@@ -14,6 +14,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script src="_static/js/custom.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -61,6 +62,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
         </div>
@@ -89,7 +91,7 @@
              
   <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<p>Some basic examples for getting you started using <em>aprofiles</em>.</p>
+<p>Some basic examples for getting you started using <em>aprofiles</em>. For more information, check out the <a class="reference internal" href="api.html#api"><span class="std std-ref">API</span></a>.</p>
 <div class="section" id="data-reading">
 <h2>Data reading<a class="headerlink" href="#data-reading" title="Permalink to this headline">¶</a></h2>
 <p>For reading ceilometers and lidars data, the class <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles" title="aprofiles.reader.ReadProfiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles</span></code></a> must be instantiated with the path of the NetCDF file to be read.
@@ -114,7 +116,7 @@ The <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles.r
 </div>
 <div class="section" id="basic-corrections">
 <h2>Basic corrections<a class="headerlink" href="#basic-corrections" title="Permalink to this headline">¶</a></h2>
-<p>Here is a non exhaustive list of basic corrections available to correct profile measurements. For more information, check out the <a class="reference internal" href="api.html#api"><span class="std std-ref">API</span></a>.</p>
+<p>Here is a non exhaustive list of basic corrections available to correct profile measurements.</p>
 <div class="section" id="extrapolation-lowest-layers">
 <h3>Extrapolation lowest layers<a class="headerlink" href="#extrapolation-lowest-layers" title="Permalink to this headline">¶</a></h3>
 <p>It is frequent to observe negative values in the lowest layers of the profiles due to instrumental artifacts.
@@ -170,7 +172,6 @@ The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData
 </div>
 <div class="section" id="more-advanced-detection">
 <h2>More advanced detection<a class="headerlink" href="#more-advanced-detection" title="Permalink to this headline">¶</a></h2>
-<p>For more information on the methods parameters, please check out the <a class="reference internal" href="api.html#api"><span class="std std-ref">API</span></a>.</p>
 <div class="section" id="fog-or-condensation-detection">
 <h3>Fog or condensation detection<a class="headerlink" href="#fog-or-condensation-detection" title="Permalink to this headline">¶</a></h3>
 <p>Fog or condensation prevents the laser beam to propagate into the atmosphere. It is important to detect those cases for filtering the data when trying to quantifying the aerosol content.
