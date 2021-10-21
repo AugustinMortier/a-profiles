@@ -64,7 +64,9 @@ class EMCData:
                 - `nsd` (1D Array): Number Size Distribution
                 - `vsd` (1D Array): Volume Size Distribution
                 - `radius` (1D Array): Radius, in µm
-                - `emc` (float): Extinction to Mass Coefficient (m2.g-1)
+                - `x` (1D Array): Size parameter (unitless)
+                - `conv_factor` (float): Conversion factor, in m
+                - `emc` (float): Extinction to Mass Coefficient, in m2.g-1
         
         .. note::
             For a population of particles, the extinction coefficient :math:`\sigma_{ext}` (m-1) can be written as follwowing:
@@ -91,9 +93,7 @@ class EMCData:
 
             By commodity, we define the `conversion factor` (in m) as :math:`c_v = \\frac{4}{3} \\frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`
 
-            so the previous equation can be simplified:
-            
-            :math:`M_0 = \sigma_{ext} \\rho c_v`
+            so the previous equation can be simplified: :math:`M_0 = \sigma_{ext} \\rho c_v`
 
             Finally, the `Extinction to Mass Coefficient` (EMC, usually provided in m2/g) is defined as the ratio between :math:`\sigma_{ext}` and :math:`M_0`:
             
