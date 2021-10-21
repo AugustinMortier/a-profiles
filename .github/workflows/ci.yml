@@ -66,4 +66,4 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Update ReadtheDocs
       run: |
-        python -r docs/requirements.txt docs html
+        python -m pip install -r docs/requirements.txt docs html
