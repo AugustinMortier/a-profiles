@@ -20,7 +20,7 @@ def concentration_profiles(self, method):
 
     Returns:
         :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.Dataset`.
-            - `'mass_concentration'`: ...
+            - `'mass_concentration:<aer_type>'`
 
     Example:
         Profiles preparation
@@ -71,6 +71,8 @@ def concentration_profiles(self, method):
         mass_concentration = self.data.extinction
         #mass_concentration = copy.deepcopy(self.data.extinction)
         mass_concentration.data = np.divide(mass_concentration,emc.emc)
+        ##conversion from g.m-3 to µg.m-3
+        #mass_concentration.data = mass_concentration.data*1e6
 
         #creates dataset with a dataarray for each aer_type
         self.data['mass_concentration:{}'.format(aer_type)] = xr.DataArray(
@@ -96,8 +98,8 @@ def _main():
 
     #basic corrections
     profiles.extrapolate_below(z=150., inplace=True)
-    profiles.inversion(verbose=True, mass_conc_method='literature')
-    profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=50)
+    profiles.inversion(verbose=True, mass_conc_method='mortier_2013')
+    profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=10)
 
 if __name__ == '__main__':
     _main()

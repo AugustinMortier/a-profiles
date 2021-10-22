@@ -60,7 +60,7 @@ class EMCData:
                 self.aer_properties = aer_properties[self.aer_type]
                 self.get_emc()
         elif self.method=='literature':
-            self.emc = 0.2
+            self.emc = 3.33 #CHECK V-PROFILES VALUES. CHECK CODE IN LAPTOP?
             self.conv_factor = -99
 
 
