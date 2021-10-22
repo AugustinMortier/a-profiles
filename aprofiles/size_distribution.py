@@ -30,12 +30,16 @@ class SizeDistributionData:
         self.aer_type = aer_type
 
         # read aer_properties.json files
-        f = open('aprofiles/config/aer_properties.json')
+        f = open("aprofiles/config/aer_properties.json")
         aer_properties = json.load(f)
         f.close()
         # check if the aer_type exist in the json file
         if aer_type not in aer_properties.keys():
-            raise ValueError('{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}'.format(aer_type, list(aer_properties.keys())))
+            raise ValueError(
+                "{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}".format(
+                    aer_type, list(aer_properties.keys())
+                )
+            )
         else:
             self.aer_properties = aer_properties[self.aer_type]
             self.get_sd()
@@ -52,12 +56,16 @@ class SizeDistributionData:
         Returns:
             1D-Array: Gaussian distribution
         """
-        return (norm/(np.sqrt(2*np.pi)*sig))*np.exp(-((x - mu)**2/(2*sig**2)))
+        return (norm / (np.sqrt(2 * np.pi) * sig)) * np.exp(
+            -((x - mu) ** 2 / (2 * sig ** 2))
+        )
 
     def _vsd_to_nsd(self):
-        """Transforms Volume Size Distribution to Number Size Distribution
-        """
-        self.nsd = [self.vsd[i]*3/(4*np.pi*self.radius[i]**3)for i in range(len(self.radius))]
+        """Transforms Volume Size Distribution to Number Size Distribution"""
+        self.nsd = [
+            self.vsd[i] * 3 / (4 * np.pi * self.radius[i] ** 3)
+            for i in range(len(self.radius))
+        ]
         return self
 
     def get_sd(self):
@@ -71,12 +79,17 @@ class SizeDistributionData:
         """
 
         aer_properties = self.aer_properties
-        radius = np.arange(1E-2, 2E1, 1E-3)  # radius in µm
+        radius = np.arange(1e-2, 2e1, 1e-3)  # radius in µm
         vsd = np.zeros(len(radius))
 
         # we loop though all the keys defining the different modes
         for mode in aer_properties["vsd"].keys():
-            vsd += self._gaussian(np.log(radius), np.log(aer_properties["vsd"][mode]["reff"]), aer_properties["vsd"][mode]["rstd"], aer_properties["vsd"][mode]["conc"])
+            vsd += self._gaussian(
+                np.log(radius),
+                np.log(aer_properties["vsd"][mode]["reff"]),
+                aer_properties["vsd"][mode]["rstd"],
+                aer_properties["vsd"][mode]["conc"],
+            )
 
         self.radius = radius
         self.vsd = vsd
@@ -106,29 +119,36 @@ class SizeDistributionData:
 
         # plot Volume Size Distribution in 1st axis
         print(self.vsd)
-        ax.plot(self.radius, self.vsd, label='VSD')
-        ax.set_ylabel('V(r) ({})'.format('µm2.µm-3'))
+        ax.plot(self.radius, self.vsd, label="VSD")
+        ax.set_ylabel("V(r) ({})".format("µm2.µm-3"))
 
         # plot Number Size Distribution in 2nd axis
-        if 'nsd' in self.__dict__:
+        if "nsd" in self.__dict__:
             # add secondary yaxis
             ax2 = ax.twinx()
-            ax2.plot(self.radius, self.nsd, 'orange', label='NSD')
-            ax2.set_ylabel('N(r) ({})'.format('µm-3.µm-1'))
+            ax2.plot(self.radius, self.nsd, "orange", label="NSD")
+            ax2.set_ylabel("N(r) ({})".format("µm-3.µm-1"))
             # ax2.set_ylim([0,10])
 
-        ax.set_xlabel('Radius (µm)')
-        ax.set_xscale('log')
-        fig.legend(loc="upper right", bbox_to_anchor=(1, 1), bbox_transform=ax.transAxes)
-        plt.title('Size Distribution for {} Particles'.format(self.aer_type.capitalize().replace('_', ' ')), weight='bold')
+        ax.set_xlabel("Radius (µm)")
+        ax.set_xscale("log")
+        fig.legend(
+            loc="upper right", bbox_to_anchor=(1, 1), bbox_transform=ax.transAxes
+        )
+        plt.title(
+            "Size Distribution for {} Particles".format(
+                self.aer_type.capitalize().replace("_", " ")
+            ),
+            weight="bold",
+        )
         plt.tight_layout()
         plt.show()
 
 
 def _main():
-    sd_data = SizeDistributionData('dust')
+    sd_data = SizeDistributionData("dust")
     sd_data.plot()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     _main()

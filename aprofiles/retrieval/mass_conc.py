@@ -23,7 +23,7 @@ def concentration_profiles(self, method):
 
     Example:
         Profiles preparation
-        
+
         >>> import aprofiles as apro
         >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
@@ -44,11 +44,11 @@ def concentration_profiles(self, method):
             :alt: mass concentration
 
             Mass concentration profiles in the case of urban particles.
-            
+
     """
 
     # read aer_properties.json files
-    f = open('aprofiles/config/aer_properties.json')
+    f = open("aprofiles/config/aer_properties.json")
     aer_properties = json.load(f)
     f.close()
     # check if the aer_type exist in the json file
@@ -59,8 +59,8 @@ def concentration_profiles(self, method):
 
     # get wavelength
     wavelength = float(self.data.l0_wavelength.data)
-    if self.data.l0_wavelength.units!='nm':
-        raise ValueError('wavelength units is not `nm`.')
+    if self.data.l0_wavelength.units != "nm":
+        raise ValueError("wavelength units is not `nm`.")
 
     for aer_type in aer_types:
         # calculates emc
@@ -69,36 +69,37 @@ def concentration_profiles(self, method):
         # compute mass_concentration profile
         mass_concentration = self.data.extinction
         # mass_concentration = copy.deepcopy(self.data.extinction)
-        mass_concentration.data = np.divide(mass_concentration,emc.emc)
+        mass_concentration.data = np.divide(mass_concentration, emc.emc)
         # # conversion from g.m-3 to µg.m-3
         # mass_concentration.data = mass_concentration.data*1e6
 
         # creates dataset with a dataarray for each aer_type
-        self.data['mass_concentration:{}'.format(aer_type)] = xr.DataArray(
+        self.data["mass_concentration:{}".format(aer_type)] = xr.DataArray(
             data=mass_concentration.data,
             dims=["time", "altitude"],
-            coords=dict(
-                time=self.data.time.data,
-                altitude=self.data.altitude.data
-            ),
+            coords=dict(time=self.data.time.data, altitude=self.data.altitude.data),
             attrs=dict(
-                long_name="Mass concentration [{} particles]".format(aer_type.replace('_',' ')),
+                long_name="Mass concentration [{} particles]".format(
+                    aer_type.replace("_", " ")
+                ),
                 units="µg.m-3",
-                emc=emc.emc
-            )
+                emc=emc.emc,
+            ),
         )
     return self
 
 
 def _main():
     import aprofiles as apro
+
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
 
     # basic corrections
-    profiles.extrapolate_below(z=150., inplace=True)
-    profiles.inversion(verbose=True, mass_conc_method='mortier_2013')
-    profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=10)
+    profiles.extrapolate_below(z=150.0, inplace=True)
+    profiles.inversion(verbose=True, mass_conc_method="mortier_2013")
+    profiles.plot("mass_concentration:urban", zmax=6000, vmin=0, vmax=10)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     _main()

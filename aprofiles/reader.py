@@ -51,7 +51,7 @@ class ReadAeronet:
 
     def __init__(self, path):
         self.path = path
-        raise NotImplementedError('ReadAeronet class is not implemented yet')
+        raise NotImplementedError("ReadAeronet class is not implemented yet")
 
 
 def _main():
@@ -60,5 +60,5 @@ def _main():
     print(ProfilesData)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     _main()

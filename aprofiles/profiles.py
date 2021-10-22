@@ -14,16 +14,14 @@ import aprofiles as apro
 
 
 class ProfilesData:
-    """Base class representing profiles data returned by :class:`aprofiles.reader.ReadProfiles`.
-    """
+    """Base class representing profiles data returned by :class:`aprofiles.reader.ReadProfiles`."""
 
     def __init__(self, data):
         self.data = data
 
     @property
     def data(self):
-        """Data attribute (instance of :class:`xarray.Dataset`)
-        """
+        """Data attribute (instance of :class:`xarray.Dataset`)"""
         return self._data
 
     @data.setter
@@ -42,7 +40,7 @@ class ProfilesData:
             int: Closest index of the vertical dimension to the given altitude AGL
         """
         altitude_asl = altitude + self.data.station_altitude.data
-        return np.argmin(abs(self.data.altitude.data-altitude_asl))
+        return np.argmin(abs(self.data.altitude.data - altitude_asl))
 
     def _get_resolution(self, which):
         """Returns the resolution of a given dimension. Support 'altitude' and 'time'.
@@ -54,10 +52,12 @@ class ProfilesData:
         Returns:
             float: resolution, in m (if which=='altitude') or in s (if which=='time')
         """
-        if which == 'altitude':
+        if which == "altitude":
             return min(np.diff(self.data.altitude.data))
-        elif which == 'time':
-            return min(np.diff(self.data.time.data)).astype('timedelta64[s]').astype(int)
+        elif which == "time":
+            return (
+                min(np.diff(self.data.time.data)).astype("timedelta64[s]").astype(int)
+            )
 
     def _get_lowest_clouds(self):
         # returns an array of the altitude (in m, ASL) of the lowest cloud for each timestamp
@@ -78,13 +78,12 @@ class ProfilesData:
         return lowest_clouds
 
     def _get_itime(self, datetime):
-        """Returns the index of closest datetime available of the ProfilesData object.
-        """
+        """Returns the index of closest datetime available of the ProfilesData object."""
         time = self.data.time.data
-        i_time = np.argmin(abs(time-datetime))
+        i_time = np.argmin(abs(time - datetime))
         return i_time
 
-    def snr(self, var='attenuated_backscatter_0', step=4, verbose=False):
+    def snr(self, var="attenuated_backscatter_0", step=4, verbose=False):
         """Method that calculates the Signal to Noise Ratio.
 
         Args:
@@ -121,19 +120,23 @@ class ProfilesData:
             array = np.asarray(array)
             snr = []
             for i in np.arange(len(array)):
-                gates = np.arange(i-step, i+step)
+                gates = np.arange(i - step, i + step)
                 indexes = [i for i in gates if i > 0 and i < len(array)]
                 mean = np.nanmean(array[indexes])
                 std = np.nanstd(array[indexes])
                 if std != 0:
-                    snr.append(mean/std)
+                    snr.append(mean / std)
                 else:
                     snr.append(0)
             return np.asarray(snr)
 
         snr = []
 
-        for i in (tqdm(range(len(self.data.time.data)), desc='snr   ') if verbose else range(len(self.data.time.data))):
+        for i in (
+            tqdm(range(len(self.data.time.data)), desc="snr   ")
+            if verbose
+            else range(len(self.data.time.data))
+        ):
             snr.append(_1D_snr(self.data[var].data[i, :], step))
 
         # creates dataarrays
@@ -144,16 +147,14 @@ class ProfilesData:
                 time=self.data.time.data,
                 altitude=self.data.altitude.data,
             ),
-            attrs=dict(
-                long_name="Signal to Noise Ratio",
-                units=None,
-                step=step
-            )
+            attrs=dict(long_name="Signal to Noise Ratio", units=None, step=step),
         )
 
         return self
 
-    def gaussian_filter(self, sigma=0.25, var='attenuated_backscatter_0', inplace=False):
+    def gaussian_filter(
+        self, sigma=0.25, var="attenuated_backscatter_0", inplace=False
+    ):
         """Applies a 2D gaussian filter in order to reduce high frequency noise.
 
         Args:
@@ -202,10 +203,10 @@ class ProfilesData:
             copied_dataset.data[var].data = filtered_data
             new_dataset = copied_dataset
         # add attribute
-        new_dataset.data[var].attrs['gaussian_filter'] = sigma
+        new_dataset.data[var].attrs["gaussian_filter"] = sigma
         return new_dataset
 
-    def time_avg(self, minutes, var='attenuated_backscatter_0',  inplace=False):
+    def time_avg(self, minutes, var="attenuated_backscatter_0", inplace=False):
         """Rolling median in the time dimension.
 
         Args:
@@ -220,11 +221,13 @@ class ProfilesData:
         # time conversion from minutes to seconds
         t_avg = minutes * 60
         # time resolution in profiles data in seconds
-        dt_s = self._get_resolution('time')
+        dt_s = self._get_resolution("time")
         # number of timestamps to be to averaged
-        nt_avg = max([1, round(t_avg/dt_s)])
+        nt_avg = max([1, round(t_avg / dt_s)])
         # rolling median
-        filtered_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
+        filtered_data = (
+            rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
+        )
 
         if inplace:
             self.data[var].data = filtered_data
@@ -234,10 +237,12 @@ class ProfilesData:
             copied_dataset.data[var].data = filtered_data
             new_dataset = copied_dataset
         # add attribute
-        new_dataset.data[var].attrs['time averaged (minutes)'] = minutes
+        new_dataset.data[var].attrs["time averaged (minutes)"] = minutes
         return new_dataset
 
-    def extrapolate_below(self, var='attenuated_backscatter_0', z=150, method='cst', inplace=False):
+    def extrapolate_below(
+        self, var="attenuated_backscatter_0", z=150, method="cst", inplace=False
+    ):
         """Method for extrapolating lowest layers below a certain altitude. This is of particular intrest for instruments subject to After Pulse effect, with saturated signal in the lowest layers.
         We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.
 
@@ -279,17 +284,17 @@ class ProfilesData:
 
         nt = np.shape(self.data[var].data)[0]
 
-        if method == 'cst':
+        if method == "cst":
             # get values at imin
             data_zmax = self.data[var].data[:, imax]
             # generates ones matrice with time/altitude dimension to fill up bottom
             ones = np.ones((nt, imax))
             # replace values
             filling_matrice = np.transpose(np.multiply(np.transpose(ones), data_zmax))
-        elif method == 'lin':
-            raise NotImplementedError('Linear extrapolation is not implemented yet')
+        elif method == "lin":
+            raise NotImplementedError("Linear extrapolation is not implemented yet")
         else:
-            raise ValueError('Expected string: lin or cst')
+            raise ValueError("Expected string: lin or cst")
 
         if inplace:
             self.data[var].data[:, 0:imax] = filling_matrice
@@ -300,11 +305,11 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attributes
-        new_profiles_data.data[var].attrs['extrapolation_low_layers_altitude_agl'] = z
-        new_profiles_data.data[var].attrs['extrapolation_low_layers_method'] = method
+        new_profiles_data.data[var].attrs["extrapolation_low_layers_altitude_agl"] = z
+        new_profiles_data.data[var].attrs["extrapolation_low_layers_method"] = method
         return new_profiles_data
 
-    def range_correction(self, var='attenuated_backscatter_0', inplace=False):
+    def range_correction(self, var="attenuated_backscatter_0", inplace=False):
         """Method that corrects the solid angle effect (1/z2) which makes that the backscatter beam is more unlikely to be detected with the square of the altitude.
 
         Args:
@@ -333,12 +338,12 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attribute
-        new_profiles_data.data[var].attrs['range correction'] = True
+        new_profiles_data.data[var].attrs["range correction"] = True
         # remove units
-        new_profiles_data.data[var].attrs['units'] = None
+        new_profiles_data.data[var].attrs["units"] = None
         return new_profiles_data
 
-    def desaturate_below(self, var='attenuated_backscatter_0', z=4000., inplace=False):
+    def desaturate_below(self, var="attenuated_backscatter_0", z=4000.0, inplace=False):
         """Remove saturation caused by clouds at low altitude which results in negative values above the maximum.
         The absolute value of the signal is returned below the prescribed altitude.
 
@@ -394,33 +399,97 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attribute
-        new_profiles_data.data[var].attrs['desaturated'] = True
+        new_profiles_data.data[var].attrs["desaturated"] = True
         return new_profiles_data
 
-    def foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
-        """Calls :meth:`aprofiles.detection.foc.detect_foc()`.
-        """
+    def foc(
+        self,
+        method="cloud_base",
+        var="attenuated_backscatter_0",
+        z_snr=2000.0,
+        min_snr=2.0,
+        zmin_cloud=200.0,
+    ):
+        """Calls :meth:`aprofiles.detection.foc.detect_foc()`."""
         apro.detection.foc.detect_foc(self, method, var, z_snr, min_snr, zmin_cloud)
 
-    def clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0., verbose=False):
-        """Calls :meth:`aprofiles.detection.clouds.detect_clouds()`.
-        """
-        apro.detection.clouds.detect_clouds(self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
+    def clouds(
+        self,
+        time_avg=1,
+        zmin=0,
+        thr_noise=5.0,
+        thr_clouds=4,
+        min_snr=0.0,
+        verbose=False,
+    ):
+        """Calls :meth:`aprofiles.detection.clouds.detect_clouds()`."""
+        apro.detection.clouds.detect_clouds(
+            self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose
+        )
 
-    def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
-        """Calls :meth:`aprofiles.detection.pbl.detect_pbl()`.
-        """
-        apro.detection.pbl.detect_pbl(self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose)
+    def pbl(
+        self,
+        time_avg=1,
+        zmin=100.0,
+        zmax=3000.0,
+        wav_width=200.0,
+        under_clouds=True,
+        min_snr=2.0,
+        verbose=False,
+    ):
+        """Calls :meth:`aprofiles.detection.pbl.detect_pbl()`."""
+        apro.detection.pbl.detect_pbl(
+            self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose
+        )
 
-    def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='forward', apriori={'lr': 50.}, remove_outliers=False, mass_conc=True, mass_conc_method='mortier_2013', verbose=False):
+    def inversion(
+        self,
+        time_avg=1,
+        zmin=4000.0,
+        zmax=6000.0,
+        min_snr=0.0,
+        under_clouds=False,
+        method="forward",
+        apriori={"lr": 50.0},
+        remove_outliers=False,
+        mass_conc=True,
+        mass_conc_method="mortier_2013",
+        verbose=False,
+    ):
         """Calls :meth:`aprofiles.retrieval.extinction.inversion()` to calculate extinction profiles.
         Calls :meth:`aprofiles.retrieval.mass_conc.mec()` to calculate Mass to Extinction coefficients if `mass_conc` is true (Default).
         """
-        apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
+        apro.retrieval.extinction.inversion(
+            self,
+            time_avg,
+            zmin,
+            zmax,
+            min_snr,
+            under_clouds,
+            method,
+            apriori,
+            remove_outliers,
+            verbose,
+        )
         if mass_conc:
             apro.retrieval.mass_conc.concentration_profiles(self, mass_conc_method)
 
-    def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm', **kwargs):
+    def plot(
+        self,
+        var="attenuated_backscatter_0",
+        datetime=None,
+        zref="agl",
+        zmin=None,
+        zmax=None,
+        vmin=None,
+        vmax=None,
+        log=False,
+        show_foc=False,
+        show_pbl=False,
+        show_clouds=False,
+        cmap="coolwarm",
+        **kwargs
+    ):
         """Plotting method.
         Depending on the variable selected, this method will plot an image, a single profile or a time series of the requested variable.
         See also :ref:`Plotting`.
@@ -442,32 +511,63 @@ class ProfilesData:
 
         # check if var is available
         if var not in list(self.data.data_vars):
-            raise ValueError("{} is not a valid variable. \n List of available variables: {}".format(var, list(self.data.data_vars)))
+            raise ValueError(
+                "{} is not a valid variable. \n List of available variables: {}".format(
+                    var, list(self.data.data_vars)
+                )
+            )
 
         # here, check the dimension. If the variable has only the time dimention, calls timeseries method
         if datetime is None:
             # check dimension of var
             if len(list(self.data[var].dims)) == 2:
-                apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap=cmap)
+                apro.plot.image.plot(
+                    self.data,
+                    var,
+                    zref,
+                    zmin,
+                    zmax,
+                    vmin,
+                    vmax,
+                    log,
+                    show_foc,
+                    show_pbl,
+                    show_clouds,
+                    cmap=cmap,
+                )
             else:
                 apro.plot.timeseries.plot(self.data, var, **kwargs)
         else:
-            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds)
+            apro.plot.profile.plot(
+                self.data,
+                datetime,
+                var,
+                zref,
+                zmin,
+                zmax,
+                vmin,
+                vmax,
+                log,
+                show_foc,
+                show_pbl,
+                show_clouds,
+            )
 
 
 def _main():
     import aprofiles as apro
+
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
 
     # basic corrections
-    profiles.extrapolate_below(z=150., inplace=True)
-    profiles.desaturate_below(z=4000., inplace=True)
+    profiles.extrapolate_below(z=150.0, inplace=True)
+    profiles.desaturate_below(z=4000.0, inplace=True)
     # detection
-    profiles.foc(method='cloud_base', zmin_cloud=200)
+    profiles.foc(method="cloud_base", zmin_cloud=200)
     profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
     profiles.plot(show_foc=True, show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     _main()

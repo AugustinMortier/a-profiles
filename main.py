@@ -39,7 +39,7 @@ profiles.extrapolate_below(z=150, inplace=True)
 # detection
 profiles.foc(zmin_cloud=200)
 profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
-profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2., verbose=True)
+profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2.0, verbose=True)
 
 # plot image
 # profiles.plot(zref='agl', zmax=6000., show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1)
@@ -58,9 +58,11 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2., verbose=True)
 # profiles.plot(var='aod')
 
 # forward
-profiles.inversion(zmin=4000, zmax=6000, remove_outliers=True, method='forward', verbose=True)
-profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
-profiles.plot(var='mass_concentration:dust', zmax=6000, vmin=0, vmax=5e-2)
+profiles.inversion(
+    zmin=4000, zmax=6000, remove_outliers=True, method="forward", verbose=True
+)
+profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
+profiles.plot(var="mass_concentration:dust", zmax=6000, vmin=0, vmax=5e-2)
 # profiles.plot('pbl', ymin=0, ymax=3000)
 
 # # produce rayleigh profile

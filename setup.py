@@ -1,4 +1,3 @@
-
 # Always prefer setuptools over distutils
 from setuptools import setup
 
@@ -10,7 +9,7 @@ from os import path
 HERE = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
+with open(path.join(HERE, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 # This call to setup() does all the work
@@ -33,9 +32,18 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
-        "Operating System :: OS Independent"
+        "Operating System :: OS Independent",
     ],
     packages=["aprofiles"],
     include_package_data=True,
-    install_requires=["matplotlib", "miepython", "netcdf4", "numpy", "seaborn", "scipy", "tqdm", "xarray"]
+    install_requires=[
+        "matplotlib",
+        "miepython",
+        "netcdf4",
+        "numpy",
+        "seaborn",
+        "scipy",
+        "tqdm",
+        "xarray",
+    ],
 )

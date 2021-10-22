@@ -6,9 +6,10 @@
 
 import xarray as xr
 
+
 class ReadAERONET:
     """AERONET reading class.
-    
+
     Data:
         [https://data.ceda.ac.uk/badc/eprofile/data/daily_files/]
 

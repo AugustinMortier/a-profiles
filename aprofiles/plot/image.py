@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 
 import seaborn as sns
+
 sns.set_theme()
 
 
@@ -17,55 +18,63 @@ def _plot_foc(da, zref):
     Args:
         da ([type]): [description]
     """
-    #time
+    # time
     time = da.time.data
-    #altitude
-    if zref.upper()=='AGL':
+    # altitude
+    if zref.upper() == "AGL":
         altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper()=='ASL':
+    elif zref.upper() == "ASL":
         altitude = da.altitude.data
 
-    foc_markers = [altitude[0] if x==True else np.nan for x in da.foc.data]
+    foc_markers = [altitude[0] if x == True else np.nan for x in da.foc.data]
 
-    #plot line from peak to base
+    # plot line from peak to base
     for i, _ in enumerate(foc_markers):
         if foc_markers[i] is not np.nan:
-            plt.plot([time[i],time[i]], [altitude[0],altitude[-1]], 'm-', color='gray', lw=2., alpha=0.2)
-    #plot markers
-    plt.plot([],[],"^m", ms=10, lw=0, label='foc or condensation')
-    plt.plot(time, foc_markers,"m", marker=10, ms=10, lw=0)
+            plt.plot(
+                [time[i], time[i]],
+                [altitude[0], altitude[-1]],
+                "m-",
+                color="gray",
+                lw=2.0,
+                alpha=0.2,
+            )
+    # plot markers
+    plt.plot([], [], "^m", ms=10, lw=0, label="foc or condensation")
+    plt.plot(time, foc_markers, "m", marker=10, ms=10, lw=0)
+
 
 def _plot_clouds(da, zref):
     """Plot clouds as markers.
     Args:
         da ([type]): [description]
     """
-    #time
+    # time
     time = da.time.data
-    #altitude
-    if zref.upper()=='AGL':
+    # altitude
+    if zref.upper() == "AGL":
         altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper()=='ASL':
+    elif zref.upper() == "ASL":
         altitude = da.altitude.data
 
     for i in range(len(time)):
-        #plot bases
-        b_indexes = [i for i, x in enumerate(da.clouds_bases[i,:].data) if x]
-        p_indexes = [i for i, x in enumerate(da.clouds_peaks[i,:].data) if x]
-        t_indexes = [i for i, x in enumerate(da.clouds_tops[i,:].data) if x]
-        
-        #plot line from base to peak
-        for j, _ in enumerate(b_indexes):
-            y = altitude[b_indexes[j]:p_indexes[j]]
-            x = [time[i] for _ in y]
-            plt.plot(x, y, 'w-', color='white', lw=2., alpha=0.2)
+        # plot bases
+        b_indexes = [i for i, x in enumerate(da.clouds_bases[i, :].data) if x]
+        p_indexes = [i for i, x in enumerate(da.clouds_peaks[i, :].data) if x]
+        t_indexes = [i for i, x in enumerate(da.clouds_tops[i, :].data) if x]
 
-        #plot line from peak to base
+        # plot line from base to peak
         for j, _ in enumerate(b_indexes):
-            y = altitude[p_indexes[j]:t_indexes[j]]
+            y = altitude[b_indexes[j] : p_indexes[j]]
             x = [time[i] for _ in y]
-            plt.plot(x, y, 'w-', color='white', lw=2., alpha=0.2)
-        
+            plt.plot(x, y, "w-", color="white", lw=2.0, alpha=0.2)
+
+        # plot line from peak to base
+        for j, _ in enumerate(b_indexes):
+            y = altitude[p_indexes[j] : t_indexes[j]]
+            x = [time[i] for _ in y]
+            plt.plot(x, y, "w-", color="white", lw=2.0, alpha=0.2)
+
         """
         #plot line from base to top
         for j, _ in enumerate(b_indexes):
@@ -73,32 +82,47 @@ def _plot_clouds(da, zref):
             x = [time[i] for _ in y]
             plt.plot(x, y, 'w-', lw=2, alpha=0.9)
         """
-        #plot markers
+        # plot markers
         t = [time[i] for _ in b_indexes]
-        if i==0:
-            plt.plot(t, altitude[b_indexes], 'k.', ms=3, label='clouds')
+        if i == 0:
+            plt.plot(t, altitude[b_indexes], "k.", ms=3, label="clouds")
         else:
-            plt.plot(t, altitude[b_indexes], 'k.', ms=3)
+            plt.plot(t, altitude[b_indexes], "k.", ms=3)
         t = [time[i] for _ in p_indexes]
-        plt.plot(t, altitude[p_indexes], 'k.', ms=3)
+        plt.plot(t, altitude[p_indexes], "k.", ms=3)
         t = [time[i] for _ in t_indexes]
-        plt.plot(t, altitude[t_indexes], 'k.', ms=3)
+        plt.plot(t, altitude[t_indexes], "k.", ms=3)
+
 
 def _plot_pbl(da, zref):
     """Plot PBL as markers
     Args:
         da ([type]): [description]
     """
-    #time
+    # time
     time = da.time.data
-    #altitude
-    if zref.upper()=='AGL':
+    # altitude
+    if zref.upper() == "AGL":
         pbl = da.pbl.data - da.station_altitude.data
-    elif zref.upper()=='ASL':
+    elif zref.upper() == "ASL":
         pbl = da.pbl.data
-    plt.plot(time, pbl, ".g", ms=5, lw=0, label='PBL')
+    plt.plot(time, pbl, ".g", ms=5, lw=0, label="PBL")
 
-def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm'):
+
+def plot(
+    da,
+    var="attenuated_backscatter_0",
+    zref="agl",
+    zmin=None,
+    zmax=None,
+    vmin=None,
+    vmax=None,
+    log=False,
+    show_foc=False,
+    show_pbl=False,
+    show_clouds=False,
+    cmap="coolwarm",
+):
     """Plot image of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
     Args:
@@ -114,7 +138,7 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
         - show_pbl (bool, optional): Add PBL height. Defaults to `False`.
         - show_clouds (bool, optional): Add clouds detection. Defaults to `False`.
         - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'` cmap from seaborn.
-    
+
     Example:
 
         >>> import aprofiles as apro
@@ -132,34 +156,42 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
             Image of attenuated backscatter profiles.
     """
 
-    #calculates max value from data
-    if vmax==None:
-        perc = np.percentile(da[var].data,70)
+    # calculates max value from data
+    if vmax == None:
+        perc = np.percentile(da[var].data, 70)
         pow10 = np.ceil(np.log10(perc))
-        vmax = 10**(pow10)
+        vmax = 10 ** (pow10)
 
-
-    #time
+    # time
     time = da.time.data
-    #altitude
-    if zref.upper()=='AGL':
+    # altitude
+    if zref.upper() == "AGL":
         altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper()=='ASL':
+    elif zref.upper() == "ASL":
         altitude = da.altitude.data
 
     fig, axs = plt.subplots(1, 1, figsize=(12, 4))
-    
 
-    #2D array
+    # 2D array
     C = np.transpose(da[var].data)
 
     if log:
         import matplotlib.colors as colors
-        plt.pcolormesh(time, altitude, C, norm=colors.LogNorm(vmin=np.max([0,vmin]), vmax=vmax), cmap=cmap, shading='nearest')
-    else:
-        plt.pcolormesh(time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading='nearest')
 
-    #add addition information
+        plt.pcolormesh(
+            time,
+            altitude,
+            C,
+            norm=colors.LogNorm(vmin=np.max([0, vmin]), vmax=vmax),
+            cmap=cmap,
+            shading="nearest",
+        )
+    else:
+        plt.pcolormesh(
+            time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading="nearest"
+        )
+
+    # add addition information
     if show_foc:
         _plot_foc(da, zref)
     if show_clouds:
@@ -167,34 +199,39 @@ def plot(da, var='attenuated_backscatter_0', zref='agl', zmin=None, zmax=None, v
     if show_pbl:
         _plot_pbl(da, zref)
 
-    #limit to altitude range
-    plt.ylim([zmin,zmax])
+    # limit to altitude range
+    plt.ylim([zmin, zmax])
 
-    #set title and axis labels
+    # set title and axis labels
     yyyy = pd.to_datetime(da.time.values[0]).year
     mm = pd.to_datetime(da.time.values[0]).month
     dd = pd.to_datetime(da.time.values[0]).day
     latitude = da.station_latitude.data
     longitude = da.station_longitude.data
     altitude = da.station_altitude.data
-    station_id = da.attrs['site_location']
-    #title
-    plt.title('{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}'.format(station_id, latitude, longitude, altitude, yyyy, mm, dd), weight='bold')
-    #labels
-    plt.xlabel('Time')
-    plt.ylabel('Altitude {} (m)'.format(zref.upper()))
+    station_id = da.attrs["site_location"]
+    # title
+    plt.title(
+        "{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}".format(
+            station_id, latitude, longitude, altitude, yyyy, mm, dd
+        ),
+        weight="bold",
+    )
+    # labels
+    plt.xlabel("Time")
+    plt.ylabel("Altitude {} (m)".format(zref.upper()))
 
-    #add legend
+    # add legend
     if show_foc or show_clouds or show_pbl:
-        plt.legend(loc='upper right')
+        plt.legend(loc="upper right")
 
-    #colorbar
+    # colorbar
     cbar = plt.colorbar()
-    #label
-    if 'units' in list(da[var].attrs) and da[var].units!=None:
-        label = '{} ({})'.format(da[var].long_name, da[var].units)
+    # label
+    if "units" in list(da[var].attrs) and da[var].units != None:
+        label = "{} ({})".format(da[var].long_name, da[var].units)
     else:
-        label = '{}'.format(da[var].long_name)
+        label = "{}".format(da[var].long_name)
     cbar.set_label(label)
 
     plt.tight_layout()
