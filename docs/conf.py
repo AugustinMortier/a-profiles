@@ -15,14 +15,11 @@ import sys
 
 sys.path.insert(0, os.path.abspath('..'))
 
-
-
 # -- Project information -----------------------------------------------------
 
 project = 'A-Profiles'
 copyright = '2021, Augustin Mortier'
 author = 'Augustin Mortier'
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -38,11 +35,11 @@ extensions = [
 ]
 
 intersphinx_mapping = {
-    'python'    : ('https://docs.python.org/3', None),
-    'xarray'    : ('http://xarray.pydata.org/en/stable/', None),
-    'pandas'    : ('https://pandas.pydata.org/docs/', None),
-    'numpy'     : ('https://numpy.org/doc/stable/', None),
-    'scipy'     : ('https://docs.scipy.org/doc/scipy/reference/', None)
+    'python': ('https://docs.python.org/3', None),
+    'xarray': ('http://xarray.pydata.org/en/stable/', None),
+    'pandas': ('https://pandas.pydata.org/docs/', None),
+    'numpy': ('https://numpy.org/doc/stable/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None)
 }
 
 html_css_files = [
@@ -75,7 +72,6 @@ html_theme_options = {
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
 
 # -- Options for HTML output -------------------------------------------------
 
