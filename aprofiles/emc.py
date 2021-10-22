@@ -166,11 +166,6 @@ class EMCData:
                 :alt: biomass burning properties
 
                 Biomass burning particles properties used for EMC calculation.
-
-        >>> import aprofiles as apro
-        >>> emc_data = EMCData('biomass_burning', 532E-9)
-        >>> emc_data.plot()
-
         """        
         fig, ax = plt.subplots(1,1, figsize=(6,6))
 
