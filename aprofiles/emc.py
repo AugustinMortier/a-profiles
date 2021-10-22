@@ -152,6 +152,25 @@ class EMCData:
 
     def plot(self):
         """Plot main information of an instance of the :class:`SizeDistributionData` class.
+
+        Example:
+            >>> #import aprofiles
+            >>> import aprofiles as apro
+            >>> #compute emc for biomas burning particles at 532 nm
+            >>> emc = apro.emc.EMCData('biomass_burning', 532E-9);
+            >>> #plot information
+            >>> emc.plot()
+
+            .. figure:: ../examples/images/bb_emc.png
+                :scale: 80 %
+                :alt: biomass burning properties
+
+                Biomass burning particles properties used for EMC calculation.
+
+        >>> import aprofiles as apro
+        >>> emc_data = EMCData('biomass_burning', 532E-9)
+        >>> emc_data.plot()
+
         """        
         fig, ax = plt.subplots(1,1, figsize=(6,6))
 
@@ -182,7 +201,7 @@ class EMCData:
 
 def _main():
     import aprofiles as apro
-    emc_data = EMCData('dust', 532E-9)
+    emc_data = EMCData('biomass_burning', 532E-9)
     print('{:.2e} m {:.2f} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
     emc_data.plot()
 

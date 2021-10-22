@@ -92,7 +92,7 @@ class SizeDistributionData:
         """Plot Size Distributions of an intance of the :class:`SizeDistributionData` class.
 
         Example:
-            >>> #some imports
+            >>> #import aprofile
             >>> import aprofiles as apro
             >>> #get size distribution for urban particles
             >>> sd = apro.size_distribution.SizeDistribData('urban');
