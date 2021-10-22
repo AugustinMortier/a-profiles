@@ -71,13 +71,13 @@ class SizeDistributionData:
         """
 
         aer_properties = self.aer_properties
-        radius = np.arange(1E-2,2E1,1E-3) #in µm
+        radius = np.arange(1E-2, 2E1, 1E-3)  # radius in µm
         vsd = np.zeros(len(radius))
 
         # we loop though all the keys defining the different modes
         for mode in aer_properties["vsd"].keys():
             vsd += self._gaussian(np.log(radius), np.log(aer_properties["vsd"][mode]["reff"]), aer_properties["vsd"][mode]["rstd"], aer_properties["vsd"][mode]["conc"])
-        
+
         self.radius = radius
         self.vsd = vsd
         self._vsd_to_nsd()
@@ -101,8 +101,8 @@ class SizeDistributionData:
 
                 Size distributions for urban particles.
 
-        """        
-        fig, ax = plt.subplots(1,1, figsize=(6,6))
+        """
+        fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 
         # plot Volume Size Distribution in 1st axis
         print(self.vsd)
@@ -119,13 +119,13 @@ class SizeDistributionData:
 
         ax.set_xlabel('Radius (µm)')
         ax.set_xscale('log')
-        fig.legend(loc="upper right", bbox_to_anchor=(1,1), bbox_transform=ax.transAxes)
-        plt.title('Size Distribution for {} Particles'.format(self.aer_type.capitalize().replace('_',' ')),weight='bold')
+        fig.legend(loc="upper right", bbox_to_anchor=(1, 1), bbox_transform=ax.transAxes)
+        plt.title('Size Distribution for {} Particles'.format(self.aer_type.capitalize().replace('_', ' ')), weight='bold')
         plt.tight_layout()
         plt.show()
 
+
 def _main():
-    import aprofiles as apro
     sd_data = SizeDistributionData('dust')
     sd_data.plot()
 
