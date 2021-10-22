@@ -54,9 +54,6 @@ def concentration_profiles(self, method):
     # check if the aer_type exist in the json file
     aer_types = aer_properties.keys()
 
-    # initialize dataset
-    ds = xr.Dataset()
-
     # get wavelength
     wavelength = float(self.data.l0_wavelength.data)
     if self.data.l0_wavelength.units != "nm":

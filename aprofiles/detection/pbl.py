@@ -33,13 +33,13 @@ def detect_pbl(
         Example:
 
         >>> import aprofiles as apro
-        >>> #read example file
+        >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
         >>> reader = apro.reader.ReadProfiles(path)
         >>> profiles = reader.read()
-        >>> #pbl detection
+        >>> # pbl detection
         >>> profiles.pbl(zmin=100., zmax=3000.)
-        >>> #attenuated backscatter image with pbl up to 6km of altitude
+        >>> # attenuated backscatter image with pbl up to 6km of altitude
         >>> profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
 
         .. figure:: ../examples/images/pbl.png
@@ -90,8 +90,8 @@ def detect_pbl(
 
         # the PBL is the maximum of the convolution
         # sets to nan outside of PBL search range
-        gradient[0 : self._get_index_from_altitude_AGL(zmin) :] = np.nan
-        gradient[self._get_index_from_altitude_AGL(zmax) :] = np.nan
+        gradient[0: self._get_index_from_altitude_AGL(zmin):] = np.nan
+        gradient[self._get_index_from_altitude_AGL(zmax):] = np.nan
         i_pbl = np.nanargmin(gradient)
 
         # calculates SNR
@@ -109,7 +109,7 @@ def detect_pbl(
     # if under_clouds, check if clouds_bases is available
     if under_clouds and "clouds_bases" in list(self.data.data_vars):
         lowest_clouds = self._get_lowest_clouds()
-    elif under_clouds and not "clouds_bases" in list(self.data.data_vars):
+    elif under_clouds and "clouds_bases" not in list(self.data.data_vars):
         import warnings
 
         warnings.warn(

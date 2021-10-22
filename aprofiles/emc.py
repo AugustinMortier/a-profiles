@@ -64,7 +64,7 @@ class EMCData:
             aer_properties = json.load(f)
             f.close()
             # check if the aer_type exist in the json file
-            if not aer_type in aer_properties.keys():
+            if aer_type not in aer_properties.keys():
                 raise ValueError(
                     "{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}".format(
                         aer_type, list(aer_properties.keys())

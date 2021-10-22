@@ -7,7 +7,6 @@
 import aprofiles as apro
 import numpy as np
 import xarray as xr
-from scipy.ndimage.filters import uniform_filter1d
 from tqdm import tqdm
 import warnings
 
@@ -259,7 +258,7 @@ def inversion(
         imax = self._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
         iref = get_iref(rcs.data[i, :], imin, imax, min_snr)
 
-        if iref != None:
+        if iref is not None:
             # aerosol inversion
             if method == "backward":
                 _ext = backward_inversion(calibrated_data, iref, apriori, rayleigh)

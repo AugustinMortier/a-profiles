@@ -5,7 +5,6 @@
 # @desc A-Profiles - Time Series plot
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 
 import seaborn as sns
@@ -23,13 +22,13 @@ def plot(da, var="aod", **kwargs):
     Example:
 
         >>> import aprofiles as apro
-        >>> #read example file
+        >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
         >>> reader = apro.reader.ReadProfiles(path)
         >>> profiles = reader.read()
-        >>> #retrieve pbl height
+        >>> # retrieve pbl height
         >>> profiles.pbl(zmin=200, zmax=3000)
-        >>> #attenuated backscatter image
+        >>> # attenuated backscatter image
         >>> profiles.plot(var="pbl" ymin=0., ymax=3000., min_snr=2.)
 
         .. figure:: ../examples/images/time_series.png
@@ -55,7 +54,7 @@ def plot(da, var="aod", **kwargs):
     plt.plot(time, da[var].data)
 
     # limit to altitude range
-    if ymin != None or ymax != None:
+    if ymin is not None or ymax is not None:
         plt.ylim([ymin, ymax])
 
     # set title and axis labels
@@ -76,7 +75,7 @@ def plot(da, var="aod", **kwargs):
     # labels
     plt.xlabel("Time")
 
-    if "units" in list(da[var].attrs) and da[var].units != None:
+    if "units" in list(da[var].attrs) and da[var].units is not None:
         ylabel = "{} ({})".format(da[var].long_name, da[var].units)
     else:
         ylabel = "{}".format(da[var].long_name)

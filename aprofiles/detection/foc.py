@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 import numpy as np
 import xarray as xr
-from tqdm import tqdm
-
 
 def detect_foc(
     self,
@@ -28,13 +26,13 @@ def detect_foc(
     Example:
 
     >>> import aprofiles as apro
-    >>> #read example file
+    >>> # read example file
     >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
     >>> reader = apro.reader.ReadProfiles(path)
     >>> profiles = reader.read()
-    >>> #foc detection
+    >>> # foc detection
     >>> profiles.foc()
-    >>> #attenuated backscatter image with pbl up to 6km of altitude
+    >>> # attenuated backscatter image with pbl up to 6km of altitude
     >>> profiles.plot(show_foc=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
 
     .. figure:: ../examples/images/foc.png

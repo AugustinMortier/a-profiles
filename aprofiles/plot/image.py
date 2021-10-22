@@ -26,7 +26,7 @@ def _plot_foc(da, zref):
     elif zref.upper() == "ASL":
         altitude = da.altitude.data
 
-    foc_markers = [altitude[0] if x == True else np.nan for x in da.foc.data]
+    foc_markers = [altitude[0] if x is True else np.nan for x in da.foc.data]
 
     # plot line from peak to base
     for i, _ in enumerate(foc_markers):
@@ -65,13 +65,13 @@ def _plot_clouds(da, zref):
 
         # plot line from base to peak
         for j, _ in enumerate(b_indexes):
-            y = altitude[b_indexes[j] : p_indexes[j]]
+            y = altitude[b_indexes[j]: p_indexes[j]]
             x = [time[i] for _ in y]
             plt.plot(x, y, "w-", color="white", lw=2.0, alpha=0.2)
 
         # plot line from peak to base
         for j, _ in enumerate(b_indexes):
-            y = altitude[p_indexes[j] : t_indexes[j]]
+            y = altitude[p_indexes[j]: t_indexes[j]]
             x = [time[i] for _ in y]
             plt.plot(x, y, "w-", color="white", lw=2.0, alpha=0.2)
 
@@ -142,11 +142,11 @@ def plot(
     Example:
 
         >>> import aprofiles as apro
-        >>> #read example file
+        >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
         >>> reader = apro.reader.ReadProfiles(path)
         >>> profiles = reader.read()
-        >>> #attenuated backscatter image
+        >>> # attenuated backscatter image
         >>> profiles.plot(vmin=1e-2, vmax=1e1, log=True)
 
         .. figure:: ../examples/images/attenuated_backscatter.png
@@ -157,7 +157,7 @@ def plot(
     """
 
     # calculates max value from data
-    if vmax == None:
+    if vmax is None:
         perc = np.percentile(da[var].data, 70)
         pow10 = np.ceil(np.log10(perc))
         vmax = 10 ** (pow10)
@@ -228,7 +228,7 @@ def plot(
     # colorbar
     cbar = plt.colorbar()
     # label
-    if "units" in list(da[var].attrs) and da[var].units != None:
+    if "units" in list(da[var].attrs) and da[var].units is not None:
         label = "{} ({})".format(da[var].long_name, da[var].units)
     else:
         label = "{}".format(da[var].long_name)

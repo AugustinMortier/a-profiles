@@ -19,15 +19,15 @@ class RayleighData:
         - P0 (float): Pressure at ground level, in hPa.
 
     Example:
-        >>> #some imports
+        >>> # some imports
         >>> import aprofiles as apro
         >>> import numpy as np
-        >>> #creates altitude array
+        >>> # creates altitude array
         >>> altitude = np.arange(15,15000,15)
         >>> wavelength = 1064.
-        >>> #produce rayleigh profile
+        >>> # produce rayleigh profile
         >>> rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
-        #checkout the instance attributes
+        # checkout the instance attributes
         >>> rayleigh.__dict__.keys()
         dict_keys(['altitude', 'T0', 'P0', 'wavelength', 'cross_section', 'backscatter', 'extinction'])
     """
@@ -141,15 +141,15 @@ class RayleighData:
         """Plot extinction profile of an instance of the :class:`RayleighData` class.
 
         Example:
-            >>> #some imports
+            >>> # some imports
             >>> import aprofiles as apro
             >>> import numpy as np
-            >>> #creates altitude array
+            >>> # creates altitude array
             >>> altitude = np.arange(15,15000,15)
             >>> wavelength = 1064.
-            >>> #produce rayleigh profile
+            >>> # produce rayleigh profile
             >>> rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
-            >>> #plot profile
+            >>> # plot profile
             >>> rayleigh.plot()
 
             .. figure:: ../examples/images/rayleigh.png
@@ -182,14 +182,9 @@ class RayleighData:
 
 
 def _main():
-    import aprofiles as apro
-    import matplotlib as plt
-
     altitude = np.arange(15, 15000, 15)
     wavelength = 1064.0
-
     rayleigh = RayleighData(altitude, wavelength)
-
     # plot
     rayleigh.plot()
 

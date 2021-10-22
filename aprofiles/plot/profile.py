@@ -27,7 +27,7 @@ def _plot_foc(da, time, zref):
     elif zref.upper() == "ASL":
         altitude = da.altitude.data
 
-    foc_markers = [altitude[0] if x == True else np.nan for x in da.foc.data]
+    foc_markers = [altitude[0] if x is True else np.nan for x in da.foc.data]
     if not np.isnan(foc_markers[i_time]):
         plt.plot([], [], "^m", ms=10, lw=0, label="foc or condensation")
         plt.plot(0, foc_markers[i_time], "m", marker=10, ms=10, lw=0)
@@ -152,13 +152,13 @@ def plot(
     Example:
 
         >>> import aprofiles as apro
-        >>> #read example file
+        >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
         >>> reader = apro.reader.ReadProfiles(path)
         >>> profiles = reader.read()
-        >>> #some detection
+        >>> # some detection
         >>> profiles.clouds(inplace=True).pbl(inplace=True)
-        >>> #attenuated backscatter single profile
+        >>> # attenuated backscatter single profile
         >>> datetime = np.datetime64('2021-09-09T10:25:00')
         >>> profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
 
@@ -169,7 +169,7 @@ def plot(
             Single profile of attenuated backscatter.
     """
 
-    if datetime == None:
+    if datetime is None:
         raise ValueError(
             "datetime needs to be a np.datetime object, e.g. time=np.datetime(2021-09-09T16:00:00)"
         )
@@ -201,7 +201,7 @@ def plot(
 
     # set scales
     plt.ylim([zmin, zmax])
-    if vmin != None or vmax != None:
+    if vmin is not None or vmax is not None:
         plt.xlim([vmin, vmax])
 
     # set title and axis labels
@@ -222,7 +222,7 @@ def plot(
         fontsize=12,
     )
     # labels
-    if "units" in list(da[var].attrs) and da[var].units != None:
+    if "units" in list(da[var].attrs) and da[var].units is not None:
         xlabel = "{} ({})".format(da[var].long_name, da[var].units)
     else:
         xlabel = "{}".format(da[var].long_name)

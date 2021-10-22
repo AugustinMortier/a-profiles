@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import numpy as np
-from scipy.ndimage.filters import uniform_filter1d
 
 
 def get_iref(data, imin, imax, min_snr):
@@ -29,8 +28,6 @@ def get_iref(data, imin, imax, min_snr):
             return 0
 
     # it is important to copy the data not to modify it outside of the function
-    import copy
-
     data = data.copy()
 
     # check if imin below imax
@@ -53,8 +50,8 @@ def get_iref(data, imin, imax, min_snr):
             n_around_min = 3
             iclose = np.nanargmin(
                 abs(
-                    data[ilow - n_around_min : ilow + n_around_min]
-                    - avg_data[ilow - n_around_min : ilow + n_around_min]
+                    data[ilow - n_around_min: ilow + n_around_min]
+                    - avg_data[ilow - n_around_min: ilow + n_around_min]
                 )
             )
 

@@ -4,9 +4,7 @@ import xarray as xr
 from tqdm import tqdm
 
 
-def detect_clouds(
-    self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0.0, verbose=False
-):
+def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0.0, verbose=False):
     """Module for *clouds detection*.
     The detection is performed on each individual profile. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.
 
@@ -26,13 +24,13 @@ def detect_clouds(
 
     Example:
         >>> import aprofiles as apro
-        >>> #read example file
+        >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
         >>> reader = apro.reader.ReadProfiles(path)
         >>> profiles = reader.read()
-        >>> #clouds detection
+        >>> # clouds detection
         >>> profiles.clouds(zmin=300.)
-        >>> #attenuated backscatter image with clouds
+        >>> # attenuated backscatter image with clouds
         >>> profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
 
         .. figure:: ../examples/images/clouds.png
@@ -251,7 +249,7 @@ def detect_clouds(
 
         # 8. find peaks as maximum between base and top
         i_peaks = [
-            i_bases[i] + np.argmax(data[i_bases[i] : i_tops[i]])
+            i_bases[i] + np.argmax(data[i_bases[i]: i_tops[i]])
             for i in range(len(i_bases))
         ]
         # reconstruct masks
@@ -303,7 +301,7 @@ def detect_clouds(
         
         ymin, ymax = 000, 15000
         altitude_agl = profiles.data.altitude.data - profiles.data.station_altitude.data
-        
+
         #signal on the left
         axs[0].plot(data, altitude_agl, 'b', label='rcs')
         axs[0].plot(avg_data, altitude_agl, 'c', label='rcs')
@@ -312,7 +310,7 @@ def detect_clouds(
         axs[0].plot(data[bases], altitude_agl[bases], '<g', label='bases')
         axs[0].plot(data[peaks], altitude_agl[peaks], '>r', label='peaks')
         axs[0].plot(data[tops], altitude_agl[tops], '^k', label='tops')
-        
+
         #set axis
         axs[0].set_ylim([ymin, ymax])
         #axs[0].set_xlim([-20000,20000])
@@ -322,7 +320,7 @@ def detect_clouds(
         axs[1].plot(ddata_dz, altitude_agl, 'b', label='first derivative')
         axs[1].plot(ddata_dz[bases], altitude_agl[bases], '<g', label='bases')
         axs[1].plot(ddata_dz[peaks], altitude_agl[peaks], '>r', label='peaks')
-        
+
         axs[1].set_ylim([ymin, ymax])
         axs[1].legend()
         #set title
