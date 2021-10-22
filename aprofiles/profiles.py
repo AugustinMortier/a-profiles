@@ -298,10 +298,10 @@ class ProfilesData:
             copied_dataset = copy.deepcopy(self)
             copied_dataset.data[var].data[:, 0:imax] = filling_matrice
             new_profiles_data = copied_dataset
-        
+
         # add attributes
-        new_profiles_data.data[var].attrs['extrapolation_low_layers_altitude_agl']=z
-        new_profiles_data.data[var].attrs['extrapolation_low_layers_method']=method
+        new_profiles_data.data[var].attrs['extrapolation_low_layers_altitude_agl'] = z
+        new_profiles_data.data[var].attrs['extrapolation_low_layers_method'] = method
         return new_profiles_data
 
     def range_correction(self, var='attenuated_backscatter_0', inplace=False):
@@ -310,10 +310,10 @@ class ProfilesData:
         Args:
             - var (str, optional): variable of the Dataset to be processed. Defaults to `'attenuated_backscatter_0'`.
             - inplace (bool, optional): if True, replace the instance of the :class:`ProfilesData` class. Defaults to `False`.
-        
+
         Returns:
             :class: :class:`ProfilesData` object.
-        
+
         .. warning::
             Make sure that the range correction is not already applied to the selected variable.
         """
@@ -322,7 +322,7 @@ class ProfilesData:
         z_agl = self.data.altitude.data - self.data.station_altitude.data
 
         data = self.data[var].data
-        range_corrected_data = np.multiply(data,z_agl)
+        range_corrected_data = np.multiply(data, z_agl)
 
         if inplace:
             self.data[var].data = range_corrected_data
@@ -409,19 +409,19 @@ class ProfilesData:
 
     def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
         """Calls :meth:`aprofiles.detection.pbl.detect_pbl()`.
-        """     
+        """
         apro.detection.pbl.detect_pbl(self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose)
-    
+
     def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='forward', apriori={'lr': 50.}, remove_outliers=False, mass_conc=True, mass_conc_method='mortier_2013', verbose=False):
         """Calls :meth:`aprofiles.retrieval.extinction.inversion()` to calculate extinction profiles.
         Calls :meth:`aprofiles.retrieval.mass_conc.mec()` to calculate Mass to Extinction coefficients if `mass_conc` is true (Default).
-        """ 
+        """
         apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         if mass_conc:
             apro.retrieval.mass_conc.concentration_profiles(self, mass_conc_method)
 
     def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm', **kwargs):
-        """Plotting method. 
+        """Plotting method.
         Depending on the variable selected, this method will plot an image, a single profile or a time series of the requested variable.
         See also :ref:`Plotting`.
 
@@ -445,9 +445,9 @@ class ProfilesData:
             raise ValueError("{} is not a valid variable. \n List of available variables: {}".format(var, list(self.data.data_vars)))
 
         # here, check the dimension. If the variable has only the time dimention, calls timeseries method
-        if datetime==None:
+        if datetime == None:
             # check dimension of var
-            if len(list(self.data[var].dims))==2:
+            if len(list(self.data[var].dims)) == 2:
                 apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap=cmap)
             else:
                 apro.plot.timeseries.plot(self.data, var, **kwargs)
@@ -467,6 +467,7 @@ def _main():
     profiles.foc(method='cloud_base', zmin_cloud=200)
     profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
     profiles.plot(show_foc=True, show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
+
 
 if __name__ == '__main__':
     _main()
