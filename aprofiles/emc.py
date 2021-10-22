@@ -117,6 +117,7 @@ class EMCData:
             """            
             #radius resolution
             dr = min(np.diff(radius))
+            print('dr: {} (µm)'.format(dr))
 
             #integrals
             numerator = [nsd[i]*(radius[i]**3) for i in range(len(radius))]
@@ -153,7 +154,7 @@ class EMCData:
 
 
     def plot(self):
-        """Plot main information of an instance of the :class:`SizeDistributionData` class.
+        """Plot main information of an instance of the :class:`EMCData` class.
 
         Example:
             >>> #import aprofiles
