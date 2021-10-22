@@ -70,7 +70,7 @@ class SizeDistributionData:
             :class:`SizeDistribData` object with additional attributes.
                 - `radius` (:class:`numpy.ndarray`): radius (µm)
                 - `vsd` (:class:`numpy.ndarray`): Volume Size Distribution (µm2.µm-3)
-                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution (µm.µm-3)
+                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution (µm-3.µm-1)
         """
 
         aer_properties = self.aer_properties
@@ -118,7 +118,7 @@ class SizeDistributionData:
             #add secondary yaxis
             ax2 = ax.twinx()
             ax2.plot(self.radius, self.nsd, 'orange', label='NSD')
-            ax2.set_ylabel('N(r) ({})'.format('µm.µm-3'))
+            ax2.set_ylabel('N(r) ({})'.format('µm-3.µm-1'))
             #ax2.set_ylim([0,10])
         
         ax.set_xlabel('Radius (µm)')
