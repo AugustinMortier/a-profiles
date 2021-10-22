@@ -107,9 +107,9 @@ class EMCData:
             """Compute Conversion Factor for a given Size Distribution and Efficiency
 
             Args:
-                - nsd (1D Array): Number Size Distribution
+                - nsd (1D Array): Number Size Distribution (µm-3.µm-1)
                 - qext (1D Array): Extinction Efficiency (unitless)
-                - radius (1D Array): Radius, in m
+                - radius (1D Array): Radius, in µm
 
             Returns:
                 [float]: Conversion factor (m)
@@ -125,6 +125,9 @@ class EMCData:
             int2 = np.nancumsum(np.asarray(denominator)*dr)[-1]
             
             conv_factor = (4/3)*(int1/int2)
+
+            #conversion form µm to m
+            conv_factor = conv_factor*1e-6 
             return conv_factor
 
         #generate a size distribution for given aer_type
@@ -132,8 +135,7 @@ class EMCData:
 
         #calculate efficiency extinction qext
         #size parameter
-        radius = sd.radius*1E-6 #from µm to m
-        x = [2*np.pi*r/self.wavelength for r in radius]
+        x = [2*np.pi*r/self.wavelength*1e-6 for r in sd.radius]
         #refractive index
         m = complex(self.aer_properties['ref_index']['real'],-abs(self.aer_properties['ref_index']['imag']))
         #mie calculation
@@ -142,10 +144,10 @@ class EMCData:
         #output
         self.nsd = sd.nsd
         self.vsd = sd.vsd
-        self.radius = radius
+        self.radius = sd.radius
         self.x = x
         self.qext = qext
-        self.conv_factor = _compute_conv_factor(sd.nsd, qext, radius)
+        self.conv_factor = _compute_conv_factor(sd.nsd, qext, sd.radius)
         self.emc = 1 / (self.conv_factor * self.aer_properties['density']*1e6) #convert density from g.cm-3 to g.m-3
         return self
 
@@ -171,7 +173,7 @@ class EMCData:
 
         #plot Volume Size Distribution in 1st axis
         ax.plot(self.x, self.vsd, label='VSD')
-        ax.set_ylabel('dV(r)/dln r')
+        ax.set_ylabel('dV(r)/dln r ({})'.format('µm2.µm-3'))
 
         #plot Number Size Distribution in 2nd axis
         if 'nsd' in self.__dict__:
