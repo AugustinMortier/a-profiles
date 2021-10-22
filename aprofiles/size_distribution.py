@@ -69,8 +69,8 @@ class SizeDistributionData:
         Returns:
             :class:`SizeDistribData` object with additional attributes.
                 - `radius` (:class:`numpy.ndarray`): radius (µm)
-                - `vsd` (:class:`numpy.ndarray`): Volume Size Distribution
-                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution
+                - `vsd` (:class:`numpy.ndarray`): Volume Size Distribution (µm2.µm-3)
+                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution (µm.µm-3)
         """
 
         aer_properties = self.aer_properties
@@ -111,14 +111,14 @@ class SizeDistributionData:
         #plot Volume Size Distribution in 1st axis
         print(self.vsd)
         ax.plot(self.radius, self.vsd, label='VSD')
-        ax.set_ylabel('dV(r)/dln r'.format('µm3.µm-3.µm-1'))
+        ax.set_ylabel('V(r) ({})'.format('µm2.µm-3'))
 
         #plot Number Size Distribution in 2nd axis
         if 'nsd' in self.__dict__:
             #add secondary yaxis
             ax2 = ax.twinx()
             ax2.plot(self.radius, self.nsd, 'orange', label='NSD')
-            ax2.set_ylabel('dN(r)/dln r'.format('.µm-3.µm-1'))
+            ax2.set_ylabel('N(r) ({})'.format('µm.µm-3'))
             #ax2.set_ylim([0,10])
         
         ax.set_xlabel('Radius (µm)')

@@ -57,7 +57,7 @@ class EMCData:
 
 
     def get_emc(self):
-        """Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution, density, and using the `Mie theory <https://miepython.readthedocs.io>`_ to calculate the extinction efficiency.
+        """Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution shape (the amplitude is unknown), density, and using the `Mie theory <https://miepython.readthedocs.io>`_ to calculate the extinction efficiency.
 
         Returns:
             :class:`EMCData` with additional attributes:
@@ -81,7 +81,7 @@ class EMCData:
             
             :math:`M_0 = \int_{r_{min}}^{r_{max}}{M(r)dr}` where :math:`M(r)` is the mass size distribution (MSD).
             
-            This equation can be written, using the realtion between NSD and MSD, as:
+            This equation can be written, using the relation between NSD and MSD, as:
             
             :math:`M_0 = \int_{r_{min}}^{r_{max}}{\\frac{4\pi r^3}{3} \\rho N(r) dr}` 
             
@@ -115,7 +115,7 @@ class EMCData:
                 [float]: Conversion factor (m)
 
             """            
-            #radius step
+            #radius resolution
             dr = min(np.diff(radius))
 
             #integrals
@@ -123,17 +123,16 @@ class EMCData:
             denominator = [nsd[i]*qext[i]*(radius[i]**2) for i in range(len(radius))]
             int1 = np.nancumsum(np.asarray(numerator)*dr)[-1]
             int2 = np.nancumsum(np.asarray(denominator)*dr)[-1]
-
+            
             conv_factor = (4/3)*(int1/int2)
             return conv_factor
 
+        #generate a size distribution for given aer_type
         sd = size_distribution.SizeDistributionData(self.aer_type)
 
-        #compute emc
-        nsd = sd.nsd
-        radius = sd.radius*1E-6 #from µm to m
-
+        #calculate efficiency extinction qext
         #size parameter
+        radius = sd.radius*1E-6 #from µm to m
         x = [2*np.pi*r/self.wavelength for r in radius]
         #refractive index
         m = complex(self.aer_properties['ref_index']['real'],-abs(self.aer_properties['ref_index']['imag']))
@@ -141,12 +140,12 @@ class EMCData:
         qext, _qsca, _qback, _g = miepython.mie(m, x)
 
         #output
-        self.nsd = nsd
+        self.nsd = sd.nsd
         self.vsd = sd.vsd
         self.radius = radius
         self.x = x
         self.qext = qext
-        self.conv_factor = _compute_conv_factor(nsd, qext, radius)
+        self.conv_factor = _compute_conv_factor(sd.nsd, qext, radius)
         self.emc = 1 / (self.conv_factor * self.aer_properties['density']*1e6) #convert density from g.cm-3 to g.m-3
         return self
 
@@ -183,7 +182,7 @@ class EMCData:
 
 def _main():
     import aprofiles as apro
-    emc_data = EMCData('biomass_burning', 532E-9)
+    emc_data = EMCData('dust', 532E-9)
     print('{:.2e} m {:.2f} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
     emc_data.plot()
 
