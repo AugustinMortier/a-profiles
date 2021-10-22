@@ -1,6 +1,7 @@
 import pytest
-from aprofiles.io import read_eprofile
 import xarray as xr
+from aprofiles.io import read_eprofile
+
 
 # arrange test
 @pytest.fixture
