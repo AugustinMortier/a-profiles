@@ -174,7 +174,7 @@ class EMCData:
 
         #plot Volume Size Distribution in 1st axis
         ax.plot(self.x, self.vsd, label='VSD')
-        ax.set_ylabel('dV(r)/dln r ({})'.format('µm2.µm-3'))
+        ax.set_ylabel('V(r) ({})'.format('µm2.µm-3'))
 
         #plot Number Size Distribution in 2nd axis
         if 'nsd' in self.__dict__:
