@@ -4,8 +4,6 @@
 # @email augustinm@met.no
 # @desc A-Profiles - Reader class
 
-import xarray as xr
-
 from aprofiles.profiles import ProfilesData
 from aprofiles.io import read_aeronet, read_eprofile
 
@@ -27,18 +25,17 @@ class ReadProfiles:
 
         Example:
 
-            >>> #import library
+            >>> # import library
             >>> import aprofiles as apro
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-            >>> #Initialize reading class with file path
+            >>> # initialize reading class with file path
             >>> reader = apro.reader.ReadProfiles(path)
-            >>> #calls the read method
+            >>> # calls the read method
             >>> profiles = reader.read()
             >>> print(profiles)
             <aprofiles.profiles.ProfilesData object at 0x7f011055fad0>
-
         """
-        
+
         #get the right reading class
         data = read_eprofile.ReadEPROFILE(self.path).read()
         return ProfilesData(data)
@@ -54,10 +51,12 @@ class ReadAeronet:
         self.path = path
         raise NotImplementedError('ReadAeronet class is not implemented yet')
 
+
 def _main():
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     ProfilesData = ReadProfiles(path).read()
     print(ProfilesData)
+
 
 if __name__ == '__main__':
     _main()

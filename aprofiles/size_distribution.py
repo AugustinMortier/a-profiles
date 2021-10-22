@@ -18,10 +18,10 @@ class SizeDistributionData:
         - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
-        >>> #some imports
+        >>> # some imports
         >>> import aprofiles as apro
         >>> sd = apro.size_distribution.SizeDistributionData('urban')
-        #checkout the instance attributes
+        # checkout the instance attributes
         >>> apro.size_distribution.SizeDistributionData('dust').__dict__.keys()
         dict_keys(['aer_type', 'aer_properties', 'radius', 'vsd', 'nsd'])
     """
@@ -88,11 +88,11 @@ class SizeDistributionData:
         """Plot Size Distributions of an intance of the :class:`SizeDistributionData` class.
 
         Example:
-            >>> #import aprofile
+            >>> # import aprofiles
             >>> import aprofiles as apro
-            >>> #get size distribution for urban particles
+            >>> # get size distribution for urban particles
             >>> sd = apro.size_distribution.SizeDistribData('urban');
-            >>> #plot profile
+            >>> # plot profile
             >>> sd.plot()
 
             .. figure:: ../examples/images/urban_sd.png
