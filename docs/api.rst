@@ -92,6 +92,12 @@ Aerosol Extinction
    :members:
    :undoc-members:
 
+Mass Concentration
+^^^^^^^^^^^^^^^^^^^
+.. automodule:: aprofiles.retrieval.mass_conc
+   :members:
+   :undoc-members:
+
 Plotting
 ------------
 
