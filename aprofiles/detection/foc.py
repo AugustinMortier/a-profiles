@@ -2,6 +2,7 @@
 import numpy as np
 import xarray as xr
 
+
 def detect_foc(
     self,
     method="cloud_base",

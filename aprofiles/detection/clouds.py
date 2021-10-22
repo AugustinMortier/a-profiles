@@ -298,7 +298,7 @@ def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr
         """
         #some plotting
         fig, axs = plt.subplots(1,2,figsize=(10,10))
-        
+
         ymin, ymax = 000, 15000
         altitude_agl = profiles.data.altitude.data - profiles.data.station_altitude.data
 
