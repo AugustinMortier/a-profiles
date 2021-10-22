@@ -33,10 +33,10 @@ class RayleighData:
     """
 
     def __init__(self, altitude: list, wavelength: float, T0=298, P0=1013):
-        self.altitude = np.asarray(altitude)
+        self.altitude = altitude
         self.T0 = T0
         self.P0 = P0
-        self.wavelength = float(wavelength)
+        self.wavelength = wavelength
         
         #calls functions
         self.get_optics_in_std_atmo()

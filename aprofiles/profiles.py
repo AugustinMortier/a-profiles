@@ -431,11 +431,13 @@ class ProfilesData:
         
 
     
-    def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='forward', apriori={'lr': 50.}, remove_outliers=False, verbose=False):
-        """Calls :meth:`aprofiles.retrieval.extinction.inversion()`.
+    def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method='forward', apriori={'lr': 50.}, remove_outliers=False, mass_conc=True, mass_conc_method='mortier_2013', verbose=False):
+        """Calls :meth:`aprofiles.retrieval.extinction.inversion()` to calculate extinction profiles.
+        Calls :meth:`aprofiles.retrieval.mass_conc.mec()` to calculate Mass to Extinction coefficients if `mass_conc` is true (Default).
         """ 
         apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
-        
+        if mass_conc:
+            apro.retrieval.mass_conc.concentration_profiles(self, mass_conc_method)
         
 
     def plot(self, var='attenuated_backscatter_0', datetime=None, zref='agl', zmin=None, zmax=None, vmin=None, vmax=None, log=False, show_foc=False, show_pbl=False, show_clouds=False, cmap='coolwarm', **kwargs):
@@ -457,6 +459,10 @@ class ProfilesData:
             - show_clouds (bool, optional): Show clouds retrievals. Defaults to `False`.
             - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'`.
         """
+
+        #check if var is available
+        if var not in list(self.data.data_vars):
+            raise ValueError("{} is not a valid variable. \n List of available variables: {}".format(var, list(self.data.data_vars)))
 
         #here, check the dimension. If the variable has only the time dimention, calls timeseries method
         if datetime==None:

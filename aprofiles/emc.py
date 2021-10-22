@@ -18,13 +18,14 @@ class EMCData:
 
     Attributes:
         - `aer_type` ({'dust','volcanic_ash','biomass_burning','urban'}): aerosol type.
-        - `wavelength` (float): wavelength, in m.
+        - `wavelength` (int or float): wavelength, in mm.
+        - `method` ({'mortier_2013','literature'}): method to get emc
         - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
     
     Example:
         >>> #some imports
         >>> import aprofiles as apro
-        >>> emc_data = EMCData('volcanic_ash', 1064-9)
+        >>> emc_data = EMCData('volcanic_ash', 1064.)
         >>> emc_data.__dict__.keys()
         dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'emc'])
         >>> print('{:.2e} m {:.2e} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
@@ -32,27 +33,35 @@ class EMCData:
 
     """
 
-    def __init__(self, aer_type:str, wavelength:float):
+    def __init__(self, aer_type:str, wavelength:float, method:str='mortier_2013'):
 
         #check parameters type
         if not isinstance(aer_type,str):
-            raise TypeError('`aer_type` is expected to be a string')
-        if not isinstance(wavelength,float):
-            raise TypeError('`wavelength` is expected to be a float')
+            raise TypeError('`aer_type` is expected to be a string. Got {} instead.'.format(type(aer_type)))
+        if not isinstance(wavelength,(int,float)):
+            raise TypeError('`wavelength` is expected to be an int or a float. Got {} instead'.format(type(wavelength)))
+        available_methods = ['mortier_2013','literature']
+        if method not in available_methods:
+            raise ValueError('Invalid `method`. AAvailable methods are {}'.format(available_methods))
         
         self.aer_type = aer_type
         self.wavelength = wavelength
+        self.method = method
 
-        #read aer_properties.json files
-        f = open('aprofiles/config/aer_properties.json')
-        aer_properties = json.load(f)
-        f.close()
-        #check if the aer_type exist in the json file
-        if not aer_type in aer_properties.keys():
-            raise ValueError('{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}'.format(aer_type, list(aer_properties.keys())))
-        else:
-            self.aer_properties = aer_properties[self.aer_type]
-            self.get_emc()
+        if self.method=='mortier_2013':
+            #read aer_properties.json files
+            f = open('aprofiles/config/aer_properties.json')
+            aer_properties = json.load(f)
+            f.close()
+            #check if the aer_type exist in the json file
+            if not aer_type in aer_properties.keys():
+                raise ValueError('{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}'.format(aer_type, list(aer_properties.keys())))
+            else:
+                self.aer_properties = aer_properties[self.aer_type]
+                self.get_emc()
+        elif self.method=='literature':
+            self.emc = 0.2
+            self.conv_factor = -99
 
 
 
@@ -117,7 +126,6 @@ class EMCData:
             """            
             #radius resolution
             dr = min(np.diff(radius))
-            print('dr: {} (µm)'.format(dr))
 
             #integrals
             numerator = [nsd[i]*(radius[i]**3) for i in range(len(radius))]
@@ -136,12 +144,13 @@ class EMCData:
 
         #calculate efficiency extinction qext
         #size parameter
-        x = [2*np.pi*r/(self.wavelength*1e-6) for r in sd.radius]
+        #as the radius is in µm and the wavelength is in nm, one must convert the wavelength to µm
+        x = [2*np.pi*r/(self.wavelength*1e-3) for r in sd.radius]
         #refractive index
         m = complex(self.aer_properties['ref_index']['real'],-abs(self.aer_properties['ref_index']['imag']))
         #mie calculation
         qext, _qsca, _qback, _g = miepython.mie(m, x)
-
+        
         #output
         self.nsd = sd.nsd
         self.vsd = sd.vsd
@@ -160,7 +169,7 @@ class EMCData:
             >>> #import aprofiles
             >>> import aprofiles as apro
             >>> #compute emc for biomas burning particles at 532 nm
-            >>> emc = apro.emc.EMCData('biomass_burning', 532E-9);
+            >>> emc = apro.emc.EMCData('biomass_burning', 532.);
             >>> #plot information
             >>> emc.plot()
 
@@ -185,8 +194,8 @@ class EMCData:
             #ax2.set_ylim([0,10])
         
         #add additional information
-        plt.text(0.975, 0.85, r'$at\ \lambda={:.0f}\ nm$'.format(self.wavelength*1e9), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
-        plt.text(0.975, 0.80, r'$c_v: {:.2e}\ m$'.format(self.conv_factor), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
+        plt.text(0.975, 0.85, r'$at\ \lambda={:.0f}\ nm$'.format(self.wavelength), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
+        plt.text(0.975, 0.80, r'$c_v: {:.2f}\ \mu m$'.format(self.conv_factor*1e6), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
         plt.text(0.975, 0.75, r'$EMC: {:.2f}\ m^2/g$'.format(self.emc), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
 
         ax.set_xlabel('Radius (µm)')
@@ -198,8 +207,8 @@ class EMCData:
     
 
 def _main():
-    import aprofiles as apro
-    emc_data = EMCData('volcanic_ash', 532E-9)
+    import aprofiles as aprofiles
+    emc_data = EMCData('biomass_burning', 532.)
     print('{:.2e} m {:.2f} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
     emc_data.plot()
 

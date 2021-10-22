@@ -216,8 +216,8 @@ def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds
         lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
     
     #aerosol retrieval requires a molecular profile
-    altitude = self.data.altitude.data
-    wavelength = self.data.l0_wavelength.data
+    altitude = np.asarray(self.data.altitude.data)
+    wavelength = float(self.data.l0_wavelength.data)
     rayleigh = apro.rayleigh.RayleighData(altitude, T0=298, P0=1013, wavelength=wavelength);
 
 
