@@ -173,14 +173,14 @@ class EMCData:
         fig, ax = plt.subplots(1,1, figsize=(6,6))
 
         #plot Volume Size Distribution in 1st axis
-        ax.plot(self.x, self.vsd, label='VSD')
+        ax.plot(self.radius, self.vsd, label='VSD')
         ax.set_ylabel('V(r) ({})'.format('µm2.µm-3'))
 
         #plot Number Size Distribution in 2nd axis
         if 'nsd' in self.__dict__:
             #add secondary yaxis
             ax2 = ax.twinx()
-            ax2.plot(self.x, self.qext, 'orange', label='Qext', color='gray')
+            ax2.plot(self.radius, self.qext, 'orange', label='Qext', color='gray')
             ax2.set_ylabel('Qext ({})'.format('unitless'))
             #ax2.set_ylim([0,10])
         
@@ -189,10 +189,10 @@ class EMCData:
         plt.text(0.975, 0.80, r'$c_v: {:.2e}\ m$'.format(self.conv_factor), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
         plt.text(0.975, 0.75, r'$EMC: {:.2f}\ m^2/g$'.format(self.emc), horizontalalignment='right', verticalalignment='center', transform=ax.transAxes)
 
-        ax.set_xlabel('Size Parameter (unitless)')
+        ax.set_xlabel('Radius (µm)')
         ax.set_xscale('log')
         fig.legend(loc="upper right", bbox_to_anchor=(1,1), bbox_transform=ax.transAxes)
-        plt.title('Properties of {} Particles'.format(self.aer_type.capitalize().replace('_',' ')),weight='bold')
+        plt.title('{} particles properties for EMC calculation'.format(self.aer_type.capitalize().replace('_',' ')),weight='bold')
         plt.tight_layout()
         plt.show()
     

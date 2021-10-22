@@ -131,7 +131,7 @@ class SizeDistributionData:
 
 def _main():
     import aprofiles as apro
-    sd_data = SizeDistributionData('urban')
+    sd_data = SizeDistributionData('dust')
     sd_data.plot()
 
 if __name__ == '__main__':
