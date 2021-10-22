@@ -97,7 +97,7 @@ class ProfilesData:
 
         .. note::
             This calculation is relatively heavy in terms of calculation.
-    
+
         Example:
 
             >>> import aprofiles as apro
@@ -135,7 +135,6 @@ class ProfilesData:
 
         for i in (tqdm(range(len(self.data.time.data)), desc='snr   ') if verbose else range(len(self.data.time.data))):
             snr.append(_1D_snr(self.data[var].data[i, :], step))
-
 
         # creates dataarrays
         self.data["snr"] = xr.DataArray(
@@ -225,7 +224,7 @@ class ProfilesData:
         # number of timestamps to be to averaged
         nt_avg = max([1, round(t_avg/dt_s)])
         # rolling median
-        filtered_data = rcs.rolling(time = nt_avg, min_periods = 1, center = True).median().data
+        filtered_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
 
         if inplace:
             self.data[var].data = filtered_data
@@ -235,7 +234,7 @@ class ProfilesData:
             copied_dataset.data[var].data = filtered_data
             new_dataset = copied_dataset
         # add attribute
-        new_dataset.data[var].attrs['time averaged (minutes)']=minutes
+        new_dataset.data[var].attrs['time averaged (minutes)'] = minutes
         return new_dataset
 
     def extrapolate_below(self, var='attenuated_backscatter_0', z=150, method='cst', inplace=False):
@@ -267,7 +266,7 @@ class ProfilesData:
                 :alt: before extrapolation
 
                 Before extrapolation.
-            
+
             .. figure:: ../examples/images/lowest_extrap.png
                 :scale: 50 %
                 :alt: after desaturation
@@ -284,16 +283,16 @@ class ProfilesData:
             # get values at imin
             data_zmax = self.data[var].data[:, imax]
             # generates ones matrice with time/altitude dimension to fill up bottom
-            ones = np.ones((nt,imax))
+            ones = np.ones((nt, imax))
             # replace values
-            filling_matrice = np.transpose(np.multiply(np.transpose(ones),data_zmax))
+            filling_matrice = np.transpose(np.multiply(np.transpose(ones), data_zmax))
         elif method == 'lin':
             raise NotImplementedError('Linear extrapolation is not implemented yet')
         else:
             raise ValueError('Expected string: lin or cst')
 
         if inplace:
-            self.data[var].data[:,0:imax] = filling_matrice
+            self.data[var].data[:, 0:imax] = filling_matrice
             new_profiles_data = self
         else:
             copied_dataset = copy.deepcopy(self)
@@ -334,9 +333,9 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attribute
-        new_profiles_data.data[var].attrs['range correction']=True
+        new_profiles_data.data[var].attrs['range correction'] = True
         # remove units
-        new_profiles_data.data[var].attrs['units']=None
+        new_profiles_data.data[var].attrs['units'] = None
         return new_profiles_data
 
     def desaturate_below(self, var='attenuated_backscatter_0', z=4000., inplace=False):
@@ -373,7 +372,7 @@ class ProfilesData:
                 :alt: before desaturation
 
                 Before desaturation.
-            
+
             .. figure:: ../examples/images/desaturated.png
                 :scale: 50 %
                 :alt: after desaturation
@@ -384,7 +383,7 @@ class ProfilesData:
         imax = self._get_index_from_altitude_AGL(z)
         unsaturated_data = copy.deepcopy(self.data[var].data)
         for i in range(len(self.data.time.data)):
-            unsaturated_data[i,:imax] = abs(unsaturated_data[i,:imax])
+            unsaturated_data[i, :imax] = abs(unsaturated_data[i, :imax])
 
         if inplace:
             self.data[var].data = unsaturated_data
@@ -395,7 +394,7 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attribute
-        new_profiles_data.data[var].attrs['desaturated']=True
+        new_profiles_data.data[var].attrs['desaturated'] = True
         return new_profiles_data
 
     def foc(self, method='cloud_base', var='attenuated_backscatter_0', z_snr=2000., min_snr=2., zmin_cloud=200.,):
