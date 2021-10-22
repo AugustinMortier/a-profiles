@@ -446,9 +446,9 @@ class ProfilesData:
             raise ValueError("{} is not a valid variable. \n List of available variables: {}".format(var, list(self.data.data_vars)))
 
         # here, check the dimension. If the variable has only the time dimention, calls timeseries method
-        if datetime == None:
+        if datetime==None:
             # check dimension of var
-            if len(list(self.data[var].dims)) == 2:
+            if len(list(self.data[var].dims))==2:
                 apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap=cmap)
             else:
                 apro.plot.timeseries.plot(self.data, var, **kwargs)
@@ -462,12 +462,12 @@ def _main():
     profiles = apro.reader.ReadProfiles(path).read()
 
     # basic corrections
-    profiles.extrapolate_below(z = 150., inplace = True)
-    profiles.desaturate_below(z = 4000., inplace = True)
+    profiles.extrapolate_below(z=150., inplace=True)
+    profiles.desaturate_below(z=4000., inplace=True)
     # detection
-    profiles.foc(method = 'cloud_base', zmin_cloud = 200)
-    profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose = True)
-    profiles.plot(show_foc = True, show_clouds = True, log = True, vmin = 1e-2, vmax = 1e1)
+    profiles.foc(method='cloud_base', zmin_cloud=200)
+    profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
+    profiles.plot(show_foc=True, show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
 
 if __name__ == '__main__':
     _main()
