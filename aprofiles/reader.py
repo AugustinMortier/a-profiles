@@ -7,6 +7,7 @@
 from aprofiles.profiles import ProfilesData
 from aprofiles.io import read_aeronet, read_eprofile
 
+
 class ReadProfiles:
     """Base class for reading profiles data.
 
@@ -36,9 +37,10 @@ class ReadProfiles:
             <aprofiles.profiles.ProfilesData object at 0x7f011055fad0>
         """
 
-        #get the right reading class
+        # get the right reading class
         data = read_eprofile.ReadEPROFILE(self.path).read()
         return ProfilesData(data)
+
 
 class ReadAeronet:
     """Base class for reading Aeronet data.

@@ -445,7 +445,7 @@ class ProfilesData:
             raise ValueError("{} is not a valid variable. \n List of available variables: {}".format(var, list(self.data.data_vars)))
 
         # here, check the dimension. If the variable has only the time dimention, calls timeseries method
-        if datetime == None:
+        if datetime is None:
             # check dimension of var
             if len(list(self.data[var].dims)) == 2:
                 apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap=cmap)
