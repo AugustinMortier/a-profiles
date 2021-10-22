@@ -16,7 +16,7 @@ class SizeDistributionData:
     Attributes:
         - `aer_type` ({'dust','volcanic_ash','biomass_burning','urban'}): aerosol type.
         - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
-    
+
     Example:
         >>> #some imports
         >>> import aprofiles as apro
@@ -34,12 +34,11 @@ class SizeDistributionData:
         aer_properties = json.load(f)
         f.close()
         # check if the aer_type exist in the json file
-        if not aer_type in aer_properties.keys():
+        if aer_type not in aer_properties.keys():
             raise ValueError('{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}'.format(aer_type, list(aer_properties.keys())))
         else:
             self.aer_properties = aer_properties[self.aer_type]
             self.get_sd()
-
 
     def _gaussian(self, x, mu, sig, norm):
         """1D Gaussian function
@@ -54,7 +53,7 @@ class SizeDistributionData:
             1D-Array: Gaussian distribution
         """
         return (norm/(np.sqrt(2*np.pi)*sig))*np.exp(-((x - mu)**2/(2*sig**2)))
-    
+
     def _vsd_to_nsd(self):
         """Transforms Volume Size Distribution to Number Size Distribution
         """
@@ -75,7 +74,7 @@ class SizeDistributionData:
         radius = np.arange(1E-2,2E1,1E-3) #in µm
         vsd = np.zeros(len(radius))
 
-        #we loop though all the keys defining the different modes
+        # we loop though all the keys defining the different modes
         for mode in aer_properties["vsd"].keys():
             vsd += self._gaussian(np.log(radius), np.log(aer_properties["vsd"][mode]["reff"]), aer_properties["vsd"][mode]["rstd"], aer_properties["vsd"][mode]["conc"])
         
@@ -84,8 +83,7 @@ class SizeDistributionData:
         self._vsd_to_nsd()
 
         return self
-    
-    
+
     def plot(self):
         """Plot Size Distributions of an intance of the :class:`SizeDistributionData` class.
 
@@ -118,14 +116,13 @@ class SizeDistributionData:
             ax2.plot(self.radius, self.nsd, 'orange', label='NSD')
             ax2.set_ylabel('N(r) ({})'.format('µm-3.µm-1'))
             # ax2.set_ylim([0,10])
-        
+
         ax.set_xlabel('Radius (µm)')
         ax.set_xscale('log')
         fig.legend(loc="upper right", bbox_to_anchor=(1,1), bbox_transform=ax.transAxes)
         plt.title('Size Distribution for {} Particles'.format(self.aer_type.capitalize().replace('_',' ')),weight='bold')
         plt.tight_layout()
         plt.show()
-                
 
 def _main():
     import aprofiles as apro
