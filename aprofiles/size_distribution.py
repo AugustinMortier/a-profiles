@@ -8,8 +8,6 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
-import aprofiles as apro
-
 
 class SizeDistributionData:
     """Class for computing *size distributions* for a given aerosol type.
@@ -31,11 +29,11 @@ class SizeDistributionData:
     def __init__(self, aer_type):
         self.aer_type = aer_type
 
-        #read aer_properties.json files
+        # read aer_properties.json files
         f = open('aprofiles/config/aer_properties.json')
         aer_properties = json.load(f)
         f.close()
-        #check if the aer_type exist in the json file
+        # check if the aer_type exist in the json file
         if not aer_type in aer_properties.keys():
             raise ValueError('{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}'.format(aer_type, list(aer_properties.keys())))
         else:
@@ -108,18 +106,18 @@ class SizeDistributionData:
         """        
         fig, ax = plt.subplots(1,1, figsize=(6,6))
 
-        #plot Volume Size Distribution in 1st axis
+        # plot Volume Size Distribution in 1st axis
         print(self.vsd)
         ax.plot(self.radius, self.vsd, label='VSD')
         ax.set_ylabel('V(r) ({})'.format('µm2.µm-3'))
 
-        #plot Number Size Distribution in 2nd axis
+        # plot Number Size Distribution in 2nd axis
         if 'nsd' in self.__dict__:
-            #add secondary yaxis
+            # add secondary yaxis
             ax2 = ax.twinx()
             ax2.plot(self.radius, self.nsd, 'orange', label='NSD')
             ax2.set_ylabel('N(r) ({})'.format('µm-3.µm-1'))
-            #ax2.set_ylim([0,10])
+            # ax2.set_ylim([0,10])
         
         ax.set_xlabel('Radius (µm)')
         ax.set_xscale('log')

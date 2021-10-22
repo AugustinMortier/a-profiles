@@ -6,8 +6,6 @@
 
 import time
 
-import numpy as np
-
 import aprofiles as apro
 
 start_time = time.time()
