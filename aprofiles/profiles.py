@@ -7,7 +7,6 @@
 import copy
 
 import numpy as np
-import pandas as pd
 import xarray as xr
 from tqdm import tqdm
 
@@ -21,12 +20,12 @@ class ProfilesData:
     def __init__(self, data):
         self.data = data
 
-    @property 
-    def data(self): 
+    @property
+    def data(self):
         """Data attribute (instance of :class:`xarray.Dataset`)
         """
-        return self._data 
-    
+        return self._data
+
     @data.setter 
     def data(self, data):
         if not isinstance(data, xr.Dataset):
@@ -61,11 +60,11 @@ class ProfilesData:
             return min(np.diff(self.data.time.data)).astype('timedelta64[s]').astype(int)
 
     def _get_lowest_clouds(self):
-        #returns an array of the altitude (in m, ASL) of the lowest cloud for each timestamp
+        # returns an array of the altitude (in m, ASL) of the lowest cloud for each timestamp
 
         def get_true_indexes(mask):
-        #mask: list of Bool
-        #returns a list indexes where the mask is True
+        # mask: list of Bool
+        # returns a list indexes where the mask is True
             return [i for i, x in enumerate(mask) if x]
             
         lowest_clouds = []
@@ -103,13 +102,13 @@ class ProfilesData:
         Example:
         
             >>> import aprofiles as apro
-            >>> #read example file
+            >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
             >>> reader = apro.reader.ReadProfiles(path)
             >>> profiles = reader.read()
-            >>> #snr calculcation
+            >>> # snr calculcation
             >>> profiles.snr()
-            >>> #snr image
+            >>> # snr image
             >>> profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
 
             .. figure:: ../examples/images/snr.png
@@ -139,7 +138,7 @@ class ProfilesData:
             snr.append(_1D_snr(self.data[var].data[i,:], step))
 
         
-        #creates dataarrays
+        # creates dataarrays
         self.data["snr"] = xr.DataArray(
             data=np.asarray(snr),
             dims=["time", "altitude"],
@@ -170,11 +169,11 @@ class ProfilesData:
 
         Examples:
             >>> import aprofiles as apro
-            >>> #read example file
+            >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
             >>> reader = apro.reader.ReadProfiles(path)
             >>> profiles = reader.read()
-            >>> #apply gaussian filtering
+            >>> # apply gaussian filtering
             >>> profiles.gaussian_filter(sigma=0.5, inplace=True)
             >>> profiles.data.attenuated_backscatter_0.attrs.gaussian_filter
             0.50
@@ -195,7 +194,7 @@ class ProfilesData:
 
         from scipy.ndimage import gaussian_filter
 
-        #apply gaussian filter
+        # apply gaussian filter
         filtered_data = gaussian_filter(self.data[var].data, sigma=sigma)
 
         if inplace:
@@ -205,7 +204,7 @@ class ProfilesData:
             copied_dataset = copy.deepcopy(self)
             copied_dataset.data[var].data = filtered_data
             new_dataset = copied_dataset
-        #add attribute
+        # add attribute
         new_dataset.data[var].attrs['gaussian_filter']=sigma
         return new_dataset
 
@@ -222,13 +221,13 @@ class ProfilesData:
             :class: :class:`ProfilesData` object.
         """
         rcs = self.data[var].copy()
-        #time conversion from minutes to seconds
+        # time conversion from minutes to seconds
         t_avg = minutes * 60
-        #time resolution in profiles data in seconds
+        # time resolution in profiles data in seconds
         dt_s = self._get_resolution('time')
-        #number of timestamps to be to averaged
+        # number of timestamps to be to averaged
         nt_avg = max([1,round(t_avg/dt_s)])
-        #rolling median
+        # rolling median
         filtered_data = rcs.rolling(time=nt_avg, min_periods=1, center=True).median().data
 
         if inplace:
@@ -238,7 +237,7 @@ class ProfilesData:
             copied_dataset = copy.deepcopy(self)
             copied_dataset.data[var].data = filtered_data
             new_dataset = copied_dataset
-        #add attribute
+        # add attribute
         new_dataset.data[var].attrs['time averaged (minutes)']=minutes
         return new_dataset
 
@@ -258,11 +257,11 @@ class ProfilesData:
 
         Examples:
             >>> import aprofiles as apro
-            >>> #read example file
+            >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
             >>> reader = apro.reader.ReadProfiles(path)
             >>> profiles = reader.read()
-            >>> #desaturation below 4000m
+            >>> # desaturation below 4000m
             >>> profiles.extrapolate_below(z=150., inplace=True)
             >>> profiles.data.attenuated_backscatter_0.extrapolation_low_layers_altitude_agl
             150
@@ -280,17 +279,17 @@ class ProfilesData:
                 After extrapolation.
         """
 
-        #get index of z
+        # get index of z
         imax = self._get_index_from_altitude_AGL(z)
         
         nt = np.shape(self.data[var].data)[0]
 
         if method == 'cst':
-            #get values at imin
+            # get values at imin
             data_zmax = self.data[var].data[:,imax]
-            #generates ones matrice with time/altitude dimension to fill up bottom
+            # generates ones matrice with time/altitude dimension to fill up bottom
             ones = np.ones((nt,imax))
-            #replace values
+            # replace values
             filling_matrice = np.transpose(np.multiply(np.transpose(ones),data_zmax))
         elif method == 'lin':
             raise NotImplementedError('Linear extrapolation is not implemented yet')
@@ -305,7 +304,7 @@ class ProfilesData:
             copied_dataset.data[var].data[:,0:imax] = filling_matrice
             new_profiles_data = copied_dataset
         
-        #add attributes
+        # add attributes
         new_profiles_data.data[var].attrs['extrapolation_low_layers_altitude_agl']=z
         new_profiles_data.data[var].attrs['extrapolation_low_layers_method']=method
         return new_profiles_data
@@ -326,7 +325,7 @@ class ProfilesData:
             Make sure that the range correction is not already applied to the selected variable.
         """
 
-        #for the altitude correction, must one use the altitude above the ground level
+        # for the altitude correction, must one use the altitude above the ground level
         z_agl = self.data.altitude.data - self.data.station_altitude.data
         
         data = self.data[var].data
@@ -340,9 +339,9 @@ class ProfilesData:
             copied_dataset.data[var].data = range_corrected_data
             new_profiles_data = copied_dataset
 
-        #add attribute
+        # add attribute
         new_profiles_data.data[var].attrs['range correction']=True
-        #remove units
+        # remove units
         new_profiles_data.data[var].attrs['units']=None
         return new_profiles_data
 
@@ -368,11 +367,11 @@ class ProfilesData:
         
         Examples:
             >>> import aprofiles as apro
-            >>> #read example file
+            >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
             >>> reader = apro.reader.ReadProfiles(path)
             >>> profiles = reader.read()
-            >>> #desaturation below 4000m
+            >>> # desaturation below 4000m
             >>> profiles.desaturate_below(z=4000., inplace=True)
             >>> profiles.data.attenuated_backscatter_0.desaturated
             True
@@ -404,7 +403,7 @@ class ProfilesData:
             copied_dataset.data[var].data = unsaturated_data
             new_profiles_data = copied_dataset
 
-        #add attribute
+        # add attribute
         new_profiles_data.data[var].attrs['desaturated']=True
         return new_profiles_data
 
@@ -460,13 +459,13 @@ class ProfilesData:
             - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'`.
         """
 
-        #check if var is available
+        # check if var is available
         if var not in list(self.data.data_vars):
             raise ValueError("{} is not a valid variable. \n List of available variables: {}".format(var, list(self.data.data_vars)))
 
-        #here, check the dimension. If the variable has only the time dimention, calls timeseries method
+        # here, check the dimension. If the variable has only the time dimention, calls timeseries method
         if datetime==None:
-            #check dimension of var
+            # check dimension of var
             if len(list(self.data[var].dims))==2:
                 apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap=cmap)
             else:
@@ -481,10 +480,10 @@ def _main():
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
 
-    #basic corrections
+    # basic corrections
     profiles.extrapolate_below(z=150., inplace=True)
     profiles.desaturate_below(z=4000., inplace=True)
-    #detection
+    # detection
     profiles.foc(method='cloud_base', zmin_cloud=200)
     profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
     profiles.plot(show_foc=True, show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
