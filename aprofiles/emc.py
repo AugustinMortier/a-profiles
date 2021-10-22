@@ -95,7 +95,7 @@ class EMCData:
 
             so the previous equation can be simplified: :math:`M_0 = \sigma_{ext} \\rho c_v`
 
-            Finally, the `Extinction to Mass Coefficient` (EMC, usually provided in m2/g) is defined as the ratio between :math:`\sigma_{ext}` and :math:`M_0`:
+            Finally, the `Extinction to Mass Coefficient` (EMC, also called `mass extinction cross section`, usually provided in m2.g-1) is defined as the ratio between :math:`\sigma_{ext}` and :math:`M_0`:
             
             :math:`EMC = \\frac{\sigma_{ext}}{M_0} = \\frac{1}{\\rho c_v}`
 
@@ -136,7 +136,7 @@ class EMCData:
 
         #calculate efficiency extinction qext
         #size parameter
-        x = [2*np.pi*r/self.wavelength*1e-6 for r in sd.radius]
+        x = [2*np.pi*r/(self.wavelength*1e-6) for r in sd.radius]
         #refractive index
         m = complex(self.aer_properties['ref_index']['real'],-abs(self.aer_properties['ref_index']['imag']))
         #mie calculation
@@ -199,7 +199,7 @@ class EMCData:
 
 def _main():
     import aprofiles as apro
-    emc_data = EMCData('biomass_burning', 532E-9)
+    emc_data = EMCData('volcanic_ash', 532E-9)
     print('{:.2e} m {:.2f} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
     emc_data.plot()
 
