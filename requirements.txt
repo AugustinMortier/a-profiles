@@ -6,3 +6,5 @@ seaborn
 scipy
 tqdm
 xarray
+# doc theme
+pydata-sphinx-theme
