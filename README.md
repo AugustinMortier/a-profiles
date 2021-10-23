@@ -15,10 +15,10 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
 ### Reading Data
 ```
-#import library
+# import library
 import aprofiles as apro
 
-#read local NetCDF L2 data
+# read local NetCDF L2 data
 path = "examples/data/L2_0-20000-006735_A20210908.nc"
 apro_reader = apro.reader.ReadProfiles(path)
 profiles = apro_reader.read()
@@ -26,10 +26,10 @@ profiles = apro_reader.read()
 
 ### Basic corrections and Image plotting
 ``` 
-#extrapolate lowest layers for removing outliers
+# extrapolate lowest layers for removing outliers
 profiles.extrapolate_below(zmin=150, inplace=True)
 
-#image plotting of backscatter signal in log scale
+# image plotting of backscatter signal in log scale
 profiles.plot(zref='agl', vmin=1e-2, vmax=1e1, log=True)
 ``` 
 <img src="examples/images/QL-Oslo-20210909.png" title="Attenuated Backscatter Signal" width="800"/>
@@ -37,13 +37,13 @@ profiles.plot(zref='agl', vmin=1e-2, vmax=1e1, log=True)
 
 ### Profiles Analysis
 ```
-#Fog/condensation detection
+# fog/condensation detection
 profiles.foc(zmin_cloud=200) 
 
-#Clouds detection
+# clouds detection
 profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
 
-#Planetary Boundary Layer
+# planetary boundary layer
 profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
 ```
 
@@ -51,14 +51,14 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
 
 #### Image
 ```
-#image plotting with additional retrievals
+# image plotting with additional retrievals
 profiles.plot(show_fog=True, show_clouds=True, show_pbl=True, vmin=1e-2, vmax=1e1, log=True)
 ```
 <img src="examples/images/QL-Fog&Clouds&PBL-Oslo-20210909.png" title="Fog or Condensation and Clouds Detection" width="800"/>
 
 ##### Single Profile
 ```
-#Plot single profile at 19:25
+# plot single profile at 19:25
 datetime = np.datetime64('2021-09-09T19:25:00')
 profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
 ```
