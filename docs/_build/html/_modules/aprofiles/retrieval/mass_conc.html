@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aprofiles.retrieval.mass_conc &#8212; A-Profiles  documentation</title>
+    
+  <link href="../../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../../../_static/css/blank.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/js/custom.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">A-Profiles</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../installation.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../examples.html">
+  Examples
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../api.html">
+  API
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../changelog.html">
+  Changelog
+ </a>
+</li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link nav-external" href="https://aerocom-vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
+    </li>
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/AugustinMortier/A-Profiles" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for aprofiles.retrieval.mass_conc</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+
+<span class="c1"># @author Augustin Mortier</span>
+<span class="c1"># @email augustinm@met.no</span>
+<span class="c1"># @desc A-Profiles - Mass Concentration</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+
+<div class="viewcode-block" id="concentration_profiles"><a class="viewcode-back" href="../../../api.html#aprofiles.retrieval.mass_conc.concentration_profiles">[docs]</a><span class="k">def</span> <span class="nf">concentration_profiles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculates Mass concentration profiles for different aerosol types</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        - method ({&#39;mortier_2013&#39;,&#39;literature&#39;}): method for calculating EMC</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.Dataset`.</span>
+<span class="sd">            - `&#39;mass_concentration:&lt;aer_type&gt;&#39;`</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Profiles preparation</span>
+
+<span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>
+<span class="sd">        &gt;&gt;&gt; # read example file</span>
+<span class="sd">        &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        &gt;&gt;&gt; reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        &gt;&gt;&gt; profiles = reader.read()</span>
+<span class="sd">        &gt;&gt;&gt; # extrapolate lowest layers</span>
+<span class="sd">        &gt;&gt;&gt; profiles.extrapolate_below(z=150, inplace=True)</span>
+
+<span class="sd">        Forward inversion</span>
+
+<span class="sd">        &gt;&gt;&gt; # aerosol inversion</span>
+<span class="sd">        &gt;&gt;&gt; profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;forward&#39;, method_mass_conc=&#39;mortier_2013&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # plot mass concentration profiles for urban particles</span>
+<span class="sd">        &gt;&gt;&gt; profiles.plot(var=&#39;mass_concentration:urban&#39;, zmax=6000, vmin=0, vmax=50)</span>
+
+<span class="sd">        .. figure:: ../examples/images/mass_conc-urban.png</span>
+<span class="sd">            :scale: 50 %</span>
+<span class="sd">            :alt: mass concentration</span>
+
+<span class="sd">            Mass concentration profiles in the case of urban particles.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># read aer_properties.json files</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;aprofiles/config/aer_properties.json&quot;</span><span class="p">)</span>
+    <span class="n">aer_properties</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># check if the aer_type exist in the json file</span>
+    <span class="n">aer_types</span> <span class="o">=</span> <span class="n">aer_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="c1"># get wavelength</span>
+    <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="s2">&quot;nm&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;wavelength units is not `nm`.&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">aer_type</span> <span class="ow">in</span> <span class="n">aer_types</span><span class="p">:</span>
+        <span class="c1"># calculates emc</span>
+        <span class="n">emc</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">EMCData</span><span class="p">(</span><span class="n">aer_type</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+
+        <span class="c1"># compute mass_concentration profile</span>
+        <span class="n">mass_concentration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span>
+        <span class="c1"># mass_concentration = copy.deepcopy(self.data.extinction)</span>
+        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">mass_concentration</span><span class="p">,</span> <span class="n">emc</span><span class="o">.</span><span class="n">emc</span><span class="p">)</span>
+        <span class="c1"># # conversion from g.m-3 to µg.m-3</span>
+        <span class="c1"># mass_concentration.data = mass_concentration.data*1e6</span>
+
+        <span class="c1"># creates dataset with a dataarray for each aer_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mass_concentration:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="p">)]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
+            <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
+            <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Mass concentration [</span><span class="si">{}</span><span class="s2"> particles]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+                <span class="p">),</span>
+                <span class="n">units</span><span class="o">=</span><span class="s2">&quot;µg.m-3&quot;</span><span class="p">,</span>
+                <span class="n">emc</span><span class="o">=</span><span class="n">emc</span><span class="o">.</span><span class="n">emc</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+    <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="c1"># basic corrections</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">150.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mass_conc_method</span><span class="o">=</span><span class="s2">&quot;mortier_2013&quot;</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">&quot;mass_concentration:urban&quot;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">_main</span><span class="p">()</span>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Augustin Mortier.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

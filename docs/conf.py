@@ -53,6 +53,8 @@ html_js_files = [
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
+"""
+# options for "sphinx_rtd_theme"
 html_theme_options = {
     "logo_only": False,
     "display_version": True,
@@ -66,7 +68,23 @@ html_theme_options = {
     "includehidden": True,
     "titles_only": False,
 }
+"""
 
+# options for "pydata_sphinx_theme"
+html_theme_options = {
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/AugustinMortier/A-Profiles",
+            "icon": "fab fa-github-square",
+        }
+    ],
+    "external_links": [
+      {"name": "V-Profiles", "url": "https://aerocom-vprofiles.met.no"},
+    ],
+    "show_toc_level": 1,
+    "navbar_align": "content"
+}
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -78,7 +96,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+#html_theme = "sphinx_rtd_theme"
+html_theme = "pydata_sphinx_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

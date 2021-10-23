@@ -1,3 +1,5 @@
+/*custom css for sphinx_rtd_theme*/
+/*
 .wy-side-nav-search{
     background-color:#30e5a9 !important;
 }
@@ -22,3 +24,4 @@ body > div.wy-grid-for-nav > section > div > div > div:nth-child(1) > ul > li:nt
 .version{
     color: hsla(0,0%,100%,.6) !important;
 }
+/*
