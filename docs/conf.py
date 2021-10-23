@@ -96,7 +96,11 @@ html_theme_options = {
       {"name": "V-Profiles", "url": "https://aerocom-vprofiles.met.no"},
     ],
     "show_toc_level": 1,
-    "navbar_align": "content"
+    "navbar_align": "content",
+}
+
+html_sidebars = {
+    "**": ["search-field.html", "sidebar-nav-bs.html"]
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
