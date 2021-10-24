@@ -7,4 +7,7 @@ Via pip
 ^^^^^^^
 
 This will install the latest released version of aprofiles and its depencencies.
-``pip install aprofiles``
+
+.. code-block::
+
+    pip install aprofiles

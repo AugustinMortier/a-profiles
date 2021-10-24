@@ -24,4 +24,13 @@ body > div.wy-grid-for-nav > section > div > div > div:nth-child(1) > ul > li:nt
 .version{
     color: hsla(0,0%,100%,.6) !important;
 }
-/*
+*/
+
+main img {
+    max-width: 100%;
+    height: auto !important;
+}
+
+.navbar {
+    padding: 0px 10px;
+}
