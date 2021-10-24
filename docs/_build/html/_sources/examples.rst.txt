@@ -98,7 +98,7 @@ Both backward and forward methods have been implemented and can be used in this 
 
       Aerosol extinction profiles retrieved with an iterative forward approach.
 
-Mass concentration
+Concentration
 ^^^^^^^^^^^^^^^^^^
 
 Coming soon

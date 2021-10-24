@@ -1,7 +1,7 @@
 API
 ======================================
 
-Documentation of the core API of aprofiles.
+Documentation of the core API of `aprofiles`.
 
 Reader
 ------
