@@ -62,7 +62,7 @@ profiles.plot(show_fog=True, show_clouds=True, show_pbl=True, vmin=1e-2, vmax=1e
 datetime = np.datetime64('2021-09-09T19:25:00')
 profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
 ```
-<img src="examples/images/Profile-Oslo-20210909T192505.png" title="Single Profile View" width="400"/>
+<img src="examples/images/Profile-Oslo-20210909T212005.png" title="Single Profile View" width="400"/>
 
 ## License
 MIT License (see *LICENSE.md*).
