@@ -65,7 +65,7 @@ profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True,
 <img src="examples/images/Profile-Oslo-20210909T212005.png" title="Single Profile View" width="400"/>
 
 ## License
-MIT License (see *LICENSE.md*).
+[MIT License](LICENSE).
 
 ## Support
 *A-Profiles* is developed by [MET Norway](https://github.com/metno) and supported by [EUMETNET](https://www.eumetnet.eu/).
