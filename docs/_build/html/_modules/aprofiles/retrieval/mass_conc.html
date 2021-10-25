@@ -195,7 +195,7 @@
 <span class="sd">        &gt;&gt;&gt; # aerosol inversion</span>
 <span class="sd">        &gt;&gt;&gt; profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;forward&#39;, method_mass_conc=&#39;mortier_2013&#39;)</span>
 <span class="sd">        &gt;&gt;&gt; # plot mass concentration profiles for urban particles</span>
-<span class="sd">        &gt;&gt;&gt; profiles.plot(var=&#39;mass_concentration:urban&#39;, zmax=6000, vmin=0, vmax=50)</span>
+<span class="sd">        &gt;&gt;&gt; profiles.plot(var=&#39;mass_concentration:urban&#39;, zmax=6000, vmin=0, vmax=100)</span>
 
 <span class="sd">        .. figure:: ../../examples/images/mass_conc-urban.png</span>
 <span class="sd">            :scale: 50 %</span>
@@ -221,12 +221,12 @@
         <span class="c1"># calculates emc</span>
         <span class="n">emc</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">EMCData</span><span class="p">(</span><span class="n">aer_type</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
 
-        <span class="c1"># compute mass_concentration profile</span>
-        <span class="n">mass_concentration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span>
+        <span class="c1"># compute mass_concentration profile. Use extinction as base.</span>
+        <span class="n">mass_concentration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span><span class="o">*</span><span class="mf">1e-3</span> <span class="c1">#conversion from km-1 to m-1</span>
         <span class="c1"># mass_concentration = copy.deepcopy(self.data.extinction)</span>
         <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">mass_concentration</span><span class="p">,</span> <span class="n">emc</span><span class="o">.</span><span class="n">emc</span><span class="p">)</span>
         <span class="c1"># # conversion from g.m-3 to µg.m-3</span>
-        <span class="c1"># mass_concentration.data = mass_concentration.data*1e6</span>
+        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="o">*</span><span class="mf">1e6</span>
 
         <span class="c1"># creates dataset with a dataarray for each aer_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mass_concentration:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="p">)]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
@@ -253,7 +253,7 @@
     <span class="c1"># basic corrections</span>
     <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">150.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mass_conc_method</span><span class="o">=</span><span class="s2">&quot;mortier_2013&quot;</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">&quot;mass_concentration:volcanic_ash&quot;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">&quot;mass_concentration:urban&quot;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
