@@ -156,7 +156,7 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-aprofiles.reader">
+  <a class="reference internal nav-link" href="#reader">
    Reader
   </a>
  </li>
@@ -166,17 +166,17 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.profiles">
+    <a class="reference internal nav-link" href="#profilesdata">
      ProfilesData
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.aeronet">
+    <a class="reference internal nav-link" href="#aeronet">
      Aeronet
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.rayleigh">
+    <a class="reference internal nav-link" href="#rayleigh">
      Rayleigh
     </a>
    </li>
@@ -186,7 +186,7 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.emc">
+    <a class="reference internal nav-link" href="#extinction-to-mass-coefficient">
      Extinction to Mass Coefficient
     </a>
    </li>
@@ -198,17 +198,17 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.detection.foc">
+    <a class="reference internal nav-link" href="#fog-or-condensation">
      Fog or Condensation
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.detection.clouds">
+    <a class="reference internal nav-link" href="#clouds">
      Clouds
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.detection.pbl">
+    <a class="reference internal nav-link" href="#planetary-boundary-layer">
      Planetary Boundary Layer
     </a>
    </li>
@@ -220,12 +220,12 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.retrieval.extinction">
+    <a class="reference internal nav-link" href="#aerosol-extinction">
      Aerosol Extinction
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.retrieval.mass_conc">
+    <a class="reference internal nav-link" href="#mass-concentration">
      Mass Concentration
     </a>
    </li>
@@ -237,17 +237,17 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.plot.image">
+    <a class="reference internal nav-link" href="#image">
      Image
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.plot.profile">
+    <a class="reference internal nav-link" href="#profile">
      Profile
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#module-aprofiles.plot.timeseries">
+    <a class="reference internal nav-link" href="#time-series">
      Time Series
     </a>
    </li>
@@ -277,9 +277,10 @@
   <div class="section" id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
 <p>Documentation of the core API of <cite>aprofiles</cite>.</p>
-<div class="section" id="module-aprofiles.reader">
-<span id="reader"></span><h2>Reader<a class="headerlink" href="#module-aprofiles.reader" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<div class="section" id="reader">
+<h2>Reader<a class="headerlink" href="#reader" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#reader"><span class="std std-ref">Reader</span></a> module includes classes for reading profiles (NetCDF) and Aeronet (txt) data.</p>
+<span class="target" id="module-aprofiles.reader"></span><dl class="py class">
 <dt id="aprofiles.reader.ReadAeronet">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.reader.</code><code class="sig-name descname">ReadAeronet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/reader.html#ReadAeronet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.reader.ReadAeronet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for reading Aeronet data.</p>
@@ -324,9 +325,11 @@
 </div>
 <div class="section" id="data-classes">
 <h2>Data Classes<a class="headerlink" href="#data-classes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-aprofiles.profiles">
-<span id="profilesdata"></span><h3>ProfilesData<a class="headerlink" href="#module-aprofiles.profiles" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
+<div class="section" id="profilesdata">
+<h3>ProfilesData<a class="headerlink" href="#profilesdata" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> class contains profiles data information. Most of the information can be found in the data attribute, which is a <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>.
+Detection and retrieval methods might add information as additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
+<span class="target" id="module-aprofiles.profiles"></span><dl class="py class">
 <dt id="aprofiles.profiles.ProfilesData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.profiles.</code><code class="sig-name descname">ProfilesData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/profiles.html#ProfilesData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class representing profiles data returned by <a class="reference internal" href="#aprofiles.reader.ReadProfiles" title="aprofiles.reader.ReadProfiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles</span></code></a>.</p>
@@ -593,9 +596,10 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.aeronet">
-<span id="aeronet"></span><h3>Aeronet<a class="headerlink" href="#module-aprofiles.aeronet" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
+<div class="section" id="aeronet">
+<h3>Aeronet<a class="headerlink" href="#aeronet" title="Permalink to this headline">¶</a></h3>
+<p>Not implemented yet.</p>
+<span class="target" id="module-aprofiles.aeronet"></span><dl class="py class">
 <dt id="aprofiles.aeronet.AeronetData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.aeronet.</code><code class="sig-name descname">AeronetData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/aeronet.html#AeronetData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.aeronet.AeronetData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class representing profiles data returned by <code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.io.reader.ReadAeronet</span></code>.</p>
@@ -607,10 +611,12 @@ See also <a class="reference internal" href="#plotting"><span class="std std-ref
 
 </dd></dl>
 
+<p>Blabla</p>
 </div>
-<div class="section" id="module-aprofiles.rayleigh">
-<span id="rayleigh"></span><h3>Rayleigh<a class="headerlink" href="#module-aprofiles.rayleigh" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
+<div class="section" id="rayleigh">
+<h3>Rayleigh<a class="headerlink" href="#rayleigh" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a> class is used for producing Rayleigh profiles in a standard atmosphere.</p>
+<span class="target" id="module-aprofiles.rayleigh"></span><dl class="py class">
 <dt id="aprofiles.rayleigh.RayleighData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.rayleigh.</code><code class="sig-name descname">RayleighData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">altitude</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)">list</a></span></em>, <em class="sig-param"><span class="n">wavelength</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></span></em>, <em class="sig-param"><span class="n">T0</span><span class="o">=</span><span class="default_value">298</span></em>, <em class="sig-param"><span class="n">P0</span><span class="o">=</span><span class="default_value">1013</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/rayleigh.html#RayleighData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.rayleigh.RayleighData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for computing <em>rayleigh profile</em> in a standard atmosphere.
@@ -690,8 +696,8 @@ This class calls the <a class="reference internal" href="#aprofiles.rayleigh.Ray
 </div>
 <div class="section" id="size-distribution">
 <h3>Size Distribution<a class="headerlink" href="#size-distribution" title="Permalink to this headline">¶</a></h3>
-<p>The size distribution module reads an entry file to generate volume and number size distribution of a population of particles for a given type.
-The values describing the size distribution are taken from the literature:</p>
+<p>The size distribution module is used to produce volume and number size distribution of a population of particles for a given type.
+The values describing the size distribution for the different aerosol types are taken from the literature:</p>
 <ul class="simple">
 <li><p><cite>dust</cite>, <cite>biomass_burning</cite>, and <cite>urban</cite> aerosols <a class="footnote-reference brackets" href="#id5" id="id3">2</a></p></li>
 <li><p><cite>volcanic_ash</cite> <a class="footnote-reference brackets" href="#id6" id="id4">3</a></p></li>
@@ -767,9 +773,10 @@ This class calls the <a class="reference internal" href="#aprofiles.size_distrib
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.emc">
-<span id="extinction-to-mass-coefficient"></span><h3>Extinction to Mass Coefficient<a class="headerlink" href="#module-aprofiles.emc" title="Permalink to this headline">¶</a></h3>
-<dl class="py class">
+<div class="section" id="extinction-to-mass-coefficient">
+<h3>Extinction to Mass Coefficient<a class="headerlink" href="#extinction-to-mass-coefficient" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#aprofiles.emc.EMCData" title="aprofiles.emc.EMCData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.emc.EMCData</span></code></a> class is used for computing an <cite>Extinction to Mass Coefficient</cite> for a given aerosol type.</p>
+<span class="target" id="module-aprofiles.emc"></span><dl class="py class">
 <dt id="aprofiles.emc.EMCData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.emc.</code><code class="sig-name descname">EMCData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aer_type</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></span></em>, <em class="sig-param"><span class="n">wavelength</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)">float</a></span></em>, <em class="sig-param"><span class="n">method</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)">str</a></span> <span class="o">=</span> <span class="default_value">'mortier_2013'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/emc.html#EMCData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.emc.EMCData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class for computing the <em>Extinction to Mass Coefficient</em> for a given aerosol type.
@@ -860,9 +867,10 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 <div class="section" id="detection">
 <h2>Detection<a class="headerlink" href="#detection" title="Permalink to this headline">¶</a></h2>
 <p>The following functions are methods from the class <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>.</p>
-<div class="section" id="module-aprofiles.detection.foc">
-<span id="fog-or-condensation"></span><h3>Fog or Condensation<a class="headerlink" href="#module-aprofiles.detection.foc" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="fog-or-condensation">
+<h3>Fog or Condensation<a class="headerlink" href="#fog-or-condensation" title="Permalink to this headline">¶</a></h3>
+<p>This method allows for the detection of fog or condensation in single profiles.</p>
+<span class="target" id="module-aprofiles.detection.foc"></span><dl class="py function">
 <dt id="aprofiles.detection.foc.detect_foc">
 <code class="sig-prename descclassname">aprofiles.detection.foc.</code><code class="sig-name descname">detect_foc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'cloud_base'</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">z_snr</span><span class="o">=</span><span class="default_value">2000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">zmin_cloud</span><span class="o">=</span><span class="default_value">200.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/detection/foc.html#detect_foc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.detection.foc.detect_foc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detects fog or condensation.</p>
@@ -902,9 +910,10 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.detection.clouds">
-<span id="clouds"></span><h3>Clouds<a class="headerlink" href="#module-aprofiles.detection.clouds" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="clouds">
+<h3>Clouds<a class="headerlink" href="#clouds" title="Permalink to this headline">¶</a></h3>
+<p>This method allows for the detection of clouds in single profiles.</p>
+<span class="target" id="module-aprofiles.detection.clouds"></span><dl class="py function">
 <dt id="aprofiles.detection.clouds.detect_clouds">
 <code class="sig-prename descclassname">aprofiles.detection.clouds.</code><code class="sig-name descname">detect_clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/detection/clouds.html#detect_clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.detection.clouds.detect_clouds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module for <em>clouds detection</em>.
@@ -948,9 +957,10 @@ The detection is performed on each individual profile. It is based on the analys
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.detection.pbl">
-<span id="planetary-boundary-layer"></span><h3>Planetary Boundary Layer<a class="headerlink" href="#module-aprofiles.detection.pbl" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="planetary-boundary-layer">
+<h3>Planetary Boundary Layer<a class="headerlink" href="#planetary-boundary-layer" title="Permalink to this headline">¶</a></h3>
+<p>This method allows for tge tracking of the PBL height in single profiles.</p>
+<span class="target" id="module-aprofiles.detection.pbl"></span><dl class="py function">
 <dt id="aprofiles.detection.pbl.detect_pbl">
 <code class="sig-prename descclassname">aprofiles.detection.pbl.</code><code class="sig-name descname">detect_pbl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">100.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">3000.0</span></em>, <em class="sig-param"><span class="n">wav_width</span><span class="o">=</span><span class="default_value">200.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/detection/pbl.html#detect_pbl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.detection.pbl.detect_pbl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module for <em>Planetary Boundary Layer Height</em> detection.
@@ -997,9 +1007,10 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 <div class="section" id="retrieval">
 <h2>Retrieval<a class="headerlink" href="#retrieval" title="Permalink to this headline">¶</a></h2>
 <p>The following functions are methods from the class <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>.</p>
-<div class="section" id="module-aprofiles.retrieval.extinction">
-<span id="aerosol-extinction"></span><h3>Aerosol Extinction<a class="headerlink" href="#module-aprofiles.retrieval.extinction" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="aerosol-extinction">
+<h3>Aerosol Extinction<a class="headerlink" href="#aerosol-extinction" title="Permalink to this headline">¶</a></h3>
+<p>This module is used to calculate extinction profiles from single attenuated backscatter profiles using an apriori.</p>
+<span class="target" id="module-aprofiles.retrieval.extinction"></span><dl class="py function">
 <dt id="aprofiles.retrieval.extinction.backward_inversion">
 <code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">backward_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">iref</span></em>, <em class="sig-param"><span class="n">apriori</span></em>, <em class="sig-param"><span class="n">rayleigh</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/retrieval/extinction.html#backward_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.backward_inversion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Backward (Klett <a class="footnote-reference brackets" href="#id8" id="id7">4</a> ) inversion method.</p>
@@ -1117,9 +1128,10 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.retrieval.mass_conc">
-<span id="mass-concentration"></span><h3>Mass Concentration<a class="headerlink" href="#module-aprofiles.retrieval.mass_conc" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="mass-concentration">
+<h3>Mass Concentration<a class="headerlink" href="#mass-concentration" title="Permalink to this headline">¶</a></h3>
+<p>This module is used to calculate mass concentration profiles from extinction profiles for given aerosol types.</p>
+<span class="target" id="module-aprofiles.retrieval.mass_conc"></span><dl class="py function">
 <dt id="aprofiles.retrieval.mass_conc.concentration_profiles">
 <code class="sig-prename descclassname">aprofiles.retrieval.mass_conc.</code><code class="sig-name descname">concentration_profiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/retrieval/mass_conc.html#concentration_profiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.mass_conc.concentration_profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates Mass concentration profiles for different aerosol types</p>
@@ -1164,9 +1176,10 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 </div>
 <div class="section" id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-aprofiles.plot.image">
-<span id="image"></span><h3>Image<a class="headerlink" href="#module-aprofiles.plot.image" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="image">
+<h3>Image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h3>
+<p>This module is used to plot an image (time, altitude) a given variable of an instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> class.</p>
+<span class="target" id="module-aprofiles.plot.image"></span><dl class="py function">
 <dt id="aprofiles.plot.image.plot">
 <code class="sig-prename descclassname">aprofiles.plot.image.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_foc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">'coolwarm'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/image.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.image.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot image of selected variable from <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
@@ -1206,9 +1219,10 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.plot.profile">
-<span id="profile"></span><h3>Profile<a class="headerlink" href="#module-aprofiles.plot.profile" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="profile">
+<h3>Profile<a class="headerlink" href="#profile" title="Permalink to this headline">¶</a></h3>
+<p>This module is used to plot a single profile for, a given <a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a>, of a given variable of an instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> class.</p>
+<span class="target" id="module-aprofiles.plot.profile"></span><dl class="py function">
 <dt id="aprofiles.plot.profile.plot">
 <code class="sig-prename descclassname">aprofiles.plot.profile.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">datetime</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'attenuated_backscatter_0'</span></em>, <em class="sig-param"><span class="n">zref</span><span class="o">=</span><span class="default_value">'agl'</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmin</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vmax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_foc</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_pbl</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">show_clouds</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/profile.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.profile.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot single profile of selected variable from <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
@@ -1251,9 +1265,10 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 </dd></dl>
 
 </div>
-<div class="section" id="module-aprofiles.plot.timeseries">
-<span id="time-series"></span><h3>Time Series<a class="headerlink" href="#module-aprofiles.plot.timeseries" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
+<div class="section" id="time-series">
+<h3>Time Series<a class="headerlink" href="#time-series" title="Permalink to this headline">¶</a></h3>
+<p>This module is used to plot a time series of a given variable of an instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> class.</p>
+<span class="target" id="module-aprofiles.plot.timeseries"></span><dl class="py function">
 <dt id="aprofiles.plot.timeseries.plot">
 <code class="sig-prename descclassname">aprofiles.plot.timeseries.</code><code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">da</span></em>, <em class="sig-param"><span class="n">var</span><span class="o">=</span><span class="default_value">'aod'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/aprofiles/plot/timeseries.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.plot.timeseries.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot time series of selected variable from <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>

@@ -6,6 +6,8 @@ Documentation of the core API of `aprofiles`.
 Reader
 ------
 
+The :ref:`Reader` module includes classes for reading profiles (NetCDF) and Aeronet (txt) data.
+
 .. automodule:: aprofiles.reader
    :members:
    :undoc-members:
@@ -15,18 +17,29 @@ Data Classes
 
 ProfilesData
 ^^^^^^^^^^^^
+
+The :class:`aprofiles.profiles.ProfilesData` class contains profiles data information. Most of the information can be found in the data attribute, which is a :class:`xarray.Dataset`.
+Detection and retrieval methods might add information as additional :class:`xarray.DataArray`.
+
 .. automodule:: aprofiles.profiles
    :members:
    :undoc-members:
 
 Aeronet
 ^^^^^^^
+Not implemented yet.
+
 .. automodule:: aprofiles.aeronet
    :members:
    :undoc-members:
 
+Blabla
+
 Rayleigh
 ^^^^^^^^
+
+The :class:`aprofiles.rayleigh.RayleighData` class is used for producing Rayleigh profiles in a standard atmosphere.
+
 .. automodule:: aprofiles.rayleigh
    :members:
    :undoc-members:
@@ -34,8 +47,8 @@ Rayleigh
 Size Distribution
 ^^^^^^^^^^^^^^^^^
 
-The size distribution module reads an entry file to generate volume and number size distribution of a population of particles for a given type.
-The values describing the size distribution are taken from the literature:
+The size distribution module is used to produce volume and number size distribution of a population of particles for a given type.
+The values describing the size distribution for the different aerosol types are taken from the literature:
 
 * `dust`, `biomass_burning`, and `urban` aerosols [#]_ 
 * `volcanic_ash` [#]_
@@ -52,6 +65,8 @@ Aerosol properties are defined in :download:`../aprofiles/config/aer_properties.
 Extinction to Mass Coefficient
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+The :class:`aprofiles.emc.EMCData` class is used for computing an `Extinction to Mass Coefficient` for a given aerosol type.
+
 .. automodule:: aprofiles.emc
    :members:
    :undoc-members:
@@ -64,18 +79,27 @@ The following functions are methods from the class :class:`aprofiles.profiles.Pr
 
 Fog or Condensation
 ^^^^^^^^^^^^^^^^^^^
+
+This method allows for the detection of fog or condensation in single profiles.
+
 .. automodule:: aprofiles.detection.foc
    :members:
    :undoc-members:
 
 Clouds
 ^^^^^^
+
+This method allows for the detection of clouds in single profiles.
+
 .. automodule:: aprofiles.detection.clouds
    :members:
    :undoc-members:
 
 Planetary Boundary Layer
 ^^^^^^^^^^^^^^^^^^^^^^^^
+
+This method allows for tge tracking of the PBL height in single profiles.
+
 .. automodule:: aprofiles.detection.pbl
    :members:
    :undoc-members:
@@ -87,12 +111,18 @@ The following functions are methods from the class :class:`aprofiles.profiles.Pr
 
 Aerosol Extinction
 ^^^^^^^^^^^^^^^^^^^
+
+This module is used to calculate extinction profiles from single attenuated backscatter profiles using an apriori.
+
 .. automodule:: aprofiles.retrieval.extinction
    :members:
    :undoc-members:
 
 Mass Concentration
 ^^^^^^^^^^^^^^^^^^^
+
+This module is used to calculate mass concentration profiles from extinction profiles for given aerosol types.
+
 .. automodule:: aprofiles.retrieval.mass_conc
    :members:
    :undoc-members:
@@ -103,6 +133,8 @@ Plotting
 Image
 ^^^^^^^^^^^^
 
+This module is used to plot an image (time, altitude) a given variable of an instance of the :class:`aprofiles.profiles.ProfilesData` class.
+
 .. automodule:: aprofiles.plot.image
    :members:
    :undoc-members:
@@ -110,12 +142,16 @@ Image
 Profile
 ^^^^^^^^^^^^
 
+This module is used to plot a single profile for, a given :class:`numpy.datetime64`, of a given variable of an instance of the :class:`aprofiles.profiles.ProfilesData` class.
+
 .. automodule:: aprofiles.plot.profile
    :members:
    :undoc-members:
 
 Time Series
 ^^^^^^^^^^^^
+
+This module is used to plot a time series of a given variable of an instance of the :class:`aprofiles.profiles.ProfilesData` class.
 
 .. automodule:: aprofiles.plot.timeseries
    :members:
