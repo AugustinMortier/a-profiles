@@ -410,7 +410,7 @@ class ProfilesData:
         zmin_cloud=200.0,
     ):
         """Calls :meth:`aprofiles.detection.foc.detect_foc()`."""
-        apro.detection.foc.detect_foc(self, method, var, z_snr, min_snr, zmin_cloud)
+        return apro.detection.foc.detect_foc(self, method, var, z_snr, min_snr, zmin_cloud)
 
     def clouds(
         self,
@@ -422,7 +422,7 @@ class ProfilesData:
         verbose=False,
     ):
         """Calls :meth:`aprofiles.detection.clouds.detect_clouds()`."""
-        apro.detection.clouds.detect_clouds(
+        return apro.detection.clouds.detect_clouds(
             self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose
         )
 
@@ -437,7 +437,7 @@ class ProfilesData:
         verbose=False,
     ):
         """Calls :meth:`aprofiles.detection.pbl.detect_pbl()`."""
-        apro.detection.pbl.detect_pbl(
+        return apro.detection.pbl.detect_pbl(
             self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose
         )
 
@@ -458,7 +458,7 @@ class ProfilesData:
         """Calls :meth:`aprofiles.retrieval.extinction.inversion()` to calculate extinction profiles.
         Calls :meth:`aprofiles.retrieval.mass_conc.mec()` to calculate Mass to Extinction coefficients if `mass_conc` is true (Default).
         """
-        apro.retrieval.extinction.inversion(
+        return apro.retrieval.extinction.inversion(
             self,
             time_avg,
             zmin,

@@ -91,5 +91,21 @@ def detect_foc(
             long_name="Fog or condensation mask.",
         ),
     )
-
     return self
+
+
+def _main():
+    import aprofiles as apro
+
+    path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
+    profiles = apro.reader.ReadProfiles(path).read()
+
+    # basic corrections
+    profiles.extrapolate_below(z=150.0, inplace=True)
+
+    # detection
+    profiles.foc().plot(show_foc=True, log=True, vmin=1e-2, vmax=1e1)
+
+
+if __name__ == "__main__":
+    _main()

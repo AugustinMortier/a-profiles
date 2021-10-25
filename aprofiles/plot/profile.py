@@ -27,7 +27,7 @@ def _plot_foc(da, time, zref):
     elif zref.upper() == "ASL":
         altitude = da.altitude.data
 
-    foc_markers = [altitude[0] if x is True else np.nan for x in da.foc.data]
+    foc_markers = [altitude[0] if x else np.nan for x in da.foc.data]
     if not np.isnan(foc_markers[i_time]):
         plt.plot([], [], "^m", ms=10, lw=0, label="foc or condensation")
         plt.plot(0, foc_markers[i_time], "m", marker=10, ms=10, lw=0)
