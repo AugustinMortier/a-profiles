@@ -37,7 +37,7 @@ def _plot_foc(da, zref):
                 "m-",
                 color="black",
                 lw=2.0,
-                alpha=0.6,
+                alpha=0.5,
             )
     # plot markers
     plt.plot([], [], "^m", ms=10, lw=0, label="foc or condensation")
