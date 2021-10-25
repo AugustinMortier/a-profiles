@@ -34,3 +34,8 @@ main img {
 .navbar {
     padding: 0px 10px;
 }
+
+#api > a {
+    text-align: center;
+    display: block;
+}

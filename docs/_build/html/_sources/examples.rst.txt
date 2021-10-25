@@ -1,5 +1,5 @@
 Examples
-======================================
+========
 
 Some basic examples for getting you started using *aprofiles*. For more information, check out the :ref:`API`.
 
