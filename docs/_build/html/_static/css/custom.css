@@ -38,4 +38,5 @@ main img {
 #api > a {
     text-align: center;
     display: block;
+    margin: 20px 0px;
 }

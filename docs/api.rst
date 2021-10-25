@@ -4,7 +4,7 @@ API
 Documentation of the core API of `aprofiles`.
 
 .. image:: _static/images/api-svgrepo-com.svg
-   :width: 300
+   :width: 200
 
 .. toctree::
    :maxdepth: 2
