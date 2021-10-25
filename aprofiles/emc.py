@@ -25,11 +25,11 @@ class EMCData:
     Example:
         >>> #some imports
         >>> import aprofiles as apro
-        >>> emc_data = EMCData('volcanic_ash', 1064.)
+        >>> emc_data = EMCData('volcanic_ash', 532.)
         >>> emc_data.__dict__.keys()
         dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'emc'])
         >>> print('{:.2e} m {:.2e} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
-        1.14e-06 m 2.97e-09 m2.g-1
+        6.21e-07 m 0.62 m2.g-1
 
     """
 
@@ -187,7 +187,7 @@ class EMCData:
             >>> #import aprofiles
             >>> import aprofiles as apro
             >>> #compute emc for biomas burning particles at 532 nm
-            >>> emc = apro.emc.EMCData('biomass_burning', 532.);
+            >>> emc = apro.emc.EMCData('volcanic_ash', 532.);
             >>> #plot information
             >>> emc.plot()
 
@@ -255,7 +255,7 @@ class EMCData:
 def _main():
     import aprofiles as aprofiles
 
-    emc_data = EMCData("biomass_burning", 532.0)
+    emc_data = EMCData("volcanic_ash", 532.0)
     print("{:.2e} m {:.2f} m2.g-1".format(emc_data.conv_factor, emc_data.emc))
     emc_data.plot()
 

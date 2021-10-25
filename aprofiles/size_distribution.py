@@ -63,7 +63,7 @@ class SizeDistributionData:
     def _vsd_to_nsd(self):
         """Transforms Volume Size Distribution to Number Size Distribution"""
         self.nsd = [
-            self.vsd[i] * 3 / (4 * np.pi * self.radius[i] ** 3)
+            self.vsd[i] * 3 / (4 * np.pi * self.radius[i] ** 4)
             for i in range(len(self.radius))
         ]
         return self
@@ -146,6 +146,7 @@ class SizeDistributionData:
 
 
 def _main():
+    import aprofiles as apro
     sd_data = SizeDistributionData("dust")
     sd_data.plot()
 
