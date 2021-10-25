@@ -20,8 +20,7 @@ import aprofiles as apro
 
 # read local NetCDF L2 data
 path = "examples/data/L2_0-20000-006735_A20210908.nc"
-apro_reader = apro.reader.ReadProfiles(path)
-profiles = apro_reader.read()
+profiles = apro.reader.ReadProfiles(path).read()
 ``` 
 
 ### Basic corrections and Image plotting
@@ -65,7 +64,7 @@ profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True,
 <img src="examples/images/Profile-Oslo-20210909T212005.png" title="Single Profile View" width="400"/>
 
 ## License
-MIT License (see *LICENSE.md*).
+[MIT License](LICENSE).
 
 ## Support
 *A-Profiles* is developed by [MET Norway](https://github.com/metno) and supported by [EUMETNET](https://www.eumetnet.eu/).
