@@ -25,22 +25,21 @@ def detect_foc(
             - `'foc' (time)`: mask array corresponding to the presence of foc.
 
     Example:
+        >>> import aprofiles as apro
+        >>> # read example file
+        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        >>> reader = apro.reader.ReadProfiles(path)
+        >>> profiles = reader.read()
+        >>> # foc detection
+        >>> profiles.foc()
+        >>> # attenuated backscatter image with pbl up to 6km of altitude
+        >>> profiles.plot(show_foc=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
 
-    >>> import aprofiles as apro
-    >>> # read example file
-    >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-    >>> reader = apro.reader.ReadProfiles(path)
-    >>> profiles = reader.read()
-    >>> # foc detection
-    >>> profiles.foc()
-    >>> # attenuated backscatter image with pbl up to 6km of altitude
-    >>> profiles.plot(show_foc=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
+        .. figure:: ../../examples/images/foc.png
+            :scale: 50 %
+            :alt: foc detection
 
-    .. figure:: ../examples/images/foc.png
-        :scale: 50 %
-        :alt: foc detection
-
-        Fog or condensation (foc) detection.
+            Fog or condensation (foc) detection.
     """
 
     def _detect_fog_from_cloud_base_height(self, zmin_cloud):

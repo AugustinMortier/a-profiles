@@ -1,0 +1,73 @@
+{
+    "dust": {
+        "ref_index": {
+            "real": 1.55,
+            "imag": 0.03
+        },
+        "vsd": {
+            "mode_0": {
+                "reff": 0.15,
+                "rstd": 0.42,
+                "conc": 0.1
+            },
+            "mode_1": {
+                "reff": 2.54,
+                "rstd": 0.61,
+                "conc": 0.92
+            }
+        },
+        "density": 2.5
+    },
+    "volcanic_ash": {
+        "ref_index": {
+            "real": 1.55,
+            "imag": 0.01
+        },
+        "vsd": {
+            "mode_0": {
+                "reff": 1.5,
+                "rstd": 0.7,
+                "conc": 1
+            }
+        },
+        "density": 2.6
+    },
+    "biomass_burning": {
+        "ref_index": {
+            "real": 1.47,
+            "imag": 0.000093
+        },
+        "vsd": {
+            "mode_0": {
+                "reff": 0.14,
+                "rstd": 0.420,
+                "conc": 0.12
+            },
+            "mode_1": {
+                "reff": 3.27,
+                "rstd": 0.79,
+                "conc": 0.05
+            }
+        },
+        "density": 1.15
+    },
+    "urban": {
+        "ref_index": {
+            "real": 1.41,
+            "imag": 0.01
+        },
+        "vsd": {
+            "mode_0": {
+                "reff": 0.12,
+                "rstd": 0.38,
+                "conc": 0.15
+            },
+            "mode_1": {
+                "reff": 3.03,
+                "rstd": 0.75,
+                "conc": 0.01
+            }
+        },
+        "density": 1.7
+    }
+}

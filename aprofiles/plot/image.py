@@ -140,7 +140,6 @@ def plot(
         - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'` cmap from seaborn.
 
     Example:
-
         >>> import aprofiles as apro
         >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
@@ -149,7 +148,7 @@ def plot(
         >>> # attenuated backscatter image
         >>> profiles.plot(vmin=1e-2, vmax=1e1, log=True)
 
-        .. figure:: ../examples/images/attenuated_backscatter.png
+        .. figure:: ../../examples/images/attenuated_backscatter.png
             :scale: 50 %
             :alt: attenuated backscatter profiles
 

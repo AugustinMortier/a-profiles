@@ -170,14 +170,14 @@
 <span class="kn">from</span> <span class="nn">aprofiles</span> <span class="kn">import</span> <span class="n">size_distribution</span>
 
 
-<div class="viewcode-block" id="EMCData"><a class="viewcode-back" href="../../api.html#aprofiles.emc.EMCData">[docs]</a><span class="k">class</span> <span class="nc">EMCData</span><span class="p">:</span>
+<div class="viewcode-block" id="EMCData"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.emc.EMCData">[docs]</a><span class="k">class</span> <span class="nc">EMCData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.</span>
 <span class="sd">    This class calls the :func:`get_emc()` method.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        - `aer_type` ({&#39;dust&#39;,&#39;volcanic_ash&#39;,&#39;biomass_burning&#39;,&#39;urban&#39;}): aerosol type.</span>
+<span class="sd">        - `aer_type` ({&#39;dust&#39;, &#39;volcanic_ash&#39;, &#39;biomass_burning&#39;, &#39;urban&#39;}): aerosol type.</span>
 <span class="sd">        - `wavelength` (int or float): wavelength, in mm.</span>
-<span class="sd">        - `method` ({&#39;mortier_2013&#39;,&#39;literature&#39;}): method to get emc</span>
+<span class="sd">        - `method` ({&#39;mortier_2013&#39;, &#39;literature&#39;}): method to get emc</span>
 <span class="sd">        - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)</span>
 
 <span class="sd">    Example:</span>
@@ -235,7 +235,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">emc</span> <span class="o">=</span> <span class="mf">3.33</span>  <span class="c1"># CHECK V-PROFILES VALUES. CHECK CODE IN LAPTOP?</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">conv_factor</span> <span class="o">=</span> <span class="o">-</span><span class="mi">99</span>
 
-<div class="viewcode-block" id="EMCData.get_emc"><a class="viewcode-back" href="../../api.html#aprofiles.emc.EMCData.get_emc">[docs]</a>    <span class="k">def</span> <span class="nf">get_emc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="EMCData.get_emc"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.emc.EMCData.get_emc">[docs]</a>    <span class="k">def</span> <span class="nf">get_emc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution shape (the amplitude is unknown), density, and using the `Mie theory &lt;https://miepython.readthedocs.io&gt;`_ to calculate the extinction efficiency.</span>
 
 <span class="sd">        Returns:</span>
@@ -338,7 +338,7 @@
         <span class="p">)</span>  <span class="c1"># convert density from g.cm-3 to g.m-3</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="EMCData.plot"><a class="viewcode-back" href="../../api.html#aprofiles.emc.EMCData.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="EMCData.plot"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.emc.EMCData.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot main information of an instance of the :class:`EMCData` class.</span>
 
 <span class="sd">        Example:</span>
@@ -349,7 +349,7 @@
 <span class="sd">            &gt;&gt;&gt; #plot information</span>
 <span class="sd">            &gt;&gt;&gt; emc.plot()</span>
 
-<span class="sd">            .. figure:: ../examples/images/bb_emc.png</span>
+<span class="sd">            .. figure:: ../../examples/images/bb_emc.png</span>
 <span class="sd">                :scale: 80 %</span>
 <span class="sd">                :alt: biomass burning properties</span>
 

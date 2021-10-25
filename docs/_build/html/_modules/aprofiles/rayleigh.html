@@ -166,7 +166,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="RayleighData"><a class="viewcode-back" href="../../api.html#aprofiles.rayleigh.RayleighData">[docs]</a><span class="k">class</span> <span class="nc">RayleighData</span><span class="p">:</span>
+<div class="viewcode-block" id="RayleighData"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.rayleigh.RayleighData">[docs]</a><span class="k">class</span> <span class="nc">RayleighData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class for computing *rayleigh profile* in a standard atmosphere.</span>
 <span class="sd">    This class calls the :func:`get_optics_in_std_atmo()` method, which produces profiles of `backscatter` and `extinction` coefficients.</span>
 
@@ -199,7 +199,7 @@
         <span class="c1"># calls functions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_optics_in_std_atmo</span><span class="p">()</span>
 
-<div class="viewcode-block" id="RayleighData.get_optics_in_std_atmo"><a class="viewcode-back" href="../../api.html#aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo">[docs]</a>    <span class="k">def</span> <span class="nf">get_optics_in_std_atmo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RayleighData.get_optics_in_std_atmo"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.rayleigh.RayleighData.get_optics_in_std_atmo">[docs]</a>    <span class="k">def</span> <span class="nf">get_optics_in_std_atmo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Function that returns *backscatter* and *extinction* profiles [#]_ for an instance of a :class:`RayleighData` class.</span>
 
 <span class="sd">        .. [#] Bucholtz, A. (1995). Rayleigh-scattering calculations for the terrestrial atmosphere. Applied optics, 34(15), 2765-2773.</span>
@@ -295,7 +295,7 @@
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="RayleighData.plot"><a class="viewcode-back" href="../../api.html#aprofiles.rayleigh.RayleighData.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RayleighData.plot"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.rayleigh.RayleighData.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot extinction profile of an instance of the :class:`RayleighData` class.</span>
 
 <span class="sd">        Example:</span>
@@ -310,7 +310,7 @@
 <span class="sd">            &gt;&gt;&gt; # plot profile</span>
 <span class="sd">            &gt;&gt;&gt; rayleigh.plot()</span>
 
-<span class="sd">            .. figure:: ../examples/images/rayleigh.png</span>
+<span class="sd">            .. figure:: ../../examples/images/rayleigh.png</span>
 <span class="sd">                :scale: 80 %</span>
 <span class="sd">                :alt: rayleigh profile</span>
 

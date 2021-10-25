@@ -152,7 +152,7 @@ class RayleighData:
             >>> # plot profile
             >>> rayleigh.plot()
 
-            .. figure:: ../examples/images/rayleigh.png
+            .. figure:: ../../examples/images/rayleigh.png
                 :scale: 80 %
                 :alt: rayleigh profile
 

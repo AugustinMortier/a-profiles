@@ -30,8 +30,7 @@ def detect_pbl(
         :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.
             - `'pbl' (time, altitude)`: mask array corresponding to the pbl height.
 
-        Example:
-
+    Example:
         >>> import aprofiles as apro
         >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
@@ -42,11 +41,11 @@ def detect_pbl(
         >>> # attenuated backscatter image with pbl up to 6km of altitude
         >>> profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
 
-        .. figure:: ../examples/images/pbl.png
+        .. figure:: ../../examples/images/pbl.png
             :scale: 50 %
             :alt: clouds detection
 
-            PLanetary Boundary Layer Height detection.
+            Planetary Boundary Layer Height detection.
     """
 
     from scipy.ndimage.filters import uniform_filter1d

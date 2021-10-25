@@ -17,9 +17,9 @@ class EMCData:
     This class calls the :func:`get_emc()` method.
 
     Attributes:
-        - `aer_type` ({'dust','volcanic_ash','biomass_burning','urban'}): aerosol type.
+        - `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
         - `wavelength` (int or float): wavelength, in mm.
-        - `method` ({'mortier_2013','literature'}): method to get emc
+        - `method` ({'mortier_2013', 'literature'}): method to get emc
         - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
@@ -191,7 +191,7 @@ class EMCData:
             >>> #plot information
             >>> emc.plot()
 
-            .. figure:: ../examples/images/bb_emc.png
+            .. figure:: ../../examples/images/bb_emc.png
                 :scale: 80 %
                 :alt: biomass burning properties
 

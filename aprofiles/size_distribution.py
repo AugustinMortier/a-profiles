@@ -14,7 +14,7 @@ class SizeDistributionData:
     This class calls the :func:`get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).
 
     Attributes:
-        - `aer_type` ({'dust','volcanic_ash','biomass_burning','urban'}): aerosol type.
+        - `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning','urban'}): aerosol type.
         - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
@@ -108,7 +108,7 @@ class SizeDistributionData:
             >>> # plot profile
             >>> sd.plot()
 
-            .. figure:: ../examples/images/urban_sd.png
+            .. figure:: ../../examples/images/urban_sd.png
                 :scale: 80 %
                 :alt: urban size distribution
 

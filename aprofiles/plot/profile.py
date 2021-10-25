@@ -150,7 +150,6 @@ def plot(
         - show_clouds (bool, optional): Add clouds detection. Defaults to `False`.
 
     Example:
-
         >>> import aprofiles as apro
         >>> # read example file
         >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
@@ -162,7 +161,7 @@ def plot(
         >>> datetime = np.datetime64('2021-09-09T10:25:00')
         >>> profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
 
-        .. figure:: ../examples/images/profile.png
+        .. figure:: ../../examples/images/profile.png
             :scale: 80 %
             :alt: profile
 

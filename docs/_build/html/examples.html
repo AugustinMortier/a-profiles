@@ -239,11 +239,11 @@
                 
   <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<p>Some basic examples for getting you started using <em>aprofiles</em>. For more information, check out the <a class="reference internal" href="api.html#api"><span class="std std-ref">API</span></a>.</p>
+<p>Some basic examples for getting you started using <em>aprofiles</em>. For more information, check out the <a class="reference internal" href="api%20copy.html#api"><span class="std std-ref">API</span></a>.</p>
 <div class="section" id="data-reading">
 <h2>Data reading<a class="headerlink" href="#data-reading" title="Permalink to this headline">¶</a></h2>
-<p>For reading ceilometers and lidars data, the class <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles" title="aprofiles.reader.ReadProfiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles</span></code></a> must be instantiated with the path of the NetCDF file to be read.
-The <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles.read" title="aprofiles.reader.ReadProfiles.read"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles.read()</span></code></a> method applied to this instance returns a <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object whose <cite>data</cite> attribute contains the NetCDF file content as a <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataSet</span></code>.</p>
+<p>For reading ceilometers and lidars data, the class <a class="reference internal" href="api/reader.html#aprofiles.reader.ReadProfiles" title="aprofiles.reader.ReadProfiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles</span></code></a> must be instantiated with the path of the NetCDF file to be read.
+The <a class="reference internal" href="api/reader.html#aprofiles.reader.ReadProfiles.read" title="aprofiles.reader.ReadProfiles.read"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles.read()</span></code></a> method applied to this instance returns a <a class="reference internal" href="api/data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object whose <cite>data</cite> attribute contains the NetCDF file content as a <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataSet</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 
 <span class="c1"># path of the NetCDF file to be read</span>
@@ -269,7 +269,7 @@ The <a class="reference internal" href="api.html#aprofiles.reader.ReadProfiles.r
 <h3>Extrapolation lowest layers<a class="headerlink" href="#extrapolation-lowest-layers" title="Permalink to this headline">¶</a></h3>
 <p>It is frequent to observe negative values in the lowest layers of the profiles due to instrumental artifacts.
 It is recommended to eliminate those outliers prior to detect some parameters such as the planetary boundary layer height, or before retrieving the aerosol profiles.
-The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData.extrapolate_below" title="aprofiles.profiles.ProfilesData.extrapolate_below"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.extrapolate_below()</span></code></a> method allows to extrapolate values of the selected variable of a <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
+The <a class="reference internal" href="api/data_classes.html#aprofiles.profiles.ProfilesData.extrapolate_below" title="aprofiles.profiles.ProfilesData.extrapolate_below"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.extrapolate_below()</span></code></a> method allows to extrapolate values of the selected variable of a <a class="reference internal" href="api/data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <div class="figure align-default" id="id2">
 <img alt="_images/lowest.png" src="_images/lowest.png" />
 <p class="caption"><span class="caption-text">Negative values are observed in the lowest layers</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
@@ -294,7 +294,7 @@ The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData
 </div>
 <div class="section" id="gaussian-filtering">
 <h3>Gaussian Filtering<a class="headerlink" href="#gaussian-filtering" title="Permalink to this headline">¶</a></h3>
-<p>The application of a gaussian filter can help increasing the SNR (that can be determined with the <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData.snr" title="aprofiles.profiles.ProfilesData.snr"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.snr()</span></code></a> method).</p>
+<p>The application of a gaussian filter can help increasing the SNR (that can be determined with the <a class="reference internal" href="api/data_classes.html#aprofiles.profiles.ProfilesData.snr" title="aprofiles.profiles.ProfilesData.snr"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.snr()</span></code></a> method).</p>
 <div class="figure align-default" id="id4">
 <img alt="_images/attenuated_backscatter.png" src="_images/attenuated_backscatter.png" />
 <p class="caption"><span class="caption-text">Original attenuated backscatter profiles</span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
@@ -323,7 +323,7 @@ The <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData
 <div class="section" id="fog-or-condensation-detection">
 <h3>Fog or condensation detection<a class="headerlink" href="#fog-or-condensation-detection" title="Permalink to this headline">¶</a></h3>
 <p>Fog or condensation prevents the laser beam to propagate into the atmosphere. It is important to detect those cases for filtering the data when trying to quantifying the aerosol content.
-The default method of the <a class="reference internal" href="api.html#aprofiles.profiles.ProfilesData.foc" title="aprofiles.profiles.ProfilesData.foc"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.foc()</span></code></a> method relies on the constructor clouds detection which provides clouds bases.</p>
+The default method of the <a class="reference internal" href="api/data_classes.html#aprofiles.profiles.ProfilesData.foc" title="aprofiles.profiles.ProfilesData.foc"><code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.foc()</span></code></a> method relies on the constructor clouds detection which provides clouds bases.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 
 <span class="c1"># read some data</span>

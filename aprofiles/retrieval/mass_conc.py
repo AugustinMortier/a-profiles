@@ -39,7 +39,7 @@ def concentration_profiles(self, method):
         >>> # plot mass concentration profiles for urban particles
         >>> profiles.plot(var='mass_concentration:urban', zmax=6000, vmin=0, vmax=50)
 
-        .. figure:: ../examples/images/mass_conc-urban.png
+        .. figure:: ../../examples/images/mass_conc-urban.png
             :scale: 50 %
             :alt: mass concentration
 

@@ -33,7 +33,7 @@ def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr
         >>> # attenuated backscatter image with clouds
         >>> profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
 
-        .. figure:: ../examples/images/clouds.png
+        .. figure:: ../../examples/images/clouds.png
             :scale: 50 %
             :alt: clouds detection
 

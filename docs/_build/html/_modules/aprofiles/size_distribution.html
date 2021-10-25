@@ -167,12 +167,12 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="SizeDistributionData"><a class="viewcode-back" href="../../api.html#aprofiles.size_distribution.SizeDistributionData">[docs]</a><span class="k">class</span> <span class="nc">SizeDistributionData</span><span class="p">:</span>
+<div class="viewcode-block" id="SizeDistributionData"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.size_distribution.SizeDistributionData">[docs]</a><span class="k">class</span> <span class="nc">SizeDistributionData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class for computing *size distributions* for a given aerosol type.</span>
 <span class="sd">    This class calls the :func:`get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        - `aer_type` ({&#39;dust&#39;,&#39;volcanic_ash&#39;,&#39;biomass_burning&#39;,&#39;urban&#39;}): aerosol type.</span>
+<span class="sd">        - `aer_type` ({&#39;dust&#39;, &#39;volcanic_ash&#39;, &#39;biomass_burning&#39;,&#39;urban&#39;}): aerosol type.</span>
 <span class="sd">        - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)</span>
 
 <span class="sd">    Example:</span>
@@ -226,7 +226,7 @@
         <span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-<div class="viewcode-block" id="SizeDistributionData.get_sd"><a class="viewcode-back" href="../../api.html#aprofiles.size_distribution.SizeDistributionData.get_sd">[docs]</a>    <span class="k">def</span> <span class="nf">get_sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SizeDistributionData.get_sd"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.size_distribution.SizeDistributionData.get_sd">[docs]</a>    <span class="k">def</span> <span class="nf">get_sd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the Volume and Number Size Distributions arrays from an instance of the :class:`SizeDistributionData` class .</span>
 
 <span class="sd">        Returns:</span>
@@ -255,7 +255,7 @@
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="SizeDistributionData.plot"><a class="viewcode-back" href="../../api.html#aprofiles.size_distribution.SizeDistributionData.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SizeDistributionData.plot"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.size_distribution.SizeDistributionData.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot Size Distributions of an intance of the :class:`SizeDistributionData` class.</span>
 
 <span class="sd">        Example:</span>
@@ -266,7 +266,7 @@
 <span class="sd">            &gt;&gt;&gt; # plot profile</span>
 <span class="sd">            &gt;&gt;&gt; sd.plot()</span>
 
-<span class="sd">            .. figure:: ../examples/images/urban_sd.png</span>
+<span class="sd">            .. figure:: ../../examples/images/urban_sd.png</span>
 <span class="sd">                :scale: 80 %</span>
 <span class="sd">                :alt: urban size distribution</span>
 

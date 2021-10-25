@@ -17,7 +17,6 @@ At present time, *A-Profiles* supports `E-PROFILE <https://e-profile.eu/#/cm_pro
 
 .. toctree::
    :maxdepth: 1
-   :caption: Documentation
 
    installation
    examples

@@ -23,7 +23,6 @@ class ReadProfiles:
             :class:`aprofiles.profiles.ProfilesData`
 
         Example:
-
             >>> # import library
             >>> import aprofiles as apro
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"

@@ -186,7 +186,7 @@ def inversion(
             >>> #plot extinction profiles
             >>> profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
 
-            .. figure:: ../examples/images/backward.png
+            .. figure:: ../../examples/images/backward.png
                 :scale: 50 %
                 :alt: clouds detection
 
@@ -199,7 +199,7 @@ def inversion(
             >>> #plot extinction profiles
             >>> profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
 
-            .. figure:: ../examples/images/forward.png
+            .. figure:: ../../examples/images/forward.png
                 :scale: 50 %
                 :alt: clouds detection
 

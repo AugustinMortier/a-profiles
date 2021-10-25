@@ -98,7 +98,6 @@ class ProfilesData:
             This calculation is relatively heavy in terms of calculation.
 
         Example:
-
             >>> import aprofiles as apro
             >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
@@ -109,7 +108,7 @@ class ProfilesData:
             >>> # snr image
             >>> profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
 
-            .. figure:: ../examples/images/snr.png
+            .. figure:: ../../examples/images/snr.png
                 :scale: 50 %
                 :alt: snr
 
@@ -165,7 +164,7 @@ class ProfilesData:
         Returns:
             :class:`ProfilesData` object with additional attributes `gaussian_filter` for the processed :class:`xarray.DataArray`.
 
-        Examples:
+        Example:
             >>> import aprofiles as apro
             >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
@@ -176,13 +175,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.attrs.gaussian_filter
             0.50
 
-            .. figure:: ../examples/images/attenuated_backscatter.png
+            .. figure:: ../../examples/images/attenuated_backscatter.png
                 :scale: 50 %
                 :alt: before filtering
 
                 Before gaussian filtering.
 
-            .. figure:: ../examples/images/gaussian_filter.png
+            .. figure:: ../../examples/images/gaussian_filter.png
                 :scale: 50 %
                 :alt: after gaussian filtering
 
@@ -255,7 +254,7 @@ class ProfilesData:
         Returns:
             :class:`ProfilesData` object with additional attributes `extrapolation_low_layers_altitude_agl` and `extrapolation_low_layers_method` for the processed :class:`xarray.DataArray`.
 
-        Examples:
+        Example:
             >>> import aprofiles as apro
             >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
@@ -266,13 +265,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.extrapolation_low_layers_altitude_agl
             150
 
-            .. figure:: ../examples/images/lowest.png
+            .. figure:: ../../examples/images/lowest.png
                 :scale: 50 %
                 :alt: before extrapolation
 
                 Before extrapolation.
 
-            .. figure:: ../examples/images/lowest_extrap.png
+            .. figure:: ../../examples/images/lowest_extrap.png
                 :scale: 50 %
                 :alt: after desaturation
 
@@ -361,7 +360,7 @@ class ProfilesData:
         .. warning::
             For now, absolute values are returned everywhere below the prescribed altitude.
 
-        Examples:
+        Example:
             >>> import aprofiles as apro
             >>> # read example file
             >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
@@ -372,13 +371,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.desaturated
             True
 
-            .. figure:: ../examples/images/saturated.png
+            .. figure:: ../../examples/images/saturated.png
                 :scale: 50 %
                 :alt: before desaturation
 
                 Before desaturation.
 
-            .. figure:: ../examples/images/desaturated.png
+            .. figure:: ../../examples/images/desaturated.png
                 :scale: 50 %
                 :alt: after desaturation
 

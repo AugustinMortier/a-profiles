@@ -171,7 +171,7 @@
 <span class="kn">from</span> <span class="nn">.ref_altitude</span> <span class="kn">import</span> <span class="n">get_iref</span>
 
 
-<div class="viewcode-block" id="backward_inversion"><a class="viewcode-back" href="../../../api.html#aprofiles.retrieval.extinction.backward_inversion">[docs]</a><span class="k">def</span> <span class="nf">backward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
+<div class="viewcode-block" id="backward_inversion"><a class="viewcode-back" href="../../../api/retrieval.html#aprofiles.retrieval.extinction.backward_inversion">[docs]</a><span class="k">def</span> <span class="nf">backward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Backward (Klett [#]_ ) inversion method.</span>
 
 <span class="sd">    .. [#] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</span>
@@ -223,7 +223,7 @@
     <span class="k">return</span> <span class="n">ext</span></div>
 
 
-<div class="viewcode-block" id="forward_inversion"><a class="viewcode-back" href="../../../api.html#aprofiles.retrieval.extinction.forward_inversion">[docs]</a><span class="k">def</span> <span class="nf">forward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
+<div class="viewcode-block" id="forward_inversion"><a class="viewcode-back" href="../../../api/retrieval.html#aprofiles.retrieval.extinction.forward_inversion">[docs]</a><span class="k">def</span> <span class="nf">forward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Forward iterative inversion method [#]_.</span>
 
 <span class="sd">    .. [#] Li, D., Wu, Y., Gross, B., &amp; Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.</span>
@@ -291,7 +291,7 @@
     <span class="k">return</span> <span class="n">ext</span></div>
 
 
-<div class="viewcode-block" id="inversion"><a class="viewcode-back" href="../../../api.html#aprofiles.retrieval.extinction.inversion">[docs]</a><span class="k">def</span> <span class="nf">inversion</span><span class="p">(</span>
+<div class="viewcode-block" id="inversion"><a class="viewcode-back" href="../../../api/retrieval.html#aprofiles.retrieval.extinction.inversion">[docs]</a><span class="k">def</span> <span class="nf">inversion</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.0</span><span class="p">,</span>
@@ -344,7 +344,7 @@
 <span class="sd">            &gt;&gt;&gt; #plot extinction profiles</span>
 <span class="sd">            &gt;&gt;&gt; profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
 
-<span class="sd">            .. figure:: ../examples/images/backward.png</span>
+<span class="sd">            .. figure:: ../../examples/images/backward.png</span>
 <span class="sd">                :scale: 50 %</span>
 <span class="sd">                :alt: clouds detection</span>
 
@@ -357,7 +357,7 @@
 <span class="sd">            &gt;&gt;&gt; #plot extinction profiles</span>
 <span class="sd">            &gt;&gt;&gt; profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
 
-<span class="sd">            .. figure:: ../examples/images/forward.png</span>
+<span class="sd">            .. figure:: ../../examples/images/forward.png</span>
 <span class="sd">                :scale: 50 %</span>
 <span class="sd">                :alt: clouds detection</span>
 

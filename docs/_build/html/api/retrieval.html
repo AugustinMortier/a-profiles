@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retrieval &#8212; A-Profiles  documentation</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/css/blank.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/js/custom.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Plotting" href="plotting.html" />
+    <link rel="prev" title="Detection" href="detection.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">A-Profiles</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../installation.html">
+  Installation
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../examples.html">
+  Examples
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../changelog.html">
+  Changelog
+ </a>
+</li>
+
+    
+    <li class="nav-item">
+        <a class="nav-link nav-external" href="https://aerocom-vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
+    </li>
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/AugustinMortier/A-Profiles" rel="noopener" target="_blank" title="GitHub">
+            <span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label>
+          </a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="reader.html">
+   Reader
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="data_classes.html">
+   Data Classes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="detection.html">
+   Detection
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Retrieval
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="plotting.html">
+   Plotting
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aerosol-extinction">
+   Aerosol Extinction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#mass-concentration">
+   Mass Concentration
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="retrieval">
+<h1>Retrieval<a class="headerlink" href="#retrieval" title="Permalink to this headline">¶</a></h1>
+<p>The following functions are methods from the class <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>.</p>
+<div class="section" id="aerosol-extinction">
+<h2>Aerosol Extinction<a class="headerlink" href="#aerosol-extinction" title="Permalink to this headline">¶</a></h2>
+<p>This module is used to calculate extinction profiles from single attenuated backscatter profiles using an apriori.</p>
+<span class="target" id="module-aprofiles.retrieval.extinction"></span><dl class="py function">
+<dt id="aprofiles.retrieval.extinction.backward_inversion">
+<code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">backward_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">iref</span></em>, <em class="sig-param"><span class="n">apriori</span></em>, <em class="sig-param"><span class="n">rayleigh</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/extinction.html#backward_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.backward_inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Backward (Klett <a class="footnote-reference brackets" href="#id2" id="id1">1</a> ) inversion method.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</p></li>
+<li><p>iref (float): index of the reference altitude returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.retrieval.ref_altitude.get_iref()</span></code>.</p></li>
+<li><p>apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</p></li>
+<li><p>rayleigh (<a class="reference internal" href="data_classes.html#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a>). Instance of the <a class="reference internal" href="data_classes.html#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a> class.</p></li>
+</ul>
+</dd>
+<dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
+</dd>
+<dt>Returns:</dt><dd><p>array_like: Extinction coefficient, in m-1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aprofiles.retrieval.extinction.forward_inversion">
+<code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">forward_inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">iref</span></em>, <em class="sig-param"><span class="n">apriori</span></em>, <em class="sig-param"><span class="n">rayleigh</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/extinction.html#forward_inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.forward_inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forward iterative inversion method <a class="footnote-reference brackets" href="#id4" id="id3">2</a>.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Li, D., Wu, Y., Gross, B., &amp; Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.</p>
+</dd>
+</dl>
+<p>Method principle:</p>
+<p>At z0, the aerosol transmission is first assumed a being close to 1. We evaluate the aerosol extinction based on this assumption.
+This evaluation gives a refined aerosol extinction that is used to calculate a second time the aerosol transmission.
+The aerosol extinction retrieval will converge after a certain number iterations.
+After the convergence, the aerosol extinction is retrieved in the next upper layer.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>data (array_like): 1D Array of single profile of attenuated backscatter coefficient.</p></li>
+<li><p>iref (float): index of the reference altitude returned by <code class="xref py py-func docutils literal notranslate"><span class="pre">aprofiles.retrieval.ref_altitude.get_iref()</span></code>.</p></li>
+<li><p>apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</p></li>
+<li><p>rayleigh (<a class="reference internal" href="data_classes.html#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a>). Instance of the <a class="reference internal" href="data_classes.html#aprofiles.rayleigh.RayleighData" title="aprofiles.rayleigh.RayleighData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.rayleigh.RayleighData</span></code></a> class.</p></li>
+</ul>
+</dd>
+<dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
+</dd>
+<dt>Returns:</dt><dd><p>array_like: Extinction coefficient, in m-1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="aprofiles.retrieval.extinction.inversion">
+<code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'forward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/extinction.html#inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.inversion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aerosol inversion of the attenuated backscatter profiles using an apriori.</p>
+<dl>
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles. Defaults to 1.</p></li>
+<li><p>zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000..</p></li>
+<li><p>zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000..</p></li>
+<li><p>min_snr (float, optional). Minimum SNR required at the reference altitude to be valid. Defaults to 0.</p></li>
+<li><p>under_clouds (bool, optional): If True, and if the <cite>ProfilesData</cite> has a <cite>cloud_base</cite> variable (returned by the <cite>clouds</cite> method), forces the initialization altitude to be found below the first cloud detected in the profile. Defaults to True.</p></li>
+<li><p>method ({‘backward’, ‘forward’}, optional). Defaults to ‘forward’.</p></li>
+<li><p>apriori (dict, optional). A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to {‘lr’: 50}.</p></li>
+<li><p>remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation ([&gt;0, &lt;1]). Defaults to False (while development. to be changed afterwards).</p></li>
+<li><p>verbose (bool, optional): verbose mode. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
+</dd>
+<dt>Returns:</dt><dd><dl>
+<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</dt><dd><ul class="simple">
+<li><p><cite>‘extinction’ (time, altitude)</cite>: 2D array corresponding to the aerosol extinction.</p></li>
+<li><p><cite>‘aod’ (time)</cite>: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</p></li>
+<li><p><cite>‘lidar_ratio’ (time)</cite>: 1D array corresponding to the lidar ratio associated to the extinction profiles.</p></li>
+</ul>
+</dd>
+<dt>Example:</dt><dd><p>Profiles preparation</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#read example file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#extrapolate lowest layers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Backward inversion</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#aerosol inversion</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#plot extinction profiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id5">
+<a class="reference internal image-reference" href="../_images/backward.png"><img alt="clouds detection" src="../_images/backward.png" style="width: 600.0px; height: 200.0px;" /></a>
+<p class="caption"><span class="caption-text">Extinction profiles retrieved with the backward method.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+<p>Forward inversion</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#aerosol inversion</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#plot extinction profiles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id6">
+<a class="reference internal image-reference" href="../_images/forward1.png"><img alt="clouds detection" src="../_images/forward1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<p class="caption"><span class="caption-text">Extinction profiles retrieved with the forward method.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="mass-concentration">
+<h2>Mass Concentration<a class="headerlink" href="#mass-concentration" title="Permalink to this headline">¶</a></h2>
+<p>This module is used to calculate mass concentration profiles from extinction profiles for given aerosol types.</p>
+<span class="target" id="module-aprofiles.retrieval.mass_conc"></span><dl class="py function">
+<dt id="aprofiles.retrieval.mass_conc.concentration_profiles">
+<code class="sig-prename descclassname">aprofiles.retrieval.mass_conc.</code><code class="sig-name descname">concentration_profiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/mass_conc.html#concentration_profiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.mass_conc.concentration_profiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates Mass concentration profiles for different aerosol types</p>
+<dl>
+<dt>Args:</dt><dd><ul class="simple">
+<li><p>method ({‘mortier_2013’,’literature’}): method for calculating EMC</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>.</dt><dd><ul class="simple">
+<li><p><cite>‘mass_concentration:&lt;aer_type&gt;’</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>Example:</dt><dd><p>Profiles preparation</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># read example file</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># extrapolate lowest layers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Forward inversion</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># aerosol inversion</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">method_mass_conc</span><span class="o">=</span><span class="s1">&#39;mortier_2013&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># plot mass concentration profiles for urban particles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;mass_concentration:urban&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-default" id="id7">
+<a class="reference internal image-reference" href="../_images/mass_conc-urban.png"><img alt="mass concentration" src="../_images/mass_conc-urban.png" style="width: 600.0px; height: 200.0px;" /></a>
+<p class="caption"><span class="caption-text">Mass concentration profiles in the case of urban particles.</span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="detection.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Detection</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="plotting.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Plotting</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, Augustin Mortier.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

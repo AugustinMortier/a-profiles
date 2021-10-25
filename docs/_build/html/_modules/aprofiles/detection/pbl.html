@@ -162,7 +162,7 @@
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 
-<div class="viewcode-block" id="detect_pbl"><a class="viewcode-back" href="../../../api.html#aprofiles.detection.pbl.detect_pbl">[docs]</a><span class="k">def</span> <span class="nf">detect_pbl</span><span class="p">(</span>
+<div class="viewcode-block" id="detect_pbl"><a class="viewcode-back" href="../../../api/detection.html#aprofiles.detection.pbl.detect_pbl">[docs]</a><span class="k">def</span> <span class="nf">detect_pbl</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">zmin</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
@@ -188,8 +188,7 @@
 <span class="sd">        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.</span>
 <span class="sd">            - `&#39;pbl&#39; (time, altitude)`: mask array corresponding to the pbl height.</span>
 
-<span class="sd">        Example:</span>
-
+<span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>
 <span class="sd">        &gt;&gt;&gt; # read example file</span>
 <span class="sd">        &gt;&gt;&gt; path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
@@ -200,11 +199,11 @@
 <span class="sd">        &gt;&gt;&gt; # attenuated backscatter image with pbl up to 6km of altitude</span>
 <span class="sd">        &gt;&gt;&gt; profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)</span>
 
-<span class="sd">        .. figure:: ../examples/images/pbl.png</span>
+<span class="sd">        .. figure:: ../../examples/images/pbl.png</span>
 <span class="sd">            :scale: 50 %</span>
 <span class="sd">            :alt: clouds detection</span>
 
-<span class="sd">            PLanetary Boundary Layer Height detection.</span>
+<span class="sd">            Planetary Boundary Layer Height detection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="kn">from</span> <span class="nn">scipy.ndimage.filters</span> <span class="kn">import</span> <span class="n">uniform_filter1d</span>

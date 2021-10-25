@@ -29,6 +29,7 @@ author = "Augustin Mortier"
 extensions = [
     "recommonmark",
     "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.intersphinx",
