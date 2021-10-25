@@ -19,7 +19,7 @@ class EMCData:
     Attributes:
         - `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
         - `wavelength` (int or float): wavelength, in mm.
-        - `method` ({'mortier_2013', 'literature'}): method to get emc
+        - `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `EMC`.
         - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
@@ -122,6 +122,24 @@ class EMCData:
 
             with :math:`\\rho` being expressed in (g.m-3).
 
+            
+            Results for different aerosol types
+            ===================================
+
+            +-----------------+------------------------+------------------+
+            | Aerosol Type    | Conversion Factor (µm) | EMC (m2.g-1)     |
+            |                 +-----------+------------+--------+---------+
+            |                 | 532 nm    | 1064 nm    | 532 nm | 1064 nm |
+            +=================+===========+============+========+=========+
+            | Urban           | 0.31      | 1.92       | 1.86   | 0.31    |
+            +-----------------+-----------+------------+--------+---------+
+            | Desert dust     | 0.68      | 1.04       | 0.58   | 0.38    |
+            +-----------------+-----------+------------+--------+---------+
+            | Biomass burning | 0.26      | 1.28       | 3.30   | 0.68    |
+            +-----------------+-----------+------------+--------+---------+
+            | Volcanic ash    | 0.62      | 0.56       | 0.62   | 0.68    |
+            +-----------------+-----------+------------+--------+---------+
+
         """
 
         def _compute_conv_factor(nsd, qext, radius):
@@ -191,11 +209,11 @@ class EMCData:
             >>> #plot information
             >>> emc.plot()
 
-            .. figure:: ../../examples/images/bb_emc.png
+            .. figure:: ../../examples/images/volcanic_ash-emc.png
                 :scale: 80 %
-                :alt: biomass burning properties
+                :alt: volcanic ash properties
 
-                Biomass burning particles properties used for EMC calculation.
+                Volcanic Ash particles properties used for EMC calculation.
         """
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 
@@ -255,7 +273,7 @@ class EMCData:
 def _main():
     import aprofiles as aprofiles
 
-    emc_data = EMCData("volcanic_ash", 532.0)
+    emc_data = EMCData("urban", 1064.0)
     print("{:.2e} m {:.2f} m2.g-1".format(emc_data.conv_factor, emc_data.emc))
     emc_data.plot()
 

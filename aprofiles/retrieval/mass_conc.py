@@ -37,7 +37,7 @@ def concentration_profiles(self, method):
         >>> # aerosol inversion
         >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='forward', method_mass_conc='mortier_2013')
         >>> # plot mass concentration profiles for urban particles
-        >>> profiles.plot(var='mass_concentration:urban', zmax=6000, vmin=0, vmax=50)
+        >>> profiles.plot(var='mass_concentration:urban', zmax=6000, vmin=0, vmax=100)
 
         .. figure:: ../../examples/images/mass_conc-urban.png
             :scale: 50 %
@@ -63,12 +63,12 @@ def concentration_profiles(self, method):
         # calculates emc
         emc = apro.emc.EMCData(aer_type, wavelength, method)
 
-        # compute mass_concentration profile
-        mass_concentration = self.data.extinction
+        # compute mass_concentration profile. Use extinction as base.
+        mass_concentration = self.data.extinction*1e-3 #conversion from km-1 to m-1
         # mass_concentration = copy.deepcopy(self.data.extinction)
         mass_concentration.data = np.divide(mass_concentration, emc.emc)
         # # conversion from g.m-3 to µg.m-3
-        # mass_concentration.data = mass_concentration.data*1e6
+        mass_concentration.data = mass_concentration.data*1e6
 
         # creates dataset with a dataarray for each aer_type
         self.data["mass_concentration:{}".format(aer_type)] = xr.DataArray(
@@ -95,7 +95,7 @@ def _main():
     # basic corrections
     profiles.extrapolate_below(z=150.0, inplace=True)
     profiles.inversion(verbose=True, mass_conc_method="mortier_2013")
-    profiles.plot("mass_concentration:urban", zmax=6000, vmin=0, vmax=10)
+    profiles.plot("mass_concentration:urban", zmax=6000, vmin=0, vmax=100)
 
 
 if __name__ == "__main__":

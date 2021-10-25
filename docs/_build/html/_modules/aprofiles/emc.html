@@ -183,11 +183,11 @@
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; #some imports</span>
 <span class="sd">        &gt;&gt;&gt; import aprofiles as apro</span>
-<span class="sd">        &gt;&gt;&gt; emc_data = EMCData(&#39;volcanic_ash&#39;, 1064.)</span>
+<span class="sd">        &gt;&gt;&gt; emc_data = EMCData(&#39;volcanic_ash&#39;, 532.)</span>
 <span class="sd">        &gt;&gt;&gt; emc_data.__dict__.keys()</span>
 <span class="sd">        dict_keys([&#39;aer_type&#39;, &#39;wavelength&#39;, &#39;aer_properties&#39;, &#39;nsd&#39;, &#39;vsd&#39;, &#39;radius&#39;, &#39;qext&#39;, &#39;conv_factor&#39;, &#39;emc&#39;])</span>
 <span class="sd">        &gt;&gt;&gt; print(&#39;{:.2e} m {:.2e} m2.g-1&#39;.format(emc_data.conv_factor, emc_data.emc))</span>
-<span class="sd">        1.14e-06 m 2.97e-09 m2.g-1</span>
+<span class="sd">        6.21e-07 m 0.62 m2.g-1</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -280,6 +280,24 @@
 
 <span class="sd">            with :math:`\\rho` being expressed in (g.m-3).</span>
 
+<span class="sd">            </span>
+<span class="sd">            Results for different aerosol types</span>
+<span class="sd">            ===================================</span>
+
+<span class="sd">            +-----------------+------------------------+------------------+</span>
+<span class="sd">            | Aerosol Type    | Conversion Factor (µm) | EMC (m2.g-1)     |</span>
+<span class="sd">            |                 +-----------+------------+--------+---------+</span>
+<span class="sd">            |                 | 532 nm    | 1064 nm    | 532 nm | 1064 nm |</span>
+<span class="sd">            +=================+===========+============+========+=========+</span>
+<span class="sd">            | Urban           | 0.31      | 1.92       | 1.86   | 0.31    |</span>
+<span class="sd">            +-----------------+-----------+------------+--------+---------+</span>
+<span class="sd">            | Desert dust     | 0.68      | 1.04       | 0.58   | 0.38    |</span>
+<span class="sd">            +-----------------+-----------+------------+--------+---------+</span>
+<span class="sd">            | Biomass burning | 0.26      | 1.28       | 3.30   | 0.68    |</span>
+<span class="sd">            +-----------------+-----------+------------+--------+---------+</span>
+<span class="sd">            | Volcanic ash    | 0.62      | 0.56       | 0.62   | 0.68    |</span>
+<span class="sd">            +-----------------+-----------+------------+--------+---------+</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">_compute_conv_factor</span><span class="p">(</span><span class="n">nsd</span><span class="p">,</span> <span class="n">qext</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
@@ -345,15 +363,15 @@
 <span class="sd">            &gt;&gt;&gt; #import aprofiles</span>
 <span class="sd">            &gt;&gt;&gt; import aprofiles as apro</span>
 <span class="sd">            &gt;&gt;&gt; #compute emc for biomas burning particles at 532 nm</span>
-<span class="sd">            &gt;&gt;&gt; emc = apro.emc.EMCData(&#39;biomass_burning&#39;, 532.);</span>
+<span class="sd">            &gt;&gt;&gt; emc = apro.emc.EMCData(&#39;volcanic_ash&#39;, 532.);</span>
 <span class="sd">            &gt;&gt;&gt; #plot information</span>
 <span class="sd">            &gt;&gt;&gt; emc.plot()</span>
 
-<span class="sd">            .. figure:: ../../examples/images/bb_emc.png</span>
+<span class="sd">            .. figure:: ../../examples/images/volcanic_ash-emc.png</span>
 <span class="sd">                :scale: 80 %</span>
-<span class="sd">                :alt: biomass burning properties</span>
+<span class="sd">                :alt: volcanic ash properties</span>
 
-<span class="sd">                Biomass burning particles properties used for EMC calculation.</span>
+<span class="sd">                Volcanic Ash particles properties used for EMC calculation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 
@@ -413,9 +431,9 @@
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
     <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">aprofiles</span>
 
-    <span class="n">emc_data</span> <span class="o">=</span> <span class="n">EMCData</span><span class="p">(</span><span class="s2">&quot;biomass_burning&quot;</span><span class="p">,</span> <span class="mf">532.0</span><span class="p">)</span>
+    <span class="n">emc_data</span> <span class="o">=</span> <span class="n">EMCData</span><span class="p">(</span><span class="s2">&quot;urban&quot;</span><span class="p">,</span> <span class="mf">1064.0</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2e}</span><span class="s2"> m </span><span class="si">{:.2f}</span><span class="s2"> m2.g-1&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">emc_data</span><span class="o">.</span><span class="n">conv_factor</span><span class="p">,</span> <span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="p">))</span>
-    <span class="n">emc_data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="c1">#emc_data.plot()</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
