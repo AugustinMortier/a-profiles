@@ -21,6 +21,13 @@ def write(dataset, base_dir=''):
 
     def _file_exists(path):
         return os.path.exists(path)
+    
+    def _convert_time_to_epoch(ds):
+        time_attrs = ds["time"].attrs
+        ds = ds.assign_coords(time=ds.time.data.astype("timedelta64[ms]").astype(int))
+        ds["time"] = ds["time"].assign_attrs(time_attrs)
+        ds["time"].attrs['units'] = 'milliseconds since epoch'
+        return ds
 
     #get date as string yyyy-mm-dd from first value of the time data
     str_date = str(dataset.time.values[0])[:10]
@@ -56,10 +63,13 @@ def write(dataset, base_dir=''):
         attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1'),
     )
 
-    #drop other variables
+    # drop other variables
     drop_variables = ['cloud_base_height', 'vertical_visibility', 'cbh_uncertainties']
     for drop_var in drop_variables:
         ds = ds.drop(drop_var)
+
+    # converts time
+    ds = _convert_time_to_epoch(ds)
 
     # writes to netcdf
     ds.to_netcdf(path, mode='w')
