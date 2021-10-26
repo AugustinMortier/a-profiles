@@ -43,19 +43,14 @@ class ReadEPROFILE:
         Returns:
             :class:`xarray.Dataset`
         """
-        dataset = xr.open_dataset(self.path)
+        dataset = xr.open_dataset(self.path, decode_times=True)
         # replace wavelength with actual value in attenuated backscatter longname
-        dataset.attenuated_backscatter_0.attrs[
-            "long_name"
-        ] = dataset.attenuated_backscatter_0.long_name.replace(
+        dataset.attenuated_backscatter_0.attrs["long_name"] = dataset.attenuated_backscatter_0.long_name.replace(
             "at wavelength 0", "@ {} nm".format(int(dataset.l0_wavelength.data))
         )
-        dataset.attenuated_backscatter_0.attrs[
-            "units"
-        ] = dataset.attenuated_backscatter_0.attrs["units"].replace(
+        dataset.attenuated_backscatter_0.attrs["units"] = dataset.attenuated_backscatter_0.attrs["units"].replace(
             "1E-6*1/(m*sr)", ("E-6 m-1.sr-1")
         )
-
         return dataset
 
     def read(self):

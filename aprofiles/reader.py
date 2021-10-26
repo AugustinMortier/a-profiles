@@ -99,8 +99,9 @@ class ReadAeronet:
 
 def _main():
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-    ProfilesData = ReadProfiles(path).read()
-    print(ProfilesData)
+    profiles = ReadProfiles(path).read()
+    print(profiles)
+    print(profiles.data.time)
 
 
 if __name__ == "__main__":

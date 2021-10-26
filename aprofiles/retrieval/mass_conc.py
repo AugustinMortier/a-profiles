@@ -11,10 +11,11 @@ import numpy as np
 import xarray as xr
 
 
-def concentration_profiles(self, method):
+def concentration_profiles(profiles, method):
     """Calculates Mass concentration profiles for different aerosol types
 
     Args:
+        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
         - method ({'mortier_2013','literature'}): method for calculating EMC
 
     Returns:
@@ -55,8 +56,8 @@ def concentration_profiles(self, method):
     aer_types = aer_properties.keys()
 
     # get wavelength
-    wavelength = float(self.data.l0_wavelength.data)
-    if self.data.l0_wavelength.units != "nm":
+    wavelength = float(profiles.data.l0_wavelength.data)
+    if profiles.data.l0_wavelength.units != "nm":
         raise ValueError("wavelength units is not `nm`.")
 
     for aer_type in aer_types:
@@ -64,26 +65,20 @@ def concentration_profiles(self, method):
         emc = apro.emc.EMCData(aer_type, wavelength, method)
 
         # compute mass_concentration profile. Use extinction as base.
-        mass_concentration = self.data.extinction*1e-3 #conversion from km-1 to m-1
-        # mass_concentration = copy.deepcopy(self.data.extinction)
+        mass_concentration = profiles.data.extinction*1e-3 #conversion from km-1 to m-1
+        # mass_concentration = copy.deepcopy(profiles.data.extinction)
         mass_concentration.data = np.divide(mass_concentration, emc.emc)
         # # conversion from g.m-3 to µg.m-3
         mass_concentration.data = mass_concentration.data*1e6
 
         # creates dataset with a dataarray for each aer_type
-        self.data["mass_concentration:{}".format(aer_type)] = xr.DataArray(
-            data=mass_concentration.data,
-            dims=["time", "altitude"],
-            coords=dict(time=self.data.time.data, altitude=self.data.altitude.data),
-            attrs=dict(
-                long_name="Mass concentration [{} particles]".format(
-                    aer_type.replace("_", " ")
-                ),
-                units="µg.m-3",
-                emc=emc.emc,
-            ),
-        )
-    return self
+        profiles.data["mass_concentration:{}".format(aer_type)] = (('time', 'altitude'), mass_concentration.data)
+        profiles.data["mass_concentration:{}".format(aer_type)] = profiles.data["mass_concentration:{}".format(aer_type)].assign_attrs({
+            'long_name': "Mass concentration [{} particles]".format(aer_type.replace("_", " ")),
+            'units': 'µg.m-3',
+            'emc': emc.emc,
+        })
+    return profiles
 
 
 def _main():

@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 
 def detect_pbl(
-    self,
+    profiles,
     time_avg=1,
     zmin=100.0,
     zmax=3000.0,
@@ -18,6 +18,7 @@ def detect_pbl(
     Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.
 
     Args:
+        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
         - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to `1`.
         - zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL. Defaults to `100`.
         - zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to `3000`.
@@ -69,15 +70,15 @@ def detect_pbl(
         #define wavelet with constant width
         npoints = len(data)
         width = wav_width #in meter
-        wav = signal.ricker(npoints, width/self._get_resolution('altitude'))
+        wav = signal.ricker(npoints, width/profiles._get_resolution('altitude'))
 
         #simple convolution
         convolution = signal.convolve(data, wav, mode='same')
 
         #the PBL is the maximum of the convolution
         #sets to nan outside of PBL search range
-        convolution[0:self._get_index_from_altitude_AGL(zmin):] = np.nan
-        convolution[self._get_index_from_altitude_AGL(zmax):] = np.nan
+        convolution[0:profiles._get_index_from_altitude_AGL(zmin):] = np.nan
+        convolution[profiles._get_index_from_altitude_AGL(zmax):] = np.nan
         i_pbl = np.nanargmax(abs(convolution))
         """
 
@@ -89,42 +90,42 @@ def detect_pbl(
 
         # the PBL is the maximum of the convolution
         # sets to nan outside of PBL search range
-        gradient[0: self._get_index_from_altitude_AGL(zmin):] = np.nan
-        gradient[self._get_index_from_altitude_AGL(zmax):] = np.nan
+        gradient[0: profiles._get_index_from_altitude_AGL(zmin):] = np.nan
+        gradient[profiles._get_index_from_altitude_AGL(zmax):] = np.nan
         i_pbl = np.nanargmin(gradient)
 
         # calculates SNR
         snr = _snr_at_iz(data, i_pbl, step=10)
         if snr > min_snr:
-            return self.data.altitude.data[i_pbl]
+            return profiles.data.altitude.data[i_pbl]
         else:
             return np.nan
 
     # we work on profiles averaged in time to reduce the noise
-    rcs = self.time_avg(
+    rcs = profiles.time_avg(
         time_avg, var="attenuated_backscatter_0", inplace=False
     ).data.attenuated_backscatter_0
 
     # if under_clouds, check if clouds_bases is available
-    if under_clouds and "clouds_bases" in list(self.data.data_vars):
-        lowest_clouds = self._get_lowest_clouds()
-    elif under_clouds and "clouds_bases" not in list(self.data.data_vars):
+    if under_clouds and "clouds_bases" in list(profiles.data.data_vars):
+        lowest_clouds = profiles._get_lowest_clouds()
+    elif under_clouds and "clouds_bases" not in list(profiles.data.data_vars):
         import warnings
 
         warnings.warn(
             "under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object."
         )
-        lowest_clouds = [np.nan for _ in np.arange(len(self.data.time))]
+        lowest_clouds = [np.nan for _ in np.arange(len(profiles.data.time))]
     else:
-        lowest_clouds = [np.nan for _ in np.arange(len(self.data.time))]
+        lowest_clouds = [np.nan for _ in np.arange(len(profiles.data.time))]
 
     pbl = []
     for i in (
-        tqdm(range(len(self.data.time.data)), desc="pbl   ")
+        tqdm(range(len(profiles.data.time.data)), desc="pbl   ")
         if verbose
-        else range(len(self.data.time.data))
+        else range(len(profiles.data.time.data))
     ):
-        lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
+        lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
         pbl.append(
             _detect_pbl_from_rcs(
                 rcs.data[i, :],
@@ -136,19 +137,15 @@ def detect_pbl(
         )
 
     # creates dataarrays
-    self.data["pbl"] = xr.DataArray(
-        data=pbl,
-        dims=["time"],
-        coords=dict(time=self.data.time.data),
-        attrs=dict(
-            long_name="Planetary Boundary Layer Height, ASL",
-            units="m",
-            time_avg=time_avg,
-            zmin=zmin,
-            zmax=zmax,
-        ),
-    )
-    return self
+    profiles.data["pbl"] = ("time", pbl)
+    profiles.data["pbl"].assign_attrs({
+        'long_name': "Planetary Boundary Layer Height, ASL",
+        'units': 'm',
+        'time_avg': time_avg,
+        'zmin': zmin,
+        'zmax': zmax
+        })
+    return profiles
 
 
 def _main():

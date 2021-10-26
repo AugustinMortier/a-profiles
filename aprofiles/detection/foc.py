@@ -3,17 +3,11 @@ import numpy as np
 import xarray as xr
 
 
-def detect_foc(
-    self,
-    method="cloud_base",
-    var="attenuated_backscatter_0",
-    z_snr=2000.0,
-    min_snr=2.0,
-    zmin_cloud=200.0,
-):
+def detect_foc(profiles, method="cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
     """Detects fog or condensation.
 
     Args:
+        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
         - method ({'cloud_base', 'snr'}, optional): Defaults to `'cloud_base'`.
         - var (str, optional). Used for 'snr' method. Variable to calculate SNR from. Defaults to `'attenuated_backscatter_0'`.
         - z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR. Defaults to `2000.`.
@@ -42,15 +36,15 @@ def detect_foc(
             Fog or condensation (foc) detection.
     """
 
-    def _detect_fog_from_cloud_base_height(self, zmin_cloud):
+    def _detect_fog_from_cloud_base_height(profiles, zmin_cloud):
         # returns a bool list with True where fog/condensation cases
         # if the base of the first cloud (given by the constructor) is below
-        first_cloud_base_height = self.data.cloud_base_height.data[:, 0]
+        first_cloud_base_height = profiles.data.cloud_base_height.data[:, 0]
         # condition
         foc = [True if x <= zmin_cloud else False for x in first_cloud_base_height]
         return foc
 
-    def _detect_fog_from_snr(self, z_snr, var, min_snr):
+    def _detect_fog_from_snr(profiles, z_snr, var, min_snr):
         # returns a bool list with True where fog/condensation cases
 
         def _snr_at_iz(array, iz, step):
@@ -65,33 +59,26 @@ def detect_foc(
                 return 0
 
         # calculates snr at z_snr
-        iz_snr = self._get_index_from_altitude_AGL(z_snr)
+        iz_snr = profiles._get_index_from_altitude_AGL(z_snr)
         # calculates snr at each timestamp
         snr = [
-            _snr_at_iz(self.data[var].data[i, :], iz_snr, step=4)
-            for i in range(len(self.data.time.data))
+            _snr_at_iz(profiles.data[var].data[i, :], iz_snr, step=4)
+            for i in range(len(profiles.data.time.data))
         ]
         # condition
         foc = [True if x <= min_snr else False for x in snr]
         return foc
 
     if method == "cloud_base":
-        foc = _detect_fog_from_cloud_base_height(self, zmin_cloud)
+        foc = _detect_fog_from_cloud_base_height(profiles, zmin_cloud)
     elif method.upper() == "SNR":
-        foc = _detect_fog_from_snr(self, z_snr, var, min_snr)
+        foc = _detect_fog_from_snr(profiles, z_snr, var, min_snr)
 
     # creates dataarray
-    self.data["foc"] = xr.DataArray(
-        data=foc,
-        dims=["time"],
-        coords=dict(
-            time=self.data.time.data,
-        ),
-        attrs=dict(
-            long_name="Fog or condensation mask.",
-        ),
-    )
-    return self
+    profiles.data["foc"] = ("time", foc)
+    profiles.data["foc"] = profiles.data.foc.assign_attrs({'long_name': 'Fog or condensation mask'})
+
+    return profiles
 
 
 def _main():
@@ -102,7 +89,6 @@ def _main():
 
     # basic corrections
     profiles.extrapolate_below(z=150.0, inplace=True)
-
     # detection
     profiles.foc().plot(show_foc=True, log=True, vmin=1e-2, vmax=1e1)
 

@@ -139,15 +139,12 @@ class ProfilesData:
             snr.append(_1D_snr(self.data[var].data[i, :], step))
 
         # creates dataarrays
-        self.data["snr"] = xr.DataArray(
-            data=np.asarray(snr),
-            dims=["time", "altitude"],
-            coords=dict(
-                time=self.data.time.data,
-                altitude=self.data.altitude.data,
-            ),
-            attrs=dict(long_name="Signal to Noise Ratio", units=None, step=step),
-        )
+        self.data["snr"] = (('time', 'altitude'), np.asarray(snr))
+        self.data["snr"] = self.data.snr.assign_attrs({
+            'long_name': 'Signal to Noise Ratio',
+            'units': '',
+            'step': step
+        })
 
         return self
 
@@ -476,19 +473,23 @@ def _main():
 
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
-
+    
     # basic corrections
-    profiles.extrapolate_below(z=150.0, inplace=True)
-    profiles.desaturate_below(z=4000.0, inplace=True)
+    profiles.extrapolate_below(z=150., inplace=True)
+    profiles.desaturate_below(z=4000., inplace=True)
+    
     # detection
     profiles.foc(method="cloud_base", zmin_cloud=200)
     profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
     profiles.pbl()
-    profiles.plot(show_foc=True, show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
+    #profiles.plot(show_foc=True, show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
+    
     # inversion
-    profiles.inversion(zmin=4000, zmax=6000, method="forward", apriori={"lr":50.},mass_conc=True, verbose=True)
+    profiles.inversion(zmin=4000., zmax=6000., method="forward", apriori={"lr":50.},mass_conc=True, verbose=True)
+    
     # write results
     profiles.write()
+
 
 if __name__ == "__main__":
     _main()

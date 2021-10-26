@@ -134,7 +134,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
 
 
 def inversion(
-    self,
+    profiles,
     time_avg=1,
     zmin=4000.0,
     zmax=6000.0,
@@ -148,6 +148,7 @@ def inversion(
     """Aerosol inversion of the attenuated backscatter profiles using an apriori.
 
     Args:
+        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
         - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles. Defaults to 1.
         - zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000..
         - zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000..
@@ -207,32 +208,32 @@ def inversion(
     """
 
     # we work on profiles averaged in time to reduce the noise
-    rcs = self.time_avg(
+    rcs = profiles.time_avg(
         time_avg, var="attenuated_backscatter_0", inplace=False
     ).data.attenuated_backscatter_0
 
     """
     #if clouds detected, set to nan profiles where cloud is found below 4000m
-    lowest_clouds = self._get_lowest_clouds()
-    for i in range(len(self.data.time.data)):
+    lowest_clouds = profiles._get_lowest_clouds()
+    for i in range(len(profiles.data.time.data)):
         if lowest_clouds[i]<=4000:
             rcs.data[i,:] = [np.nan for _ in rcs.data[i,:]]
     """
 
     # if under_clouds, check if clouds_bases is available
-    if under_clouds and "clouds_bases" in list(self.data.data_vars):
-        lowest_clouds = self._get_lowest_clouds()
-    elif under_clouds and "clouds_bases" not in list(self.data.data_vars):
+    if under_clouds and "clouds_bases" in list(profiles.data.data_vars):
+        lowest_clouds = profiles._get_lowest_clouds()
+    elif under_clouds and "clouds_bases" not in list(profiles.data.data_vars):
         warnings.warn(
             "under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object."
         )
-        lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
+        lowest_clouds = [np.nan for i in np.arange(len(profiles.data.time))]
     else:
-        lowest_clouds = [np.nan for i in np.arange(len(self.data.time))]
+        lowest_clouds = [np.nan for i in np.arange(len(profiles.data.time))]
 
     # aerosol retrieval requires a molecular profile
-    altitude = np.asarray(self.data.altitude.data)
-    wavelength = float(self.data.l0_wavelength.data)
+    altitude = np.asarray(profiles.data.altitude.data)
+    wavelength = float(profiles.data.l0_wavelength.data)
     rayleigh = apro.rayleigh.RayleighData(
         altitude, T0=298, P0=1013, wavelength=wavelength
     )
@@ -240,22 +241,22 @@ def inversion(
     # aerosol inversion
     ext, lr, aod = [], [], []
     aod_min, aod_max = 0, 0.5
-    vertical_resolution = self._get_resolution("altitude")
+    vertical_resolution = profiles._get_resolution("altitude")
     for i in (
-        tqdm(range(len(self.data.time.data)), desc="klett ")
+        tqdm(range(len(profiles.data.time.data)), desc="klett ")
         if verbose
-        else range(len(self.data.time.data))
+        else range(len(profiles.data.time.data))
     ):
         # for the inversion, it is important to use the right units
-        if "E-6" in self.data.attenuated_backscatter_0.units:
+        if "E-6" in profiles.data.attenuated_backscatter_0.units:
             calibrated_data = rcs.data[i, :] * 1e-6
         else:
             calibrated_data = rcs.data[i, :]
 
         # reference altitude
-        lowest_cloud_agl = lowest_clouds[i] - self.data.station_altitude.data
-        imin = self._get_index_from_altitude_AGL(zmin)
-        imax = self._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
+        lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
+        imin = profiles._get_index_from_altitude_AGL(zmin)
+        imax = profiles._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
         iref = get_iref(rcs.data[i, :], imin, imax, min_snr)
 
         if iref is not None:
@@ -285,33 +286,27 @@ def inversion(
                 ext.append(_ext)
 
     # creates dataarrays
-    self.data["extinction"] = xr.DataArray(
-        data=np.asarray(ext) * 1e3,
-        dims=["time", "altitude"],
-        coords=dict(time=self.data.time.data, altitude=self.data.altitude.data),
-        attrs=dict(
-            long_name="Extinction Coefficient at {} nm".format(int(wavelength)),
-            method="{} Klett".format(method.capitalize()),
-            units="km-1",
-            time_avg=time_avg,
-            zmin=zmin,
-            zmax=zmax,
-            apriori_variable=list(apriori.keys())[0],
-            apriori_value=apriori[list(apriori.keys())[0]]
-        ),
-    )
+    profiles.data["extinction"] = (("time","altitude"), np.asarray(ext) * 1e3)
+    profiles.data["extinction"] = profiles.data.extinction.assign_attrs({
+        'long_name': "Extinction Coefficient at {} nm".format(int(wavelength)),
+        'method': "{} Klett".format(method.capitalize()),
+        'units': "km-1",
+        'time_avg': time_avg,
+        'zmin': zmin,
+        'zmax': zmax,
+        'apriori_variable': list(apriori.keys())[0],
+        'apriori_value': apriori[list(apriori.keys())[0]]
+        })
 
-    self.data["aod"] = xr.DataArray(
-        data=aod,
-        dims=["time"],
-        coords=dict(time=self.data.time.data),
-        attrs=dict(long_name="Aerosol Optical Depth", units=""),
-    )
+    profiles.data["aod"] = ("time", aod)
+    profiles.data["aod"] = profiles.data.aod.assign_attrs({
+        'long_name': 'Aerosol Optical Depth',
+        'unit': ''
+    })
 
-    self.data["lidar_ratio"] = xr.DataArray(
-        data=lr,
-        dims=["time"],
-        coords=dict(time=self.data.time.data),
-        attrs=dict(long_name="Lidar Ratio", units="sr"),
-    )
-    return self
+    profiles.data["lidar_ratio"] = ('time', lr)
+    profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
+        'long_name': 'Lidar Ratio',
+        'units': 'sr'
+    })
+    return profiles

@@ -4,12 +4,13 @@ import xarray as xr
 from tqdm import tqdm
 
 
-def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr=0.0, verbose=False):
+def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., min_snr=0., verbose=False):
     """Module for *clouds detection*.
     The detection is performed on each individual profile. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.
 
     Args:
-        - time_avg (int, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to `1`.
+        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
+        - time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to `1`.
         - zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to `0`. We recommend using the same value as used in the extrapolation_low_layers method.
         - thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z). Defaults to `5`.
         - thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds. Defaults to `4`.
@@ -190,7 +191,7 @@ def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr
         all_bases = sign_changes == 2
         all_peaks = sign_changes == -2
         # limit to bases above zmin
-        imin = self._get_index_from_altitude_AGL(zmin)
+        imin = profiles._get_index_from_altitude_AGL(zmin)
         all_bases[0:imin] = [False for i in range(len(all_bases[0:imin]))]
         all_peaks[0:imin] = [False for i in range(len(all_peaks[0:imin]))]
         # get indexes
@@ -334,15 +335,15 @@ def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr
         }
 
     # we work on profiles averaged in time to reduce the noise
-    rcs = self.time_avg(
+    rcs = profiles.time_avg(
         time_avg, var="attenuated_backscatter_0"
     ).data.attenuated_backscatter_0
 
     clouds_bases, clouds_peaks, clouds_tops = [], [], []
     for i in (
-        tqdm(range(len(self.data.time.data)), desc="clouds")
+        tqdm(range(len(profiles.data.time.data)), desc="clouds")
         if verbose
-        else range(len(self.data.time.data))
+        else range(len(profiles.data.time.data))
     ):
         clouds = _detect_clouds_from_rcs(
             rcs.data[i, :], zmin, thr_noise, thr_clouds, min_snr
@@ -354,52 +355,33 @@ def detect_clouds(self, time_avg=1, zmin=0, thr_noise=5.0, thr_clouds=4, min_snr
         clouds_tops.append(clouds["tops"])
 
     # creates dataarrays
-    self.data["clouds_bases"] = xr.DataArray(
-        data=clouds_bases,
-        dims=["time", "altitude"],
-        coords=dict(
-            time=self.data.time.data,
-            altitude=self.data.altitude.data,
-        ),
-        attrs=dict(
-            long_name="Mask - Base height of clouds",
-            units="bool",
-            time_avg=time_avg,
-            thr_noise=thr_noise,
-            thr_clouds=thr_clouds,
-        ),
-    )
-    self.data["clouds_peaks"] = xr.DataArray(
-        data=clouds_peaks,
-        dims=["time", "altitude"],
-        coords=dict(
-            time=self.data.time.data,
-            altitude=self.data.altitude.data,
-        ),
-        attrs=dict(
-            long_name="Mask - Peak height of clouds",
-            units="bool",
-            time_avg=time_avg,
-            thr_noise=thr_noise,
-            thr_clouds=thr_clouds,
-        ),
-    )
-    self.data["clouds_tops"] = xr.DataArray(
-        data=clouds_tops,
-        dims=["time", "altitude"],
-        coords=dict(
-            time=self.data.time.data,
-            altitude=self.data.altitude.data,
-        ),
-        attrs=dict(
-            long_name="Mask - Top height of clouds",
-            units="bool",
-            time_avg=time_avg,
-            thr_noise=thr_noise,
-            thr_clouds=thr_clouds,
-        ),
-    )
-    return self
+    profiles.data["clouds_bases"] = (("time", "altitude"), clouds_bases)
+    profiles.data["clouds_bases"] = profiles.data.clouds_bases.assign_attrs({
+        'long_name': 'Mask - Base height of clouds',
+        'units': 'bool',
+        'time_avg': time_avg,
+        'thr_noise': thr_noise,
+        'thr_clouds': thr_clouds,
+    })
+
+    profiles.data["clouds_peaks"] = (("time", "altitude"), clouds_peaks)
+    profiles.data["clouds_peaks"] = profiles.data.clouds_peaks.assign_attrs({
+        'long_name': 'Mask - Peak height of clouds',
+        'units': 'bool',
+        'time_avg': time_avg,
+        'thr_noise': thr_noise,
+        'thr_clouds': thr_clouds,
+    })
+
+    profiles.data["clouds_tops"] = (("time", "altitude"), clouds_tops)
+    profiles.data["clouds_tops"] = profiles.data.clouds_tops.assign_attrs({
+        'long_name': 'Mask - Top height of clouds',
+        'units': 'bool',
+        'time_avg': time_avg,
+        'thr_noise': thr_noise,
+        'thr_clouds': thr_clouds,
+    })
+    return profiles
 
 
 def _main():

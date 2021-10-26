@@ -35,15 +35,17 @@ def write(dataset, base_dir=''):
     else:
         from pathlib import Path
         Path(os.path.join(base_dir, yyyy, mm, dd)).mkdir(parents=True, exist_ok=True)
-    
+
     # creates a copy od original dataset -> writes only necessary data
     ds = copy.deepcopy(dataset)
+
     # for the mass concentration, we just need the emc.
     emc = {}
     for data_var in list(ds.data_vars):
         if 'mass_concentration:' in data_var:
             emc[data_var.split(':')[1]] = dataset[data_var].emc
             ds = ds.drop(data_var)
+
     # add emc as new dataarray
     ds["emc"] = xr.DataArray(
         data=list(emc.values()),
@@ -53,6 +55,12 @@ def write(dataset, base_dir=''):
         ),
         attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1'),
     )
+
+    #drop other variables
+    drop_variables = ['cloud_base_height', 'vertical_visibility', 'cbh_uncertainties']
+    for drop_var in drop_variables:
+        ds = ds.drop(drop_var)
+
     # writes to netcdf
     ds.to_netcdf(path, mode='w')
 
