@@ -398,96 +398,35 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attribute
-        new_profiles_data.data[var].attrs["desaturated"] = True
+        new_profiles_data.data[var].attrs["desaturated"] = "True"
         return new_profiles_data
 
-    def foc(
-        self,
-        method="cloud_base",
-        var="attenuated_backscatter_0",
-        z_snr=2000.0,
-        min_snr=2.0,
-        zmin_cloud=200.0,
-    ):
+    def foc(self, method="cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
         """Calls :meth:`aprofiles.detection.foc.detect_foc()`."""
         return apro.detection.foc.detect_foc(self, method, var, z_snr, min_snr, zmin_cloud)
 
-    def clouds(
-        self,
-        time_avg=1,
-        zmin=0,
-        thr_noise=5.0,
-        thr_clouds=4,
-        min_snr=0.0,
-        verbose=False,
-    ):
+    def clouds(self, time_avg=1, zmin=0, thr_noise=5., thr_clouds=4., min_snr=0.0, verbose=False):
         """Calls :meth:`aprofiles.detection.clouds.detect_clouds()`."""
-        return apro.detection.clouds.detect_clouds(
-            self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose
-        )
+        return apro.detection.clouds.detect_clouds(self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
 
-    def pbl(
-        self,
-        time_avg=1,
-        zmin=100.0,
-        zmax=3000.0,
-        wav_width=200.0,
-        under_clouds=True,
-        min_snr=2.0,
-        verbose=False,
-    ):
+    def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
         """Calls :meth:`aprofiles.detection.pbl.detect_pbl()`."""
-        return apro.detection.pbl.detect_pbl(
-            self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose
-        )
+        return apro.detection.pbl.detect_pbl(self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose)
 
-    def inversion(
-        self,
-        time_avg=1,
-        zmin=4000.0,
-        zmax=6000.0,
-        min_snr=0.0,
-        under_clouds=False,
-        method="forward",
-        apriori={"lr": 50.0},
-        remove_outliers=False,
-        mass_conc=True,
-        mass_conc_method="mortier_2013",
-        verbose=False,
+    def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method="forward", 
+        apriori={"lr": 50.}, remove_outliers=False, mass_conc=True, mass_conc_method="mortier_2013", verbose=False,
     ):
         """Calls :meth:`aprofiles.retrieval.extinction.inversion()` to calculate extinction profiles.
         Calls :meth:`aprofiles.retrieval.mass_conc.mec()` to calculate Mass to Extinction coefficients if `mass_conc` is true (Default).
         """
-        return apro.retrieval.extinction.inversion(
-            self,
-            time_avg,
-            zmin,
-            zmax,
-            min_snr,
-            under_clouds,
-            method,
-            apriori,
-            remove_outliers,
-            verbose,
-        )
+        apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         if mass_conc:
             apro.retrieval.mass_conc.concentration_profiles(self, mass_conc_method)
+        return apro
 
     def plot(
-        self,
-        var="attenuated_backscatter_0",
-        datetime=None,
-        zref="agl",
-        zmin=None,
-        zmax=None,
-        vmin=None,
-        vmax=None,
-        log=False,
-        show_foc=False,
-        show_pbl=False,
-        show_clouds=False,
-        cmap="coolwarm",
-        **kwargs
+        self, var="attenuated_backscatter_0", datetime=None, zref="agl", zmin=None, zmax=None, vmin=None, vmax=None, log=False,
+        show_foc=False, show_pbl=False, show_clouds=False, cmap="coolwarm", **kwargs
     ):
         """Plotting method.
         Depending on the variable selected, this method will plot an image, a single profile or a time series of the requested variable.
@@ -516,41 +455,20 @@ class ProfilesData:
                 )
             )
 
-        # here, check the dimension. If the variable has only the time dimention, calls timeseries method
+        # here, check the dimension. If the variable has only the time dimension, calls timeseries method
         if datetime is None:
             # check dimension of var
             if len(list(self.data[var].dims)) == 2:
-                apro.plot.image.plot(
-                    self.data,
-                    var,
-                    zref,
-                    zmin,
-                    zmax,
-                    vmin,
-                    vmax,
-                    log,
-                    show_foc,
-                    show_pbl,
-                    show_clouds,
-                    cmap=cmap,
-                )
+                apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap=cmap)
             else:
                 apro.plot.timeseries.plot(self.data, var, **kwargs)
         else:
-            apro.plot.profile.plot(
-                self.data,
-                datetime,
-                var,
-                zref,
-                zmin,
-                zmax,
-                vmin,
-                vmax,
-                log,
-                show_foc,
-                show_pbl,
-                show_clouds,
-            )
+            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds)
+    
+    def write(self):
+        """Calls :meth:`aprofiles.io.write_profiles.write()`."""
+        apro.io.write_profiles.write(self.data, base_dir='examples/data/V-Profiles/')
+        
 
 
 def _main():
@@ -565,8 +483,12 @@ def _main():
     # detection
     profiles.foc(method="cloud_base", zmin_cloud=200)
     profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
+    profiles.pbl()
     profiles.plot(show_foc=True, show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
-
+    # inversion
+    profiles.inversion(zmin=4000, zmax=6000, method="forward", apriori={"lr":50.},mass_conc=True, verbose=True)
+    # write results
+    profiles.write()
 
 if __name__ == "__main__":
     _main()

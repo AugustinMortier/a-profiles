@@ -296,7 +296,8 @@ def inversion(
             time_avg=time_avg,
             zmin=zmin,
             zmax=zmax,
-            apriori=apriori,
+            apriori_variable=list(apriori.keys())[0],
+            apriori_value=apriori[list(apriori.keys())[0]]
         ),
     )
 
@@ -304,7 +305,7 @@ def inversion(
         data=aod,
         dims=["time"],
         coords=dict(time=self.data.time.data),
-        attrs=dict(long_name="Aerosol Optical Depth", units=None),
+        attrs=dict(long_name="Aerosol Optical Depth", units=""),
     )
 
     self.data["lidar_ratio"] = xr.DataArray(
