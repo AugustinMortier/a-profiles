@@ -22,11 +22,11 @@ def write(dataset, base_dir=''):
     def _file_exists(path):
         return os.path.exists(path)
     
-    def _convert_time_to_epoch(ds):
+    def _convert_time_after_epoch(ds, resolution='ms'):
         time_attrs = ds["time"].attrs
-        ds = ds.assign_coords(time=ds.time.data.astype("timedelta64[ms]").astype(int))
+        ds = ds.assign_coords(time=ds.time.data.astype("timedelta64[{}]".format(resolution)).astype(int))
         ds["time"] = ds["time"].assign_attrs(time_attrs)
-        ds["time"].attrs['units'] = 'milliseconds since epoch'
+        ds["time"].attrs['units'] = 'milliseconds after epoch'
         return ds
 
     #get date as string yyyy-mm-dd from first value of the time data
@@ -69,7 +69,7 @@ def write(dataset, base_dir=''):
         ds = ds.drop(drop_var)
 
     # converts time
-    ds = _convert_time_to_epoch(ds)
+    ds = _convert_time_after_epoch(ds, resolution='ms')
 
     # writes to netcdf
     ds.to_netcdf(path, mode='w')
