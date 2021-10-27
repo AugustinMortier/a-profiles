@@ -4,8 +4,7 @@
 # @email augustinm@met.no
 # @desc A-Profiles - Run aprofiles worflow for all stations for a given day
 
-from os import listdir
-from os.path import isfile, join
+import os
 import time
 
 import aprofiles as apro
@@ -16,7 +15,7 @@ BASE_DIR = 'data/e-profiles'
 date = '2021-09-09'
 
 # list all files in directory
-onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+#onlyfiles = [f for f in os.listdir(mypath) if os.path.isfile(os.path.join(mypath, f))]
 
 # read some data
 path = "examples/data/E-PROFILE/L2_0-20000-006735_A20210908.nc"
