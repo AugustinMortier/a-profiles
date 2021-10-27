@@ -64,9 +64,15 @@ def write(dataset, base_dir=''):
     )
 
     # drop other variables
-    drop_variables = ['cloud_base_height', 'vertical_visibility', 'cbh_uncertainties']
+    drop_variables = ['cloud_base_height', 'vertical_visibility', 'cbh_uncertainties', 'uncertainties_att_backscatter_0']
     for drop_var in drop_variables:
         ds = ds.drop(drop_var)
+    
+    # some variables have no dimension. Set it as attribute and drop the variable.
+    nodim_variables = ['l0_wavelength', 'station_latitude', 'station_longitude', 'station_altitude']
+    for nodim_var in nodim_variables:
+        ds.attrs[nodim_var] = ds[nodim_var].data
+        ds = ds.drop(nodim_var)
 
     # converts time
     ds = _convert_time_after_epoch(ds, resolution='ms')
