@@ -15,8 +15,8 @@ def write(dataset, base_dir=''):
     """Writing method for an instance of a :class:`aprofiles.profiles.ProfilesData` class.
 
     Args:
-        dataset (:class:`xarray.DataArray`): Dataset to be written.
-        base_dir (str): Base path of the file should be written.
+        - dataset (:class:`xarray.DataArray`): Dataset to be written.
+        - base_dir (str): Base path of the file should be written.
     """    
 
     def _file_exists(path):
