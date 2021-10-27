@@ -169,10 +169,11 @@
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 
-<div class="viewcode-block" id="concentration_profiles"><a class="viewcode-back" href="../../../api/retrieval.html#aprofiles.retrieval.mass_conc.concentration_profiles">[docs]</a><span class="k">def</span> <span class="nf">concentration_profiles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
+<div class="viewcode-block" id="concentration_profiles"><a class="viewcode-back" href="../../../api/retrieval.html#aprofiles.retrieval.mass_conc.concentration_profiles">[docs]</a><span class="k">def</span> <span class="nf">concentration_profiles</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Calculates Mass concentration profiles for different aerosol types</span>
 
 <span class="sd">    Args:</span>
+<span class="sd">        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.</span>
 <span class="sd">        - method ({&#39;mortier_2013&#39;,&#39;literature&#39;}): method for calculating EMC</span>
 
 <span class="sd">    Returns:</span>
@@ -213,8 +214,8 @@
     <span class="n">aer_types</span> <span class="o">=</span> <span class="n">aer_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 
     <span class="c1"># get wavelength</span>
-    <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="s2">&quot;nm&quot;</span><span class="p">:</span>
+    <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="s2">&quot;nm&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;wavelength units is not `nm`.&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">aer_type</span> <span class="ow">in</span> <span class="n">aer_types</span><span class="p">:</span>
@@ -222,26 +223,20 @@
         <span class="n">emc</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">emc</span><span class="o">.</span><span class="n">EMCData</span><span class="p">(</span><span class="n">aer_type</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
 
         <span class="c1"># compute mass_concentration profile. Use extinction as base.</span>
-        <span class="n">mass_concentration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span><span class="o">*</span><span class="mf">1e-3</span> <span class="c1">#conversion from km-1 to m-1</span>
-        <span class="c1"># mass_concentration = copy.deepcopy(self.data.extinction)</span>
+        <span class="n">mass_concentration</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span><span class="o">*</span><span class="mf">1e-3</span> <span class="c1">#conversion from km-1 to m-1</span>
+        <span class="c1"># mass_concentration = copy.deepcopy(profiles.data.extinction)</span>
         <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">mass_concentration</span><span class="p">,</span> <span class="n">emc</span><span class="o">.</span><span class="n">emc</span><span class="p">)</span>
         <span class="c1"># # conversion from g.m-3 to µg.m-3</span>
         <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="o">*</span><span class="mf">1e6</span>
 
         <span class="c1"># creates dataset with a dataarray for each aer_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mass_concentration:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="p">)]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
-            <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
-            <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-                <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Mass concentration [</span><span class="si">{}</span><span class="s2"> particles]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                    <span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-                <span class="p">),</span>
-                <span class="n">units</span><span class="o">=</span><span class="s2">&quot;µg.m-3&quot;</span><span class="p">,</span>
-                <span class="n">emc</span><span class="o">=</span><span class="n">emc</span><span class="o">.</span><span class="n">emc</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span></div>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mass_concentration:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="p">)]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;altitude&#39;</span><span class="p">),</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mass_concentration:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="p">)]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mass_concentration:</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="p">)]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+            <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s2">&quot;Mass concentration [</span><span class="si">{}</span><span class="s2"> particles]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)),</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;µg.m-3&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;emc&#39;</span><span class="p">:</span> <span class="n">emc</span><span class="o">.</span><span class="n">emc</span><span class="p">,</span>
+        <span class="p">})</span>
+    <span class="k">return</span> <span class="n">profiles</span></div>
 
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>

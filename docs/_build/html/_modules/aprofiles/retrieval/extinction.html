@@ -292,7 +292,7 @@
 
 
 <div class="viewcode-block" id="inversion"><a class="viewcode-back" href="../../../api/retrieval.html#aprofiles.retrieval.extinction.inversion">[docs]</a><span class="k">def</span> <span class="nf">inversion</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">profiles</span><span class="p">,</span>
     <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.0</span><span class="p">,</span>
     <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.0</span><span class="p">,</span>
@@ -306,6 +306,7 @@
     <span class="sd">&quot;&quot;&quot;Aerosol inversion of the attenuated backscatter profiles using an apriori.</span>
 
 <span class="sd">    Args:</span>
+<span class="sd">        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.</span>
 <span class="sd">        - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles. Defaults to 1.</span>
 <span class="sd">        - zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000..</span>
 <span class="sd">        - zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000..</span>
@@ -365,32 +366,32 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
-    <span class="n">rcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
+    <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
         <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    #if clouds detected, set to nan profiles where cloud is found below 4000m</span>
-<span class="sd">    lowest_clouds = self._get_lowest_clouds()</span>
-<span class="sd">    for i in range(len(self.data.time.data)):</span>
+<span class="sd">    lowest_clouds = profiles._get_lowest_clouds()</span>
+<span class="sd">    for i in range(len(profiles.data.time.data)):</span>
 <span class="sd">        if lowest_clouds[i]&lt;=4000:</span>
 <span class="sd">            rcs.data[i,:] = [np.nan for _ in rcs.data[i,:]]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># if under_clouds, check if clouds_bases is available</span>
-    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds_bases&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
-        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds_bases&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds_bases&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds_bases&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
             <span class="s2">&quot;under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.&quot;</span>
         <span class="p">)</span>
-        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
 
     <span class="c1"># aerosol retrieval requires a molecular profile</span>
-    <span class="n">altitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">altitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
     <span class="n">rayleigh</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">rayleigh</span><span class="o">.</span><span class="n">RayleighData</span><span class="p">(</span>
         <span class="n">altitude</span><span class="p">,</span> <span class="n">T0</span><span class="o">=</span><span class="mi">298</span><span class="p">,</span> <span class="n">P0</span><span class="o">=</span><span class="mi">1013</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span>
     <span class="p">)</span>
@@ -398,22 +399,22 @@
     <span class="c1"># aerosol inversion</span>
     <span class="n">ext</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">aod</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="n">aod_min</span><span class="p">,</span> <span class="n">aod_max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span>
-    <span class="n">vertical_resolution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_resolution</span><span class="p">(</span><span class="s2">&quot;altitude&quot;</span><span class="p">)</span>
+    <span class="n">vertical_resolution</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_resolution</span><span class="p">(</span><span class="s2">&quot;altitude&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span>
-        <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;klett &quot;</span><span class="p">)</span>
+        <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;klett &quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">verbose</span>
-        <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
     <span class="p">):</span>
         <span class="c1"># for the inversion, it is important to use the right units</span>
-        <span class="k">if</span> <span class="s2">&quot;E-6&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;E-6&quot;</span> <span class="ow">in</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
             <span class="n">calibrated_data</span> <span class="o">=</span> <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="mf">1e-6</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">calibrated_data</span> <span class="o">=</span> <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
 
         <span class="c1"># reference altitude</span>
-        <span class="n">lowest_cloud_agl</span> <span class="o">=</span> <span class="n">lowest_clouds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span>
-        <span class="n">imin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span>
-        <span class="n">imax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">([</span><span class="n">zmax</span><span class="p">,</span> <span class="n">lowest_cloud_agl</span><span class="p">]))</span>
+        <span class="n">lowest_cloud_agl</span> <span class="o">=</span> <span class="n">lowest_clouds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">([</span><span class="n">zmax</span><span class="p">,</span> <span class="n">lowest_cloud_agl</span><span class="p">]))</span>
         <span class="n">iref</span> <span class="o">=</span> <span class="n">get_iref</span><span class="p">(</span><span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">imin</span><span class="p">,</span> <span class="n">imax</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">iref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -443,35 +444,30 @@
                 <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ext</span><span class="p">)</span>
 
     <span class="c1"># creates dataarrays</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span><span class="p">,</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
-        <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
-        <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Extinction Coefficient at </span><span class="si">{}</span><span class="s2"> nm&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)),</span>
-            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> Klett&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()),</span>
-            <span class="n">units</span><span class="o">=</span><span class="s2">&quot;km-1&quot;</span><span class="p">,</span>
-            <span class="n">time_avg</span><span class="o">=</span><span class="n">time_avg</span><span class="p">,</span>
-            <span class="n">zmin</span><span class="o">=</span><span class="n">zmin</span><span class="p">,</span>
-            <span class="n">zmax</span><span class="o">=</span><span class="n">zmax</span><span class="p">,</span>
-            <span class="n">apriori</span><span class="o">=</span><span class="n">apriori</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span><span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s2">&quot;Extinction Coefficient at </span><span class="si">{}</span><span class="s2"> nm&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)),</span>
+        <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> Klett&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()),</span>
+        <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s2">&quot;km-1&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;time_avg&#39;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+        <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
+        <span class="s1">&#39;zmax&#39;</span><span class="p">:</span> <span class="n">zmax</span><span class="p">,</span>
+        <span class="s1">&#39;apriori_variable&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s1">&#39;apriori_value&#39;</span><span class="p">:</span> <span class="n">apriori</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="p">})</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">aod</span><span class="p">,</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span>
-        <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
-        <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Aerosol Optical Depth&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
-    <span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">aod</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">aod</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Aerosol Optical Depth&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span>
+    <span class="p">})</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span>
-        <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">),</span>
-        <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Lidar Ratio&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">&quot;sr&quot;</span><span class="p">),</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span></div>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lidar_ratio</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Lidar Ratio&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;sr&#39;</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">profiles</span></div>
 </pre></div>
 
               </div>

@@ -162,6 +162,11 @@
    Plotting
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="writing.html">
+   Writing
+  </a>
+ </li>
 </ul>
 
   </div>
@@ -240,7 +245,7 @@ Detection and retrieval methods might add information as additional <a class="re
 <dd><p>Base class representing profiles data returned by <a class="reference internal" href="reader.html#aprofiles.reader.ReadProfiles" title="aprofiles.reader.ReadProfiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.reader.ReadProfiles</span></code></a>.</p>
 <dl class="py method">
 <dt id="aprofiles.profiles.ProfilesData.clouds">
-<code class="sig-name descname">clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/profiles.html#ProfilesData.clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.clouds" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">clouds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">thr_noise</span><span class="o">=</span><span class="default_value">5.0</span></em>, <em class="sig-param"><span class="n">thr_clouds</span><span class="o">=</span><span class="default_value">4.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/profiles.html#ProfilesData.clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.clouds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calls <a class="reference internal" href="detection.html#aprofiles.detection.clouds.detect_clouds" title="aprofiles.detection.clouds.detect_clouds"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aprofiles.detection.clouds.detect_clouds()</span></code></a>.</p>
 </dd></dl>
 
@@ -496,6 +501,12 @@ See also <a class="reference internal" href="plotting.html#plotting"><span class
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="aprofiles.profiles.ProfilesData.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/profiles.html#ProfilesData.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <a class="reference internal" href="writing.html#aprofiles.io.write_profiles.write" title="aprofiles.io.write_profiles.write"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aprofiles.io.write_profiles.write()</span></code></a>.</p>
 </dd></dl>
 
 </dd></dl>

@@ -162,12 +162,13 @@
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
 
-<div class="viewcode-block" id="detect_clouds"><a class="viewcode-back" href="../../../api/detection.html#aprofiles.detection.clouds.detect_clouds">[docs]</a><span class="k">def</span> <span class="nf">detect_clouds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="detect_clouds"><a class="viewcode-back" href="../../../api/detection.html#aprofiles.detection.clouds.detect_clouds">[docs]</a><span class="k">def</span> <span class="nf">detect_clouds</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mf">4.</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Module for *clouds detection*.</span>
 <span class="sd">    The detection is performed on each individual profile. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        - time_avg (int, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to `1`.</span>
+<span class="sd">        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.</span>
+<span class="sd">        - time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to `1`.</span>
 <span class="sd">        - zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to `0`. We recommend using the same value as used in the extrapolation_low_layers method.</span>
 <span class="sd">        - thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] &gt;= thr_noise * noise(z). Defaults to `5`.</span>
 <span class="sd">        - thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds. Defaults to `4`.</span>
@@ -348,7 +349,7 @@
         <span class="n">all_bases</span> <span class="o">=</span> <span class="n">sign_changes</span> <span class="o">==</span> <span class="mi">2</span>
         <span class="n">all_peaks</span> <span class="o">=</span> <span class="n">sign_changes</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span>
         <span class="c1"># limit to bases above zmin</span>
-        <span class="n">imin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span>
         <span class="n">all_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]))]</span>
         <span class="n">all_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]))]</span>
         <span class="c1"># get indexes</span>
@@ -492,15 +493,15 @@
         <span class="p">}</span>
 
     <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
-    <span class="n">rcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
+    <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
         <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span>
     <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
 
     <span class="n">clouds_bases</span><span class="p">,</span> <span class="n">clouds_peaks</span><span class="p">,</span> <span class="n">clouds_tops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span>
-        <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;clouds&quot;</span><span class="p">)</span>
+        <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;clouds&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">verbose</span>
-        <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
     <span class="p">):</span>
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">_detect_clouds_from_rcs</span><span class="p">(</span>
             <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span>
@@ -512,52 +513,33 @@
         <span class="n">clouds_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clouds</span><span class="p">[</span><span class="s2">&quot;tops&quot;</span><span class="p">])</span>
 
     <span class="c1"># creates dataarrays</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_bases&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">clouds_bases</span><span class="p">,</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
-        <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">altitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Mask - Base height of clouds&quot;</span><span class="p">,</span>
-            <span class="n">units</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span>
-            <span class="n">time_avg</span><span class="o">=</span><span class="n">time_avg</span><span class="p">,</span>
-            <span class="n">thr_noise</span><span class="o">=</span><span class="n">thr_noise</span><span class="p">,</span>
-            <span class="n">thr_clouds</span><span class="o">=</span><span class="n">thr_clouds</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_peaks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">clouds_peaks</span><span class="p">,</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
-        <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">altitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Mask - Peak height of clouds&quot;</span><span class="p">,</span>
-            <span class="n">units</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span>
-            <span class="n">time_avg</span><span class="o">=</span><span class="n">time_avg</span><span class="p">,</span>
-            <span class="n">thr_noise</span><span class="o">=</span><span class="n">thr_noise</span><span class="p">,</span>
-            <span class="n">thr_clouds</span><span class="o">=</span><span class="n">thr_clouds</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_tops&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">clouds_tops</span><span class="p">,</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
-        <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">altitude</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Mask - Top height of clouds&quot;</span><span class="p">,</span>
-            <span class="n">units</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span>
-            <span class="n">time_avg</span><span class="o">=</span><span class="n">time_avg</span><span class="p">,</span>
-            <span class="n">thr_noise</span><span class="o">=</span><span class="n">thr_noise</span><span class="p">,</span>
-            <span class="n">thr_clouds</span><span class="o">=</span><span class="n">thr_clouds</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span></div>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_bases&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">clouds_bases</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_bases&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clouds_bases</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Mask - Base height of clouds&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;time_avg&#39;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+        <span class="s1">&#39;thr_noise&#39;</span><span class="p">:</span> <span class="n">thr_noise</span><span class="p">,</span>
+        <span class="s1">&#39;thr_clouds&#39;</span><span class="p">:</span> <span class="n">thr_clouds</span><span class="p">,</span>
+    <span class="p">})</span>
+
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_peaks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">clouds_peaks</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_peaks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clouds_peaks</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Mask - Peak height of clouds&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;time_avg&#39;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+        <span class="s1">&#39;thr_noise&#39;</span><span class="p">:</span> <span class="n">thr_noise</span><span class="p">,</span>
+        <span class="s1">&#39;thr_clouds&#39;</span><span class="p">:</span> <span class="n">thr_clouds</span><span class="p">,</span>
+    <span class="p">})</span>
+
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_tops&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">clouds_tops</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds_tops&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clouds_tops</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Mask - Top height of clouds&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;time_avg&#39;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+        <span class="s1">&#39;thr_noise&#39;</span><span class="p">:</span> <span class="n">thr_noise</span><span class="p">,</span>
+        <span class="s1">&#39;thr_clouds&#39;</span><span class="p">:</span> <span class="n">thr_clouds</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">profiles</span></div>
 
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>

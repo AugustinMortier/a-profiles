@@ -161,17 +161,11 @@
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 
-<div class="viewcode-block" id="detect_foc"><a class="viewcode-back" href="../../../api/detection.html#aprofiles.detection.foc.detect_foc">[docs]</a><span class="k">def</span> <span class="nf">detect_foc</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span>
-    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cloud_base&quot;</span><span class="p">,</span>
-    <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span>
-    <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.0</span><span class="p">,</span>
-    <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
-    <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.0</span><span class="p">,</span>
-<span class="p">):</span>
+<div class="viewcode-block" id="detect_foc"><a class="viewcode-back" href="../../../api/detection.html#aprofiles.detection.foc.detect_foc">[docs]</a><span class="k">def</span> <span class="nf">detect_foc</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;cloud_base&quot;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Detects fog or condensation.</span>
 
 <span class="sd">    Args:</span>
+<span class="sd">        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.</span>
 <span class="sd">        - method ({&#39;cloud_base&#39;, &#39;snr&#39;}, optional): Defaults to `&#39;cloud_base&#39;`.</span>
 <span class="sd">        - var (str, optional). Used for &#39;snr&#39; method. Variable to calculate SNR from. Defaults to `&#39;attenuated_backscatter_0&#39;`.</span>
 <span class="sd">        - z_snr (float, optional): Used for &#39;snr&#39; method. Altitude AGL (in m) at which we calculate the SNR. Defaults to `2000.`.</span>
@@ -200,15 +194,15 @@
 <span class="sd">            Fog or condensation (foc) detection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">_detect_fog_from_cloud_base_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_detect_fog_from_cloud_base_height</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="p">):</span>
         <span class="c1"># returns a bool list with True where fog/condensation cases</span>
         <span class="c1"># if the base of the first cloud (given by the constructor) is below</span>
-        <span class="n">first_cloud_base_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">cloud_base_height</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">first_cloud_base_height</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">cloud_base_height</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="c1"># condition</span>
         <span class="n">foc</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">zmin_cloud</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">first_cloud_base_height</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">foc</span>
 
-    <span class="k">def</span> <span class="nf">_detect_fog_from_snr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z_snr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_detect_fog_from_snr</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">z_snr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
         <span class="c1"># returns a bool list with True where fog/condensation cases</span>
 
         <span class="k">def</span> <span class="nf">_snr_at_iz</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">iz</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
@@ -223,33 +217,26 @@
                 <span class="k">return</span> <span class="mi">0</span>
 
         <span class="c1"># calculates snr at z_snr</span>
-        <span class="n">iz_snr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">z_snr</span><span class="p">)</span>
+        <span class="n">iz_snr</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">z_snr</span><span class="p">)</span>
         <span class="c1"># calculates snr at each timestamp</span>
         <span class="n">snr</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">_snr_at_iz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">iz_snr</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+            <span class="n">_snr_at_iz</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">iz_snr</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
         <span class="p">]</span>
         <span class="c1"># condition</span>
         <span class="n">foc</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">min_snr</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">snr</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">foc</span>
 
     <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;cloud_base&quot;</span><span class="p">:</span>
-        <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_cloud_base_height</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="p">)</span>
+        <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_cloud_base_height</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">method</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;SNR&quot;</span><span class="p">:</span>
-        <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_snr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z_snr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
+        <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_snr</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">z_snr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
 
     <span class="c1"># creates dataarray</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;foc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">foc</span><span class="p">,</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span>
-        <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Fog or condensation mask.&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="k">return</span> <span class="bp">self</span></div>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;foc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">foc</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;foc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">foc</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Fog or condensation mask&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">profiles</span></div>
 
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
@@ -260,7 +247,6 @@
 
     <span class="c1"># basic corrections</span>
     <span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mf">150.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
     <span class="c1"># detection</span>
     <span class="n">profiles</span><span class="o">.</span><span class="n">foc</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_foc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">)</span>
 

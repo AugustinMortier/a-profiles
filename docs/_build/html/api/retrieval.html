@@ -162,6 +162,11 @@
    Plotting
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="writing.html">
+   Writing
+  </a>
+ </li>
 </ul>
 
   </div>
@@ -274,10 +279,11 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 
 <dl class="py function">
 <dt id="aprofiles.retrieval.extinction.inversion">
-<code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'forward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/extinction.html#inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.inversion" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">aprofiles.retrieval.extinction.</code><code class="sig-name descname">inversion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">profiles</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">4000.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">6000.0</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'forward'</span></em>, <em class="sig-param"><span class="n">apriori</span><span class="o">=</span><span class="default_value">{'lr': 50.0}</span></em>, <em class="sig-param"><span class="n">remove_outliers</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/extinction.html#inversion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.extinction.inversion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Aerosol inversion of the attenuated backscatter profiles using an apriori.</p>
 <dl>
 <dt>Args:</dt><dd><ul class="simple">
+<li><p>profiles (<a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>): <cite>ProfilesData</cite> instance.</p></li>
 <li><p>time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles. Defaults to 1.</p></li>
 <li><p>zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000..</p></li>
 <li><p>zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000..</p></li>
@@ -342,10 +348,11 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <p>This module is used to calculate mass concentration profiles from extinction profiles for given aerosol types.</p>
 <span class="target" id="module-aprofiles.retrieval.mass_conc"></span><dl class="py function">
 <dt id="aprofiles.retrieval.mass_conc.concentration_profiles">
-<code class="sig-prename descclassname">aprofiles.retrieval.mass_conc.</code><code class="sig-name descname">concentration_profiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/mass_conc.html#concentration_profiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.mass_conc.concentration_profiles" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">aprofiles.retrieval.mass_conc.</code><code class="sig-name descname">concentration_profiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">profiles</span></em>, <em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/retrieval/mass_conc.html#concentration_profiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.retrieval.mass_conc.concentration_profiles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates Mass concentration profiles for different aerosol types</p>
 <dl>
 <dt>Args:</dt><dd><ul class="simple">
+<li><p>profiles (<a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>): <cite>ProfilesData</cite> instance.</p></li>
 <li><p>method ({‘mortier_2013’,’literature’}): method for calculating EMC</p></li>
 </ul>
 </dd>

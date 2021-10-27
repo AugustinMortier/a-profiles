@@ -14,3 +14,4 @@ Documentation of the core API of `aprofiles`.
    api/detection
    api/retrieval
    api/plotting
+   api/writing
