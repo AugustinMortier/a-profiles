@@ -11,12 +11,13 @@ import warnings
 import xarray as xr
 
 
-def write(dataset, base_dir=''):
+def write(profiles, base_dir, verbose):
     """Writing method for an instance of a :class:`aprofiles.profiles.ProfilesData` class.
 
     Args:
-        - dataset (:class:`xarray.DataArray`): Dataset to be written.
+        - aprofiles (:class:`aprofiles.profiles.ProfilesData`): Object to be written.
         - base_dir (str): Base path of the file should be written.
+        - verbose (bool): Verbose mode. Defaults to False.
     """    
 
     def _file_exists(path):
@@ -28,6 +29,24 @@ def write(dataset, base_dir=''):
         ds["time"] = ds["time"].assign_attrs(time_attrs)
         ds["time"].attrs['units'] = 'milliseconds after epoch'
         return ds
+    
+    def _get_scene(ds):
+        lowest_clouds = profiles._get_lowest_clouds()
+        scene = []
+        for i, lowest_cloud in enumerate(lowest_clouds):
+            if lowest_cloud<=6000:
+                scene.append('cloud<6km')
+            elif lowest_cloud>6000:
+                scene.append('cloud>6km')
+            else:
+                scene.append('aer')
+            # overwrite result based on foc
+            if ds.foc.data[i]:
+                scene[i] = 'foc'
+        return scene
+
+    # get dataset from profilesdata
+    dataset = profiles.data
 
     #get date as string yyyy-mm-dd from first value of the time data
     str_date = str(dataset.time.values[0])[:10]
@@ -37,7 +56,7 @@ def write(dataset, base_dir=''):
     filename = '{}-{}.nc'.format(dataset.wigos_station_id, str_date)
     path = os.path.join(base_dir, yyyy, mm, dd, filename)
 
-    if _file_exists(path):
+    if _file_exists(path) and verbose:
         warnings.warn('{} already exists and will be overwritten.'.format(path))
     else:
         from pathlib import Path
@@ -62,6 +81,18 @@ def write(dataset, base_dir=''):
         ),
         attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1'),
     )
+    # add attributes to aer_type
+    ds["aer_type"] = ds["aer_type"].assign_attrs({
+        'long_name': 'Aerosol type'
+    })
+
+    # determines the scene classification for each profile
+    scene = _get_scene(ds)
+    # add scene as new dataarray
+    ds["scene"] = ("time", scene)
+    ds["scene"] = ds["scene"].assign_attrs({
+        'long_name': "Scene classification",
+    })
 
     # drop other variables
     drop_variables = ['cloud_base_height', 'vertical_visibility', 'cbh_uncertainties', 'uncertainties_att_backscatter_0']

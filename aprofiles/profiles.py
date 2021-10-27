@@ -462,9 +462,9 @@ class ProfilesData:
         else:
             apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds)
     
-    def write(self):
+    def write(self, base_dir='examples/data/V-Profiles/', verbose=False):
         """Calls :meth:`aprofiles.io.write_profiles.write()`."""
-        apro.io.write_profiles.write(self.data, base_dir='examples/data/V-Profiles/')
+        apro.io.write_profiles.write(self, base_dir=base_dir, verbose=verbose)
         
 
 
