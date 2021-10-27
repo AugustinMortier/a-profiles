@@ -24,7 +24,7 @@ def write(dataset, base_dir=''):
     
     def _convert_time_after_epoch(ds, resolution='ms'):
         time_attrs = ds["time"].attrs
-        ds = ds.assign_coords(time=ds.time.data.astype("timedelta64[{}]".format(resolution)).astype(int))
+        ds = ds.assign_coords(time=ds.time.data.astype("datetime64[{}]".format(resolution)).astype(int))
         ds["time"] = ds["time"].assign_attrs(time_attrs)
         ds["time"].attrs['units'] = 'milliseconds after epoch'
         return ds
