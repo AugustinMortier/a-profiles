@@ -101,4 +101,10 @@ Both backward and forward methods have been implemented and can be used in this 
 Concentration
 ^^^^^^^^^^^^^^^^^^
 
-Coming soon
+Aerosol mass concentration is calculated by :method:`aprofiles.profiles.inversion`, if `mass_conc=True` (default),  for different aerosol types when calculating the extinction profiles.
+Together with `extinction`, other variables are added to the instance of the :class:`aprofiles.profiles.ProfilesData` class: `mass_concentration:[aer_type]`
+
+.. literalinclude:: ../examples/04_02_mass_concentration.py
+.. figure:: ../examples/images/mass_conc-dust.png
+
+      Mass concentration in the case of dust particles.

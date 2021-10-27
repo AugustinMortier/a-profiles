@@ -61,8 +61,9 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2.0, verbose=True)
 profiles.inversion(
     zmin=4000, zmax=6000, remove_outliers=True, method="forward", verbose=True
 )
-profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
-profiles.plot(var="mass_concentration:dust", zmax=6000, vmin=0, vmax=5e-2)
+#profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
+#profiles.plot(var="mass_concentration:dust", zmax=6000, vmin=0, vmax=5e-2)
+profiles.plot('mass_concentration:dust', zmax=6000, vmin=0, vmax=100, cmap='Oranges')
 # profiles.plot('pbl', ymin=0, ymax=3000)
 
 # # produce rayleigh profile
