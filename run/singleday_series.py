@@ -59,7 +59,7 @@ def make_calendar(yyyy, mm, base_dir):
 
 def add_to_calendar(path, yyyy, mm, base_dir):
     # calendar collects the number of inversions with no low-level clouds (<6km) at each station
-
+    """
     # read data
     ds = xr.open_dataset(os.path.join(path, filename), decode_times=True)
 
@@ -72,6 +72,7 @@ def add_to_calendar(path, yyyy, mm, base_dir):
     calname = 'cal.json'
     with open(os.path.join(base_dir, yyyy, mm, calname), 'w') as json_file:
         json.dump(data, json_file)
+    """
     pass
 
 def make_map(yyyy, mm, dd, base_dir):
