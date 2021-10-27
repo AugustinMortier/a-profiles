@@ -9,8 +9,8 @@ profiles.extrapolate_below(z=150, inplace=True)
 
 # aerosol retrievals - forward inversion
 profiles.inversion(
-    zmin=4000, zmax=6000, remove_outliers=True, method="forward", verbose=True
+    zmin=4000., zmax=6000., remove_outliers=True, method="forward", verbose=True
 )
 
 # plot mass concentration profiles im the case of desert dust
-profiles.plot('mass_concentration:dust', zmax=6000, vmin=0, vmax=100, cmap='Oranges')
+profiles.plot('mass_concentration:dust', zmax=6000., vmin=0., vmax=100., cmap='Oranges')
