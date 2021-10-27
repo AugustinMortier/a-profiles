@@ -107,4 +107,4 @@ Together with `extinction`, other variables are added to the instance of the :cl
 .. literalinclude:: ../examples/04_02_mass_concentration.py
 .. figure:: ../examples/images/mass_conc-dust.png
 
-      Mass concentration in the case of dust particles.
+      Mass concentration profiles in the case of desert dust particles.
