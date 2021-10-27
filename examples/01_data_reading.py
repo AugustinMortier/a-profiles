@@ -8,4 +8,6 @@ apro_reader = apro.reader.ReadProfiles(path)
 profiles = apro_reader.read()
 
 # plot the attenuated backscatter profile
-profiles.plot(var="attenuated_backscatter_0", zref="agl", log=True, vmin=1e-2, vmax=1e1)
+profiles.plot(
+    var="attenuated_backscatter_0", zref="agl", log=True, vmin=1e-2, vmax=1e1
+)

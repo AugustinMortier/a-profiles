@@ -13,4 +13,6 @@ profiles.inversion(
 )
 
 # plot mass concentration profiles im the case of desert dust
-profiles.plot('mass_concentration:dust', zmax=6000., vmin=0., vmax=100., cmap='Oranges')
+profiles.plot(
+    'mass_concentration:dust', zmax=6000., vmin=0., vmax=100., cmap='Oranges'
+)
