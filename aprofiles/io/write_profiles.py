@@ -30,14 +30,17 @@ def write(profiles, base_dir, verbose):
         ds["time"].attrs['units'] = 'milliseconds after epoch'
         return ds
     
-    def _get_scene(ds):
+    def _classify_scene(ds):
         lowest_clouds = profiles._get_lowest_clouds()
         scene = []
+        # got clouds classification here: https://www.metoffice.gov.uk/weather/learn-about/weather/types-of-weather/clouds
         for i, lowest_cloud in enumerate(lowest_clouds):
-            if lowest_cloud<=6000:
-                scene.append('cloud<6km')
-            elif lowest_cloud>6000:
-                scene.append('cloud>6km')
+            if lowest_cloud<=1981:
+                scene.append('low_cloud')
+            elif lowest_cloud>1981 and lowest_cloud<=6096:
+                scene.append('mid_cloud')
+            elif lowest_cloud>6096:
+                scene.append('high_cloud')
             else:
                 scene.append('aer')
             # overwrite result based on foc
@@ -87,11 +90,12 @@ def write(profiles, base_dir, verbose):
     })
 
     # determines the scene classification for each profile
-    scene = _get_scene(ds)
+    scene = _classify_scene(ds)
     # add scene as new dataarray
     ds["scene"] = ("time", scene)
     ds["scene"] = ds["scene"].assign_attrs({
         'long_name': "Scene classification",
+        'definition': 'low-cloud: base cloud below 1981 m - mid_cloud: base cloud between 1981 m and 6096 m - high_cloud: base cloud above 6096 m - foc: fog or condensation'
     })
 
     # drop other variables

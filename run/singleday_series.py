@@ -35,22 +35,6 @@ def aprofiles_workflow(path, instrument_types, verbose=False):
         profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method="forward", verbose=verbose)
         profiles.write(base_dir=BASE_DIR_OUT)
 
-def get_lowest_clouds(ds):
-    # returns an array of the altitude (in m, ASL) of the lowest cloud for each timestamp of a dataset
-    def _get_true_indexes(mask):
-        # mask: list of Bool
-        # returns a list indexes where the mask is True
-        return [i for i, x in enumerate(mask) if x]
-
-    lowest_clouds = []
-    for i in np.arange(len(ds.time.data)):
-        i_clouds = _get_true_indexes(ds.clouds_bases.data[i, :])
-        if len(i_clouds) > 0:
-            lowest_clouds.append(ds.altitude.data[i_clouds[0]])
-        else:
-            lowest_clouds.append(np.nan)
-    return np.asarray(lowest_clouds)
-
 def make_calendar(yyyy, mm, base_dir):
     # one calendar, per month
     calname = 'cal.json'
@@ -59,6 +43,7 @@ def make_calendar(yyyy, mm, base_dir):
 
 def add_to_calendar(path, yyyy, mm, base_dir):
     # calendar collects the number of inversions with no low-level clouds (<6km) at each station
+    # for each station, write number of each scene class (aer, cloud<6km, cloud>6km, )
     """
     # read data
     ds = xr.open_dataset(os.path.join(path, filename), decode_times=True)
