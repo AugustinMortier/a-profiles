@@ -169,12 +169,13 @@
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 
-<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../../api/writing.html#aprofiles.io.write_profiles.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../../api/writing.html#aprofiles.io.write_profiles.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writing method for an instance of a :class:`aprofiles.profiles.ProfilesData` class.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        - dataset (:class:`xarray.DataArray`): Dataset to be written.</span>
+<span class="sd">        - aprofiles (:class:`aprofiles.profiles.ProfilesData`): Object to be written.</span>
 <span class="sd">        - base_dir (str): Base path of the file should be written.</span>
+<span class="sd">        - verbose (bool): Verbose mode. Defaults to False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>    
 
     <span class="k">def</span> <span class="nf">_file_exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -186,6 +187,27 @@
         <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span><span class="n">time_attrs</span><span class="p">)</span>
         <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;milliseconds after epoch&#39;</span>
         <span class="k">return</span> <span class="n">ds</span>
+    
+    <span class="k">def</span> <span class="nf">_classify_scene</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># got clouds classification here: https://www.metoffice.gov.uk/weather/learn-about/weather/types-of-weather/clouds</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">lowest_cloud</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lowest_clouds</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">lowest_cloud</span><span class="o">&lt;=</span><span class="mi">1981</span><span class="p">:</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;low_cloud&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">lowest_cloud</span><span class="o">&gt;</span><span class="mi">1981</span> <span class="ow">and</span> <span class="n">lowest_cloud</span><span class="o">&lt;=</span><span class="mi">6096</span><span class="p">:</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mid_cloud&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">lowest_cloud</span><span class="o">&gt;</span><span class="mi">6096</span><span class="p">:</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;high_cloud&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">scene</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;aer&#39;</span><span class="p">)</span>
+            <span class="c1"># overwrite result based on foc</span>
+            <span class="k">if</span> <span class="n">ds</span><span class="o">.</span><span class="n">foc</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">scene</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;foc&#39;</span>
+        <span class="k">return</span> <span class="n">scene</span>
+
+    <span class="c1"># get dataset from profilesdata</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span>
 
     <span class="c1">#get date as string yyyy-mm-dd from first value of the time data</span>
     <span class="n">str_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">])[:</span><span class="mi">10</span><span class="p">]</span>
@@ -195,7 +217,7 @@
     <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">.nc&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">wigos_station_id</span><span class="p">,</span> <span class="n">str_date</span><span class="p">)</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">yyyy</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">_file_exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">_file_exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> already exists and will be overwritten.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
@@ -220,6 +242,19 @@
         <span class="p">),</span>
         <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Extinction to Mass Coefficient&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m2.g-1&#39;</span><span class="p">),</span>
     <span class="p">)</span>
+    <span class="c1"># add attributes to aer_type</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;aer_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;aer_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Aerosol type&#39;</span>
+    <span class="p">})</span>
+
+    <span class="c1"># determines the scene classification for each profile</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">_classify_scene</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+    <span class="c1"># add scene as new dataarray</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;scene&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
+    <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;scene&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;scene&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s2">&quot;Scene classification&quot;</span><span class="p">,</span>
+        <span class="s1">&#39;definition&#39;</span><span class="p">:</span> <span class="s1">&#39;low-cloud: base cloud below 1981 m - mid_cloud: base cloud between 1981 m and 6096 m - high_cloud: base cloud above 6096 m - foc: fog or condensation&#39;</span>
+    <span class="p">})</span>
 
     <span class="c1"># drop other variables</span>
     <span class="n">drop_variables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cloud_base_height&#39;</span><span class="p">,</span> <span class="s1">&#39;vertical_visibility&#39;</span><span class="p">,</span> <span class="s1">&#39;cbh_uncertainties&#39;</span><span class="p">,</span> <span class="s1">&#39;uncertainties_att_backscatter_0&#39;</span><span class="p">]</span>

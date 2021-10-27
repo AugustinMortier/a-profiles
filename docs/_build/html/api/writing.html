@@ -220,12 +220,13 @@
 <p>This module is used to write data of an instance of the <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> class as a <cite>NetCDF</cite> file.</p>
 <span class="target" id="module-aprofiles.io.write_profiles"></span><dl class="py function">
 <dt id="aprofiles.io.write_profiles.write">
-<code class="sig-prename descclassname">aprofiles.io.write_profiles.</code><code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">base_dir</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/io/write_profiles.html#write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.io.write_profiles.write" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">aprofiles.io.write_profiles.</code><code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">profiles</span></em>, <em class="sig-param"><span class="n">base_dir</span></em>, <em class="sig-param"><span class="n">verbose</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/io/write_profiles.html#write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.io.write_profiles.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writing method for an instance of a <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> class.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>dataset (<a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>): Dataset to be written.</p></li>
+<li><p>aprofiles (<a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a>): Object to be written.</p></li>
 <li><p>base_dir (str): Base path of the file should be written.</p></li>
+<li><p>verbose (bool): Verbose mode. Defaults to False.</p></li>
 </ul>
 </dd>
 </dl>

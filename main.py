@@ -64,6 +64,7 @@ profiles.inversion(
 #profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
 #profiles.plot(var="mass_concentration:dust", zmax=6000, vmin=0, vmax=5e-2)
 profiles.plot('mass_concentration:dust', zmax=6000, vmin=0, vmax=100, cmap='Oranges')
+profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=100, cmap='Reds')
 # profiles.plot('pbl', ymin=0, ymax=3000)
 
 # # produce rayleigh profile

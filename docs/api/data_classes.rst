@@ -4,7 +4,7 @@ Data Classes
 ProfilesData
 ------------
 
-The :class:`aprofiles.profiles.ProfilesData` class contains profiles data information. Most of the information can be found in the data attribute, which is a :class:`xarray.Dataset`.
+The :class:`~aprofiles.profiles.ProfilesData` class contains profiles data information. Most of the information can be found in the `data` attribute, which is a :class:`xarray.Dataset`.
 Detection and retrieval methods might add information as additional :class:`xarray.DataArray`.
 
 .. automodule:: aprofiles.profiles
@@ -23,7 +23,7 @@ Not implemented yet.
 Rayleigh
 --------
 
-The :class:`aprofiles.rayleigh.RayleighData` class is used for producing Rayleigh profiles in a standard atmosphere.
+The :class:`~aprofiles.rayleigh.RayleighData` class is used for producing Rayleigh profiles in a standard atmosphere.
 
 .. automodule:: aprofiles.rayleigh
    :members:
@@ -50,7 +50,7 @@ Aerosol properties are defined in :download:`../../aprofiles/config/aer_properti
 Extinction to Mass Coefficient
 ------------------------------
 
-The :class:`aprofiles.emc.EMCData` class is used for computing an `Extinction to Mass Coefficient` for a given aerosol type.
+The :class:`~aprofiles.emc.EMCData` class is used for computing an `Extinction to Mass Coefficient` for a given aerosol type.
 
 .. automodule:: aprofiles.emc
    :members:
