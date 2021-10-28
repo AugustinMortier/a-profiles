@@ -57,13 +57,13 @@ def write(profiles, base_dir, verbose):
     mm = str_date[5:7]
     dd = str_date[8:10]
     filename = '{}-{}.nc'.format(dataset.wigos_station_id, str_date)
-    path = os.path.join(base_dir, yyyy, mm, dd, filename)
+    path = os.path.join(base_dir, yyyy, mm, dd, 'profiles', filename)
 
     if _file_exists(path) and verbose:
         warnings.warn('{} already exists and will be overwritten.'.format(path))
     else:
         from pathlib import Path
-        Path(os.path.join(base_dir, yyyy, mm, dd)).mkdir(parents=True, exist_ok=True)
+        Path(os.path.join(base_dir, yyyy, mm, dd, 'profiles')).mkdir(parents=True, exist_ok=True)
 
     # creates a copy od original dataset -> writes only necessary data
     ds = copy.deepcopy(dataset)
