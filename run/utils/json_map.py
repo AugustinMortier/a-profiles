@@ -6,6 +6,7 @@
 
 import json
 import os
+import warnings
 
 import numpy as np
 import xarray as xr
@@ -27,11 +28,16 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     # need to convert time (from int to datetime) in order to use the resample method from xarray
     ds = ds.assign_coords(time = ds.time.data.astype("datetime64[ms]"))
 
+    # in order to prevent some monotony issue, sort by time
+    ds = ds.sortby('time')
+
     # extinction for each hour
     max_ext_profiles = ds.extinction.resample(time="1H").max().data
 
     # take the maximum value in each profile
-    max_ext = np.nanmax(max_ext_profiles, axis=1)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", category=RuntimeWarning)
+        max_ext = np.nanmax(max_ext_profiles, axis=1)
 
     # scene for each hour
     # attribute a weight to each scene in order to prioritize the scenes
@@ -44,15 +50,14 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     ds["weight_scene"] = ('time', scene)
     # takes the highest weight for resampled data
     max_weight = ds.scene.resample(time="1H").max().data
+    # some weight might be nan if there was no measurements available
+    max_weight = [weight if not np.isnan(weight) else None for weight in max_weight]
 
     # reverse dictionnary
     weight_scenes = {v: k for k, v in scene_weights.items()}
-    max_scene = max_weight
-    for weight_scene in weight_scenes.keys():
-        max_scene[max_scene==weight_scene] = weight_scenes[weight_scene]
+    max_scene =[weight_scenes[weight] if weight is not None else None for weight in max_weight]
 
     # open current map
-    mapname = 'map.json'
     with open(os.path.join(base_dir, yyyy, mm, dd, mapname), 'r') as json_file:
         data = json.load(json_file)
     json_file.close()        
@@ -62,8 +67,8 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     if station_id not in data:
         data[station_id] = {}
     data[station_id][dd] = {
-        'ext': max_ext.tolist(),
-        'scene': max_scene.tolist()
+        'ext': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext],
+        'scene': max_scene
     }
 
     # write new map

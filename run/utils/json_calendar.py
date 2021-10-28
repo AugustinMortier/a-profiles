@@ -30,7 +30,6 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     scene_counts['total'] = len(ds.scene.data)
 
     # open current calendar
-    calname = 'cal.json'
     with open(os.path.join(base_dir, yyyy, mm, calname), 'r') as json_file:
         data = json.load(json_file)
     json_file.close()        

@@ -14,6 +14,7 @@ import xarray as xr
 
 import run
 
+
 BASE_DIR_IN = 'data/e-profile'
 BASE_DIR_OUT = 'data/v-profiles'
 
@@ -37,7 +38,7 @@ def _main():
         path = os.path.join(datepath, onlyfiles[i])
         run.workflow.workflow(path, instrument_types, BASE_DIR_IN, verbose=False)
     """
-
+    
     # list all files in out directory
     datepath = os.path.join(BASE_DIR_OUT, yyyy, mm, dd, 'profiles')
     onlyfiles = [f for f in os.listdir(datepath) if os.path.isfile(os.path.join(datepath, f))]
@@ -53,12 +54,12 @@ def _main():
         run.json_calendar.add_to_calendar(fn, BASE_DIR_OUT, yyyy, mm, dd, calname)
 
     # create map
-    mapname = '{}-{}-{}-cal.json'.format(yyyy, mm, dd)
+    mapname = '{}-{}-{}-map.json'.format(yyyy, mm, dd)
     if not os.path.exists(os.path.join(BASE_DIR_OUT, yyyy, mm, dd, mapname)):
         run.json_map.make_map(BASE_DIR_OUT, yyyy, mm, dd, mapname)
 
     # add to map
-    for i in (tqdm(range(len(onlyfiles)), desc='calendar')):
+    for i in (tqdm(range(len(onlyfiles)), desc='map     ')):
         fn = os.path.join(BASE_DIR_OUT, yyyy, mm, dd, 'profiles', onlyfiles[i])
         run.json_map.add_to_map(fn, BASE_DIR_OUT, yyyy, mm, dd, mapname)
     
