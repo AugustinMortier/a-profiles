@@ -288,7 +288,7 @@ def inversion(
     # creates dataarrays
     profiles.data["extinction"] = (("time","altitude"), np.asarray(ext) * 1e3)
     profiles.data["extinction"] = profiles.data.extinction.assign_attrs({
-        'long_name': "Extinction Coefficient at {} nm".format(int(wavelength)),
+        'long_name': "Extinction Coefficient @ {} nm".format(int(wavelength)),
         'method': "{} Klett".format(method.capitalize()),
         'units': "km-1",
         'time_avg': time_avg,
@@ -300,13 +300,13 @@ def inversion(
 
     profiles.data["aod"] = ("time", aod)
     profiles.data["aod"] = profiles.data.aod.assign_attrs({
-        'long_name': 'Aerosol Optical Depth',
+        'long_name': 'Aerosol Optical Depth @ {} nm'.format(int(wavelength)),
         'unit': ''
     })
 
     profiles.data["lidar_ratio"] = ('time', lr)
     profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
-        'long_name': 'Lidar Ratio',
+        'long_name': 'Lidar Ratio @ {} nm'.format(int(wavelength)),
         'units': 'sr'
     })
     return profiles

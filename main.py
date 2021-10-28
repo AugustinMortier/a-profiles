@@ -42,7 +42,7 @@ profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
 profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2.0, verbose=True)
 
 # plot image
-# profiles.plot(zref='agl', zmax=6000., show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1)
+#profiles.plot(zref='agl', show_foc=False, show_clouds=True, show_pbl=False, log=True, vmin=1e-2, vmax=1e1)
 
 # plot single profile
 # datetime = np.datetime64('2021-09-09T19:25:00')
@@ -59,12 +59,12 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2.0, verbose=True)
 
 # forward
 profiles.inversion(
-    zmin=4000, zmax=6000, remove_outliers=True, method="forward", verbose=True
+    zmin=4000, zmax=6000, remove_outliers=False, method="forward", verbose=True
 )
-#profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
+profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
 #profiles.plot(var="mass_concentration:dust", zmax=6000, vmin=0, vmax=5e-2)
-profiles.plot('mass_concentration:dust', zmax=6000, vmin=0, vmax=100, cmap='Oranges')
-profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=100, cmap='Reds')
+#profiles.plot('mass_concentration:dust', zmax=6000, vmin=0, vmax=100, cmap='Oranges')
+#profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=100, cmap='Reds')
 # profiles.plot('pbl', ymin=0, ymax=3000)
 
 # # produce rayleigh profile
