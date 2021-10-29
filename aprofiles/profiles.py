@@ -40,7 +40,7 @@ class ProfilesData:
             int: Closest index of the vertical dimension to the given altitude AGL
         """
         altitude_asl = altitude + self.data.station_altitude.data
-        return np.argmin(abs(self.data.altitude.data - altitude_asl))
+        return int(np.argmin(abs(self.data.altitude.data - altitude_asl)))
 
     def _get_resolution(self, which):
         """Returns the resolution of a given dimension. Support 'altitude' and 'time'.
@@ -464,7 +464,7 @@ class ProfilesData:
     
     def write(self, base_dir='examples/data/V-Profiles/', verbose=False):
         """Calls :meth:`aprofiles.io.write_profiles.write()`."""
-        apro.io.write_profiles.write(self, base_dir=base_dir, verbose=verbose)
+        apro.io.write_profiles.write(self, base_dir, verbose=verbose)
         
 
 
