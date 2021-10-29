@@ -210,23 +210,17 @@ def plot(
     station_id = da.attrs["site_location"]
     # title
     plt.title(
-        "{} ({:.2f};{:.2f};{:.1f}m) - {}".format(
-            station_id,
-            latitude,
-            longitude,
-            altitude,
-            np.datetime_as_string(da_time[i_time]).split(".")[0],
-        ),
+        f"{station_id} ({latitude:.2f};{longitude:.2f};{altitude:.1f}m) - {np.datetime_as_string(da_time[i_time]).split('.')[0]}",
         weight="bold",
         fontsize=12,
     )
     # labels
     if "units" in list(da[var].attrs) and da[var].units is not None:
-        xlabel = "{} ({})".format(da[var].long_name, da[var].units)
+        xlabel = f"{da[var].long_name} ({da[var].units})"
     else:
-        xlabel = "{}".format(da[var].long_name)
+        xlabel = f"{da[var].long_name}"
     plt.xlabel(xlabel)
-    plt.ylabel("Altitude {} (m)".format(zref.upper()))
+    plt.ylabel(f"Altitude {zref.upper()} (m)")
 
     # add legend
     if show_foc or show_clouds or show_pbl:

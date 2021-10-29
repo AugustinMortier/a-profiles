@@ -164,24 +164,24 @@ class RayleighData:
         plt.text(
             0.95,
             0.94,
-            r"$\sigma_m: {:.2e} cm-2$".format(self.cross_section),
+            f"$\sigma_m: {self.cross_section:.2e} cm-2$",
             horizontalalignment="right",
             verticalalignment="center",
             transform=ax.transAxes,
         )
         plt.title(
-            "Rayleigh Profile in a Standard Atmosphere ({}hPa, {}K)".format(
-                self.P0, self.T0
-            ),
+            f"Rayleigh Profile in a Standard Atmosphere ({self.P0}hPa, {self.T0}K)",
             weight="bold",
         )
-        plt.xlabel("Extinction coefficient @ {}nm (m-1)".format(self.wavelength))
+        plt.xlabel(f"Extinction coefficient @ {self.wavelength} nm (m-1)")
         plt.ylabel("Altitude ASL (m)")
         plt.tight_layout()
         plt.show()
 
 
 def _main():
+    import aprofiles as apro
+
     altitude = np.arange(15, 15000, 15)
     wavelength = 1064.0
     rayleigh = RayleighData(altitude, wavelength)

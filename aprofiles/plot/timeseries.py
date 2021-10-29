@@ -67,18 +67,16 @@ def plot(da, var="aod", **kwargs):
     station_id = da.attrs["site_location"]
     # title
     plt.title(
-        "{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}".format(
-            station_id, latitude, longitude, altitude, yyyy, mm, dd
-        ),
+        f"{station_id} ({latitude:.2f};{longitude:.2f};{altitude:.1f}m) - {yyyy}/{mm:02}/{dd:02}",
         weight="bold",
     )
     # labels
     plt.xlabel("Time")
 
     if "units" in list(da[var].attrs) and da[var].units is not None:
-        ylabel = "{} ({})".format(da[var].long_name, da[var].units)
+        ylabel = f"{da[var].long_name} ({da[var].units})"
     else:
-        ylabel = "{}".format(da[var].long_name)
+        ylabel = f"{da[var].long_name}"
     plt.ylabel(ylabel)
 
     plt.tight_layout()

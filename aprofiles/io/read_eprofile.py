@@ -30,7 +30,7 @@ class ReadEPROFILE:
         # check if file is NetCDF
         filename = self.path.split("/")[-1]
         if filename[-3:] != ".nc":
-            raise OSError("NetCDF: Unknown file format:{}".format(filename))
+            raise OSError(f"NetCDF: Unknown file format:{filename}")
         # check if web address
         if self.path[0:5] == "https":
             raise NotImplementedError(
@@ -46,7 +46,7 @@ class ReadEPROFILE:
         dataset = xr.open_dataset(self.path, decode_times=True)
         # replace wavelength with actual value in attenuated backscatter longname
         dataset.attenuated_backscatter_0.attrs["long_name"] = dataset.attenuated_backscatter_0.long_name.replace(
-            "at wavelength 0", "@ {} nm".format(int(dataset.l0_wavelength.data))
+            "at wavelength 0", f"@ {int(dataset.l0_wavelength.data)} nm"
         )
         dataset.attenuated_backscatter_0.attrs["units"] = dataset.attenuated_backscatter_0.attrs["units"].replace(
             "1E-6*1/(m*sr)", ("E-6 m-1.sr-1")

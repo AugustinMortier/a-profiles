@@ -72,9 +72,9 @@ def concentration_profiles(profiles, method):
         mass_concentration.data = mass_concentration.data*1e6
 
         # creates dataset with a dataarray for each aer_type
-        profiles.data["mass_concentration:{}".format(aer_type)] = (('time', 'altitude'), mass_concentration.data)
-        profiles.data["mass_concentration:{}".format(aer_type)] = profiles.data["mass_concentration:{}".format(aer_type)].assign_attrs({
-            'long_name': "Mass concentration [{} particles]".format(aer_type.replace("_", " ")),
+        profiles.data[f"mass_concentration:{aer_type}"] = (('time', 'altitude'), mass_concentration.data)
+        profiles.data[f"mass_concentration:{aer_type}"] = profiles.data[f"mass_concentration:{aer_type}"].assign_attrs({
+            'long_name': f"Mass concentration [{aer_type.replace('_', ' ')} particles]",
             'units': 'µg.m-3',
             'emc': emc.emc,
         })

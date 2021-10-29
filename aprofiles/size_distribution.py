@@ -36,9 +36,7 @@ class SizeDistributionData:
         # check if the aer_type exist in the json file
         if aer_type not in aer_properties.keys():
             raise ValueError(
-                "{} not found in aer_properties.json. `aer_type` must be one of the follwowing: {}".format(
-                    aer_type, list(aer_properties.keys())
-                )
+                f"{aer_type} not found in aer_properties.json. `aer_type` must be one of the follwowing: {list(aer_properties.keys())}"
             )
         else:
             self.aer_properties = aer_properties[self.aer_type]
@@ -120,14 +118,14 @@ class SizeDistributionData:
         # plot Volume Size Distribution in 1st axis
         print(self.vsd)
         ax.plot(self.radius, self.vsd, label="VSD")
-        ax.set_ylabel("V(r) ({})".format("µm2.µm-3"))
+        ax.set_ylabel("V(r) (µm2.µm-3)")
 
         # plot Number Size Distribution in 2nd axis
         if "nsd" in self.__dict__:
             # add secondary yaxis
             ax2 = ax.twinx()
             ax2.plot(self.radius, self.nsd, "orange", label="NSD")
-            ax2.set_ylabel("N(r) ({})".format("µm-3.µm-1"))
+            ax2.set_ylabel("N(r) (µm-3.µm-1)")
             # ax2.set_ylim([0,10])
 
         ax.set_xlabel("Radius (µm)")
@@ -136,9 +134,7 @@ class SizeDistributionData:
             loc="upper right", bbox_to_anchor=(1, 1), bbox_transform=ax.transAxes
         )
         plt.title(
-            "Size Distribution for {} Particles".format(
-                self.aer_type.capitalize().replace("_", " ")
-            ),
+            f"Size Distribution for {self.aer_type.capitalize().replace('_', ' ')} Particles",
             weight="bold",
         )
         plt.tight_layout()

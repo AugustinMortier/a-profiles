@@ -307,7 +307,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         axs[0].plot(data, altitude_agl, 'b', label='rcs')
         axs[0].plot(avg_data, altitude_agl, 'c', label='rcs')
         axs[0].plot(avg_abs_noise,altitude_agl,':b', label='noise level')
-        axs[0].plot(avg_abs_noise*thr_noise,altitude_agl,':b', label='noise level * {}'.format(thr_noise))
+        axs[0].plot(avg_abs_noise*thr_noise,altitude_agl,':b', label=f'noise level * {thr_noise}')
         axs[0].plot(data[bases], altitude_agl[bases], '<g', label='bases')
         axs[0].plot(data[peaks], altitude_agl[peaks], '>r', label='peaks')
         axs[0].plot(data[tops], altitude_agl[tops], '^k', label='tops')

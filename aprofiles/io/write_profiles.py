@@ -25,7 +25,7 @@ def write(profiles, base_dir, verbose):
     
     def _convert_time_after_epoch(ds, resolution='ms'):
         time_attrs = ds["time"].attrs
-        ds = ds.assign_coords(time=ds.time.data.astype("datetime64[{}]".format(resolution)).astype(int))
+        ds = ds.assign_coords(time=ds.time.data.astype(f"datetime64[{resolution}]").astype(int))
         ds["time"] = ds["time"].assign_attrs(time_attrs)
         ds["time"].attrs['units'] = 'milliseconds after epoch'
         return ds
@@ -56,11 +56,11 @@ def write(profiles, base_dir, verbose):
     yyyy = str_date[:4]
     mm = str_date[5:7]
     dd = str_date[8:10]
-    filename = '{}-{}.nc'.format(dataset.wigos_station_id, str_date)
+    filename = f"{dataset.wigos_station_id}-{str_date}.nc"
     path = os.path.join(base_dir, yyyy, mm, dd, 'profiles', filename)
 
     if _file_exists(path) and verbose:
-        warnings.warn('{} already exists and will be overwritten.'.format(path))
+        warnings.warn(f"{path} already exists and will be overwritten.")
     else:
         from pathlib import Path
         Path(os.path.join(base_dir, yyyy, mm, dd, 'profiles')).mkdir(parents=True, exist_ok=True)

@@ -211,14 +211,12 @@ def plot(
     station_id = da.attrs["site_location"]
     # title
     plt.title(
-        "{} ({:.2f};{:.2f};{:.1f}m) - {}/{:02}/{:02}".format(
-            station_id, latitude, longitude, altitude, yyyy, mm, dd
-        ),
+        f"{station_id} ({latitude:.2f};{longitude:.2f};{altitude:.1f}m) - {yyyy}/{mm:02}/{dd:02}",
         weight="bold",
     )
     # labels
     plt.xlabel("Time")
-    plt.ylabel("Altitude {} (m)".format(zref.upper()))
+    plt.ylabel(f"Altitude {zref.upper()} (m)")
 
     # add legend
     if show_foc or show_clouds or show_pbl:
@@ -228,9 +226,9 @@ def plot(
     cbar = plt.colorbar()
     # label
     if "units" in list(da[var].attrs) and da[var].units is not None:
-        label = "{} ({})".format(da[var].long_name, da[var].units)
+        label = f"{da[var].long_name} ({da[var].units})"
     else:
-        label = "{}".format(da[var].long_name)
+        label = f"{da[var].long_name}"
     cbar.set_label(label)
 
     plt.tight_layout()

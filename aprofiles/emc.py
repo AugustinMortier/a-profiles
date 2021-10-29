@@ -219,21 +219,21 @@ class EMCData:
 
         # plot Volume Size Distribution in 1st axis
         ax.plot(self.radius, self.vsd, label="VSD")
-        ax.set_ylabel("V(r) ({})".format("µm2.µm-3"))
+        ax.set_ylabel("V(r) (µm2.µm-3)")
 
         # plot Number Size Distribution in 2nd axis
         if "nsd" in self.__dict__:
             # add secondary yaxis
             ax2 = ax.twinx()
             ax2.plot(self.radius, self.qext, "orange", label="Qext", color="gray")
-            ax2.set_ylabel("Qext ({})".format("unitless"))
+            ax2.set_ylabel("Qext (unitless)")
             # ax2.set_ylim([0,10])
 
         # add additional information
         plt.text(
             0.975,
             0.85,
-            r"$at\ \lambda={:.0f}\ nm$".format(self.wavelength),
+            f"$at\ \lambda={self.wavelength:.0f}\ nm$",
             horizontalalignment="right",
             verticalalignment="center",
             transform=ax.transAxes,
@@ -241,7 +241,7 @@ class EMCData:
         plt.text(
             0.975,
             0.80,
-            r"$c_v: {:.2f}\ \mu m$".format(self.conv_factor * 1e6),
+            f"$c_v: {self.conv_factor * 1e6:.2f}\ \mu m$",
             horizontalalignment="right",
             verticalalignment="center",
             transform=ax.transAxes,
@@ -249,7 +249,7 @@ class EMCData:
         plt.text(
             0.975,
             0.75,
-            r"$EMC: {:.2f}\ m^2/g$".format(self.emc),
+            f"$EMC: {self.emc:.2f}\ m^2/g$",
             horizontalalignment="right",
             verticalalignment="center",
             transform=ax.transAxes,
@@ -261,9 +261,7 @@ class EMCData:
             loc="upper right", bbox_to_anchor=(1, 1), bbox_transform=ax.transAxes
         )
         plt.title(
-            "{} particles properties for EMC calculation".format(
-                self.aer_type.capitalize().replace("_", " ")
-            ),
+            f"{self.aer_type.capitalize().replace('_', ' ')} particles properties for EMC calculation",
             weight="bold",
         )
         plt.tight_layout()
@@ -274,7 +272,7 @@ def _main():
     import aprofiles as aprofiles
 
     emc_data = EMCData("urban", 1064.0)
-    print("{:.2e} m {:.2f} m2.g-1".format(emc_data.conv_factor, emc_data.emc))
+    print(f"{emc_data.conv_factor:.2e} m {emc_data.emc:.2f} m2.g-1")
     emc_data.plot()
 
 
