@@ -94,7 +94,7 @@ html_theme_options = {
         }
     ],
     "external_links": [
-      {"name": "V-Profiles", "url": "https://aerocom-vprofiles.met.no"},
+      {"name": "V-Profiles", "url": "https://vprofiles.met.no"},
     ],
     "show_toc_level": 1,
     "navbar_align": "content",
