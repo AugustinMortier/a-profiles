@@ -13,7 +13,7 @@ Welcome to *A-Profiles* documentation!
 Using elastic measurements performed by Lidars and/or ceilometers, *A-Profiles* includes several modules such as clouds detection, tracking of the planetary boundary layer height
 or the retrieval of aerosol properties (extinction, mass concentration) using some a priori.
 
-At present time, *A-Profiles* supports `E-PROFILE <https://e-profile.eu/#/cm_profile>`_ data reading. This library is used by `V-Profiles <https://aerocom-vprofiles.met.no>`_.
+At present time, *A-Profiles* supports `E-PROFILE <https://e-profile.eu/#/cm_profile>`_ data reading. This library is used by `V-Profiles <https://vprofiles.met.no>`_.
 
 .. toctree::
    :maxdepth: 1
