@@ -97,7 +97,7 @@
 
     
     <li class="nav-item">
-        <a class="nav-link nav-external" href="https://aerocom-vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
+        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
     </li>
     
 </ul>
@@ -198,7 +198,7 @@
 <span class="sd">            int: Closest index of the vertical dimension to the given altitude AGL</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">altitude_asl</span> <span class="o">=</span> <span class="n">altitude</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">altitude_asl</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">altitude_asl</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">_get_resolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">which</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns the resolution of a given dimension. Support &#39;altitude&#39; and &#39;time&#39;.</span>
@@ -622,7 +622,7 @@
     
 <div class="viewcode-block" id="ProfilesData.write"><a class="viewcode-back" href="../../api/data_classes.html#aprofiles.profiles.ProfilesData.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="s1">&#39;examples/data/V-Profiles/&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Calls :meth:`aprofiles.io.write_profiles.write()`.&quot;&quot;&quot;</span>
-        <span class="n">apro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_profiles</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div></div>
+        <span class="n">apro</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_profiles</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span></div></div>
         
 
 

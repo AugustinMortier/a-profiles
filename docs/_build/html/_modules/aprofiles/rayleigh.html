@@ -97,7 +97,7 @@
 
     
     <li class="nav-item">
-        <a class="nav-link nav-external" href="https://aerocom-vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
+        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
     </li>
     
 </ul>
@@ -322,24 +322,24 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
             <span class="mf">0.95</span><span class="p">,</span>
             <span class="mf">0.94</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s2">&quot;$\sigma_m: </span><span class="si">{:.2e}</span><span class="s2"> cm-2$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cross_section</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;$\sigma_m: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cross_section</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> cm-2$&quot;</span><span class="p">,</span>
             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
             <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-            <span class="s2">&quot;Rayleigh Profile in a Standard Atmosphere (</span><span class="si">{}</span><span class="s2">hPa, </span><span class="si">{}</span><span class="s2">K)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">P0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">T0</span>
-            <span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;Rayleigh Profile in a Standard Atmosphere (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">P0</span><span class="si">}</span><span class="s2">hPa, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">T0</span><span class="si">}</span><span class="s2">K)&quot;</span><span class="p">,</span>
             <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Extinction coefficient @ </span><span class="si">{}</span><span class="s2">nm (m-1)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extinction coefficient @ </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="si">}</span><span class="s2"> nm (m-1)&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Altitude ASL (m)&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div></div>
 
 
 <span class="k">def</span> <span class="nf">_main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
+
     <span class="n">altitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15000</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
     <span class="n">wavelength</span> <span class="o">=</span> <span class="mf">1064.0</span>
     <span class="n">rayleigh</span> <span class="o">=</span> <span class="n">RayleighData</span><span class="p">(</span><span class="n">altitude</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">)</span>

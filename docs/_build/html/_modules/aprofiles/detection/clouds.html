@@ -97,7 +97,7 @@
 
     
     <li class="nav-item">
-        <a class="nav-link nav-external" href="https://aerocom-vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
+        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
     </li>
     
 </ul>
@@ -465,7 +465,7 @@
 <span class="sd">        axs[0].plot(data, altitude_agl, &#39;b&#39;, label=&#39;rcs&#39;)</span>
 <span class="sd">        axs[0].plot(avg_data, altitude_agl, &#39;c&#39;, label=&#39;rcs&#39;)</span>
 <span class="sd">        axs[0].plot(avg_abs_noise,altitude_agl,&#39;:b&#39;, label=&#39;noise level&#39;)</span>
-<span class="sd">        axs[0].plot(avg_abs_noise*thr_noise,altitude_agl,&#39;:b&#39;, label=&#39;noise level * {}&#39;.format(thr_noise))</span>
+<span class="sd">        axs[0].plot(avg_abs_noise*thr_noise,altitude_agl,&#39;:b&#39;, label=f&#39;noise level * {thr_noise}&#39;)</span>
 <span class="sd">        axs[0].plot(data[bases], altitude_agl[bases], &#39;&lt;g&#39;, label=&#39;bases&#39;)</span>
 <span class="sd">        axs[0].plot(data[peaks], altitude_agl[peaks], &#39;&gt;r&#39;, label=&#39;peaks&#39;)</span>
 <span class="sd">        axs[0].plot(data[tops], altitude_agl[tops], &#39;^k&#39;, label=&#39;tops&#39;)</span>

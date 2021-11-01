@@ -97,7 +97,7 @@
 
     
     <li class="nav-item">
-        <a class="nav-link nav-external" href="https://aerocom-vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
+        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
     </li>
     
 </ul>
@@ -377,21 +377,21 @@
 
         <span class="c1"># plot Volume Size Distribution in 1st axis</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vsd</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;VSD&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;V(r) (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;µm2.µm-3&quot;</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;V(r) (µm2.µm-3)&quot;</span><span class="p">)</span>
 
         <span class="c1"># plot Number Size Distribution in 2nd axis</span>
         <span class="k">if</span> <span class="s2">&quot;nsd&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
             <span class="c1"># add secondary yaxis</span>
             <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
             <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">qext</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Qext&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
-            <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Qext (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;unitless&quot;</span><span class="p">))</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Qext (unitless)&quot;</span><span class="p">)</span>
             <span class="c1"># ax2.set_ylim([0,10])</span>
 
         <span class="c1"># add additional information</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
             <span class="mf">0.975</span><span class="p">,</span>
             <span class="mf">0.85</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s2">&quot;$at\ \lambda=</span><span class="si">{:.0f}</span><span class="s2">\ nm$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;$at\ \lambda=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">\ nm$&quot;</span><span class="p">,</span>
             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
             <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
@@ -399,7 +399,7 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
             <span class="mf">0.975</span><span class="p">,</span>
             <span class="mf">0.80</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s2">&quot;$c_v: </span><span class="si">{:.2f}</span><span class="s2">\ \mu m$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv_factor</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;$c_v: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">conv_factor</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">\ \mu m$&quot;</span><span class="p">,</span>
             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
             <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
@@ -407,7 +407,7 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
             <span class="mf">0.975</span><span class="p">,</span>
             <span class="mf">0.75</span><span class="p">,</span>
-            <span class="sa">r</span><span class="s2">&quot;$EMC: </span><span class="si">{:.2f}</span><span class="s2">\ m^2/g$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emc</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;$EMC: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">emc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">\ m^2/g$&quot;</span><span class="p">,</span>
             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
             <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
@@ -419,9 +419,7 @@
             <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">bbox_transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span>
         <span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> particles properties for EMC calculation&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">aer_type</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-            <span class="p">),</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">aer_type</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> particles properties for EMC calculation&quot;</span><span class="p">,</span>
             <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -432,7 +430,7 @@
     <span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">aprofiles</span>
 
     <span class="n">emc_data</span> <span class="o">=</span> <span class="n">EMCData</span><span class="p">(</span><span class="s2">&quot;urban&quot;</span><span class="p">,</span> <span class="mf">1064.0</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.2e}</span><span class="s2"> m </span><span class="si">{:.2f}</span><span class="s2"> m2.g-1&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">emc_data</span><span class="o">.</span><span class="n">conv_factor</span><span class="p">,</span> <span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">emc_data</span><span class="o">.</span><span class="n">conv_factor</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2"> m </span><span class="si">{</span><span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m2.g-1&quot;</span><span class="p">)</span>
     <span class="n">emc_data</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 
 
