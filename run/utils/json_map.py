@@ -67,6 +67,14 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     if station_id not in data:
         data[station_id] = {}
     data[station_id][dd] = {
+        'attrs': {
+            'coords': {
+                'latitude': ds.attrs['station_latitude'],
+                'longitude': ds.attrs['station_longitude'],
+                'altitude': ds.attrs['station_altitude'],
+            },
+            'l0_wavelength': ds.attrs['l0_wavelength'],
+        },
         'ext': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext],
         'scene': max_scene
     }

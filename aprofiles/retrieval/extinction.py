@@ -196,7 +196,7 @@ def inversion(
             Forward inversion
 
             >>> #aerosol inversion
-            >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='backward')
+            >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='forward')
             >>> #plot extinction profiles
             >>> profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
 
