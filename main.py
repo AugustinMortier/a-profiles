@@ -42,7 +42,7 @@ profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
 profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2.0, verbose=True)
 
 # plot image
-#profiles.plot(zref='agl', show_foc=False, show_clouds=True, show_pbl=False, log=True, vmin=1e-2, vmax=1e1)
+profiles.plot(zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1)
 
 # plot single profile
 # datetime = np.datetime64('2021-09-09T19:25:00')

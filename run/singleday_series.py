@@ -17,7 +17,7 @@ def _main():
 
     instrument_types = ['CHM15k', 'miniMPL']
 
-    date = '2021-09-09'
+    date = '2021-09-10'
 
     yyyy = date.split('-')[0]
     mm = date.split('-')[1]

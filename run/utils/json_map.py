@@ -74,6 +74,8 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
                 'altitude': ds.attrs['station_altitude'],
             },
             'l0_wavelength': ds.attrs['l0_wavelength'],
+            'station_id': ds.attrs['wigos_station_id'],
+            'station_name': ds.attrs['site_location']
         },
         'ext': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext],
         'scene': max_scene
