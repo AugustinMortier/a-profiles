@@ -12,9 +12,9 @@ import numpy as np
 import xarray as xr
 
 
-def make_map(base_dir, yyyy, mm, dd, mapname):
+def make_map(base_dir, yyyy, mm, mapname):
     # one map, per day, which collects the maximum extinction with no low-level clouds (<6km) at each station
-    with open(os.path.join(base_dir, yyyy, mm, dd, mapname), 'w') as json_file:
+    with open(os.path.join(base_dir, yyyy, mm, mapname), 'w') as json_file:
         json.dump({}, json_file)
 
 def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
@@ -58,7 +58,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     max_scene =[weight_scenes[weight] if weight is not None else None for weight in max_weight]
 
     # open current map
-    with open(os.path.join(base_dir, yyyy, mm, dd, mapname), 'r') as json_file:
+    with open(os.path.join(base_dir, yyyy, mm, mapname), 'r') as json_file:
         data = json.load(json_file)
     json_file.close()        
 
@@ -75,12 +75,13 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
             },
             'l0_wavelength': ds.attrs['l0_wavelength'],
             'station_id': ds.attrs['wigos_station_id'],
-            'station_name': ds.attrs['site_location']
+            'station_name': ds.attrs['site_location'],
+            'instrument_type': ds.attrs['instrument_type']
         },
         'ext': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext],
         'scene': max_scene
     }
 
     # write new map
-    with open(os.path.join(base_dir, yyyy, mm, dd, mapname), 'w') as json_file:
+    with open(os.path.join(base_dir, yyyy, mm, mapname), 'w') as json_file:
         json.dump(data, json_file)
