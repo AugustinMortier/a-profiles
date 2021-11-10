@@ -31,13 +31,21 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     # in order to prevent some monotony issue, sort by time
     ds = ds.sortby('time')
 
-    # extinction for each hour
-    max_ext_profiles = ds.extinction.resample(time="1H").max().data
+    layers = ['0-6', '0-2', '2-4', '4-6']
+    max_ext = {}
+    for layer in layers:
+        zmin = float(layer.split('-')[0])*1000
+        zmax = float(layer.split('-')[1])*1000
+        zmin_asl = zmin + ds.attrs['station_altitude']
+        zmax_asl = zmax + ds.attrs['station_altitude']
+        
+        # extinction for each hour
+        max_ext_profiles = ds.where((ds.altitude>=zmin_asl) & (ds.altitude<zmax_asl), drop=True).extinction.resample(time="1H").max().data
 
-    # take the maximum value in each profile
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", category=RuntimeWarning)
-        max_ext = np.nanmax(max_ext_profiles, axis=1)
+        # take the maximum value in each profile
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=RuntimeWarning)
+            max_ext[layer] = np.nanmax(max_ext_profiles, axis=1)
 
     # scene for each hour
     # attribute a weight to each scene in order to prioritize the scenes
@@ -78,7 +86,10 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
             'station_name': ds.attrs['site_location'],
             'instrument_type': ds.attrs['instrument_type']
         },
-        'ext': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext],
+        'max_ext:0-6km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['0-6']],
+        'max_ext:0-2km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['0-2']],
+        'max_ext:2-4km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['2-4']],
+        'max_ext:4-6km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['4-6']],
         'scene': max_scene
     }
 
