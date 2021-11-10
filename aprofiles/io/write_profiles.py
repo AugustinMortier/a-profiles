@@ -82,7 +82,7 @@ def write(profiles, base_dir, verbose):
         coords=dict(
             aer_type=list(emc.keys()),
         ),
-        attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1'),
+        attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1', wavelength=dataset.l0_wavelength.data),
     )
     # add attributes to aer_type
     ds["aer_type"] = ds["aer_type"].assign_attrs({

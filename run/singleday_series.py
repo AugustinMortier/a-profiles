@@ -17,12 +17,12 @@ def _main():
 
     instrument_types = ['CHM15k', 'miniMPL']
 
-    date = '2021-09-10'
+    date = '2021-09-09'
 
     yyyy = date.split('-')[0]
     mm = date.split('-')[1]
     dd = date.split('-')[2]
-    """
+
     # list all files in in directory
     datepath = os.path.join(BASE_DIR_IN, yyyy, mm, dd)
     onlyfiles = [f for f in os.listdir(datepath) if os.path.isfile(os.path.join(datepath, f))]
@@ -31,7 +31,7 @@ def _main():
     for i in (tqdm(range(len(onlyfiles)), desc=date)):
         path = os.path.join(datepath, onlyfiles[i])
         run.workflow.workflow(path, instrument_types, BASE_DIR_OUT, verbose=False)
-    """
+
     # list all files in out directory
     datepath = os.path.join(BASE_DIR_OUT, yyyy, mm, dd)
     onlyfiles = [f for f in os.listdir(datepath) if os.path.isfile(os.path.join(datepath, f))]

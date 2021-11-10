@@ -28,7 +28,7 @@ class EMCData:
         >>> emc_data = EMCData('volcanic_ash', 532.)
         >>> emc_data.__dict__.keys()
         dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'emc'])
-        >>> print('{:.2e} m {:.2e} m2.g-1'.format(emc_data.conv_factor, emc_data.emc))
+        >>> print(f'{emc_data.conv_factor:.2e} m {emc_data.emc):.2e} m2.g-1')
         6.21e-07 m 0.62 m2.g-1
 
     """
