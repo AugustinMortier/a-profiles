@@ -42,7 +42,7 @@ def _main():
         run.json_calendar.make_calendar(BASE_DIR_OUT, yyyy, mm, calname)
 
     # add to calendar
-    for i in (tqdm(range(len(onlyfiles)), desc='calendar')):
+    for i in (tqdm(range(len(onlyfiles)), desc='calendar  ')):
         fn = os.path.join(BASE_DIR_OUT, yyyy, mm, dd, onlyfiles[i])
         run.json_calendar.add_to_calendar(fn, BASE_DIR_OUT, yyyy, mm, dd, calname)
 
@@ -52,7 +52,7 @@ def _main():
         run.json_map.make_map(BASE_DIR_OUT, yyyy, mm, mapname)
 
     # add to map
-    for i in (tqdm(range(len(onlyfiles)), desc='map     ')):
+    for i in (tqdm(range(len(onlyfiles)), desc='map       ')):
         fn = os.path.join(BASE_DIR_OUT, yyyy, mm, dd, onlyfiles[i])
         run.json_map.add_to_map(fn, BASE_DIR_OUT, yyyy, mm, dd, mapname)
     

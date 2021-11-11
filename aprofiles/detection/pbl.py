@@ -138,7 +138,7 @@ def detect_pbl(
 
     # creates dataarrays
     profiles.data["pbl"] = ("time", pbl)
-    profiles.data["pbl"].assign_attrs({
+    profiles.data["pbl"] = profiles.data.pbl.assign_attrs({
         'long_name': "Planetary Boundary Layer Height, ASL",
         'units': 'm',
         'time_avg': time_avg,
