@@ -49,15 +49,15 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
 
     # scene for each hour
     # attribute a weight to each scene in order to prioritize the scenes
-    scene_weights = {'foc': 4, 'low_cloud': 3, 'mid_cloud': 2, 'high_cloud': 1, 'aer': 0}
-    scene = np.asarray(ds.scene.data)
+    scene_weights = {'foc': 3, 'cloud_below': 2, 'cloud_above': 1, 'aer': 0}
+    scene = np.asarray(ds.retrieval_scene.data)
     for scene_weight in scene_weights.keys():
         scene[scene==scene_weight] = scene_weights[scene_weight]
 
     # creates dataarrays in order to resample with xarray method
     ds["weight_scene"] = ('time', scene)
     # takes the highest weight for resampled data
-    max_weight = ds.scene.resample(time="1H").max().data
+    max_weight = ds.weight_scene.resample(time="1H").max().data
     # some weight might be nan if there was no measurements available
     max_weight = [weight if not np.isnan(weight) else None for weight in max_weight]
 
@@ -90,7 +90,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
         'max_ext:0-2km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['0-2']],
         'max_ext:2-4km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['2-4']],
         'max_ext:4-6km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['4-6']],
-        'scene': max_scene
+        'retrieval_scene': max_scene
     }
 
     # write new map
