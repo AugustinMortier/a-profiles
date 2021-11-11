@@ -11,7 +11,7 @@ def detect_pbl(
     zmax=3000.0,
     wav_width=200.0,
     under_clouds=True,
-    min_snr=2.0,
+    min_snr=1.0,
     verbose=False,
 ):
     """Module for *Planetary Boundary Layer Height* detection.
@@ -24,7 +24,7 @@ def detect_pbl(
         - zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to `3000`.
         - wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to `200`.
         - under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile. Defaults to `True`.
-        - min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to `2.`.
+        - min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to `1.`.
         - verbose (bool, optional): verbose mode. Defaults to `False`.
 
     Returns:
