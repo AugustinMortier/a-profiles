@@ -239,7 +239,7 @@ def inversion(
     )
 
     # aerosol inversion
-    ext, lr, aod = [], [], []
+    ext, lr, aod, z_ref = [], [], [], []
     aod_min, aod_max = 0, 0.5
     vertical_resolution = profiles._get_resolution("altitude")
     for i in (
@@ -258,6 +258,7 @@ def inversion(
         imin = profiles._get_index_from_altitude_AGL(zmin)
         imax = profiles._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
         iref = get_iref(rcs.data[i, :], imin, imax, min_snr)
+        z_ref.append(altitude[iref])
 
         if iref is not None:
             # aerosol inversion
@@ -295,7 +296,7 @@ def inversion(
         'zmin': zmin,
         'zmax': zmax,
         'apriori_variable': list(apriori.keys())[0],
-        'apriori_value': apriori[list(apriori.keys())[0]]
+        'apriori_value': apriori[list(apriori.keys())[0]],
         })
 
     profiles.data["aod"] = ("time", aod)
@@ -309,4 +310,11 @@ def inversion(
         'long_name': f"Lidar Ratio @ {int(wavelength)} nm",
         'units': 'sr'
     })
+
+    profiles.data["z_ref"] = ('time', z_ref)
+    profiles.data["z_ref"] = profiles.data.z_ref.assign_attrs({
+        'long_name': f"Reference altitude ASL",
+        'units': 'm'
+    })
+
     return profiles
