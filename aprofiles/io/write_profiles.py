@@ -36,16 +36,16 @@ def write(profiles, base_dir, verbose):
         # got clouds classification here: https://www.metoffice.gov.uk/weather/learn-about/weather/types-of-weather/clouds
         for i, lowest_cloud in enumerate(lowest_clouds):
             if lowest_cloud<=1981:
-                scene.append('low_cloud')
+                scene.append(3)
             elif lowest_cloud>1981 and lowest_cloud<=6096:
-                scene.append('mid_cloud')
+                scene.append(2)
             elif lowest_cloud>6096:
-                scene.append('high_cloud')
+                scene.append(1)
             else:
-                scene.append('aer')
+                scene.append(0)
             # overwrite result based on foc
             if ds.foc.data[i]:
-                scene[i] = 'foc'
+                scene[i] = 4
         return scene
     
     def _classify_retrieval_scene(ds):
@@ -54,15 +54,15 @@ def write(profiles, base_dir, verbose):
         scene = []
         for i, _ in enumerate(lowest_clouds):
             if lowest_clouds[i]>z_ref[i]:
-                scene.append('cloud_above')
+                scene.append(1)
             elif lowest_clouds[i]<z_ref[i]:
-                scene.append('cloud_below')
+                scene.append(3)
             else:
-                scene.append('aer')
+                scene.append(0)
         
         # add foc scene if detected
         foc = profiles.data.foc.data
-        scene = [sc  if not foc[i] else 'foc' for i, sc in enumerate(scene)]
+        scene = [sc  if not foc[i] else 4 for i, sc in enumerate(scene)]
         return scene
 
     # get dataset from profilesdata
@@ -112,7 +112,7 @@ def write(profiles, base_dir, verbose):
     ds["scene"] = ("time", scene)
     ds["scene"] = ds["scene"].assign_attrs({
         'long_name': "Scene classification",
-        'definition': 'low-cloud: base cloud below 1981 m - mid_cloud: base cloud between 1981 m and 6096 m - high_cloud: base cloud above 6096 m - foc: fog or condensation'
+        'definition': '0: aer (aerosols only) / 1: high_cloud (base cloud above 6096 m) / 2: mid_cloud (base cloud between 1981 m and 6096 m) / 3: low-cloud (base cloud below 1981 m) - 4: foc (fog or condensation)'
     })
 
     # add scene for extinction profile: cloud_above, cloud_below
@@ -121,11 +121,11 @@ def write(profiles, base_dir, verbose):
     ds["retrieval_scene"] = ("time", retrieval_scene)
     ds["retrieval_scene"] = ds["retrieval_scene"].assign_attrs({
         'long_name': "Retrieval scene classification",
-        'definition': 'cloud_above: cloud above reference altitude - cloud_below: cloud below reference point - aer: no cloud in whole profile - foc: fog or condensation'
+        'definition': '0: aer (aerosols only) / 1: cloud_above (cloud above reference altitude) / 3: cloud_below (cloud below reference point) / 4: foc (fog or condensation)'
     })
 
     # drop other variables
-    drop_variables = ['cloud_base_height', 'vertical_visibility', 'cbh_uncertainties', 'uncertainties_att_backscatter_0']
+    drop_variables = ['start_time', 'cloud_base_height', 'vertical_visibility', 'cbh_uncertainties', 'uncertainties_att_backscatter_0']
     for drop_var in drop_variables:
         ds = ds.drop(drop_var)
     

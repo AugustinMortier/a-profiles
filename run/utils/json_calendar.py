@@ -23,11 +23,11 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     ds = xr.open_dataset(fn)
 
     # counts scenes
-    scene_classes = ['low_cloud', 'mid_cloud', 'high_cloud', 'foc', 'aer']
+    scene_classes = [4, 3, 1, 0]
     scene_counts = {}
     for scene_class in scene_classes:
-        scene_counts[scene_class] = len(ds.scene.data[ds.scene.data == scene_class])
-    scene_counts['total'] = len(ds.scene.data)
+        scene_counts[scene_class] = len(ds.retrieval_scene.data[ds.retrieval_scene.data == scene_class])
+    scene_counts['total'] = len(ds.retrieval_scene.data)
 
     # open current calendar
     with open(os.path.join(base_dir, yyyy, mm, calname), 'r') as json_file:
