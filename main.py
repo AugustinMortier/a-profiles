@@ -71,6 +71,6 @@ profiles.inversion(
 # rayleigh = apro.rayleigh_data.RayleighData(altitude, wavelength=wavelength, T0=298, P0=1013);
 # rayleigh.plot()
  # retrievals
-profiles.write('./test.nc')
+profiles.write('testdir')
 
 print("--- %s seconds ---" % (time.time() - start_time))

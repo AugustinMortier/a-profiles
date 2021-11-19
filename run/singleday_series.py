@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # @author Augustin Mortier
 # @email augustinm@met.no
 # @desc A-Profiles - Run aprofiles workflow for all stations in series for a given day
@@ -13,11 +11,7 @@ import run
 BASE_DIR_IN = 'data/e-profile'
 BASE_DIR_OUT = 'data/v-profiles'
 
-def _main():
-
-    instrument_types = ['CHM15k', 'miniMPL']
-
-    date = '2021-09-10'
+def _main(date: str, instrument_types=['CHM15k', 'mini-MPL']):
 
     yyyy = date.split('-')[0]
     mm = date.split('-')[1]
@@ -57,4 +51,8 @@ def _main():
         run.json_map.add_to_map(fn, BASE_DIR_OUT, yyyy, mm, dd, mapname)
     
 if __name__ == "__main__":
-    _main()
+    import sys
+    if len(sys.argv)>1:
+        _main(sys.argv[1])
+    else:
+        _main('2021-09-09')
