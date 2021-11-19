@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 # @author Augustin Mortier
 # @email augustinm@met.no
 # @desc A-Profiles - AERONET reading class
