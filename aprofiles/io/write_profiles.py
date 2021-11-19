@@ -66,14 +66,14 @@ def write(profiles, base_dir, verbose):
         return scene
 
     # get dataset from profilesdata
-    dataset = profiles.data
+    ds = profiles.data
 
     #get date as string yyyy-mm-dd from first value of the time data
-    str_date = str(dataset.time.values[0])[:10]
+    str_date = str(ds.time.values[0])[:10]
     yyyy = str_date[:4]
     mm = str_date[5:7]
     dd = str_date[8:10]
-    filename = f"{dataset.wigos_station_id}-{str_date}.nc"
+    filename = f"{ds.wigos_station_id}-{str_date}.nc"
     path = os.path.join(base_dir, yyyy, mm, dd, filename)
 
     if _file_exists(path) and verbose:
@@ -83,43 +83,43 @@ def write(profiles, base_dir, verbose):
         Path(os.path.join(base_dir, yyyy, mm, dd)).mkdir(parents=True, exist_ok=True)
 
     # creates a copy od original dataset -> writes only necessary data
-    ds = copy.deepcopy(dataset)
+    ds_towrite = copy.deepcopy(ds)
 
     # for the mass concentration, we just need the emc.
     emc = {}
-    for data_var in list(ds.data_vars):
+    for data_var in list(ds_towrite.data_vars):
         if 'mass_concentration:' in data_var:
-            emc[data_var.split(':')[1]] = dataset[data_var].emc
-            ds = ds.drop(data_var)
+            emc[data_var.split(':')[1]] = ds[data_var].emc
+            ds_towrite = ds_towrite.drop(data_var)
 
     # add emc as new dataarray
-    ds["emc"] = xr.DataArray(
+    ds_towrite["emc"] = xr.DataArray(
         data=list(emc.values()),
         dims=["aer_type"],
         coords=dict(
             aer_type=list(emc.keys()),
         ),
-        attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1', wavelength=dataset.l0_wavelength.data),
+        attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1', wavelength=ds.l0_wavelength.data),
     )
     # add attributes to aer_type
-    ds["aer_type"] = ds["aer_type"].assign_attrs({
+    ds_towrite["aer_type"] = ds_towrite["aer_type"].assign_attrs({
         'long_name': 'Aerosol type'
     })
 
     # determines the scene classification for each profile
-    scene = _classify_scene(ds)
+    scene = _classify_scene(ds_towrite)
     # add scene as new dataarray
-    ds["scene"] = ("time", scene)
-    ds["scene"] = ds["scene"].assign_attrs({
+    ds_towrite["scene"] = ("time", scene)
+    ds_towrite["scene"] = ds_towrite["scene"].assign_attrs({
         'long_name': "Scene classification",
         'definition': '0: aer (aerosols only) / 1: high_cloud (base cloud above 6096 m) / 2: mid_cloud (base cloud between 1981 m and 6096 m) / 3: low-cloud (base cloud below 1981 m) - 4: foc (fog or condensation)'
     })
 
     # add scene for extinction profile: cloud_above, cloud_below
-    retrieval_scene = _classify_retrieval_scene(ds)
+    retrieval_scene = _classify_retrieval_scene(ds_towrite)
     # add scene as new dataarray
-    ds["retrieval_scene"] = ("time", retrieval_scene)
-    ds["retrieval_scene"] = ds["retrieval_scene"].assign_attrs({
+    ds_towrite["retrieval_scene"] = ("time", retrieval_scene)
+    ds_towrite["retrieval_scene"] = ds_towrite["retrieval_scene"].assign_attrs({
         'long_name': "Retrieval scene classification",
         'definition': '0: aer (aerosols only) / 1: cloud_above (cloud above reference altitude) / 3: cloud_below (cloud below reference point) / 4: foc (fog or condensation)'
     })
@@ -127,17 +127,17 @@ def write(profiles, base_dir, verbose):
     # drop other variables
     drop_variables = ['start_time', 'cloud_base_height', 'vertical_visibility', 'cbh_uncertainties', 'uncertainties_att_backscatter_0']
     for drop_var in drop_variables:
-        ds = ds.drop(drop_var)
+        ds_towrite = ds_towrite.drop(drop_var)
     
     # some variables have no dimension. Set it as attribute and drop the variable.
     nodim_variables = ['l0_wavelength', 'station_latitude', 'station_longitude', 'station_altitude']
     for nodim_var in nodim_variables:
-        ds.attrs[nodim_var] = ds[nodim_var].data
-        ds = ds.drop(nodim_var)
+        ds_towrite.attrs[nodim_var] = ds_towrite[nodim_var].data
+        ds_towrite = ds_towrite.drop(nodim_var)
 
     # converts time
-    ds = _convert_time_after_epoch(ds, resolution='ms')
+    ds_towrite = _convert_time_after_epoch(ds_towrite, resolution='ms')
 
     # writes to netcdf
-    ds.to_netcdf(path, mode='w')
+    ds_towrite.to_netcdf(path, mode='w')
 

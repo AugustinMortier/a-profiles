@@ -29,8 +29,8 @@ class ReadEPROFILE:
         """
         # check if file is NetCDF
         filename = self.path.split("/")[-1]
-        if filename.endswith(".nc"):
-            raise OSError(f"NetCDF: Unknown file format:{filename}")
+        if not filename.endswith(".nc"):
+            raise OSError(f"NetCDF file required (.nc). File format not supported {filename}")
         # check if web address
         if self.path.startswith("https://"):
             raise NotImplementedError(
