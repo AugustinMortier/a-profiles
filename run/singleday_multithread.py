@@ -2,7 +2,7 @@
 
 # @author Augustin Mortier
 # @email augustinm@met.no
-# @desc A-Profiles - Run aprofiles workflow for all stations in series for a given day
+# @desc A-Profiles - Run aprofiles workflow for all stations in multithread for a given day
 
 import concurrent.futures
 import os

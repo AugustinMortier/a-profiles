@@ -29,10 +29,10 @@ class ReadEPROFILE:
         """
         # check if file is NetCDF
         filename = self.path.split("/")[-1]
-        if filename[-3:] != ".nc":
+        if filename.endswith(".nc"):
             raise OSError(f"NetCDF: Unknown file format:{filename}")
         # check if web address
-        if self.path[0:5] == "https":
+        if self.path.startswith("https://"):
             raise NotImplementedError(
                 "The reading of CEDA Archive is not implemented yet"
             )
@@ -43,27 +43,28 @@ class ReadEPROFILE:
         Returns:
             :class:`xarray.Dataset`
         """
-        dataset = xr.open_dataset(self.path, decode_times=True)
+        ds = xr.open_dataset(self.path, decode_times=True)
         # replace wavelength with actual value in attenuated backscatter longname
-        dataset.attenuated_backscatter_0.attrs["long_name"] = dataset.attenuated_backscatter_0.long_name.replace(
-            "at wavelength 0", f"@ {int(dataset.l0_wavelength.data)} nm"
+        ds.attenuated_backscatter_0.attrs["long_name"] = ds.attenuated_backscatter_0.long_name.replace(
+            "at wavelength 0", f"@ {int(ds.l0_wavelength.data)} nm"
         )
-        dataset.attenuated_backscatter_0.attrs["units"] = dataset.attenuated_backscatter_0.attrs["units"].replace(
+        ds.attenuated_backscatter_0.attrs["units"] = ds.attenuated_backscatter_0.attrs["units"].replace(
             "1E-6*1/(m*sr)", ("E-6 m-1.sr-1")
         )
-        return dataset
+        return ds
 
     def read(self):
-        self._check_path()
         """Method which reads E-PROFILE data.
 
         Returns:
             :class:`xarray.Dataset`
         """
-
+        
+        self._check_path()
+        
         # check if the filename starts with L2
         filename = self.path.split("/")[-1]
-        if filename[0:2] == "L2":
+        if filename.startswith("L2"):
             return self._read_l2file()
         else:
             raise NotImplementedError("Only L2 files are supported at the moment")

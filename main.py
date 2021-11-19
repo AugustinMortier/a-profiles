@@ -61,7 +61,7 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2.0, verbose=True)
 profiles.inversion(
     zmin=4000, zmax=6000, remove_outliers=False, method="backward", verbose=True
 )
-profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
+#profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
 #profiles.plot(var="mass_concentration:dust", zmax=6000, vmin=0, vmax=5e-2)
 #profiles.plot('mass_concentration:dust', zmax=6000, vmin=0, vmax=100, cmap='Oranges')
 #profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=100, cmap='Reds')
@@ -72,4 +72,7 @@ profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
 # wavelength = profiles.data.l0_wavelength.data
 # rayleigh = apro.rayleigh_data.RayleighData(altitude, wavelength=wavelength, T0=298, P0=1013);
 # rayleigh.plot()
+ # retrievals
+profiles.write('./test.nc')
+
 print("--- %s seconds ---" % (time.time() - start_time))
