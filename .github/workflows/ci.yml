@@ -42,17 +42,11 @@ jobs:
         python-version: "3.9"
     - name: Install Poetry
       uses: abatilo/actions-poetry@v2.0.0
-    - name: Cache Poetry virtualenv
-      uses: actions/cache@v1
-      id: cache
-      with:
-        path: ~/.virtualenvs
-        key: poetry-$
-        restore-keys: |
-          poetry-$
+    - name: View poetry --help
+        run: poetry --help
     - name: Install pytest
       run: |
         pip install pytest
-    - name: Run tests
+    - name: Run tests with poetry
       run: |
-        pytest
+        poetry run pytest
