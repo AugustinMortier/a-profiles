@@ -42,8 +42,8 @@ jobs:
         python-version: "3.9"
     - name: Install Poetry
       uses: abatilo/actions-poetry@v2.0.0
-    - name: View poetry --help
-        run: poetry --help
+    - name: Install package
+        run: poetry install
     - name: Install pytest
       run: |
         pip install pytest
