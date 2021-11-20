@@ -43,7 +43,7 @@ jobs:
     - name: Install Poetry
       uses: abatilo/actions-poetry@v2.0.0
     - name: Install package
-        run: poetry install
+      run: poetry install
     - name: Install pytest
       run: |
         pip install pytest
