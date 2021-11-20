@@ -44,9 +44,6 @@ jobs:
       uses: abatilo/actions-poetry@v2.0.0
     - name: Install package
       run: poetry install
-    - name: Install pytest
-      run: |
-        pip install pytest
     - name: Run tests with poetry
       run: |
         poetry run pytest
