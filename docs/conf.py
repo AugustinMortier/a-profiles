@@ -32,8 +32,7 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosectionlabel",
-    "sphinx.ext.intersphinx",
-    "pydata_sphinx_theme"
+    "sphinx.ext.intersphinx"
 ]
 
 intersphinx_mapping = {
