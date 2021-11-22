@@ -38,10 +38,11 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.9"
-    - name: Install Poetry
-      uses: abatilo/actions-poetry@v2.0.0
+    - name: Install poetry
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
     - name: Install package
       run: poetry install
     - name: Run tests with poetry
-      run: |
-        poetry run pytest
+      run: poetry run pytest
