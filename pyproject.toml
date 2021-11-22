@@ -19,6 +19,7 @@ xarray = "^0.20.1"
 [tool.poetry.dev-dependencies]
 pydata-sphinx-theme = "^0.7.2"
 pytest = "^6.2.5"
+black = "^21.11b1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
