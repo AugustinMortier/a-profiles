@@ -98,10 +98,6 @@
 </li>
 
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
-    </li>
-    
 </ul>
       </div>
       
@@ -298,7 +294,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <dt>Raises:</dt><dd><p>NotImplementedError: AOD apriori is not implemented yet.</p>
 </dd>
 <dt>Returns:</dt><dd><dl>
-<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</dt><dd><ul class="simple">
 <li><p><cite>‘extinction’ (time, altitude)</cite>: 2D array corresponding to the aerosol extinction.</p></li>
 <li><p><cite>‘aod’ (time)</cite>: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</p></li>
 <li><p><cite>‘lidar_ratio’ (time)</cite>: 1D array corresponding to the lidar ratio associated to the extinction profiles.</p></li>
@@ -327,13 +323,13 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 </div>
 <p>Forward inversion</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#aerosol inversion</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1">#plot extinction profiles</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-default" id="id6">
-<a class="reference internal image-reference" href="../_images/forward1.png"><img alt="clouds detection" src="../_images/forward1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/forward.png"><img alt="clouds detection" src="../_images/forward.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">Extinction profiles retrieved with the forward method.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
@@ -357,7 +353,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>.</dt><dd><ul class="simple">
 <li><p><cite>‘mass_concentration:&lt;aer_type&gt;’</cite></p></li>
 </ul>
 </dd>

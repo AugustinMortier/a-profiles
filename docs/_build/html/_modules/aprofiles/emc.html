@@ -96,10 +96,6 @@
 </li>
 
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
-    </li>
-    
 </ul>
       </div>
       
@@ -156,9 +152,7 @@
               <div>
                 
   <h1>Source code for aprofiles.emc</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python3</span>
-
-<span class="c1"># @author Augustin Mortier</span>
+<span></span><span class="c1"># @author Augustin Mortier</span>
 <span class="c1"># @email augustinm@met.no</span>
 <span class="c1"># @desc A-Profiles - Extinction to Mass Coefficient</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -186,7 +180,7 @@
 <span class="sd">        &gt;&gt;&gt; emc_data = EMCData(&#39;volcanic_ash&#39;, 532.)</span>
 <span class="sd">        &gt;&gt;&gt; emc_data.__dict__.keys()</span>
 <span class="sd">        dict_keys([&#39;aer_type&#39;, &#39;wavelength&#39;, &#39;aer_properties&#39;, &#39;nsd&#39;, &#39;vsd&#39;, &#39;radius&#39;, &#39;qext&#39;, &#39;conv_factor&#39;, &#39;emc&#39;])</span>
-<span class="sd">        &gt;&gt;&gt; print(&#39;{:.2e} m {:.2e} m2.g-1&#39;.format(emc_data.conv_factor, emc_data.emc))</span>
+<span class="sd">        &gt;&gt;&gt; print(f&#39;{emc_data.conv_factor:.2e} m {emc_data.emc):.2e} m2.g-1&#39;)</span>
 <span class="sd">        6.21e-07 m 0.62 m2.g-1</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>

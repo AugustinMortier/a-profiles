@@ -98,10 +98,6 @@
 </li>
 
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
-    </li>
-    
 </ul>
       </div>
       
@@ -244,7 +240,7 @@
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
 <li><p><cite>‘foc’ (time)</cite>: mask array corresponding to the presence of foc.</p></li>
 </ul>
 </dd>
@@ -262,7 +258,7 @@
 </pre></div>
 </div>
 <div class="figure align-default" id="id1">
-<a class="reference internal image-reference" href="../_images/foc1.png"><img alt="foc detection" src="../_images/foc1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/foc.png"><img alt="foc detection" src="../_images/foc.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">Fog or condensation (foc) detection.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
@@ -290,7 +286,7 @@ The detection is performed on each individual profile. It is based on the analys
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
 <li><p><cite>‘clouds_bases’ (time, altitude)</cite>: mask array corresponding to the bases of the clouds.</p></li>
 <li><p><cite>‘clouds_peaks’ (time, altitude)</cite>: mask array corresponding to the peaks (maximum signal measured) of the clouds.</p></li>
 <li><p><cite>‘clouds_tops’ (time, altitude)</cite>: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.</p></li>
@@ -310,7 +306,7 @@ The detection is performed on each individual profile. It is based on the analys
 </pre></div>
 </div>
 <div class="figure align-default" id="id2">
-<a class="reference internal image-reference" href="../_images/clouds1.png"><img alt="clouds detection" src="../_images/clouds1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/clouds.png"><img alt="clouds detection" src="../_images/clouds.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">Clouds detection.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
@@ -323,7 +319,7 @@ The detection is performed on each individual profile. It is based on the analys
 <p>This method allows for tge tracking of the PBL height in single profiles.</p>
 <span class="target" id="module-aprofiles.detection.pbl"></span><dl class="py function">
 <dt id="aprofiles.detection.pbl.detect_pbl">
-<code class="sig-prename descclassname">aprofiles.detection.pbl.</code><code class="sig-name descname">detect_pbl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">profiles</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">100.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">3000.0</span></em>, <em class="sig-param"><span class="n">wav_width</span><span class="o">=</span><span class="default_value">200.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">2.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/detection/pbl.html#detect_pbl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.detection.pbl.detect_pbl" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">aprofiles.detection.pbl.</code><code class="sig-name descname">detect_pbl</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">profiles</span></em>, <em class="sig-param"><span class="n">time_avg</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">zmin</span><span class="o">=</span><span class="default_value">100.0</span></em>, <em class="sig-param"><span class="n">zmax</span><span class="o">=</span><span class="default_value">3000.0</span></em>, <em class="sig-param"><span class="n">wav_width</span><span class="o">=</span><span class="default_value">200.0</span></em>, <em class="sig-param"><span class="n">under_clouds</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_snr</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/detection/pbl.html#detect_pbl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.detection.pbl.detect_pbl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Module for <em>Planetary Boundary Layer Height</em> detection.
 Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.</p>
 <dl>
@@ -334,12 +330,12 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 <li><p>zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to <cite>3000</cite>.</p></li>
 <li><p>wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to <cite>200</cite>.</p></li>
 <li><p>under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile. Defaults to <cite>True</cite>.</p></li>
-<li><p>min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to <cite>2.</cite>.</p></li>
+<li><p>min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to <cite>1.</cite>.</p></li>
 <li><p>verbose (bool, optional): verbose mode. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Returns:</dt><dd><dl class="simple">
-<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
+<dt><a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> in <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData.data" title="aprofiles.profiles.ProfilesData.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData.data</span></code></a>.</dt><dd><ul class="simple">
 <li><p><cite>‘pbl’ (time, altitude)</cite>: mask array corresponding to the pbl height.</p></li>
 </ul>
 </dd>
@@ -357,7 +353,7 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 </pre></div>
 </div>
 <div class="figure align-default" id="id3">
-<a class="reference internal image-reference" href="../_images/pbl1.png"><img alt="clouds detection" src="../_images/pbl1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/pbl.png"><img alt="clouds detection" src="../_images/pbl.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">Planetary Boundary Layer Height detection.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
 </div>
 </dd>

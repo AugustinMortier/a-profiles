@@ -40,3 +40,7 @@ main img {
     display: block;
     margin: 20px 0px;
 }
+
+#navbar-icon-links i.fab{
+    line-height: initial;   
+}

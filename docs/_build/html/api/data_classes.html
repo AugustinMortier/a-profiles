@@ -98,10 +98,6 @@
 </li>
 
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
-    </li>
-    
 </ul>
       </div>
       
@@ -237,8 +233,8 @@
 <h1>Data Classes<a class="headerlink" href="#data-classes" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="profilesdata">
 <h2>ProfilesData<a class="headerlink" href="#profilesdata" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class contains profiles data information. Most of the information can be found in the <cite>data</cite> attribute, which is a <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>.
-Detection and retrieval methods might add information as additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
+<p>The <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class contains profiles data information. Most of the information can be found in the <cite>data</cite> attribute, which is a <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>.
+Detection and retrieval methods might add information as additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
 <span class="target" id="module-aprofiles.profiles"></span><dl class="py class">
 <dt id="aprofiles.profiles.ProfilesData">
 <em class="property">class </em><code class="sig-prename descclassname">aprofiles.profiles.</code><code class="sig-name descname">ProfilesData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/aprofiles/profiles.html#ProfilesData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#aprofiles.profiles.ProfilesData" title="Permalink to this definition">¶</a></dt>
@@ -252,7 +248,7 @@ Detection and retrieval methods might add information as additional <a class="re
 <dl class="py method">
 <dt id="aprofiles.profiles.ProfilesData.data">
 <em class="property">property </em><code class="sig-name descname">data</code><a class="headerlink" href="#aprofiles.profiles.ProfilesData.data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Data attribute (instance of <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>)</p>
+<dd><p>Data attribute (instance of <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -262,14 +258,14 @@ Detection and retrieval methods might add information as additional <a class="re
 The absolute value of the signal is returned below the prescribed altitude.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>var (str, optional): variable of the <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
+<li><p>var (str, optional): variable of the <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>z (float, optional): Altitude (in m, AGL) below which the signal is unsaturated. Defaults to <cite>4000.</cite>.</p></li>
 <li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
 <dt>Todo:</dt><dd><p>Refine method to desaturate only saturated areas.</p>
 </dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attribute <cite>desaturate</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
+<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attribute <cite>desaturate</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
 </dd>
 </dl>
 <div class="admonition warning">
@@ -307,13 +303,13 @@ The absolute value of the signal is returned below the prescribed altitude.</p>
 We recommend to use a value of zmin=150m due to random values often found below that altitude which perturbs the clouds detection.</p>
 <dl>
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>var (str, optional): variable of the <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
+<li><p>var (str, optional): variable of the <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a> to be processed. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>z (float, optional): Altitude (in m, AGL) below which the signal is extrapolated. Defaults to <cite>150</cite>.</p></li>
 <li><p>method ({‘cst’, ‘lin’}, optional): Method to be used for extrapolation of lowest layers. Defaults to <cite>‘cst’</cite>.</p></li>
 <li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>extrapolation_low_layers_altitude_agl</cite> and <cite>extrapolation_low_layers_method</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
+<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>extrapolation_low_layers_altitude_agl</cite> and <cite>extrapolation_low_layers_method</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
 </dd>
 <dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># read example file</span>
@@ -327,11 +323,11 @@ We recommend to use a value of zmin=150m due to random values often found below 
 </pre></div>
 </div>
 <div class="figure align-default" id="id9">
-<a class="reference internal image-reference" href="../_images/lowest1.png"><img alt="before extrapolation" src="../_images/lowest1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/lowest.png"><img alt="before extrapolation" src="../_images/lowest.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">Before extrapolation.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="id10">
-<a class="reference internal image-reference" href="../_images/lowest_extrap1.png"><img alt="after desaturation" src="../_images/lowest_extrap1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/lowest_extrap.png"><img alt="after desaturation" src="../_images/lowest_extrap.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">After extrapolation.</span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
@@ -355,7 +351,7 @@ We recommend to use a value of zmin=150m due to random values often found below 
 <li><p>inplace (bool, optional): if True, replace the instance of the <a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> class. Defaults to <cite>False</cite>.</p></li>
 </ul>
 </dd>
-<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>gaussian_filter</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
+<dt>Returns:</dt><dd><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional attributes <cite>gaussian_filter</cite> for the processed <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>.</p>
 </dd>
 <dt>Example:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">aprofiles</span> <span class="k">as</span> <span class="nn">apro</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># read example file</span>
@@ -369,11 +365,11 @@ We recommend to use a value of zmin=150m due to random values often found below 
 </pre></div>
 </div>
 <div class="figure align-default" id="id11">
-<a class="reference internal image-reference" href="../_images/attenuated_backscatter1.png"><img alt="before filtering" src="../_images/attenuated_backscatter1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/attenuated_backscatter.png"><img alt="before filtering" src="../_images/attenuated_backscatter.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">Before gaussian filtering.</span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
 </div>
 <div class="figure align-default" id="id12">
-<a class="reference internal image-reference" href="../_images/gaussian_filter1.png"><img alt="after gaussian filtering" src="../_images/gaussian_filter1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/gaussian_filter.png"><img alt="after gaussian filtering" src="../_images/gaussian_filter.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">After gaussian filtering (sigma=0.5).</span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
@@ -454,7 +450,7 @@ See also <a class="reference internal" href="plotting.html#plotting"><span class
 </dd>
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">class</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> <cite>snr</cite>.</p>
+<dd class="field-odd"><p><a class="reference internal" href="#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfilesData</span></code></a> object with additional <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a> <cite>snr</cite>.</p>
 </dd>
 </dl>
 </dd>
@@ -522,7 +518,7 @@ See also <a class="reference internal" href="plotting.html#plotting"><span class
 <dl class="py method">
 <dt id="aprofiles.aeronet.AeronetData.data">
 <em class="property">property </em><code class="sig-name descname">data</code><a class="headerlink" href="#aprofiles.aeronet.AeronetData.data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Data attribute (instance of <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>)</p>
+<dd><p>Data attribute (instance of <a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.Dataset.html#xarray.Dataset" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -709,7 +705,7 @@ This class calls the <a class="reference internal" href="#aprofiles.emc.EMCData.
 <span class="gp">&gt;&gt;&gt; </span><span class="n">emc_data</span> <span class="o">=</span> <span class="n">EMCData</span><span class="p">(</span><span class="s1">&#39;volcanic_ash&#39;</span><span class="p">,</span> <span class="mf">532.</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">emc_data</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="go">dict_keys([&#39;aer_type&#39;, &#39;wavelength&#39;, &#39;aer_properties&#39;, &#39;nsd&#39;, &#39;vsd&#39;, &#39;radius&#39;, &#39;qext&#39;, &#39;conv_factor&#39;, &#39;emc&#39;])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.2e}</span><span class="s1"> m </span><span class="si">{:.2e}</span><span class="s1"> m2.g-1&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">emc_data</span><span class="o">.</span><span class="n">conv_factor</span><span class="p">,</span> <span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">emc_data</span><span class="o">.</span><span class="n">conv_factor</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1"> m </span><span class="si">{</span><span class="n">emc_data</span><span class="o">.</span><span class="n">emc</span><span class="p">)</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1"> m2.g-1&#39;</span><span class="p">)</span>
 <span class="go">6.21e-07 m 0.62 m2.g-1</span>
 </pre></div>
 </div>

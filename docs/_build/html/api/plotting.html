@@ -98,10 +98,6 @@
 </li>
 
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
-    </li>
-    
 </ul>
       </div>
       
@@ -234,7 +230,7 @@
 <dd><p>Plot image of selected variable from <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <dl>
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>da (<a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>): DataArray.</p></li>
+<li><p>da (<a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>): DataArray.</p></li>
 <li><p>var (str, optional): Variable of the DataArray to be plotted. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>zref ({‘agl’, ‘asl’},optional): Base reference for altitude axis. Defaults to ‘agl’.</p></li>
 <li><p>zmin (float, optional): Minimum altitude AGL (m). Defaults to minimum available altitude.</p></li>
@@ -258,7 +254,7 @@
 </pre></div>
 </div>
 <div class="figure align-default" id="id1">
-<a class="reference internal image-reference" href="../_images/attenuated_backscatter1.png"><img alt="attenuated backscatter profiles" src="../_images/attenuated_backscatter1.png" style="width: 600.0px; height: 200.0px;" /></a>
+<a class="reference internal image-reference" href="../_images/attenuated_backscatter.png"><img alt="attenuated backscatter profiles" src="../_images/attenuated_backscatter.png" style="width: 600.0px; height: 200.0px;" /></a>
 <p class="caption"><span class="caption-text">Image of attenuated backscatter profiles.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </dd>
@@ -275,7 +271,7 @@
 <dd><p>Plot single profile of selected variable from <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <dl>
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>da (<a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>): DataArray.</p></li>
+<li><p>da (<a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>): DataArray.</p></li>
 <li><p>datetime (<a class="reference external" href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.datetime64" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.datetime64</span></code></a>): time for which we plot the profile.</p></li>
 <li><p>var (str, optional): Variable of the DataArray to be plotted. Defaults to <cite>‘attenuated_backscatter_0’</cite>.</p></li>
 <li><p>zref ({‘agl’, ‘asl’},optional): Base reference for altitude axis. Defaults to ‘agl’.</p></li>
@@ -319,7 +315,7 @@
 <dd><p>Plot time series of selected variable from <a class="reference internal" href="data_classes.html#aprofiles.profiles.ProfilesData" title="aprofiles.profiles.ProfilesData"><code class="xref py py-class docutils literal notranslate"><span class="pre">aprofiles.profiles.ProfilesData</span></code></a> object.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><ul class="simple">
-<li><p>da (<a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.19.1.dev6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>): DataArray</p></li>
+<li><p>da (<a class="reference external" href="http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html#xarray.DataArray" title="(in xarray v0.20.2.dev0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.DataArray</span></code></a>): DataArray</p></li>
 <li><p>var (str, optional): [description]. Defaults to <cite>‘aod’</cite>.</p></li>
 </ul>
 </dd>

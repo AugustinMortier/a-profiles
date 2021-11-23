@@ -96,10 +96,6 @@
 </li>
 
     
-    <li class="nav-item">
-        <a class="nav-link nav-external" href="https://vprofiles.met.no">V-Profiles<i class="fas fa-external-link-alt"></i></a>
-    </li>
-    
 </ul>
       </div>
       
@@ -156,8 +152,7 @@
               <div>
                 
   <h1>Source code for aprofiles.detection.pbl</h1><div class="highlight"><pre>
-<span></span><span class="ch">#!/usr/bin/env python3</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
 
@@ -169,7 +164,7 @@
     <span class="n">zmax</span><span class="o">=</span><span class="mf">3000.0</span><span class="p">,</span>
     <span class="n">wav_width</span><span class="o">=</span><span class="mf">200.0</span><span class="p">,</span>
     <span class="n">under_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">min_snr</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Module for *Planetary Boundary Layer Height* detection.</span>
@@ -182,7 +177,7 @@
 <span class="sd">        - zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to `3000`.</span>
 <span class="sd">        - wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to `200`.</span>
 <span class="sd">        - under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile. Defaults to `True`.</span>
-<span class="sd">        - min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to `2.`.</span>
+<span class="sd">        - min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to `1.`.</span>
 <span class="sd">        - verbose (bool, optional): verbose mode. Defaults to `False`.</span>
 
 <span class="sd">    Returns:</span>
@@ -296,7 +291,7 @@
 
     <span class="c1"># creates dataarrays</span>
     <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pbl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">pbl</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pbl&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pbl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pbl</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
         <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s2">&quot;Planetary Boundary Layer Height, ASL&quot;</span><span class="p">,</span>
         <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
         <span class="s1">&#39;time_avg&#39;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>

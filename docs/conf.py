@@ -93,9 +93,9 @@ html_theme_options = {
             "icon": "fab fa-github-square",
         }
     ],
-    "external_links": [
-      {"name": "V-Profiles", "url": "https://vprofiles.met.no"},
-    ],
+    #"external_links": [
+    #  {"name": "V-Profiles", "url": "https://vprofiles.met.no"},
+    #],
     "show_toc_level": 1,
     "navbar_align": "content",
 }
