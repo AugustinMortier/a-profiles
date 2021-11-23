@@ -1,4 +1,0 @@
-miepython
-numpy
-pydata_sphinx_theme
-xarray
