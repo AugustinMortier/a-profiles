@@ -16,11 +16,13 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.9"
-    - name: Cache Poetry
+    - name: Cache PIP and Poetry
       uses: actions/cache@v2.1.6
       with:
-        path: ~/.cache/pypoetry/
-        key: poetry-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+        path: |
+          ~/.cache/pip/
+          ~/.cache/pypoetry/
+        key: pip&poetry-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
     - name: Install poetry
       run: |
         python -m pip install --upgrade pip
@@ -35,11 +37,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Cache Poetry
+    - name: Cache PIP and Poetry
       uses: actions/cache@v2.1.6
       with:
-        path: ~/.cache/pypoetry/
-        key: poetry-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
+        path: |
+          ~/.cache/pip/
+          ~/.cache/pypoetry/
+        key: pip&poetry-${{ runner.os }}-${{ hashFiles('pyproject.toml') }}
     - name: Set up python 3.9
       uses: actions/setup-python@v2
       with:
