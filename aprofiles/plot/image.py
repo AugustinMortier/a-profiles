@@ -65,13 +65,13 @@ def _plot_clouds(da, zref):
         for j, _ in enumerate(b_indexes):
             y = altitude[b_indexes[j]: p_indexes[j]]
             x = [time[i] for _ in y]
-            plt.plot(x, y, "w-", color="white", lw=2.0, alpha=0.2)
+            plt.plot(x, y, "w-", lw=2.0, alpha=0.2)
 
         # plot line from peak to base
         for j, _ in enumerate(b_indexes):
             y = altitude[p_indexes[j]: t_indexes[j]]
             x = [time[i] for _ in y]
-            plt.plot(x, y, "w-", color="white", lw=2.0, alpha=0.2)
+            plt.plot(x, y, "w-", lw=2.0, alpha=0.2)
 
         """
         #plot line from base to top
