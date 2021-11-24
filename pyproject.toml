@@ -26,6 +26,7 @@ docs = ["sphinx", "pydata-sphinx-theme", "recommonmark"]
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 black = "^21.11b1"
+ipykernel = "^6.5.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
