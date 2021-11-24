@@ -12,9 +12,6 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 Download *aprofiles* with *pip*
 `pip install aprofiles`
 
-and install the package with *poetry*
-`poetry install`
-
 ## Get started
 
 ### Reading Data
