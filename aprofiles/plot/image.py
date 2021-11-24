@@ -32,7 +32,7 @@ def _plot_foc(da, zref):
             plt.plot(
                 [time[i], time[i]],
                 [altitude[0], altitude[-1]],
-                "m-",
+                "-",
                 color="black",
                 lw=2.0,
                 alpha=0.4,
