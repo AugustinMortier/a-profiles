@@ -67,22 +67,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # html_theme = "sphinx_rtd_theme"
 html_theme = "pydata_sphinx_theme"
 
-"""
-# options for "sphinx_rtd_theme"
-html_theme_options = {
-    "logo_only": False,
-    "display_version": True,
-    "prev_next_buttons_location": "bottom",
-    "style_external_links": False,
-    "vcs_pageview_mode": "",
-    # Table Of Contents options
-    "collapse_navigation": True,
-    "sticky_navigation": True,
-    "navigation_depth": 4,
-    "includehidden": True,
-    "titles_only": False,
-}
-"""
+
+html_logo = "_static/images/A-Profiles.png"
 
 # options for "pydata_sphinx_theme"
 html_theme_options = {
@@ -93,9 +79,6 @@ html_theme_options = {
             "icon": "fab fa-github-square",
         }
     ],
-    #"external_links": [
-    #  {"name": "V-Profiles", "url": "https://vprofiles.met.no"},
-    #],
     "show_toc_level": 1,
     "navbar_align": "content",
 }

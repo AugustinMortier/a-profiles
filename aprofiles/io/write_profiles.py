@@ -57,10 +57,9 @@ def write(profiles, base_dir, verbose):
                 scene.append(3)
             else:
                 scene.append(0)
-        
-        # add foc scene if detected
-        foc = profiles.data.foc.data
-        scene = [sc  if not foc[i] else 4 for i, sc in enumerate(scene)]
+            # overwrite result based on foc
+            if ds.foc.data[i]:
+                scene[i] = 4
         return scene
 
     # get dataset from profilesdata

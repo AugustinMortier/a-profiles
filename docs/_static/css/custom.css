@@ -26,6 +26,18 @@ body > div.wy-grid-for-nav > section > div > div > div:nth-child(1) > ul > li:nt
 }
 */
 
+img.logo{
+    width: 113px;
+    height: 24px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.navbar-brand{
+    padding: 2px 0px;
+}
+
 main img {
     max-width: 100%;
     height: auto !important;
