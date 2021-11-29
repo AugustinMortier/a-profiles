@@ -12,10 +12,6 @@ import utils
 
 def _main(dates, instrument_types, multithread):
 
-    # transforms dates from strin to array
-    if isinstance(dates, str):
-        dates = [dates]
-
     for date in dates:
         yyyy = date.split("-")[0]
         mm = date.split("-")[1]
