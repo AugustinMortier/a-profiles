@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 import utils
 
-def _main(dates, instrument_types=["CHM15k", "mini-MPL"], multithread=True):
+def _main(dates, instrument_types, multithread):
 
     # transforms dates from strin to array
     if isinstance(dates, str):
