@@ -5,185 +5,121 @@
 
 import concurrent.futures
 import os
+from datetime import datetime, timedelta
+from pathlib import Path
+from typing import List
 
+import typer
+from pandas import date_range
 from tqdm import tqdm
 
 import utils
 
-def _main(dates, instrument_types, multithread):
+
+# def main(dates: List[str], instrument_types: List[str], multithread: bool):
+def main(
+    date: List[datetime] = typer.Option(
+        [], formats=["%Y-%m-%d"], help="📅 Processing date."
+    ),
+    _from: datetime = typer.Option(
+        None, "--from", formats=["%Y-%m-%d"], help="📅 Initial date"
+    ),
+    _to: datetime = typer.Option(
+        datetime.today(),
+        "--to",
+        formats=["%Y-%m-%d"],
+        help="📅 Ending date.",
+        show_default="Today's date",
+    ),
+    today: bool = typer.Option(False, help="🕑Process today."),
+    yesterday: bool = typer.Option(False, help="🕙 Process yesterday."),
+    instrument_types: List[str] = typer.Option(
+        ["CHM15k", "Mini-MPL"], help="📗List of specific instruments to be processed."
+    ),
+    multithread: bool = typer.Option(False, help="⚡ Use multithread mode."),
+    basedir_in: Path = typer.Option(
+        "data/e-profile", exists=True, readable=True, help="📂 Base path for input data."
+    ),
+    basedir_out: Path = typer.Option(
+        "data/v-profiles",
+        exists=True,
+        writable=True,
+        help="📂 Base path for input data.",
+    ),
+    # rsync: bool = typer.Option(False, help="📤 Rsync to webserver."),
+):
+    """
+    Run aprofiles standard workflow for given dates, optionally for specific instrument types.
+    """
+
+    #typer.echo(f"date: {date}, today: {today}, yesterday: {yesterday}, from: {_from}, to: {_to}, instrument_types: {instrument_types}, multithread: {multithread}")
+
+    # makes list of dates
+    if len(date) > 0:
+        dates = list(date)
+    elif today or yesterday:
+        dates = []
+        if today:
+            dates.append(datetime.today())
+        if yesterday:
+            dates.append(datetime.today() - timedelta(days=1))
+    elif _from is not None:
+        dates = date_range(_from, _to, freq="D")
 
     for date in dates:
-        yyyy = date.split("-")[0]
-        mm = date.split("-")[1]
-        dd = date.split("-")[2]
+
+        yyyy = str(date.year)
+        mm = str(date.month).zfill(2)
+        dd = str(date.day).zfill(2)
 
         # list all files in in directory
-        datepath = os.path.join(BASE_DIR_IN, yyyy, mm, dd)
-        onlyfiles = [
-            f for f in os.listdir(datepath) if os.path.isfile(os.path.join(datepath, f))
-        ]
+        datepath = Path(basedir_in) / yyyy / mm / dd
+        onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
+
 
         # data processing
         if multithread:
-            with tqdm(total=len(onlyfiles), desc=date) as pbar:
+            with tqdm(total=len(onlyfiles), desc=date.strftime("%Y-%m-%d")) as pbar:
                 with concurrent.futures.ThreadPoolExecutor() as executor:
-                    futures = [
-                        executor.submit(
-                            utils.workflow.workflow,
-                            path=os.path.join(datepath, filename),
-                            instrument_types=instrument_types,
-                            base_dir=BASE_DIR_OUT,
-                            verbose=False,
-                        )
-                        for filename in onlyfiles
-                    ]
+                    futures = [executor.submit(
+                        utils.workflow.workflow, 
+                        path=file, 
+                        instrument_types=instrument_types, 
+                        base_dir=basedir_out, verbose=False
+                    ) 
+                    for file in onlyfiles]
                     for future in concurrent.futures.as_completed(futures):
                         pbar.update(1)
         else:
-            for i in tqdm(range(len(onlyfiles)), desc=date):
-                path = os.path.join(datepath, onlyfiles[i])
+            for file in tqdm(onlyfiles, desc=date.strftime("%Y-%m-%d")):
                 utils.workflow.workflow(
-                    path, instrument_types, BASE_DIR_OUT, verbose=False
+                    file, instrument_types, basedir_out, verbose=False
                 )
 
         # list all files in out directory
-        datepath = os.path.join(BASE_DIR_OUT, yyyy, mm, dd)
-        onlyfiles = [
-            f for f in os.listdir(datepath) if os.path.isfile(os.path.join(datepath, f))
-        ]
+        datepath = Path(basedir_out) / yyyy / mm / dd
+        onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
 
         # create calendar
         calname = f"{yyyy}-{mm}-cal.json"
-        if not os.path.exists(
-            os.path.join(BASE_DIR_OUT, yyyy, mm, "calendar", calname)
-        ):
-            utils.json_calendar.make_calendar(BASE_DIR_OUT, yyyy, mm, calname)
+        path = Path(basedir_out) / yyyy / mm / dd / calname
+        if not path.exists():
+            utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
         # add to calendar
-        for i in tqdm(range(len(onlyfiles)), desc="calendar  "):
-            fn = os.path.join(BASE_DIR_OUT, yyyy, mm, dd, onlyfiles[i])
-            utils.json_calendar.add_to_calendar(fn, BASE_DIR_OUT, yyyy, mm, dd, calname)
+        for file in tqdm(onlyfiles, desc="calendar  "):
+            utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
 
         # create map
         mapname = f"{yyyy}-{mm}-map.json"
-        if not os.path.exists(os.path.join(BASE_DIR_OUT, yyyy, mm, mapname)):
-            utils.json_map.make_map(BASE_DIR_OUT, yyyy, mm, mapname)
+        path = Path(basedir_out) / yyyy / mm / dd / mapname
+        if not path.exists():
+            utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
 
         # add to map
-        for i in tqdm(range(len(onlyfiles)), desc="map       "):
-            fn = os.path.join(BASE_DIR_OUT, yyyy, mm, dd, onlyfiles[i])
-            utils.json_map.add_to_map(fn, BASE_DIR_OUT, yyyy, mm, dd, mapname)
+        for file in tqdm(onlyfiles, desc="map       "):
+            utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
 
 
 if __name__ == "__main__":
-    import argparse
-    from datetime import datetime, timedelta
-    from pandas import date_range
-
-    def _validate_dates(str_date1, str_date2=None):
-        try:
-            datetime.strptime(str_date1, "%Y-%m-%d")
-        except ValueError:
-            raise ValueError("Incorrect data format, should be YYYY-MM-DD")
-
-        if str_date2 is not None:
-            try:
-                datetime.strptime(str_date2, "%Y-%m-%d")
-            except ValueError:
-                raise ValueError("Incorrect data format, should be YYYY-MM-DD")
-            if str_date1 > str_date2:
-                raise ValueError(
-                    f"from_date ({str_date1}) must be anterior to to_date ({str_date2})"
-                )
-
-    # Create the parser
-    my_parser = argparse.ArgumentParser(
-        prog="aprofiles",
-        usage="%(prog)s [options] date",
-        description="Run standard A-Profiles workflow",
-    )
-
-    # Add arguments
-    my_parser.add_argument(
-        "-d",
-        "--date",
-        metavar="date",
-        nargs="?",
-        type=str,
-        help="date to be processed (yyyy-mm-dd)",
-    )
-
-    my_parser.add_argument(
-        "-t",
-        "--today",
-        action='store_true',
-        help="process today",
-    )
-
-    my_parser.add_argument(
-        "-y",
-        "--yesterday",
-        action='store_true',
-        help="process yesterday",
-    )
-
-    my_parser.add_argument(
-        "--from",
-        metavar="from",
-        dest="_from",
-        nargs="?",
-        type=str,
-        help="Initial date to be processed (yyyy-mm-dd)",
-    )
-
-    my_parser.add_argument(
-        "--to",
-        metavar="to",
-        dest="_to",
-        nargs="?",
-        default=datetime.today().strftime("%Y-%m-%d"),
-        type=str,
-        help="Last date to be processed (yyyy-mm-dd)",
-    )
-
-    my_parser.add_argument(
-        "-i",
-        "--instruments",
-        metavar="instruments",
-        nargs="?",
-        default=["CHM15k", "mini-MPL"],
-        type=str,
-        help="Instrument types to be processed",
-    )
-
-    my_parser.add_argument(
-        "-m",
-        "--multithread",
-        action='store_true',
-        help="Use multithread for data processing",
-    )
-
-    # Execute the parse_args() method
-    args = my_parser.parse_args()
-
-    #print(f'args: {args}')
-
-    # Prepare dates array
-    if args.date is not None:
-        _validate_dates(args.date)
-        dates = [args.date]
-    elif args._from is not None:
-        _validate_dates(args._from, args._to)
-        dates = [str(date).split('T')[0] for date in date_range(args._from, args._to, freq="D").values]
-    else:
-        dates = []
-        if args.today:
-            dates.append(datetime.today().strftime("%Y-%m-%d"))
-        if args.yesterday:
-            dates.append((datetime.today()-timedelta(days=1)).strftime("%Y-%m-%d"))
-
-    # data path
-    BASE_DIR_IN = "data/e-profile"
-    BASE_DIR_OUT = "data/v-profiles"
-
-    _main(dates, instrument_types=args.instruments, multithread=args.multithread)
+    typer.run(main)
