@@ -31,10 +31,10 @@ def main(
         help="📅 Ending date.",
         show_default="Today's date",
     ),
-    today: bool = typer.Option(False, help="🕑Process today."),
+    today: bool = typer.Option(False, help="🕑 Process today."),
     yesterday: bool = typer.Option(False, help="🕙 Process yesterday."),
     instrument_types: List[str] = typer.Option(
-        ["CHM15k", "Mini-MPL"], help="📗List of specific instruments to be processed."
+        ["CHM15k", "Mini-MPL"], help="📗 List of specific instruments to be processed."
     ),
     multithread: bool = typer.Option(False, help="⚡ Use multithread mode."),
     basedir_in: Path = typer.Option(
