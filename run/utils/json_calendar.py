@@ -3,14 +3,14 @@
 # @desc A-Profiles - Code for creating calendar json file to be used in V-Profiles
 
 import json
-import os
+from pathlib import Path
 
 import xarray as xr
 
 
 def make_calendar(base_dir, yyyy, mm, calname):
     # one calendar, per month
-    with open(os.path.join(base_dir, yyyy, mm, calname), 'w') as json_file:
+    with open(Path(base_dir) / yyyy / mm / calname, 'w') as json_file:
         json.dump({}, json_file)
 
 def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
@@ -28,7 +28,7 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     scene_counts['total'] = len(ds.retrieval_scene.data)
 
     # open current calendar
-    with open(os.path.join(base_dir, yyyy, mm, calname), 'r') as json_file:
+    with open(Path(base_dir) / yyyy / mm / calname, 'r') as json_file:
         data = json.load(json_file)
     json_file.close()        
 
@@ -39,5 +39,5 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     data[station_id][dd] = scene_counts
 
     # write new calendar
-    with open(os.path.join(base_dir, yyyy, mm, calname), 'w') as json_file:
+    with open(Path(base_dir) / yyyy / mm / calname, 'w') as json_file:
         json.dump(data, json_file)

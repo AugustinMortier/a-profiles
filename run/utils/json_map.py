@@ -3,8 +3,8 @@
 # @desc A-Profiles - Code for creating map json file to be used in V-Profiles
 
 import json
-import os
 import warnings
+from pathlib import Path
 
 import numpy as np
 import xarray as xr
@@ -12,7 +12,7 @@ import xarray as xr
 
 def make_map(base_dir, yyyy, mm, mapname):
     # one map, per day, which collects the maximum extinction with no low-level clouds (<6km) at each station
-    with open(os.path.join(base_dir, yyyy, mm, mapname), 'w') as json_file:
+    with open(Path(base_dir) / yyyy / mm / mapname, 'w') as json_file:
         json.dump({}, json_file)
 
 def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
@@ -49,7 +49,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     max_retrieval_scene = ds.retrieval_scene.resample(time='1H').max().data
 
     # open current map
-    with open(os.path.join(base_dir, yyyy, mm, mapname), 'r') as json_file:
+    with open(Path(base_dir) / yyyy / mm / mapname, 'r') as json_file:
         data = json.load(json_file)
     json_file.close()        
 
@@ -77,5 +77,5 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     }
 
     # write new map
-    with open(os.path.join(base_dir, yyyy, mm, mapname), 'w') as json_file:
+    with open(Path(base_dir) / yyyy / mm / mapname, 'w') as json_file:
         json.dump(data, json_file)
