@@ -135,6 +135,11 @@ def write(profiles, base_dir, verbose):
     # converts time
     ds_towrite = _convert_time_after_epoch(ds_towrite, resolution='ms')
 
+    # converts potential np.uint32 to int
+    for key in ds_towrite.attrs:
+        if isinstance(ds_towrite.attrs[key], np.uint62):
+            ds_towrite.attrs[key] = int(ds_towrite.attrs[key])
+
     # writes to netcdf
     ds_towrite.to_netcdf(path, mode='w')
 
