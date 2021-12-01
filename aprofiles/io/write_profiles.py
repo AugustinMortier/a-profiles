@@ -70,7 +70,7 @@ def write(profiles, base_dir, verbose):
     yyyy = str_date[:4]
     mm = str_date[5:7]
     dd = str_date[8:10]
-    filename = f"{ds.wigos_station_id}-{str_date}.nc"
+    filename = f"AP_{ds.wigos_station_id}-{str_date}.nc"
     path = os.path.join(base_dir, yyyy, mm, dd, filename)
 
     if _file_exists(path) and verbose:
