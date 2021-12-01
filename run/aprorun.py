@@ -70,7 +70,7 @@ def main(
         dates.append(date_range(_from, _to, freq="D"))
 
     for date in dates:
-        yyyy, mm, dd = str(date.year)
+        yyyy = str(date.year)
         mm = str(date.month).zfill(2)
         dd = str(date.day).zfill(2)
 
