@@ -6,6 +6,7 @@ import copy
 import os
 import warnings
 
+import numpy as np
 import xarray as xr
 
 
@@ -137,7 +138,7 @@ def write(profiles, base_dir, verbose):
 
     # converts potential np.uint32 to int
     for key in ds_towrite.attrs:
-        if isinstance(ds_towrite.attrs[key], np.uint62):
+        if isinstance(ds_towrite.attrs[key], np.uint32):
             ds_towrite.attrs[key] = int(ds_towrite.attrs[key])
 
     # writes to netcdf
