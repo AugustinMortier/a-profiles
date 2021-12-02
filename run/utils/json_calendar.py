@@ -33,7 +33,7 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     json_file.close()        
 
     # add new data to calendar data
-    station_id = ds.attrs['wigos_station_id']
+    station_id = f'{ds.attrs["wigos_station_id"]}-{ds.attrs["instrument_id"]}'
     if station_id not in data:
         data[station_id] = {}
     data[station_id][dd] = scene_counts

@@ -54,7 +54,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     json_file.close()        
 
     # add new data to calendar data
-    station_id = ds.attrs['wigos_station_id']
+    station_id = f'{ds.attrs["wigos_station_id"]}-{ds.attrs["instrument_id"]}'
     if station_id not in data:
         data[station_id] = {}
     data[station_id][dd] = {
@@ -65,7 +65,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
                 'altitude': ds.attrs['station_altitude'],
             },
             'l0_wavelength': ds.attrs['l0_wavelength'],
-            'station_id': ds.attrs['wigos_station_id'],
+            'station_id': station_id,
             'station_name': ds.attrs['site_location'],
             'instrument_type': ds.attrs['instrument_type']
         },
