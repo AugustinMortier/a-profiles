@@ -3,8 +3,9 @@ API
 
 Documentation of the core API of `aprofiles`.
 
-.. image:: _static/images/api-svgrepo-com.svg
-   :width: 200
+.. image:: _static/images/api.svg
+   :width: 150
+   :alt: api
 
 .. toctree::
    :maxdepth: 2

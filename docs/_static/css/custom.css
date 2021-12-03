@@ -51,6 +51,7 @@ main img {
     text-align: center;
     display: block;
     margin: 20px 0px;
+    pointer-events: none;
 }
 
 #navbar-icon-links i.fab{
