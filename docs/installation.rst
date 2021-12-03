@@ -1,8 +1,6 @@
 Installation
 ============
 
-You can install aprofiles via pip.
-
 via *pip*
 ^^^^^^^^^
 
