@@ -1,6 +1,14 @@
 Changelog
 ============
 
+0.2.3
+^^^^^^^
+Dec 3, 2021
+
+- Rename *run* directory to *cli*
+- Rename *aprorun.py* to *aprocess.py*
+- Add CLI documentation
+
 0.2.2
 ^^^^^^^
 Nov 30, 2021
