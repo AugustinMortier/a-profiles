@@ -9,8 +9,25 @@ Python library for reading and processing atmospheric profilers measurements. A-
 The official documentation is available [here](https://a-profiles.readthedocs.io/).
 
 ## Installation
-Download *aprofiles* with *pip*
+
+### via *pip*
+*aprofiles* is directly available on *pip*. This will install the latest released version of *aprofiles* and its depencencies.
+    
 `pip install aprofiles`
+
+### via *Git*
+1. clone this repository
+
+    `git clone https://github.com/AugustinMortier/A-Profiles.git`
+
+2. installation
+- with *pip*
+
+    `pip install .`
+
+- with *poetry*
+
+    `poetry install`
 
 ## Get started
 
@@ -65,7 +82,7 @@ profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True,
 <img src="examples/images/Profile-Oslo-20210909T212005.png" title="Single Profile View" width="400"/>
 
 ## License
-[MIT License](LICENSE).
+[GPL-3.0](LICENSE).
 
 ## Support
 *A-Profiles* is developed by [MET Norway](https://github.com/metno) and supported by [EUMETNET](https://www.eumetnet.eu/).
