@@ -54,6 +54,26 @@ main img {
     pointer-events: none;
 }
 
+#via-pip > h2::before{
+    background-image:url('../images/pip.svg');
+    background-size: 20px 20px;
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    content:"";
+    margin-right: 10px;
+  }
+
+  #via-git > h2::before{
+    background-image:url('../images/github.svg');
+    background-size: 20px 20px;
+    display: inline-block;
+    width: 20px; 
+    height: 20px;
+    content:"";
+    margin-right: 10px;
+  }
+
 #navbar-icon-links i.fab{
     line-height: initial;   
 }
