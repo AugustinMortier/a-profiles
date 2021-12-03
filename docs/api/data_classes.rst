@@ -41,7 +41,7 @@ The values describing the size distribution for the different aerosol types are 
 .. [#] Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., ... & Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. Journal of the atmospheric sciences, 59(3), 590-608.
 .. [#] Mortier, A., Goloub, P., Podvin, T., Deroo, C., Chaikovsky, A., Ajtai, N., ... & Derimian, Y. (2013). Detection and characterization of volcanic ash plumes over Lille during the Eyjafjallajökull eruption. Atmospheric Chemistry and Physics, 13(7), 3705-3720.
 
-Aerosol properties are defined in :download:`../../aprofiles/config/aer_properties.json`
+Aerosol properties are defined in :download:`config/aer_properties.json <../../aprofiles/config/aer_properties.json>`
 
 .. automodule:: aprofiles.size_distribution
    :members:
