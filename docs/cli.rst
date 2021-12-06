@@ -87,7 +87,7 @@ run today's and yesterday's files for CHM15k only
 -------------------------------------------------
 ::
 
-    ./cli/aprocess.py --today --yesterday --instrument-types CHM15k
+    ./cli/aprocess.py --today --yesterday --instruments-type CHM15k
 
 update only calendar files for 2021
 -----------------------------------
