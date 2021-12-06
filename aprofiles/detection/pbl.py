@@ -1,3 +1,6 @@
+# @author Augustin Mortier
+# @desc A-Profiles - Planetary Boundary Layer
+
 import numpy as np
 import xarray as xr
 from tqdm import tqdm

@@ -1,5 +1,4 @@
 # @author Augustin Mortier
-# @email augustinm@met.no
 # @desc A-Profiles - Code for creating calendar json file to be used in V-Profiles
 
 import json

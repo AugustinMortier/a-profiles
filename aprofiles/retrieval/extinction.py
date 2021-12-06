@@ -1,5 +1,4 @@
 # @author Augustin Mortier
-# @email augustinm@met.no
 # @desc A-Profiles - Aerosol Inversion
 
 import aprofiles as apro

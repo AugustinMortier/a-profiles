@@ -1,5 +1,4 @@
 # @author Augustin Mortier
-# @email augustinm@met.no
 # @desc A-Profiles - Image plot
 
 import matplotlib.pyplot as plt

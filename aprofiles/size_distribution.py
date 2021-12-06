@@ -1,6 +1,6 @@
 # @author Augustin Mortier
-# @email augustinm@met.no
 # @desc A-Profiles - Size Distribution
+
 import json
 
 import matplotlib.pyplot as plt

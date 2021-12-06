@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # @author Augustin Mortier
-# @email augustinm@met.no
 # @desc A-Profiles - CLI for running aprofiles standard workflow
 
 import concurrent.futures

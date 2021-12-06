@@ -1,5 +1,4 @@
 # @author Augustin Mortier
-# @email augustinm@met.no
 # @desc A-Profiles - Extinction to Mass Coefficient
 import json
 

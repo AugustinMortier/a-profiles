@@ -1,3 +1,6 @@
+# @author Augustin Mortier
+# @desc A-Profiles - Reference Altitude
+
 import numpy as np
 
 
