@@ -22,6 +22,7 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
 2. installation
 - with *pip* (>21.3)
+
     `pip install .`
 
 - with *poetry*
