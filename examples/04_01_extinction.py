@@ -13,4 +13,7 @@ profiles.inversion(
 )
 
 # plot extinction profiles
-profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
+profiles.plot(
+    var="extinction", zmax=6000., vmin=0., vmax=5e-2,
+    save_fig="examples/images/forward.png"
+)

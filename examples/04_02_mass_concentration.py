@@ -5,7 +5,7 @@ path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
 profiles = apro.reader.ReadProfiles(path).read()
 
 # basic corrections
-profiles.extrapolate_below(z=150, inplace=True)
+profiles.extrapolate_below(z=150., inplace=True)
 
 # aerosol retrievals - forward inversion
 profiles.inversion(
@@ -14,5 +14,6 @@ profiles.inversion(
 
 # plot mass concentration profiles im the case of desert dust
 profiles.plot(
-    'mass_concentration:dust', zmax=6000., vmin=0., vmax=100., cmap='Oranges'
+    'mass_concentration:dust', zmax=6000., vmin=0., vmax=100., cmap='Oranges',
+    save_fig="examples/images/mass_conc-dust.png"
 )

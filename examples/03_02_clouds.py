@@ -11,4 +11,7 @@ profiles.extrapolate_below(z=150., inplace=True)
 profiles.clouds(zmin=300., thr_noise=5., thr_clouds=4., verbose=True)
 
 # plot image with clouds
-profiles.plot(show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
+profiles.plot(
+    show_clouds=True, log=True, vmin=1e-2, vmax=1e1,
+    save_fig="examples/images/clouds.png"
+)
