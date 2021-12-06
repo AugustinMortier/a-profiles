@@ -119,6 +119,8 @@ def plot(
     show_pbl=False,
     show_clouds=False,
     cmap="coolwarm",
+    show_fig=True,
+    save_fig = None
 ):
     """Plot image of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
@@ -135,6 +137,8 @@ def plot(
         - show_pbl (bool, optional): Add PBL height. Defaults to `False`.
         - show_clouds (bool, optional): Add clouds detection. Defaults to `False`.
         - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'` cmap from seaborn.
+        - show_fig (bool, optional): Show Figure. Defaults to `True`.
+        - save_fig (str, optional): Path of the saved figure. Defaults to `None`.
 
     Example:
         >>> import aprofiles as apro
@@ -229,4 +233,7 @@ def plot(
     cbar.set_label(label)
 
     plt.tight_layout()
-    plt.show()
+    if save_fig:
+        plt.savefig(save_fig)
+    if show_fig:
+        plt.show()

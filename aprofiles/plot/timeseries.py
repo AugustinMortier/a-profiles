@@ -9,12 +9,14 @@ import seaborn as sns
 sns.set_theme()
 
 
-def plot(da, var="aod", **kwargs):
+def plot(da, var="aod", show_fig=True, save_fig=None, **kwargs):
     """Plot time series of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
     Args:
         - da (:class:`xarray.DataArray`): DataArray
         - var (str, optional): [description]. Defaults to `'aod'`.
+        - show_fig (bool, optional): Show Figure. Defaults to `True`.
+        - save_fig (str, optional): Path of the saved figure. Defaults to `None`.
 
     Example:
 
@@ -77,4 +79,7 @@ def plot(da, var="aod", **kwargs):
     plt.ylabel(ylabel)
 
     plt.tight_layout()
-    plt.show()
+    if save_fig:
+        plt.savefig(save_fig)
+    if show_fig:
+        plt.show()

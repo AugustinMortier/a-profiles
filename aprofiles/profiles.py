@@ -420,7 +420,7 @@ class ProfilesData:
 
     def plot(
         self, var="attenuated_backscatter_0", datetime=None, zref="agl", zmin=None, zmax=None, vmin=None, vmax=None, log=False,
-        show_foc=False, show_pbl=False, show_clouds=False, cmap="coolwarm", **kwargs
+        show_foc=False, show_pbl=False, show_clouds=False, cmap="coolwarm", show_fig=True, save_fig=None, **kwargs
     ):
         """Plotting method.
         Depending on the variable selected, this method will plot an image, a single profile or a time series of the requested variable.
@@ -439,6 +439,8 @@ class ProfilesData:
             - show_pbl (bool, optional): Show PBL height retrievals. Defaults to `False`.
             - show_clouds (bool, optional): Show clouds retrievals. Defaults to `False`.
             - cmap (str, optional): Matplotlib colormap. Defaults to `'coolwarm'`.
+            - show_fig (bool, optional): Show Figure. Defaults to `True`.
+            - save_fig (str, optional): Path of the saved figure. Defaults to `None`.
         """
 
         # check if var is available
@@ -453,11 +455,11 @@ class ProfilesData:
         if datetime is None:
             # check dimension of var
             if len(list(self.data[var].dims)) == 2:
-                apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap=cmap)
+                apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap, show_fig, save_fig)
             else:
-                apro.plot.timeseries.plot(self.data, var, **kwargs)
+                apro.plot.timeseries.plot(self.data, var, show_fig, save_fig, **kwargs)
         else:
-            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds)
+            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, show_fig, save_fig)
     
     def write(self, base_dir='examples/data/V-Profiles/', verbose=False):
         """Calls :meth:`aprofiles.io.write_profiles.write()`."""
