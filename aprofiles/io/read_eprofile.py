@@ -46,7 +46,7 @@ class ReadEPROFILE:
             "at wavelength 0", f"@ {int(ds.l0_wavelength.data)} nm"
         )
         ds.attenuated_backscatter_0.attrs["units"] = ds.attenuated_backscatter_0.attrs["units"].replace(
-            "1E-6*1/(m*sr)", ("E-6 m-1.sr-1")
+            "1E-6*1/(m*sr)", ("µm-1.sr-1")
         )
         return ds
 

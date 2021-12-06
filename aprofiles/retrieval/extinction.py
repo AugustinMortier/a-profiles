@@ -245,7 +245,7 @@ def inversion(
         else range(len(profiles.data.time.data))
     ):
         # for the inversion, it is important to use the right units
-        if "E-6" in profiles.data.attenuated_backscatter_0.units:
+        if "µm" in profiles.data.attenuated_backscatter_0.units:
             calibrated_data = rcs.data[i, :] * 1e-6
         else:
             calibrated_data = rcs.data[i, :]
