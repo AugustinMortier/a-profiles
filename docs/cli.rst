@@ -34,7 +34,7 @@ returns the documentation of the CLI, with all available options.
     --today / --no-today            🕑 Process today.  [default: no-today]
     --yesterday / --no-yesterday    🕙 Process yesterday.  [default: no-
                                     yesterday]
-    --instrument-types TEXT         📗 List of specific instruments to be
+    --instruments-type TEXT         📗 List of specific instruments to be
                                     processed.  [default: CHM15k, Mini-MPL]
     --multithread / --no-multithread
                                     ⚡ Use multithread mode.  [default: no-

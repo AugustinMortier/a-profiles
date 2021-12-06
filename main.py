@@ -69,9 +69,4 @@ if __name__ == "__main__":
     # read some data
     path = "examples/data/E-PROFILE/L2_0-20000-006735_A20210908.nc"
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-    import cProfile
-    import pstats
-    profile = cProfile.Profile()
-    profile.runcall(main, path)
-    ps = pstats.Stats(profile)
-    ps.print_stats()
+    main(path)

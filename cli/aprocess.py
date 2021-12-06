@@ -32,8 +32,8 @@ def main(
     ),
     today: bool = typer.Option(False, help="🕑 Process today."),
     yesterday: bool = typer.Option(False, help="🕙 Process yesterday."),
-    instrument_types: List[str] = typer.Option(
-        ["CHM15k", "Mini-MPL"], help="📗 List of specific instruments to be processed."
+    instruments_types: List[str] = typer.Option(
+        ["CHM15k", "Mini-MPL"], "--instruments_type", help="📗 List of specific instruments to be processed."
     ),
     multithread: bool = typer.Option(False, help="⚡ Use multithread mode."),
     basedir_in: Path = typer.Option(
@@ -52,10 +52,10 @@ def main(
     # rsync: bool = typer.Option(False, help="📤 Rsync to webserver."),
 ):
     """
-    Run aprofiles standard workflow for given dates, optionally for specific instrument types.
+    Run aprofiles standard workflow for given dates, optionally for specific instruments types.
     """
 
-    #typer.echo(f"dates: {dates}, today: {today}, yesterday: {yesterday}, from: {_from}, to: {_to}, instrument_types: {instrument_types}, multithread: {multithread}")
+    #typer.echo(f"dates: {dates}, today: {today}, yesterday: {yesterday}, from: {_from}, to: {_to}, instruments_types: {instruments_types}, multithread: {multithread}")
 
     #prepare dates array | convert from tuples to list
     dates = list(_dates)
@@ -86,7 +86,7 @@ def main(
                         futures = [executor.submit(
                             utils.workflow.workflow, 
                             path=file, 
-                            instrument_types=instrument_types, 
+                            instruments_types=instruments_types, 
                             base_dir=basedir_out, verbose=False
                         ) 
                         for file in onlyfiles]
@@ -95,7 +95,7 @@ def main(
             else:
                 for file in tqdm(onlyfiles, desc=date.strftime("%Y-%m-%d")):
                     utils.workflow.workflow(
-                        file, instrument_types, basedir_out, verbose=False
+                        file, instruments_types, basedir_out, verbose=False
                     )
         
         # list all files in out directory

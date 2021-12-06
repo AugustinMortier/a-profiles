@@ -4,7 +4,7 @@
 import aprofiles as apro
 import warnings
 
-def workflow(path, instrument_types, base_dir, verbose=False):
+def workflow(path, instruments_types, base_dir, verbose=False):
     apro_reader = apro.reader.ReadProfiles(path)
     profiles = apro_reader.read()
 
@@ -14,9 +14,8 @@ def workflow(path, instrument_types, base_dir, verbose=False):
         warnings.warn(f"Error with {path}. attenuated_backscatter_0 variable has {nans}/{total} values as NaNs.")
         return
 
-    #print(profiles.data.attrs['wigos_station_id'], profiles.data.attrs['instrument_type'], profiles.data.attrs['instrument_type'] in instrument_types)
     # do the rest if instrument_type in the list
-    if profiles.data.attrs['instrument_type'] in instrument_types:
+    if profiles.data.attrs['instrument_type'] in instruments_types:
 
         # extrapolation lowest layers
         profiles.extrapolate_below(z=150., inplace=True)
