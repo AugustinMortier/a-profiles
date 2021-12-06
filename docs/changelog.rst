@@ -1,6 +1,16 @@
 Changelog
 ============
 
+0.2.4
+^^^^^^^
+Dec 6, 2021
+
+- Remove email address from scripts
+- Change CLI option (instrument-types to instruments-type)
+- Add *show_fig* and *save_fig* options to plotting function
+- Replace *E-6 m-1* by *µm-1* in figures
+- Update README and documentation figures
+
 0.2.3
 ^^^^^^^
 Dec 3, 2021
