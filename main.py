@@ -27,6 +27,10 @@ def main(path):
     # extrapolation lowest layers
     # profiles.plot(zmax=1000., log=True, vmin=1e-2, vmax=1e1)
     profiles.extrapolate_below(z=150, inplace=True)
+    profiles.plot(
+        zref='agl', log=True, vmin=1e-2, vmax=1e1, 
+        save_fig="docs/_static/images/QL-Oslo-20210909.png"
+    )
 
     # detection
     profiles.foc(zmin_cloud=200)
@@ -34,13 +38,19 @@ def main(path):
     profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2.0, verbose=True)
 
     # plot image
-    #profiles.plot(zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1)
+    profiles.plot(
+        zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, 
+        save_fig="docs/_static/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
+    )
 
     # plot single profile
     # datetime = np.datetime64('2021-09-09T19:25:00')
     datetime = np.datetime64('2021-09-09T21:20:00')
     # datetime = np.datetime64('2021-09-09T10:25:00')
-    #profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_fog=True, show_clouds=True, show_pbl=True)
+    profiles.plot(
+        datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_fog=True, show_clouds=True, show_pbl=True,
+        save_fig="docs/_static/images/Profile-Oslo-20210909T212005.png"
+    )
 
     # aerosol inversion
 
