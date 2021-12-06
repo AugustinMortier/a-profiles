@@ -33,7 +33,7 @@ def main(
     today: bool = typer.Option(False, help="🕑 Process today."),
     yesterday: bool = typer.Option(False, help="🕙 Process yesterday."),
     instruments_types: List[str] = typer.Option(
-        ["CHM15k", "Mini-MPL"], "--instruments_type", help="📗 List of specific instruments to be processed."
+        ["CHM15k", "Mini-MPL"], "--instruments-type", help="📗 List of specific instruments to be processed."
     ),
     multithread: bool = typer.Option(False, help="⚡ Use multithread mode."),
     basedir_in: Path = typer.Option(
