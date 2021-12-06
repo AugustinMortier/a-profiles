@@ -21,7 +21,7 @@ via *Git*
 
 2. installation
 
-    - with *pip*
+    - with *pip* (>21.3)
         .. code-block::
 
             pip install .

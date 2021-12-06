@@ -21,9 +21,8 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
     `git clone https://github.com/AugustinMortier/A-Profiles.git`
 
 2. installation
-- with *pip*
-
-    `pip install .`
+- with *pip* (>21.3)
+    - `pip install .`
 
 - with *poetry*
 
