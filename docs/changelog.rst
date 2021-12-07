@@ -3,6 +3,12 @@ Changelog
 
 0.2.4
 ^^^^^^^
+Dec 7, 2021
+
+- Move *Typer* from development dependencies to default dependencies
+
+0.2.4
+^^^^^^^
 Dec 6, 2021
 
 - Remove email address from scripts
