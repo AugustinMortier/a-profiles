@@ -5,17 +5,17 @@
 
 Python library for reading and processing atmospheric profilers measurements. A-Profiles supports [E-PROFILE](https://e-profile.eu/#/cm_profile) ceilometer data. This library is used by [V-Profiles](https://vprofiles.met.no).
 
-## Documentation
+## <img src="docs/_static/images/book-solid.svg" height="20"/> Documentation
 The official documentation is available [here](https://a-profiles.readthedocs.io/).
 
-## Installation
+## <img src="docs/_static/images/cogs-solid.svg" height="20"/> Installation
 
-### <img src="docs/_static/images/pip.svg" width="20"/> via *pip*
+### <img src="docs/_static/images/pip.svg" height="15"/> via *pip*
 *aprofiles* is directly available on *pip*. This will install the latest released version of *aprofiles* and its depencencies.
     
 `pip install aprofiles`
 
-### <img src="docs/_static/images/github.svg" width="20"/> via *Git*
+### <img src="docs/_static/images/github.svg" height="15"/> via *Git*
 1. clone this repository
 
     `git clone https://github.com/AugustinMortier/A-Profiles.git`
@@ -29,7 +29,7 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
     `poetry install`
 
-## Get started
+## <img src="docs/_static/images/play-circle-solid.svg" height="20"/> Get started
 
 ### Reading Data
 ```
@@ -81,8 +81,8 @@ profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True,
 ```
 <img src="docs/_static/images/Profile-Oslo-20210909T212005.png" title="Single Profile View" width="400"/>
 
-## License
+## <img src="docs/_static/images/balance-scale-solid.svg" height="20"/> License
 [GPL-3.0](LICENSE).
 
-## Support
+## <img src="docs/_static/images/university-solid.svg" height="20"/> Support
 *A-Profiles* is developed by [MET Norway](https://github.com/metno) and supported by [EUMETNET](https://www.eumetnet.eu/).
