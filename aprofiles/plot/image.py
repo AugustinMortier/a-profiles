@@ -37,7 +37,7 @@ def _plot_foc(da, zref):
                 alpha=0.4,
             )
     # plot markers
-    plt.plot([], [], "^m", ms=10, lw=0, label="foc or condensation")
+    plt.plot([], [], "^m", ms=10, lw=0, label="fog or condensation")
     plt.plot(time, foc_markers, "m", marker=10, ms=10, lw=0)
 
 
