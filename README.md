@@ -31,7 +31,7 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
 ## <img src="docs/_static/images/play-circle-solid.svg" height="20"/> Get started
 
-### Reading Data
+### <img src="docs/_static/images/book-open-solid.svg" height="15"/> Reading Data
 ```
 # import library
 import aprofiles as apro
@@ -41,7 +41,7 @@ path = "examples/data/L2_0-20000-006735_A20210908.nc"
 profiles = apro.reader.ReadProfiles(path).read()
 ``` 
 
-### Basic corrections and Image plotting
+### <img src="docs/_static/images/wrench-solid.svg" height="15"/> Basic corrections and Image plotting
 ``` 
 # extrapolate lowest layers for removing outliers
 profiles.extrapolate_below(zmin=150, inplace=True)
@@ -52,7 +52,7 @@ profiles.plot(zref='agl', vmin=1e-2, vmax=1e1, log=True)
 <img src="docs/_static/images/QL-Oslo-20210909.png" title="Attenuated Backscatter Signal" width="800"/>
 
 
-### Profiles Analysis
+### <img src="docs/_static/images/calculator-solid.svg" height="15"/> Profiles Analysis
 ```
 # fog/condensation detection
 profiles.foc(zmin_cloud=200) 
@@ -64,7 +64,7 @@ profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
 profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
 ```
 
-### Visualization
+### <img src="docs/_static/images/eye-solid.svg" height="15"/> Visualization
 
 #### Image
 ```
