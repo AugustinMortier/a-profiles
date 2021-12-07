@@ -9,8 +9,6 @@
 
 <img src="docs/_static/images/A-Profiles.png" width="200" style="margin: 20px 10px"/> 
 
-<div class="icon icon-bike"></div>
-
 Python library for reading and processing atmospheric profilers measurements. A-Profiles supports [E-PROFILE](https://e-profile.eu/#/cm_profile) ceilometer data. This library is used by [V-Profiles](https://vprofiles.met.no).
 
 ## 📗 Documentation
