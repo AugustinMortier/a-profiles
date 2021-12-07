@@ -1,12 +1,6 @@
 [![CI](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml/badge.svg)](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml)
 [![Documentation Status](https://readthedocs.org/projects/a-profiles/badge/?version=latest)](https://a-profiles.readthedocs.io/en/latest/?badge=latest)
 
-<style>
-    .h3-logo{
-        height: 15px;
-    }
-</style>
-
 <img src="docs/_static/images/A-Profiles.png" width="200" style="margin: 20px 10px"/> 
 
 Python library for reading and processing atmospheric profilers measurements. A-Profiles supports [E-PROFILE](https://e-profile.eu/#/cm_profile) ceilometer data. This library is used by [V-Profiles](https://vprofiles.met.no).
@@ -16,12 +10,12 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
 ## ✨ Installation
 
-### <img src="docs/_static/images/pip.svg" class="h3-logo"/> via *pip*
+### <img src="docs/_static/images/pip.svg" height="15px"/> via *pip*
 *aprofiles* is directly available on *pip*. This will install the latest released version of *aprofiles* and its depencencies.
     
 `pip install aprofiles`
 
-### <img src="docs/_static/images/github.svg" class="h3-logo"/> via *Git*
+### <img src="docs/_static/images/github.svg" height="15px"/> via *Git*
 1. clone this repository
 
     `git clone https://github.com/AugustinMortier/A-Profiles.git`
