@@ -161,7 +161,7 @@ def inversion(
 
     Returns:
         :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray`.
-            - `'extinction' (time, altitude)`: 2D array corresponding to the aerosol extinction.
+            - `'extinction' (time, altitude)`: 2D array corresponding to the aerosol extinction, in km-1.
             - `'aod' (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.
             - `'lidar_ratio' (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.
 
