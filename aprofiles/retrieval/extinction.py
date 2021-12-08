@@ -247,7 +247,7 @@ def inversion(
     ):
         # for this inversion, it is important to use the right units
         if "Mm" in profiles.data.attenuated_backscatter_0.units:
-            calibrated_data = rcs.data[i, :] * 1e-6
+            calibrated_data = rcs.data[i, :] * 1e-6 # conversion from Mm-1.sr-1 to m-1.sr-1
         else:
             calibrated_data = rcs.data[i, :]
 
