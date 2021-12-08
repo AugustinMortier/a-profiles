@@ -28,7 +28,7 @@ main img {
 
 #api > a > img {
     height: 40px !important;
-    filter: invert(100%) sepia(26%) saturate(5024%) hue-rotate(79deg) brightness(95%) contrast(93%);
+    filter: invert(82%) sepia(80%) saturate(436%) hue-rotate(83deg) brightness(101%) contrast(84%);
 }
 
 #via-pip > h2::before{
