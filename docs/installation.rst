@@ -1,6 +1,9 @@
 Installation
 ============
 
+.. image:: _static/images/python-brands.svg
+   :class: awesome-svg
+
 via *pip*
 ^^^^^^^^^
 
