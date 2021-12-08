@@ -5,6 +5,7 @@ import aprofiles as apro
 import numpy as np
 import xarray as xr
 from tqdm import tqdm
+from scipy import integrate
 import warnings
 
 from .ref_altitude import get_iref
@@ -244,8 +245,8 @@ def inversion(
         if verbose
         else range(len(profiles.data.time.data))
     ):
-        # for the inversion, it is important to use the right units
-        if "µm" in profiles.data.attenuated_backscatter_0.units:
+        # for this inversion, it is important to use the right units
+        if "Mm" in profiles.data.attenuated_backscatter_0.units:
             calibrated_data = rcs.data[i, :] * 1e-6
         else:
             calibrated_data = rcs.data[i, :]
