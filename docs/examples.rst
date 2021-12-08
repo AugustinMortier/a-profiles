@@ -1,6 +1,10 @@
 Examples
 ========
 
+.. image:: _static/images/rocket-solid.svg
+   :class: awesome-svg
+
+
 Some basic examples for getting you started using *aprofiles*. For more information, check out the :ref:`API`.
 
 Data reading

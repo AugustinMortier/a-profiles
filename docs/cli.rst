@@ -1,6 +1,9 @@
 CLI
 ============
 
+.. image:: _static/images/keyboard-solid.svg
+   :class: awesome-svg
+
 For facilitating the processing of the measurements in routine, a Command Line Interface (CLI) has been developed: 
 :download:`cli/aprocess.py <../cli/aprocess.py>`
 

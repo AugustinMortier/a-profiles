@@ -19,16 +19,14 @@ main img {
     padding: 0px 10px;
 }
 
-#api > a {
-    text-align: center;
-    display: block;
-    margin: 20px 0px;
-    pointer-events: none;
-}
-
-#api > a > img {
-    height: 40px !important;
-    filter: invert(82%) sepia(80%) saturate(436%) hue-rotate(83deg) brightness(101%) contrast(84%);
+img.awesome-svg {
+    height: 30px !important;
+    /*filter: invert(82%) sepia(80%) saturate(436%) hue-rotate(83deg) brightness(101%) contrast(84%);*/
+    /*filter: invert(10%) sepia(87%) saturate(5166%) hue-rotate(253deg) brightness(43%) contrast(108%);*/
+    filter: invert(37%) sepia(12%) saturate(0%) hue-rotate(177deg) brightness(102%) contrast(92%);
+    margin-bottom: 20px;
+    left: calc(50% - 30px);
+    position: relative;
 }
 
 #via-pip > h2::before{

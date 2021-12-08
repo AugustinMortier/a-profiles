@@ -1,6 +1,9 @@
 Changelog
 ============
 
+.. image:: _static/images/history-solid.svg
+   :class: awesome-svg
+
 0.2.6
 ^^^^^^^
 Dec 8, 2021
