@@ -24,7 +24,7 @@ img.awesome-svg {
     /*filter: invert(82%) sepia(80%) saturate(436%) hue-rotate(83deg) brightness(101%) contrast(84%);*/
     /*filter: invert(10%) sepia(87%) saturate(5166%) hue-rotate(253deg) brightness(43%) contrast(108%);*/
     filter: invert(37%) sepia(12%) saturate(0%) hue-rotate(177deg) brightness(102%) contrast(92%);
-    margin-bottom: 20px;
+    margin: 10px 0px 20px 0px;
     left: calc(50% - 30px);
     position: relative;
 }
