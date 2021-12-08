@@ -1,6 +1,12 @@
 Changelog
 ============
 
+0.2.6
+^^^^^^^
+Dec 8, 2021
+
+- Fix *Attenuated Backscatter* units from µm-1.sr-1 to Mm-1.sr-1. This bug only impacted figures legends.
+
 0.2.5
 ^^^^^^^
 Dec 7, 2021
