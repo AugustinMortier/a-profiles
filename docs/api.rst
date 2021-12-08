@@ -3,7 +3,7 @@ API
 
 Documentation of the core API of `aprofiles`.
 
-.. image:: _static/images/api.svg
+.. image:: _static/images/cogs-solid.svg
    :width: 150
    :alt: api
 
