@@ -107,7 +107,7 @@ class RayleighData:
         # density (cm-3)
         N_m = [Ns * (T0 / P0) * (Pz[i] / Tz[i]) for i in range(len(Pz))]
 
-        # cross section, in cm-2 (adapted from Bodhaine et al., 1999)
+        # cross section, in cm2 (adapted from Bodhaine et al., 1999)
         king_factor = 1.05  # tomasi et al., 2005
         num = 24 * (np.pi ** 3) * ((_refi_air(self.wavelength * 1e-3) ** 2 - 1) ** 2)
         denum = (
@@ -128,9 +128,10 @@ class RayleighData:
         imax = imin + len(z)
 
         # output
-        self.cross_section = section_m  # in cm-2
+        self.cross_section = section_m  # in cm2
         self.backscatter = bmol[imin:imax] * 1e2  # from cm-1 to m-1
         self.extinction = amol[imin:imax] * 1e2  # from cm-1 to m-1
+        self.tau = np.cumsum(self.extinction*(dz*1000))[-1]
 
         return self
 
@@ -159,13 +160,22 @@ class RayleighData:
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
         plt.plot(self.extinction, self.altitude)
         plt.text(
-            0.95,
+            0.97,
             0.94,
-            f"$\sigma_m: {self.cross_section:.2e} cm-2$",
+            f"$\sigma_m: {self.cross_section:.2e} cm2$",
             horizontalalignment="right",
             verticalalignment="center",
             transform=ax.transAxes,
         )
+        plt.text(
+            0.97,
+            0.88,
+            f"$\u03C4_m: {self.tau:.2e}$",
+            horizontalalignment="right",
+            verticalalignment="center",
+            transform=ax.transAxes,
+        )
+        
         plt.title(
             f"Rayleigh Profile in a Standard Atmosphere ({self.P0}hPa, {self.T0}K)",
             weight="bold",
