@@ -98,6 +98,9 @@ def forward_inversion(data, iref, apriori, rayleigh):
     lr_mol = 8.0 * np.pi / 3.0
 
     def _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, dz, nloop_max=30, diff_ext=0.01):
+        # suppress warnings
+        warnings.filterwarnings('ignore')
+
         for _ in range(nloop_max):
             if np.isnan(Ea[i]):
                 Ta[i] = 1
