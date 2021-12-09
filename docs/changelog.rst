@@ -15,7 +15,7 @@ Dec 9, 2021
 Dec 9, 2021
 
 .. note::
-    Due to a mistake committed within *pypi*, this version no longer exists. Use 0.3.1 instead.
+    This version has been removed from *pypi*. Use 0.3.1 instead.
 
 - Fix major bug in *forward* inversion method (use of molecular transmission instead of aerosol transmission).
 - Use max altitude as reference altitude when using the forward inversion method.
