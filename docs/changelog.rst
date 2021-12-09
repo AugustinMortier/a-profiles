@@ -4,6 +4,14 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.3.0
+^^^^^^^
+Dec 9, 2021
+
+- Fix major bug in *forward* inversion method (use of molecular transmission instead of aerosol transmission).
+- Add a *simulator* module for computing attenuated backscatter profiles from a given extinction profile model.
+- Remove outliers in standard workflow called by the CLI.
+
 0.2.6
 ^^^^^^^
 Dec 8, 2021
