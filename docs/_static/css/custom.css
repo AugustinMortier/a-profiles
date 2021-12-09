@@ -21,13 +21,21 @@ main img {
 
 img.awesome-svg {
     height: 30px !important;
-    /*filter: invert(82%) sepia(80%) saturate(436%) hue-rotate(83deg) brightness(101%) contrast(84%);*/
-    /*filter: invert(10%) sepia(87%) saturate(5166%) hue-rotate(253deg) brightness(43%) contrast(108%);*/
     filter: invert(74%) sepia(5%) saturate(91%) hue-rotate(155deg) brightness(92%) contrast(82%);
     margin: 10px 0px 20px 0px;
     left: calc(50% - 30px);
     position: relative;
 }
+
+/*
+img.awesome-svg {
+    height: 30px !important;
+    filter: filter: invert(9%) sepia(43%) saturate(4398%) hue-rotate(242deg) brightness(98%) contrast(117%);
+    margin: 5px 10px 0px 0px;
+    position: relative;
+    float: left;
+}
+*/
 
 #via-pip > h2::before{
     background-image:url('../images/pip.svg');
