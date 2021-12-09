@@ -26,10 +26,10 @@ class ExtinctionToAttenuatedBackscatter:
             >>> import aprofiles as apro
             >>> # simulate rayleigh profiles with a random noise
             >>> simulator = apro.simulator.ExtinctionToAttenuatedBackscatter(model = 'step', wavelength = 1064., lidar_ratio = 50., noise = 0.5);
-            # calls the to_profiles_data method
-            sim_profiles = simulator.to_profiles_data()
-            # plot modelled extinction
-            sim_profiles.plot('extinction_model')
+            >>> # calls the to_profiles_data method
+            >>> sim_profiles = simulator.to_profiles_data()
+            >>> # plot modelled extinction
+            >>> sim_profiles.plot('extinction_model')
 
             .. figure:: ../../docs/_static/images/simulation_step-model.png
                 :scale: 80 %
