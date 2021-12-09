@@ -45,8 +45,8 @@ class ExtinctionToAttenuatedBackscatter:
         self.noise = noise
 
         # workflow
-        ds = self.model_extinction()
-        ds = self.simulate_attenuated_backscatter(ds)
+        ds = self._model_extinction()
+        ds = self._simulate_attenuated_backscatter(ds)
         self.data = ds
     
     def to_profiles_data(self: xr.DataArray):
@@ -57,7 +57,7 @@ class ExtinctionToAttenuatedBackscatter:
         """  
         return ProfilesData(self.data)
 
-    def model_extinction(self):
+    def _model_extinction(self):
         """Calculates the extinction coefficient profiles for a given aerosol model (vertical distribution, lidar ratio) at a given wavelength and with a random noise.
 
         Returns:
@@ -107,7 +107,7 @@ class ExtinctionToAttenuatedBackscatter:
         }
         return ds
     
-    def simulate_attenuated_backscatter(self, ds: xr.Dataset):
+    def _simulate_attenuated_backscatter(self, ds: xr.Dataset):
         """Calculates the attenuated backscatter measurements for given extinction profiles
         
         Args:
