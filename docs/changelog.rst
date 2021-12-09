@@ -4,9 +4,18 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.3.1
+^^^^^^^
+Dec 9, 2021
+
+- Use max altitude as reference altitude when using the forward inversion method.
+
 0.3.0
 ^^^^^^^
 Dec 9, 2021
+
+.. note::
+    Due to a mistake committed within *pypi*, this version no longer exists. Use 0.3.1 instead.
 
 - Fix major bug in *forward* inversion method (use of molecular transmission instead of aerosol transmission).
 - Use max altitude as reference altitude when using the forward inversion method.
