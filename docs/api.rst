@@ -13,5 +13,6 @@ Documentation of the core API of `aprofiles`.
    api/data_classes
    api/detection
    api/retrieval
+   api/simulation
    api/plotting
    api/writing
