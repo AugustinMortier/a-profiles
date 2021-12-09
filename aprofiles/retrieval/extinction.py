@@ -261,7 +261,10 @@ def inversion(
         lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
         imin = profiles._get_index_from_altitude_AGL(zmin)
         imax = profiles._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
-        iref = get_iref(rcs.data[i, :], imin, imax, min_snr)
+        if method == "backward":
+            iref = get_iref(rcs.data[i, :], imin, imax, min_snr)
+        elif method == "forward":
+            iref = imax
         z_ref.append(altitude[iref])
 
         if iref is not None:

@@ -9,6 +9,7 @@ Changelog
 Dec 9, 2021
 
 - Fix major bug in *forward* inversion method (use of molecular transmission instead of aerosol transmission).
+- Use max altitude as reference altitude when using the forward inversion method.
 - Add a *simulator* module for computing attenuated backscatter profiles from a given extinction profile model.
 - Remove outliers in standard workflow called by the CLI.
 
