@@ -26,5 +26,5 @@ def workflow(path, instruments_types, base_dir, verbose=False):
         profiles.pbl(zmin=200., zmax=3000., under_clouds=False, min_snr=1., verbose=verbose)
 
         # retrievals
-        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=False, method="forward", verbose=verbose)
+        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method="forward", verbose=verbose)
         profiles.write(base_dir)
