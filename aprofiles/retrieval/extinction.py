@@ -97,13 +97,16 @@ def forward_inversion(data, iref, apriori, rayleigh):
         lr_aer = apriori["lr"]
     lr_mol = 8.0 * np.pi / 3.0
 
-    def _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, nloop_max=30, diff_ext=0.01):
+    def _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, dz, nloop_max=30, diff_ext=0.01):
         for _ in range(nloop_max):
             if np.isnan(Ea[i]):
                 Ta[i] = 1
             else:
                 Ta[i] = np.exp(-np.nancumsum(Ea * dz))[i]
-            Ba[i] = data[i] / (Tm[i] ** 2 * Ta[i] ** 2) - Bm[i]
+            if (Tm[i] ** 2 * Ta[i] ** 2) != 0:
+                Ba[i] = data[i] / (Tm[i] ** 2 * Ta[i] ** 2) - Bm[i]
+            else:
+                Ba[i] = np.nan
             # test extinction
             if 1 - (lr_aer * Ba[i] / Ea[i]) < diff_ext:
                 Ea[i] = lr_aer * Ba[i]
@@ -125,7 +128,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
     Ea = np.asarray([np.nan for _ in range(len(data))])
 
     for i in range(iref):
-        Ba[i], Ea[i], Ta[i] = _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea)
+        Ba[i], Ea[i], Ta[i] = _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, dz)
     # returns extinction in m-1
     ext = Ea
     return ext
@@ -154,7 +157,7 @@ def inversion(
         - under_clouds (bool, optional): If True, and if the `ProfilesData` has a `cloud_base` variable (returned by the `clouds` method), forces the initialization altitude to be found below the first cloud detected in the profile. Defaults to True.
         - method ({‘backward’, ‘forward’}, optional). Defaults to ‘forward’.
         - apriori (dict, optional). A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to {‘lr’: 50}.
-        - remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation ([>0, <1]). Defaults to False (while development. to be changed afterwards).
+        - remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation (AOD<0, or AOD>1). Defaults to False (while development. to be changed afterwards).
         - verbose (bool, optional): verbose mode. Defaults to False.
 
     Raises:
