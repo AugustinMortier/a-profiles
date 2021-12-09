@@ -70,13 +70,13 @@ def forward_inversion(data, iref, apriori, rayleigh):
 
     Method principle:
 
-    At z0, the aerosol transmission is first assumed a being close to 1. We evaluate the aerosol extinction based on this assumption.
+    At z0, the aerosol transmission is assumed as being close to 1. We evaluate the aerosol extinction based on this assumption.
     This evaluation gives a refined aerosol extinction that is used to calculate a second time the aerosol transmission.
     The aerosol extinction retrieval will converge after a certain number iterations.
     After the convergence, the aerosol extinction is retrieved in the next upper layer.
 
     Args:
-        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.
+        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient, in m-1.sr-1.
         - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
         - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
         - rayleigh (:class:`aprofiles.rayleigh.RayleighData`). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.
@@ -99,10 +99,10 @@ def forward_inversion(data, iref, apriori, rayleigh):
 
     def _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, nloop_max=30, diff_ext=0.01):
         for _ in range(nloop_max):
-            if np.isnan(Ea[0]):
+            if np.isnan(Ea[i]):
                 Ta[i] = 1
             else:
-                Ta[i] = np.exp(-2 * np.nancumsum(Em * dz))[i]
+                Ta[i] = np.exp(-np.nancumsum(Ea * dz))[i]
             Ba[i] = data[i] / (Tm[i] ** 2 * Ta[i] ** 2) - Bm[i]
             # test extinction
             if 1 - (lr_aer * Ba[i] / Ea[i]) < diff_ext:
@@ -117,7 +117,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
 
     Bm = rayleigh.backscatter
     Em = rayleigh.extinction
-    Tm = np.exp(-2 * np.cumsum(Em * dz))
+    Tm = np.exp(-np.cumsum(Em * dz))
 
     # Initialize aer profiles
     Ta = np.asarray([np.nan for _ in range(len(data))])
