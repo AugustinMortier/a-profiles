@@ -8,7 +8,7 @@ Changelog
 ^^^^^^^
 Dec 13, 2021
 
-- Use *multiprocessing*instead of *multithread*.
+- Use *multiprocessing* instead of *multithread*.
 
 0.3.1
 ^^^^^^^
