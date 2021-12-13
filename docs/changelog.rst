@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.3.2
+^^^^^^^
+Dec 13, 2021
+
+- Use *multiprocessing*instead of *multithread*.
+
 0.3.1
 ^^^^^^^
 Dec 9, 2021
