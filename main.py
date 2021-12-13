@@ -75,7 +75,7 @@ def main(path):
     # rayleigh = apro.rayleigh_data.RayleighData(altitude, wavelength=wavelength, T0=298, P0=1013);
     # rayleigh.plot()
     # retrievals
-    profiles.write('testdir')
+    #profiles.write('testdir')
 
 if __name__ == "__main__":
     # read some data

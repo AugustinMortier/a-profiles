@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.3.3
+^^^^^^^
+Dec 13, 2021
+
+- Remove *pip* publication warning.
+
 0.3.2
 ^^^^^^^
 Dec 13, 2021
