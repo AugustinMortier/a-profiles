@@ -15,7 +15,7 @@ from tqdm import tqdm
 import utils
 
 
-# def main(dates: List[str], instrument_types: List[str], multithread: bool):
+# def main(dates: List[str], instrument_types: List[str], multiprocess: bool):
 def main(
     _dates: List[datetime] = typer.Option(
         [], "--date", formats=["%Y-%m-%d"], help="📅 Processing date."
@@ -35,7 +35,7 @@ def main(
     instruments_types: List[str] = typer.Option(
         ["CHM15k", "Mini-MPL"], "--instruments-type", help="📗 List of specific instruments to be processed."
     ),
-    multithread: bool = typer.Option(False, help="⚡ Use multithread mode."),
+    multiprocessing: bool = typer.Option(False, help="⚡ Use multiprocessing mode."),
     basedir_in: Path = typer.Option(
         "data/e-profile", exists=True, readable=True, help="📂 Base path for input data."
     ),
@@ -55,7 +55,7 @@ def main(
     Run aprofiles standard workflow for given dates, optionally for specific instruments types.
     """
 
-    #typer.echo(f"dates: {dates}, today: {today}, yesterday: {yesterday}, from: {_from}, to: {_to}, instruments_types: {instruments_types}, multithread: {multithread}")
+    #typer.echo(f"dates: {dates}, today: {today}, yesterday: {yesterday}, from: {_from}, to: {_to}, instruments_types: {instruments_types}, multiprocessing: {multiprocessing}")
 
     #prepare dates array | convert from tuples to list
     dates = list(_dates)
@@ -80,9 +80,9 @@ def main(
 
         # data processing
         if update_data:
-            if multithread:
+            if multiprocessing:
                 with tqdm(total=len(onlyfiles), desc=date.strftime("%Y-%m-%d")) as pbar:
-                    with concurrent.futures.ThreadPoolExecutor() as executor:
+                    with concurrent.futures.ProcessPoolExecutor() as executor:
                         futures = [executor.submit(
                             utils.workflow.workflow, 
                             path=file, 

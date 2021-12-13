@@ -39,9 +39,9 @@ returns the documentation of the CLI, with all available options.
                                     yesterday]
     --instruments-type TEXT         📗 List of specific instruments to be
                                     processed.  [default: CHM15k, Mini-MPL]
-    --multithread / --no-multithread
-                                    ⚡ Use multithread mode.  [default: no-
-                                    multithread]
+    --multiprocessing / --no-multiprocessing
+                                    ⚡ Use multiprocessing mode.  [default: no-
+                                    multiprocessing]
     --basedir-in PATH               📂 Base path for input data.  [default:
                                     data/e-profile]
     --basedir-out PATH              📂 Base path for input data.  [default:
@@ -100,10 +100,10 @@ update only calendar files for 2021
 
 
 
-use multithread processing
---------------------------
+use multiprocessing 
+-------------------
 
-The data processing can be run in parallel by using the `multithread` option
+The data processing can be run in parallel by using the `multiprocessing` option
 ::
 
-    ./cli/aprocess.py --today --yesterday --multithread
+    ./cli/aprocess.py --today --yesterday --multiprocessing
