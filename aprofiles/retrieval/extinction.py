@@ -132,6 +132,8 @@ def forward_inversion(data, iref, apriori, rayleigh):
 
     for i in range(iref):
         Ba[i], Ea[i], Ta[i] = _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, dz)
+        if np.isnan(Ba[i]):
+            continue
     # returns extinction in m-1
     ext = Ea
     return ext
