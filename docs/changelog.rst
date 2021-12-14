@@ -4,11 +4,24 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.3.4
+^^^^^^^
+Dec 14, 2021
+
+- Exit forward inversion loop as soon as a *np.nan* value is found in the profile.
+- Work on documentation.
+
 0.3.3
 ^^^^^^^
 Dec 13, 2021
 
-- Remove *pip* publication warning.
+- Fix *poetry* warning when publishing to *pip*.
+
+.. note::
+    After further investigation, the reported issue with the installation of *aprofiles* with *pip* was due to the use of *-e* option:
+    
+    - `pip install .` works
+    - `pip install . -e` fails
 
 0.3.2
 ^^^^^^^
