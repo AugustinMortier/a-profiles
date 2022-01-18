@@ -4,6 +4,13 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.3.5
+^^^^^^^
+Jan 18, 2022
+
+- Enables reading of original CEDA archive files with variables having dimensions as (altitude, time) instead of (time, altitude).
+
+
 0.3.4
 ^^^^^^^
 Dec 14, 2021
