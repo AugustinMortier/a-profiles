@@ -472,7 +472,7 @@ def _main():
 
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
-    
+
     # basic corrections
     profiles.extrapolate_below(z=150., inplace=True)
     profiles.desaturate_below(z=4000., inplace=True)
@@ -488,7 +488,6 @@ def _main():
     
     # write results
     profiles.write()
-
 
 if __name__ == "__main__":
     _main()
