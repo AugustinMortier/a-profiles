@@ -40,6 +40,10 @@ class ReadEPROFILE:
         Returns:
             :class:`xarray.Dataset`
         """
+        # in CEDA archive, dimensions come as (altitude, time). Transpose all variables which have altitude as dimension.
+        if ds.latitude.dims[0]=='altitude':
+            ds = ds.transpose(..., 'altitude')
+
         ds = xr.open_dataset(self.path, decode_times=True)
         # replace wavelength with actual value in attenuated backscatter longname
         ds.attenuated_backscatter_0.attrs["long_name"] = ds.attenuated_backscatter_0.long_name.replace(

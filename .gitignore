@@ -2,6 +2,7 @@
 dev.ipynb
 data/e-profile
 data/v-profiles
+data/debug
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
