@@ -27,9 +27,9 @@ jobs:
     - name: Install package
       run: poetry install
     - name: Run tests
-      run: poetry run pytest --cov=./ --cov-report=xml
+      run: poetry run pytest
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
-          file: ./coverage.xml
-          flags: unittests
+        fail_ci_if_error: true
+        token: ${{ d2e9bf06-e330-47bc-85b4-11491973821e }} # not required for public repos
