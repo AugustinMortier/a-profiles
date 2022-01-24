@@ -32,4 +32,4 @@ jobs:
       uses: codecov/codecov-action@v2
       with:
         fail_ci_if_error: true
-        token: ${{ secrets.d2e9bf06-e330-47bc-85b4-11491973821e }} # not required for public repos
+        token: d2e9bf06-e330-47bc-85b4-11491973821e
