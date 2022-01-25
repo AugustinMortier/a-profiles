@@ -1,5 +1,6 @@
 [![CI](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml/badge.svg)](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml)
 [![Documentation Status](https://readthedocs.org/projects/a-profiles/badge/?version=latest)](https://a-profiles.readthedocs.io/en/latest/?badge=latest)
+[![codecov](https://codecov.io/gh/AugustinMortier/A-Profiles/branch/master/graph/badge.svg?token=CQH8TD7VES)](https://codecov.io/gh/AugustinMortier/A-Profiles)
 
 <img src="docs/_static/images/A-Profiles.png#gh-light-mode-only" width="200" style="margin: 20px 10px"/>
 <img src="docs/_static/images/A-Profiles-white.png#gh-dark-mode-only" width="200" style="margin: 20px 10px"/>
