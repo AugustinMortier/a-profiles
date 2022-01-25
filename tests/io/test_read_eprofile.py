@@ -13,4 +13,8 @@ def path():
 class TestReadEPROFILE:
     def test_read(self, path):
         data = read_eprofile.ReadEPROFILE(path).read()
+        # test types
+        assert type(path) is str
         assert type(data) is xr.core.dataset.Dataset
+        # test dimensions order
+        assert data.latitude.dims == ('time', 'altitude')
