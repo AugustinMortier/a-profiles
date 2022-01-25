@@ -392,7 +392,7 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attribute
-        new_profiles_data.data[var].attrs["desaturated"] = "True"
+        new_profiles_data.data[var].attrs["desaturated"] = True
         return new_profiles_data
 
     def foc(self, method="cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
