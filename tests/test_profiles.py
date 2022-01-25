@@ -9,7 +9,7 @@ def profiles():
     return apro.reader.ReadProfiles(path).read()
 
 # test class
-class TestReadProfiles:
-    def test_read(self, profiles):
+class TestProfilesData:
+    def test_snr(self, profiles):
         # test types
         assert type(profiles) is apro.profiles.ProfilesData
