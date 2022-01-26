@@ -5,6 +5,7 @@ import copy
 import os
 import warnings
 
+from aprofiles import utils
 import numpy as np
 import xarray as xr
 
@@ -16,10 +17,7 @@ def write(profiles, base_dir, verbose):
         - aprofiles (:class:`aprofiles.profiles.ProfilesData`): Object to be written.
         - base_dir (str): Base path of the file should be written.
         - verbose (bool): Verbose mode. Defaults to False.
-    """    
-
-    def _file_exists(path):
-        return os.path.exists(path)
+    """
     
     def _convert_time_after_epoch(ds, resolution='ms'):
         time_attrs = ds["time"].attrs
@@ -73,7 +71,7 @@ def write(profiles, base_dir, verbose):
     filename = f"AP_{ds.wigos_station_id}-{ds.instrument_id}-{str_date}.nc"
     path = os.path.join(base_dir, yyyy, mm, dd, filename)
 
-    if _file_exists(path) and verbose:
+    if utils.file_exists(path) and verbose:
         warnings.warn(f"{path} already exists and will be overwritten.")
     else:
         from pathlib import Path
