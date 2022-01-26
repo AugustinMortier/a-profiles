@@ -32,7 +32,12 @@ jobs:
     - name: Lint with black
       run: poetry run black . --diff
     - name: Run tests
-      run: poetry run pytest
+      run: poetry run pytest --cov=aprofiles/ --cov-report=xml tests/
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
+        token: d2e9bf06-e330-47bc-85b4-11491973821e
   docs:
     runs-on: ubuntu-latest
     steps:
