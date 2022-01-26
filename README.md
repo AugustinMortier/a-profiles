@@ -47,7 +47,7 @@ profiles = apro.reader.ReadProfiles(path).read()
 ### Basic corrections and Image plotting
 ``` 
 # extrapolate lowest layers for removing outliers
-profiles.extrapolate_below(zmin=150, inplace=True)
+profiles.extrapolate_below(z=150, inplace=True)
 
 # image plotting of backscatter signal in log scale
 profiles.plot(zref='agl', vmin=1e-2, vmax=1e1, log=True)
