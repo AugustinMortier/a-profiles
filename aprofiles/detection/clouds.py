@@ -3,6 +3,7 @@
 
 import numpy as np
 import xarray as xr
+from aprofiles import utils
 from tqdm import tqdm
 
 
@@ -54,30 +55,18 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         from scipy.ndimage.filters import uniform_filter1d
 
         # some useful functions:
-        def get_indexes(mask):
-            # mask: list of Bool
-            # returns a list indexes where the mask is True
-            return [i for i, x in enumerate(mask) if x]
-
         def _get_all_indexes(bases, peaks, tops=[]):
             # get True indexes of bases, peaks and tops, based on masks
-            i_bases = get_indexes(bases)
-            i_peaks = get_indexes(peaks)
-            i_tops = get_indexes(tops)
+            i_bases = utils.get_true_indexes(bases)
+            i_peaks = utils.get_true_indexes(peaks)
+            i_tops = utils.get_true_indexes(tops)
             return i_bases, i_peaks, i_tops
-
-        def make_mask(length, indexes_where_True):
-            # length: int: length of the mask
-            # indexes_where_true: list
-            mask = np.asarray([False for x in np.ones(length)])
-            mask[indexes_where_True] = len(indexes_where_True) * [True]
-            return mask
 
         def _make_all_masks(data, i_bases, i_peaks, i_tops=[]):
             # return masks for bases, peaks and tops based on input indexes
-            bases = make_mask(len(data), i_bases)
-            peaks = make_mask(len(data), i_peaks)
-            tops = make_mask(len(data), i_tops)
+            bases = utils.make_mask(len(data), i_bases)
+            peaks = utils.make_mask(len(data), i_peaks)
+            tops = utils.make_mask(len(data), i_tops)
             return bases, peaks, tops
 
         def _snr_at_iz(array, iz, step):
@@ -137,7 +126,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
                 )
                 # the top is the first value that corresponds to the intersection of the two masks
                 cross_mask = np.logical_and(mask_value, mask_altitude)
-                i_cross_mask = get_indexes(cross_mask)
+                i_cross_mask = utils.get_true_indexes(cross_mask)
                 if len(i_cross_mask) > 0:
                     if tops[i_cross_mask[0]]:
                         bases[i_bases[i]] = False
@@ -148,8 +137,8 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
                 else:
                     bases[i_bases[i]] = False
                     peaks[i_peaks[i]] = False
-            # it is important to keep the tops in the same order, so not to use get_indexes() function here
-            return get_indexes(bases), get_indexes(peaks), i_tops
+            # it is important to keep the tops in the same order, so not to use utils.get_true_indexes() function here
+            return utils.get_true_indexes(bases), utils.get_true_indexes(peaks), i_tops
 
         def _find_tops2(data, i_bases, i_peaks):
             # function that finds the top of the layers by identifying the positive gradient above the peak
@@ -166,7 +155,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
                 )
                 # the top is the first value that corresponds to the intersection of the two masks
                 cross_mask = np.logical_and(mask_value, mask_altitude)
-                i_cross_mask = get_indexes(cross_mask)
+                i_cross_mask = utils.get_true_indexes(cross_mask)
                 if len(i_cross_mask) > 0:
                     if tops[i_cross_mask[0]]:
                         # print('top already found. remove current layer')
@@ -179,8 +168,8 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
                     # print('no top found for base',i_bases[i])
                     bases[i_bases[i]] = False
                     peaks[i_peaks[i]] = False
-            # it is important to keep the tops in the same order, so not to use get_indexes() function here
-            return get_indexes(bases), get_indexes(peaks), i_tops
+            # it is important to keep the tops in the same order, so not to use utils.get_true_indexes() function here
+            return utils.get_true_indexes(bases), utils.get_true_indexes(peaks), i_tops
 
         # 0. rolling average
         avg_data = uniform_filter1d(data, size=10)
@@ -197,8 +186,8 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         all_bases[0:imin] = [False for i in range(len(all_bases[0:imin]))]
         all_peaks[0:imin] = [False for i in range(len(all_peaks[0:imin]))]
         # get indexes
-        i_bases = get_indexes(all_bases)
-        i_peaks = get_indexes(all_peaks)
+        i_bases = utils.get_true_indexes(all_bases)
+        i_peaks = utils.get_true_indexes(all_peaks)
 
         # 3. the signal should start with a base
         if i_bases[0] > i_peaks[0] and i_peaks[0] >= 1:
@@ -210,8 +199,8 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
             else:
                 all_peaks[i_peaks[0]] = False
         # update indexes
-        i_bases = get_indexes(all_bases)
-        i_peaks = get_indexes(all_peaks)
+        i_bases = utils.get_true_indexes(all_bases)
+        i_peaks = utils.get_true_indexes(all_peaks)
 
         # 4. keeps significant couples (base,peak)
         # a layer can be considered as a proper layer if the difference of signal between the peak and the base is significant (larger than the noise level)
@@ -236,8 +225,8 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
                 bases[i_bases[i]] = False
                 peaks[i_peaks[i]] = False
         # get indexes
-        i_bases = get_indexes(bases)
-        i_peaks = get_indexes(peaks)
+        i_bases = utils.get_true_indexes(bases)
+        i_peaks = utils.get_true_indexes(peaks)
 
         # 5. make sure we finish by a peak: remove last base if necessary
         if len(i_bases) > len(i_peaks):
@@ -279,7 +268,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
             mask_altitude = np.asarray([True if j<i_peaks[i] else False for j in range(len(data))])
             #the top is the first value that corresponds to the intersection of the two masks
             cross_mask = np.logical_and(mask_value, mask_altitude)
-            i_cross_mask = get_indexes(cross_mask)
+            i_cross_mask = utils.get_true_indexes(cross_mask)
             i_bases[i] = i_cross_mask[-1]
         """
 
