@@ -1,4 +1,5 @@
 import aprofiles as apro
+import numpy as np
 
 
 # test class
@@ -8,5 +9,5 @@ class TestEMCData:
         # test values
         assert emc_data.aer_type == 'urban'
         assert emc_data.wavelength == 1064.0
-        assert emc_data.conv_factor == 1.9188709902928747e-06
-        assert emc_data.emc == 0.3065528100082776
+        assert np.round(emc_data.conv_factor, 8) == 1.92e-06
+        assert np.round(emc_data.emc, 4) == 0.3066
