@@ -58,15 +58,9 @@ class ProfilesData:
 
     def _get_lowest_clouds(self):
         # returns an array of the altitude (in m, ASL) of the lowest cloud for each timestamp
-
-        def get_true_indexes(mask):
-            # mask: list of Bool
-            # returns a list indexes where the mask is True
-            return [i for i, x in enumerate(mask) if x]
-
         lowest_clouds = []
         for i in np.arange(len(self.data.time.data)):
-            i_clouds = get_true_indexes(self.data.clouds_bases.data[i, :])
+            i_clouds = apro.utils.get_true_indexes(self.data.clouds_bases.data[i, :])
             if len(i_clouds) > 0:
                 lowest_clouds.append(self.data.altitude.data[i_clouds[0]])
             else:
