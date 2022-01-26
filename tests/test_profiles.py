@@ -17,8 +17,6 @@ def cropped_profiles():
 def profiles():
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     profiles = apro.reader.ReadProfiles(path).read()
-    # subset altitude to make calculation quicker
-    profiles.data = profiles.data.sel(altitude=slice(0, 1000))
     return profiles
 
 # test class
@@ -31,7 +29,7 @@ class TestProfilesData:
         assert type(snr.data) is np.ndarray
         # test values
         assert np.mean(snr.data) == 8.236267199712106
-    
+
     def test_gaussian_filter(self, cropped_profiles):
         filter = cropped_profiles.gaussian_filter(sigma=0.25, var="attenuated_backscatter_0")
         # test attributes
@@ -68,3 +66,45 @@ class TestProfilesData:
         foc = profiles.data.foc
         # test types
         assert type(foc) is xr.core.dataarray.DataArray
+
+    def test_clouds(self, profiles):
+        extrap_profiles = profiles.extrapolate_below(z=150.)
+        extrap_profiles.clouds()
+        clouds_bases = extrap_profiles.data.clouds_bases
+        # test types
+        assert type(clouds_bases) is xr.core.dataarray.DataArray
+        assert type(clouds_bases.data[0][0]) is np.bool_
+    
+    def test_pbl(self, profiles):
+        extrap_profiles = profiles.extrapolate_below(z=150.)
+        extrap_profiles.pbl(under_clouds=False)
+        pbl = extrap_profiles.data.pbl
+        # test types
+        assert type(pbl) is xr.core.dataarray.DataArray
+        # test values
+        assert np.nanmean(pbl.data) == 1152.3449996566771
+
+    def test_inversion(self, profiles):
+        extrap_profiles = profiles.extrapolate_below(z=150.)
+        extrap_profiles.inversion(remove_outliers = True)
+        ext = extrap_profiles.data.extinction
+        aod = extrap_profiles.data.aod
+        lr = extrap_profiles.data.lidar_ratio
+        # test types
+        assert type(ext) is xr.core.dataarray.DataArray
+        assert type(aod) is xr.core.dataarray.DataArray
+        assert type(lr) is xr.core.dataarray.DataArray
+        # test values
+        assert np.nanmean(ext.data) == 0.012608274945768006
+        assert np.nanmean(aod.data) == 0.07564964967460805
+        assert np.nanmean(lr.data) == 50.0
+
+    def test_plot(self, cropped_profiles):
+        datetime = np.datetime64('2021-09-09T21:20:00')
+        # call plotting functions
+        fig1 = cropped_profiles.plot(datetime=datetime, show_fig=False)
+        fig2 = cropped_profiles.plot(show_fig=False)
+    
+    def test_write(self, cropped_profiles):
+        # call writing function
+        pass
