@@ -90,7 +90,8 @@ class TestProfilesData:
 
     def test_inversion(self, subtime_profiles):
         extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
-        extrap_profiles.inversion(remove_outliers = True)
+        # test forward method
+        extrap_profiles.inversion(method="forward", remove_outliers = True)
         ext = extrap_profiles.data.extinction
         aod = extrap_profiles.data.aod
         lr = extrap_profiles.data.lidar_ratio
@@ -102,12 +103,26 @@ class TestProfilesData:
         assert np.round(np.nanmean(ext.data),5) == 0.0165
         assert np.round(np.nanmean(aod.data),5) == 0.09902
         assert np.round(np.nanmean(lr.data),3) == 50.0
+        # test backward method
+        extrap_profiles.inversion(method="backward", remove_outliers = True)
+        ext = extrap_profiles.data.extinction
+        aod = extrap_profiles.data.aod
+        lr = extrap_profiles.data.lidar_ratio
+        # test types
+        assert type(ext) is xr.core.dataarray.DataArray
+        assert type(aod) is xr.core.dataarray.DataArray
+        assert type(lr) is xr.core.dataarray.DataArray
+        # test values
+        assert np.round(np.nanmean(ext.data),5) == 0.03155
+        assert np.round(np.nanmean(aod.data),5) == 0.17234
+        assert np.round(np.nanmean(lr.data),3) == 50.0
 
     def test_plot(self, subtime_profiles):
         datetime = np.datetime64('2021-09-09T21:20:00')
         # call plotting functions
         fig1 = subtime_profiles.plot(datetime=datetime, show_fig=False)
         fig2 = subtime_profiles.plot(show_fig=False)
+        fig3 = subtime_profiles.plot(var='calibration_constant_0', show_fig=False)
     
     def test_write(self, subtime_profiles):
         # call writing function

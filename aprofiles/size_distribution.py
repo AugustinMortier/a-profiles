@@ -79,8 +79,8 @@ class SizeDistributionData:
 
         return self
 
-    def plot(self):
-        """Plot Size Distributions of an intance of the :class:`SizeDistributionData` class.
+    def plot(self, show_fig=True):
+        """Plot Size Distributions of an instance of the :class:`SizeDistributionData` class.
 
         Example:
             >>> # import aprofiles
@@ -122,7 +122,8 @@ class SizeDistributionData:
             weight="bold",
         )
         plt.tight_layout()
-        plt.show()
+        if show_fig:
+            plt.show()
 
 
 def _main():

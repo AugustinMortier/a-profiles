@@ -2,6 +2,7 @@
 # @desc A-Profiles - Reference Altitude
 
 import numpy as np
+from aprofiles import utils
 
 
 def get_iref(data, imin, imax, min_snr):
@@ -17,17 +18,6 @@ def get_iref(data, imin, imax, min_snr):
         int: index of the reference point.
     """
     # function that returns best index to be used for initializing the Klett backward inversion
-
-    def _snr_at_iz(array, iz, step):
-        # calculates the snr from array at iz around step points
-        gates = np.arange(iz - step, iz + step)
-        indexes = [i for i in gates if i > 0 and i < len(array)]
-        mean = np.nanmean(array[indexes])
-        std = np.nanstd(array[indexes], ddof=0)
-        if std != 0:
-            return mean / std
-        else:
-            return 0
 
     # it is important to copy the data not to modify it outside of the function
     data = data.copy()
@@ -57,7 +47,7 @@ def get_iref(data, imin, imax, min_snr):
                 )
             )
 
-            if _snr_at_iz(data, iclose, step=4) < min_snr:
+            if utils.snr_at_iz(data, iclose, step=4) < min_snr:
                 return None
             else:
                 return ilow + iclose
