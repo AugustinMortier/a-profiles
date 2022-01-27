@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.4.0
+^^^^^^^
+Jan 27, 2022
+
+- Add test suite using *pytest* and *pytest-cov*.
+
 0.3.5
 ^^^^^^^
 Jan 18, 2022
