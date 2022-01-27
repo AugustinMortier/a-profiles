@@ -6,6 +6,8 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
+from aprofiles import utils
+
 
 class SizeDistributionData:
     """Class for computing *size distributions* for a given aerosol type.
@@ -40,22 +42,6 @@ class SizeDistributionData:
             self.aer_properties = aer_properties[self.aer_type]
             self.get_sd()
 
-    def _gaussian(self, x, mu, sig, norm):
-        """1D Gaussian function
-
-        Args:
-            x (1D-Array): array of values for which to return the Gaussian function.
-            mu (float): Mean
-            sig (float): Standard deviation
-            norm (float): Normalization factor
-
-        Returns:
-            1D-Array: Gaussian distribution
-        """
-        return (norm / (np.sqrt(2 * np.pi) * sig)) * np.exp(
-            -((x - mu) ** 2 / (2 * sig ** 2))
-        )
-
     def _vsd_to_nsd(self):
         """Transforms Volume Size Distribution to Number Size Distribution"""
         self.nsd = [
@@ -80,7 +66,7 @@ class SizeDistributionData:
 
         # we loop though all the keys defining the different modes
         for mode in aer_properties["vsd"].keys():
-            vsd += self._gaussian(
+            vsd += utils.gaussian(
                 np.log(radius),
                 np.log(aer_properties["vsd"][mode]["reff"]),
                 aer_properties["vsd"][mode]["rstd"],

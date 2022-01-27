@@ -54,3 +54,19 @@ def snr_at_iz(array, iz, step):
         return mean / std
     else:
         return 0
+
+def gaussian(x, mu, sig, norm):
+    """1D Gaussian function
+
+    Args:
+        x (1D-Array): array of values for which to return the Gaussian function.
+        mu (float): Mean
+        sig (float): Standard deviation
+        norm (float): Normalization factor
+
+    Returns:
+        1D-Array: Gaussian distribution
+    """
+    return (norm / (np.sqrt(2 * np.pi) * sig)) * np.exp(
+        -((x - mu) ** 2 / (2 * sig ** 2))
+    )
