@@ -6,4 +6,5 @@ omit =
 exclude_lines =
     def __init__
     if __name__ == "__main__":
-    def _main():
+    def _main
+
