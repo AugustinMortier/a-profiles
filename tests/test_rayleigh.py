@@ -10,3 +10,8 @@ class TestRayleighData:
         # test values
         assert np.round(rayleigh_data.cross_section*1e28, 3) == 2.817
         assert np.round(rayleigh_data.tau, 5) == 0.00583
+    def test_plot(self):
+        altitude = np.arange(15, 15000, 15)
+        rayleigh = apro.rayleigh.RayleighData(altitude, T0=298, P0=1013, wavelength=1064.)
+        # call plotting method
+        rayleigh.plot(show_fig=False)

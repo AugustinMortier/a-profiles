@@ -135,7 +135,7 @@ class RayleighData:
 
         return self
 
-    def plot(self):
+    def plot(self, show_fig=True):
         """Plot extinction profile of an instance of the :class:`RayleighData` class.
 
         Example:
@@ -183,7 +183,8 @@ class RayleighData:
         plt.xlabel(f"Extinction coefficient @ {self.wavelength} nm (m-1)")
         plt.ylabel("Altitude ASL (m)")
         plt.tight_layout()
-        plt.show()
+        if show_fig:
+            plt.show()
 
 
 def _main():
