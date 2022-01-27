@@ -11,3 +11,7 @@ class TestEMCData:
         assert emc_data.wavelength == 1064.0
         assert np.round(emc_data.conv_factor, 8) == 1.92e-06
         assert np.round(emc_data.emc, 4) == 0.3066
+
+    def test_plot(self):
+        # call plotting function
+        fig = apro.emc.EMCData("urban", wavelength=1064.0).plot(show_fig=False)

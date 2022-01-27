@@ -195,7 +195,7 @@ class EMCData:
         )  # convert density from g.cm-3 to g.m-3
         return self
 
-    def plot(self):
+    def plot(self, show_fig=True):
         """Plot main information of an instance of the :class:`EMCData` class.
 
         Example:
@@ -262,7 +262,8 @@ class EMCData:
             weight="bold",
         )
         plt.tight_layout()
-        plt.show()
+        if show_fig:
+            plt.show()
 
 
 def _main():
