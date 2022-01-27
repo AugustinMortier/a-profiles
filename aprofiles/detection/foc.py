@@ -6,6 +6,28 @@ import xarray as xr
 from aprofiles import utils
 
 
+def _detect_fog_from_cloud_base_height(profiles, zmin_cloud):
+    # returns a bool list with True where fog/condensation cases
+    # if the base of the first cloud (given by the constructor) is below
+    first_cloud_base_height = profiles.data.cloud_base_height.data[:, 0]
+    # condition
+    foc = [True if x <= zmin_cloud else False for x in first_cloud_base_height]
+    return foc
+
+def _detect_fog_from_snr(profiles, z_snr, var, min_snr):
+    # returns a bool list with True where fog/condensation cases
+
+    # calculates snr at z_snr
+    iz_snr = profiles._get_index_from_altitude_AGL(z_snr)
+    # calculates snr at each timestamp
+    snr = [
+        utils.snr_at_iz(profiles.data[var].data[i, :], iz_snr, step=4)
+        for i in range(len(profiles.data.time.data))
+    ]
+    # condition
+    foc = [True if x <= min_snr else False for x in snr]
+    return foc
+
 def detect_foc(profiles, method="cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
     """Detects fog or condensation.
 
@@ -38,28 +60,6 @@ def detect_foc(profiles, method="cloud_base", var="attenuated_backscatter_0", z_
 
             Fog or condensation (foc) detection.
     """
-
-    def _detect_fog_from_cloud_base_height(profiles, zmin_cloud):
-        # returns a bool list with True where fog/condensation cases
-        # if the base of the first cloud (given by the constructor) is below
-        first_cloud_base_height = profiles.data.cloud_base_height.data[:, 0]
-        # condition
-        foc = [True if x <= zmin_cloud else False for x in first_cloud_base_height]
-        return foc
-
-    def _detect_fog_from_snr(profiles, z_snr, var, min_snr):
-        # returns a bool list with True where fog/condensation cases
-
-        # calculates snr at z_snr
-        iz_snr = profiles._get_index_from_altitude_AGL(z_snr)
-        # calculates snr at each timestamp
-        snr = [
-            utils.snr_at_iz(profiles.data[var].data[i, :], iz_snr, step=4)
-            for i in range(len(profiles.data.time.data))
-        ]
-        # condition
-        foc = [True if x <= min_snr else False for x in snr]
-        return foc
 
     if method == "cloud_base":
         foc = _detect_fog_from_cloud_base_height(profiles, zmin_cloud)
