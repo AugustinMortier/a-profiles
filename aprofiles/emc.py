@@ -222,7 +222,7 @@ class EMCData:
         if "nsd" in self.__dict__:
             # add secondary yaxis
             ax2 = ax.twinx()
-            ax2.plot(self.radius, self.qext, "orange", label="Qext", color="gray")
+            ax2.plot(self.radius, self.qext, label="Qext", color="gray")
             ax2.set_ylabel("Qext (unitless)")
             # ax2.set_ylim([0,10])
 
