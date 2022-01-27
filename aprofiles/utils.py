@@ -35,3 +35,22 @@ def file_exists(path):
         - path (str): path of the file to be checked.
     """
     return os.path.exists(path)
+
+def snr_at_iz(array, iz, step):
+    """
+    Returns the SNR from an array calculated at iz with step points above and below.
+
+    Args:
+        - array (list): data array.
+        - iz (int): index where to calculate SNR.
+        - step (int): number of steps to be used for SNR calculation.
+    """
+    # calculates the snr from array at iz around step points
+    gates = np.arange(iz - step, iz + step)
+    indexes = [i for i in gates if i > 0 and i < len(array)]
+    mean = np.nanmean(array[indexes])
+    std = np.nanstd(array[indexes], ddof=0)
+    if std != 0:
+        return mean / std
+    else:
+        return 0

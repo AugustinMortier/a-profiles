@@ -3,6 +3,7 @@
 
 import numpy as np
 import xarray as xr
+from aprofiles import utils
 
 
 def detect_foc(profiles, method="cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
@@ -49,22 +50,11 @@ def detect_foc(profiles, method="cloud_base", var="attenuated_backscatter_0", z_
     def _detect_fog_from_snr(profiles, z_snr, var, min_snr):
         # returns a bool list with True where fog/condensation cases
 
-        def _snr_at_iz(array, iz, step):
-            # calculates the snr from array at iz around step points
-            gates = np.arange(iz - step, iz + step)
-            indexes = [i for i in gates if i > 0 and i < len(array)]
-            mean = np.nanmean(array[indexes])
-            std = np.nanstd(array[indexes], ddof=0)
-            if std != 0:
-                return mean / std
-            else:
-                return 0
-
         # calculates snr at z_snr
         iz_snr = profiles._get_index_from_altitude_AGL(z_snr)
         # calculates snr at each timestamp
         snr = [
-            _snr_at_iz(profiles.data[var].data[i, :], iz_snr, step=4)
+            utils.snr_at_iz(profiles.data[var].data[i, :], iz_snr, step=4)
             for i in range(len(profiles.data.time.data))
         ]
         # condition

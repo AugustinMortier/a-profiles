@@ -3,6 +3,7 @@
 
 import numpy as np
 import xarray as xr
+from aprofiles import utils
 from tqdm import tqdm
 
 
@@ -53,17 +54,6 @@ def detect_pbl(
 
     from scipy.ndimage.filters import uniform_filter1d
 
-    def _snr_at_iz(array, iz, step):
-        # calculates the snr from array at iz around step points
-        gates = np.arange(iz - step, iz + step)
-        indexes = [i for i in gates if i > 0 and i < len(array)]
-        mean = np.nanmean(array[indexes])
-        std = np.nanstd(array[indexes], ddof=0)
-        if std != 0:
-            return mean / std
-        else:
-            return 0
-
     def _detect_pbl_from_rcs(data, zmin, zmax, wav_width, min_snr):
         # detect pbl from range corrected signal between zmin and zmax using convolution with a wavelet..
         """
@@ -97,7 +87,7 @@ def detect_pbl(
         i_pbl = np.nanargmin(gradient)
 
         # calculates SNR
-        snr = _snr_at_iz(data, i_pbl, step=10)
+        snr = utils.snr_at_iz(data, i_pbl, step=10)
         if snr > min_snr:
             return profiles.data.altitude.data[i_pbl]
         else:

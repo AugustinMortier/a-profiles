@@ -69,17 +69,6 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
             tops = utils.make_mask(len(data), i_tops)
             return bases, peaks, tops
 
-        def _snr_at_iz(array, iz, step):
-            # calculates the snr from array at iz around step points
-            gates = np.arange(iz - step, iz + step)
-            indexes = [i for i in gates if i > 0 and i < len(array)]
-            mean = np.nanmean(array[indexes])
-            std = np.nanstd(array[indexes], ddof=0)
-            if std != 0:
-                return mean / std
-            else:
-                return 0
-
         def _merge_layers(data, i_bases, i_peaks, i_tops):
             # merge layers depending on the altitude of the bases and the tops
             remove_mode = True
@@ -275,7 +264,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         # 11. check snr at peak levels
         remove_bases, remove_peaks, remove_tops = [], [], []
         for i in range(len(i_peaks)):
-            if _snr_at_iz(data, i_peaks[i], step=10) < min_snr:
+            if utils.snr_at_iz(data, i_peaks[i], step=10) < min_snr:
                 remove_bases.append(i_bases[i])
                 remove_peaks.append(i_peaks[i])
                 remove_tops.append(i_tops[i])
