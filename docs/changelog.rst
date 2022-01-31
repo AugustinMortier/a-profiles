@@ -4,6 +4,13 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.4.1
+^^^^^^^
+Jan 31, 2022
+
+- Add *alc_parameters.json* file in CLI config directory for overwriting dataflow parameters for different ALC types.
+- Add *--no-progress-bar* option in CLI.
+
 0.4.0
 ^^^^^^^
 Jan 27, 2022

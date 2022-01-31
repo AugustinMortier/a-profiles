@@ -52,6 +52,8 @@ returns the documentation of the CLI, with all available options.
                                     🗓️ Update calendar.  [default: update-
                                     calendar]
     --update-map / --no-update-map  🗺️ Update map.  [default: update-map]
+    --progress-bar / --no-progress-bar
+                                    ⌛ Progress bar.  [default: progress-bar]
     --install-completion [bash|zsh|fish|powershell|pwsh]
                                     Install completion for the specified shell.
     --show-completion [bash|zsh|fish|powershell|pwsh]
