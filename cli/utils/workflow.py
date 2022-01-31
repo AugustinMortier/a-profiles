@@ -2,7 +2,14 @@
 # @desc A-Profiles - Standard workflow
 
 import aprofiles as apro
+import json
 import warnings
+
+
+def read_alc_parameters():
+    # read alc_parameters files
+    with open('cli/config/alc_parameters.json') as json_file:
+        return json.load(json_file)
 
 def workflow(path, instruments_types, base_dir, verbose=False):
     apro_reader = apro.reader.ReadProfiles(path)
@@ -26,5 +33,15 @@ def workflow(path, instruments_types, base_dir, verbose=False):
         profiles.pbl(zmin=200., zmax=3000., under_clouds=False, min_snr=1., verbose=verbose)
 
         # retrievals
-        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method="forward", verbose=verbose)
+        # inversion method selection
+        # 1. default: forward
+        method = "forward"
+        # 2. if exist, overwrite with alc_parameters
+        alc_parameters = read_alc_parameters()
+        if profiles.data.instrument_type in alc_parameters:
+            if "inversion" in alc_parameters[profiles.data.instrument_type]:
+                if "method" in alc_parameters[profiles.data.instrument_type]["inversion"]:
+                    method = alc_parameters[profiles.data.instrument_type]["inversion"]["method"]
+
+        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method=method, verbose=verbose)
         profiles.write(base_dir)
