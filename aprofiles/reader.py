@@ -1,8 +1,8 @@
 # @author Augustin Mortier
 # @desc A-Profiles - Reader class
 
-from aprofiles.profiles import ProfilesData
 from aprofiles.io import read_aeronet, read_eprofile
+from aprofiles.profiles import ProfilesData
 
 
 class ReadProfiles:
@@ -81,7 +81,11 @@ class ReadProfiles:
 
         # get the right reading class
         data = read_eprofile.ReadEPROFILE(self.path).read()
-        return ProfilesData(data)
+
+        # instantitate ProfilesData class with data
+        profiles = ProfilesData(data)
+
+        return profiles
 
 
 class ReadAeronet:
