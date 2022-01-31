@@ -67,12 +67,11 @@ def main(
     # from / to
     if _from is not None:
         dates.append(date_range(_from, _to, freq="D"))
-    
     # progress bar
     if progress_bar:
         disable_progress_bar = False
     else:
-        disable_progress_bar = False
+        disable_progress_bar = True
 
     for date in dates:
         yyyy = str(date.year)
