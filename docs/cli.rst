@@ -68,7 +68,7 @@ run a specific date
 -------------------
 ::
 
-    ./cli/aprocess.py --date 2021/09/09
+    ./cli/aprocess.py --date 2021-09-09
 
 run today's files
 -----------------
