@@ -66,7 +66,8 @@ def main(
         dates.append(datetime.today() - timedelta(days=1))
     # from / to
     if _from is not None:
-        dates.append(date_range(_from, _to, freq="D"))
+        for date in date_range(_from, _to, freq="D"):
+            dates.append(date)
     # progress bar
     if progress_bar:
         disable_progress_bar = False
@@ -117,6 +118,7 @@ def main(
             # add to calendar
             for file in tqdm(onlyfiles, desc="calendar  ", disable=disable_progress_bar):
                 utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
+            
         
         if update_map:
             # create map
