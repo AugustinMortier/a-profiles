@@ -4,6 +4,18 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.0
+^^^^^^^
+Apr 12, 2022
+
+- Add *--update-climatology* option in CLI. This option creates seasonal extinction profiles in one climatology json file per station after reading all AP files available.
+
+0.4.2
+^^^^^^^
+Apr 12, 2022
+
+- Fix *--from* option in CLI.
+
 0.4.1
 ^^^^^^^
 Jan 31, 2022

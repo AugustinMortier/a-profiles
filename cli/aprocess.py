@@ -43,11 +43,12 @@ def main(
         "data/v-profiles",
         exists=True,
         writable=True,
-        help="📂 Base path for input data.",
+        help="📂 Base path for output data.",
     ),
     update_data: bool = typer.Option(True, help="📈 Update data."),
     update_calendar: bool = typer.Option(True, help="🗓️ Update calendar."),
     update_map: bool = typer.Option(True, help="🗺️ Update map."),
+    update_climatology: bool = typer.Option(True, help="↪️ Update climatology."),
     progress_bar: bool = typer.Option(True, help="⌛ Progress bar."),
     # rsync: bool = typer.Option(False, help="📤 Rsync to webserver."),
 ):
@@ -116,7 +117,7 @@ def main(
                 utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
             # add to calendar
-            for file in tqdm(onlyfiles, desc="calendar  ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="calendar   ", disable=disable_progress_bar):
                 utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
             
         
@@ -128,8 +129,15 @@ def main(
                 utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
 
             # add to map
-            for file in tqdm(onlyfiles, desc="map       ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="map        ", disable=disable_progress_bar):
                 utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
+
+    if update_climatology:
+        # get station id from file name
+        stations_id = ["-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5]) for onlyfile in onlyfiles]
+        
+        for station_id in tqdm(stations_id, desc="climatology", disable=disable_progress_bar):
+            utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
 
 
 if __name__ == "__main__":
