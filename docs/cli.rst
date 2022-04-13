@@ -52,6 +52,9 @@ returns the documentation of the CLI, with all available options.
                                     🗓️ Update calendar.  [default: update-
                                     calendar]
     --update-map / --no-update-map  🗺️ Update map.  [default: update-map]
+    --update-climatology / --no-update-climatology
+                                  ↪️ Update climatology.  [default: update-
+                                  climatology]
     --progress-bar / --no-progress-bar
                                     ⌛ Progress bar.  [default: progress-bar]
     --install-completion [bash|zsh|fish|powershell|pwsh]
