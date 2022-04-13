@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.2
+^^^^^^^
+Apr 13, 2022
+
+- Change max valid AOD value used to define outliers from 0.5 to 2.0.
+
 0.5.1
 ^^^^^^^
 Apr 13, 2022
