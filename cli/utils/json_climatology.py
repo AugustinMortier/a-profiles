@@ -29,7 +29,7 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
                 station_files.append(os.path.join(root, file))
 
     # open dataset with xarray
-    ds = xr.open_mfdataset(station_files, decode_times=True, combine="nested")
+    ds = xr.open_mfdataset(station_files, decode_times=True, combine="nested", compat='override')
 
     ds = ds.compute()
 
