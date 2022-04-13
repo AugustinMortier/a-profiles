@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.1
+^^^^^^^
+Apr 13, 2022
+
+- Add *compat='override'* option update_climatology function for resolving potential merging issues.
+
 0.5.0
 ^^^^^^^
 Apr 12, 2022
