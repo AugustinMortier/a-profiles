@@ -162,7 +162,7 @@ def inversion(
         - under_clouds (bool, optional): If True, and if the `ProfilesData` has a `cloud_base` variable (returned by the `clouds` method), forces the initialization altitude to be found below the first cloud detected in the profile. Defaults to True.
         - method ({‘backward’, ‘forward’}, optional). Defaults to ‘forward’.
         - apriori (dict, optional). A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to {‘lr’: 50}.
-        - remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation (AOD<0, or AOD>1). Defaults to False (while development. to be changed afterwards).
+        - remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation (AOD<0, or AOD>2). Defaults to False (while development. to be changed afterwards).
         - verbose (bool, optional): verbose mode. Defaults to False.
 
     Raises:
@@ -246,7 +246,7 @@ def inversion(
 
     # aerosol inversion
     ext, lr, aod, z_ref = [], [], [], []
-    aod_min, aod_max = 0, 0.5
+    aod_min, aod_max = 0, 2
     vertical_resolution = profiles._get_resolution("altitude")
     for i in (
         tqdm(range(len(profiles.data.time.data)), desc="klett ")
