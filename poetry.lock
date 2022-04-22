@@ -774,11 +774,11 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pydata-sphinx-theme"
-version = "0.8.0"
+version = "0.7.2"
 description = "Bootstrap-based Sphinx theme from the PyData community"
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.5"
 
 [package.dependencies]
 beautifulsoup4 = "*"
@@ -786,10 +786,8 @@ docutils = "!=0.17.0"
 sphinx = "*"
 
 [package.extras]
-doc = ["numpydoc", "myst-parser", "pandas", "pytest", "pytest-regressions", "sphinxext-rediraffe", "sphinx-sitemap", "jupyter-sphinx", "plotly", "numpy", "xarray"]
-test = ["pytest", "pydata-sphinx-theme"]
-coverage = ["pytest-cov", "codecov", "pydata-sphinx-theme"]
-dev = ["pyyaml", "pre-commit", "nox", "pydata-sphinx-theme"]
+coverage = ["pytest-cov", "codecov", "sphinx", "numpydoc", "recommonmark", "pandas", "pytest", "pytest-regressions", "beautifulsoup4", "sphinx-sitemap", "jupyter-sphinx", "plotly", "numpy", "xarray", "docutils (==0.16)"]
+test = ["sphinx", "numpydoc", "recommonmark", "pandas", "pytest", "pytest-regressions", "beautifulsoup4", "sphinx-sitemap", "jupyter-sphinx", "plotly", "numpy", "xarray", "docutils (==0.16)"]
 
 [[package]]
 name = "pygments"
@@ -1251,7 +1249,7 @@ docs = ["sphinx", "pydata-sphinx-theme", "recommonmark"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<3.10"
-content-hash = "06d8d5f012c0a3c9a426a9e1e025c3f2af2ec71d227513554efff11a1ff79446"
+content-hash = "22673710da58a0938e9636315d66ff9531ca5af6e084da69e7a930e0b31897fc"
 
 [metadata.files]
 alabaster = [
@@ -1968,8 +1966,8 @@ pycparser = [
     {file = "pycparser-2.21.tar.gz", hash = "sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"},
 ]
 pydata-sphinx-theme = [
-    {file = "pydata_sphinx_theme-0.8.0-py3-none-any.whl", hash = "sha256:fbcbb833a07d3ad8dd997dd40dc94da18d98b41c68123ab0182b58fe92271204"},
-    {file = "pydata_sphinx_theme-0.8.0.tar.gz", hash = "sha256:9f72015d9c572ea92e3007ab221a8325767c426783b6b9941813e65fa988dc90"},
+    {file = "pydata-sphinx-theme-0.7.2.tar.gz", hash = "sha256:671df35fcdd290eafbd23d0595e6d359dbe90b2e64e6c3f4dc88276eed4a065e"},
+    {file = "pydata_sphinx_theme-0.7.2-py3-none-any.whl", hash = "sha256:bc1abc45e103b254c6c7a8f2ddabbaf8aa1f0817d85cae65dd163dd554c52700"},
 ]
 pygments = [
     {file = "Pygments-2.11.2-py3-none-any.whl", hash = "sha256:44238f1b60a76d78fc8ca0528ee429702aae011c265fe6a8dd8b63049ae41c65"},
