@@ -6,6 +6,7 @@ import warnings
 from pathlib import Path
 import tempfile
 import os
+import stat
 
 import numpy as np
 import xarray as xr

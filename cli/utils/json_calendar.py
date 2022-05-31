@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile 
 import os
+import stat
 
 import xarray as xr
 
