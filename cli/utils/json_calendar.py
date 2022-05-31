@@ -3,6 +3,8 @@
 
 import json
 from pathlib import Path
+import tempfile 
+import os
 
 import xarray as xr
 
@@ -17,7 +19,7 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     # for each station, write number of each scene class (aer, cloud<6km, cloud>6km, )
     
     # read data
-    ds = xr.open_dataset(fn)
+    ds = xr.open_dataset(fn) #,engine="netcdf4")
 
     # counts scenes
     scene_classes = [4, 3, 1, 0]
@@ -38,5 +40,13 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     data[station_id][dd] = scene_counts
 
     # write new calendar
-    with open(Path(base_dir) / yyyy / mm / calname, 'w') as json_file:
-        json.dump(data, json_file)
+    #with open(Path(base_dir) / yyyy / mm / calname, 'w') as json_file:
+    #    json.dump(data, json_file)
+    
+    month_dir=Path(base_dir) / yyyy / mm
+    final_json = Path(month_dir) / calname
+    with tempfile.NamedTemporaryFile(mode="w",dir=month_dir,delete=True,prefix='.tmp_') as tmp_json: #Open a temporary file
+        json.dump(data, tmp_json)
+        tmp_2_json = Path(month_dir) / "foo"
+        os.link(tmp_json.name,tmp_2_json)
+        os.replace(tmp_2_json,final_json)

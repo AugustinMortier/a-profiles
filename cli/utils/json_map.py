@@ -4,6 +4,8 @@
 import json
 import warnings
 from pathlib import Path
+import tempfile
+import os
 
 import numpy as np
 import xarray as xr
@@ -76,5 +78,13 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     }
 
     # write new map
-    with open(Path(base_dir) / yyyy / mm / mapname, 'w') as json_file:
-        json.dump(data, json_file)
+    month_dir=Path(base_dir) / yyyy / mm
+    final_json = Path(month_dir) / mapname
+    with tempfile.NamedTemporaryFile(mode="w",dir=month_dir,delete=True,prefix='.tmp_') as tmp_json: #Open a temporary file
+        json.dump(data, tmp_json)
+        tmp_2_json = Path(month_dir) / "foo"
+        os.link(tmp_json.name,tmp_2_json)
+        os.replace(tmp_2_json,final_json)
+        
+    #with open(Path(base_dir) / yyyy / mm / mapname, 'w') as json_file:
+    #    json.dump(data, json_file)
