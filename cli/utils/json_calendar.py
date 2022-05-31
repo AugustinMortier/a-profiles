@@ -19,7 +19,7 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     # for each station, write number of each scene class (aer, cloud<6km, cloud>6km, )
     
     # read data
-    ds = xr.open_dataset(fn) #,engine="netcdf4")
+    ds = xr.open_dataset(fn)
 
     # counts scenes
     scene_classes = [4, 3, 1, 0]
