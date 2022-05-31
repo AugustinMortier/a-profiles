@@ -50,3 +50,5 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
         tmp_2_json = Path(month_dir) / "foo"
         os.link(tmp_json.name,tmp_2_json)
         os.replace(tmp_2_json,final_json)
+        os.chmod(final_json,stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH)
+
