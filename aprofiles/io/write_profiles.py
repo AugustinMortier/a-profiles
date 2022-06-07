@@ -134,14 +134,14 @@ def write(profiles, base_dir, verbose):
     ds_towrite = _convert_time_after_epoch(ds_towrite, resolution='ms')
 
     # writes to netcdf
-    #ds_towrite.to_netcdf(path, mode='w')
+    ds_towrite.to_netcdf(path, mode='w')
     # atomic writing
-    path_dir = os.path.join(base_dir, yyyy, mm, dd)
-    with tempfile.NamedTemporaryFile(mode="w",dir=path_dir,delete=True,prefix='.tmp_') as f: #Open a temporary file
-        ds_towrite.to_netcdf(f.name,mode='w') # Write data to temp file
-        tmpname=os.path.join(path_dir,"foo")
-        os.link(f.name,tmpname)  #Hard link to tmp file
-        os.replace(tmpname, path) #Replace final path with tmp file
-        os.chmod(path,stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH)# Change permissions
+    #path_dir = os.path.join(base_dir, yyyy, mm, dd)
+    #with tempfile.NamedTemporaryFile(mode="w",dir=path_dir,delete=True,prefix='.tmp_') as f: #Open a temporary file
+    #    ds_towrite.to_netcdf(f.name,mode='w') # Write data to temp file
+    #    tmpname=os.path.join(path_dir,"foo")
+    #    os.link(f.name,tmpname)  #Hard link to tmp file
+    #    os.replace(tmpname, path) #Replace final path with tmp file
+    #    os.chmod(path,stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH)# Change permissions
 
 
