@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.3
+^^^^^^^
+Jun 20, 2022
+
+- Update *pydata-sphinx-theme* minimum version from 0.7.2 to 0.9.0 for supporting dark mode 🌘.
+
 0.5.2
 ^^^^^^^
 Apr 13, 2022

@@ -64,33 +64,39 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = "sphinx_rtd_theme"
 html_theme = "pydata_sphinx_theme"
-
-
-html_logo = "_static/images/A-Profiles.png"
-
-# options for "pydata_sphinx_theme"
-html_theme_options = {
-    "icon_links": [
-        {
-            "name": "GitHub",
-            "url": "https://github.com/AugustinMortier/A-Profiles",
-            "icon": "fab fa-github-square",
-        }
-    ],
-    "show_toc_level": 1,
-    "navbar_align": "content",
-}
-
-html_sidebars = {
-    "**": ["search-field.html", "sidebar-nav-bs.html"]
-}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+# options for "pydata_sphinx_theme"
+html_theme_options = {
+    "pygment_light_style": "tango",
+    "pygment_dark_style": "native",
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/AugustinMortier/A-Profiles",
+            "icon": "fab fa-github-square",
+            "type": "fontawesome"
+        },{
+            "name": "V-Profiles",
+            "url": "https://vprofiles.met.no",
+            "icon": "_static/images/vprofiles-bold.ico",
+            "type": "local"
+        }
+    ],
+    "logo": {
+      "image_light": "images/A-Profiles.png",
+      "image_dark": "images/A-Profiles-white.png",
+    }
+}
+
+html_sidebars = {
+    "**": ["search-field.html", "sidebar-nav-bs.html"]
+}
 
 # Some options
 add_module_names = True
