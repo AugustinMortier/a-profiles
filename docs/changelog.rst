@@ -8,7 +8,8 @@ Changelog
 ^^^^^^^
 Jun 20, 2022
 
-- Update *pydata-sphinx-theme* minimum version from 0.7.2 to 0.9.0 for supporting dark mode 🌘.
+- Update *pydata-sphinx-theme* minimum required version from 0.7.2 to 0.9.0 for supporting dark mode 🌘.
+- Update *black* minimum required version from 21.12b0 -> 22.3.0.
 
 0.5.2
 ^^^^^^^
