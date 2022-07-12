@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.4
+^^^^^^^
+Jul 12, 2022
+
+- Fix a bug in the clouds detection that was triggering an *IndexError* when data present consecutive equal values vertically (e.g: *L2_0-20000-006432_A20220701.nc* where large squares(time, altitude) are filled with *NaN* values).
+
 0.5.3
 ^^^^^^^
 Jun 20, 2022

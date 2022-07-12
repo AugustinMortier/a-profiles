@@ -165,6 +165,8 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
 
         # 1. first derivative
         gradient = np.gradient(avg_data)
+        #remove zero values since np.sign(0) = 0
+        gradient = [value if value != 0 else 1e-9 for value in gradient]
 
         # 2. identifies peaks and base by checking the sign changes of the derivative
         sign_changes = np.diff(np.sign(gradient), append=0)
@@ -172,8 +174,8 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         all_peaks = sign_changes == -2
         # limit to bases above zmin
         imin = profiles._get_index_from_altitude_AGL(zmin)
-        all_bases[0:imin] = [False for i in range(len(all_bases[0:imin]))]
-        all_peaks[0:imin] = [False for i in range(len(all_peaks[0:imin]))]
+        all_bases[0:imin] = np.full(imin, False)
+        all_peaks[0:imin] = np.full(imin, False)
         # get indexes
         i_bases = utils.get_true_indexes(all_bases)
         i_peaks = utils.get_true_indexes(all_peaks)
@@ -368,6 +370,7 @@ def _main():
     import aprofiles as apro
 
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
+    
     profiles = apro.reader.ReadProfiles(path).read()
 
     # basic corrections

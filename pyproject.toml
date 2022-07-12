@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aprofiles"
-version = "0.5.3"
+version = "0.5.4"
 description = "Analysis of atmospheric profilers measurements"
 authors = ["augustinm <augustinm@met.no>"]
 license = "GPL-3.0"
@@ -21,7 +21,6 @@ recommonmark = {version = "^0.7.1", optional = true}
 typer = "^0.4.0"
 orjson = "^3.6.7"
 dask = "^2022.4.0"
-
 
 [tool.poetry.extras]
 docs = ["sphinx", "pydata-sphinx-theme", "recommonmark"]
