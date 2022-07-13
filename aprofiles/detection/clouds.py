@@ -160,6 +160,15 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
             # it is important to keep the tops in the same order, so not to use utils.get_true_indexes() function here
             return utils.get_true_indexes(bases), utils.get_true_indexes(peaks), i_tops
 
+        #-1. check if any valid data
+        if np.isnan(data).all():
+            bases, peaks, tops = _make_all_masks(data, [], [], [])
+            return {
+                "bases": bases,
+                "peaks": peaks,
+                "tops": tops,
+            }
+
         # 0. rolling average
         avg_data = uniform_filter1d(data, size=10)
 
@@ -371,7 +380,6 @@ def _main():
     import aprofiles as apro
 
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-    path = "data/e-profile/2022/07/01/L2_0-20000-003590_A20220701.nc"
     
     profiles = apro.reader.ReadProfiles(path).read()
 
