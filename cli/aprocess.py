@@ -12,10 +12,12 @@ import typer
 from pandas import date_range
 from tqdm import tqdm
 
-import utils
+import cli.utils as utils
 
+app = typer.Typer()
 
 # def main(dates: List[str], instrument_types: List[str], multiprocess: bool):
+@app.command()
 def main(
     _dates: List[datetime] = typer.Option(
         [], "--date", formats=["%Y-%m-%d"], help="📅 Processing date."
@@ -141,4 +143,4 @@ def main(
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
