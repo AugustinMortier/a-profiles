@@ -8,6 +8,13 @@ Changelog
 ^^^^^^^
 Jul 13, 2022
 
+- Fix a bug in the PBL detection that was triggering an *IndexError* when no valid point was found in a profile (e.g: *L2_0-20000-003590_A20220701.nc*).
+- Improve the previous clouds detection fix, by checking if any valid point was found in the processed profile.
+
+0.5.5
+^^^^^^^
+Jul 13, 2022
+
 - Fix a bug in the clouds detection that was triggering an *IndexError* when no valid point was found in a profile (e.g: *L2_0-20000-003590_A20220701.nc*).
 
 0.5.4
