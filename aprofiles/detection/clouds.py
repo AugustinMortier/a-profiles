@@ -181,17 +181,18 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         i_peaks = utils.get_true_indexes(all_peaks)
 
         # 3. the signal should start with a base
-        if i_bases[0] > i_peaks[0] and i_peaks[0] >= 1:
-            # set base as the minimum between peak and n gates under
-            gates = np.arange(i_peaks[0] - 5, i_peaks[0])
-            i_base = gates[np.argmin([data[gates[gates >= 0]]])]
-            if i_base >= imin:
-                all_bases[i_base] = True
-            else:
-                all_peaks[i_peaks[0]] = False
-        # update indexes
-        i_bases = utils.get_true_indexes(all_bases)
-        i_peaks = utils.get_true_indexes(all_peaks)
+        if (len(i_bases)>0): #this happens if the whole profile consists of nan
+            if i_bases[0] > i_peaks[0] and i_peaks[0] >= 1:
+                # set base as the minimum between peak and n gates under
+                gates = np.arange(i_peaks[0] - 5, i_peaks[0])
+                i_base = gates[np.argmin([data[gates[gates >= 0]]])]
+                if i_base >= imin:
+                    all_bases[i_base] = True
+                else:
+                    all_peaks[i_peaks[0]] = False
+            # update indexes
+            i_bases = utils.get_true_indexes(all_bases)
+            i_peaks = utils.get_true_indexes(all_peaks)
 
         # 4. keeps significant couples (base,peak)
         # a layer can be considered as a proper layer if the difference of signal between the peak and the base is significant (larger than the noise level)
@@ -370,6 +371,7 @@ def _main():
     import aprofiles as apro
 
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
+    path = "data/e-profile/2022/07/01/L2_0-20000-003590_A20220701.nc"
     
     profiles = apro.reader.ReadProfiles(path).read()
 
