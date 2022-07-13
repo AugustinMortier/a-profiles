@@ -4,7 +4,7 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
-0.5.5
+0.5.6
 ^^^^^^^
 Jul 13, 2022
 
