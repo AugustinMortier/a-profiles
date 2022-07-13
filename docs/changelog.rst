@@ -6,7 +6,7 @@ Changelog
 
 0.5.5
 ^^^^^^^
-Jul 14, 2022
+Jul 13, 2022
 
 - Fix a bug in the clouds detection that was triggering an *IndexError* when no valid point was found in a profile (e.g: *L2_0-20000-003590_A20220701.nc*).
 
