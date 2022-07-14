@@ -117,7 +117,7 @@ def main(
                 utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
             # add to calendar
-            for file in tqdm(onlyfiles, desc="calendar   ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="calendar  ", disable=disable_progress_bar):
                 utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
             
         
@@ -129,7 +129,7 @@ def main(
                 utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
 
             # add to map
-            for file in tqdm(onlyfiles, desc="map        ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="map       ", disable=disable_progress_bar):
                 utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
 
     if update_climatology:
