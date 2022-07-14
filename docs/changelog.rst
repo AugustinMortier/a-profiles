@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.7
+^^^^^^^
+Jul 14, 2022
+
+- Remove time duplicates if they exist in the L2 file (e.g: *L2_0-380-61_A20220708.nc*) that were causing conflicts when trying to read multiple files for computing the climatology with `xarray.open_mfdataset`.
+
 0.5.6
 ^^^^^^^
 Jul 13, 2022
