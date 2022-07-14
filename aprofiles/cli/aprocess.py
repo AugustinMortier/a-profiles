@@ -12,9 +12,9 @@ import typer
 from pandas import date_range
 from tqdm import tqdm
 
-import cli.utils as utils
+import aprofiles.cli.utils as utils
 
-app = typer.Typer()
+app = typer.Typer(add_completion=False)
 
 # def main(dates: List[str], instrument_types: List[str], multiprocess: bool):
 @app.command()

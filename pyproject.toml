@@ -23,7 +23,7 @@ orjson = "^3.6.7"
 dask = "^2022.4.0"
 
 [tool.poetry.scripts]
-aprocess_run = "cli.aprocess:app"
+aprocess_run = "aprofiles:cli.aprocess:app"
 
 [tool.poetry.extras]
 docs = ["sphinx", "pydata-sphinx-theme", "recommonmark"]
