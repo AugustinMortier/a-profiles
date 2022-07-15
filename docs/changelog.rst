@@ -4,6 +4,14 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.8
+^^^^^^^
+Jul 15, 2022
+
+- Fix climatology computation bug, which was returning only a single profile instead of seasonal profiles.
+- New configuration file `cfg.json` with a new *exclude_stations_id_from_climatology* key for removing some stations with changing altitude.
+- Add a try/except block in the climatology computation for excluding stations with non monotonic global indexes.
+
 0.5.7
 ^^^^^^^
 Jul 14, 2022
