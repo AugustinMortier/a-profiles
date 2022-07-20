@@ -73,6 +73,9 @@ def detect_pbl(
         convolution[profiles._get_index_from_altitude_AGL(zmax):] = np.nan
         i_pbl = np.nanargmax(abs(convolution))
         """
+        #-1. check if any valid data
+        if np.isnan(data).all():
+            return np.nan
 
         # 0. rolling average
         avg_data = uniform_filter1d(data, size=10)
@@ -144,6 +147,7 @@ def _main():
     import aprofiles as apro
 
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
+    
     profiles = apro.reader.ReadProfiles(path).read()
 
     # basic corrections
