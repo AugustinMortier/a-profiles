@@ -8,6 +8,7 @@ import numpy as np
 
 from aprofiles import size_distribution
 
+import os.path
 
 class EMCData:
     """Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.
@@ -57,7 +58,8 @@ class EMCData:
 
         if self.method == "mortier_2013":
             # read aer_properties.json files
-            f = open("aprofiles/config/aer_properties.json")
+            AER_PROPERTIES_FILE_PATH = os.path.join(os.path.dirname(__file__), 'config', 'aer_properties.json')
+            f = open(AER_PROPERTIES_FILE_PATH)
             aer_properties = json.load(f)
             f.close()
             # check if the aer_type exist in the json file
