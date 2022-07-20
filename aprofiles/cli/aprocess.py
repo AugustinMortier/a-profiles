@@ -76,6 +76,9 @@ def main(
         disable_progress_bar = False
     else:
         disable_progress_bar = True
+    
+    # read config file
+    CFG = utils.config.read()
 
     for date in dates:
         yyyy = str(date.year)
@@ -86,7 +89,6 @@ def main(
         datepath = Path(basedir_in) / yyyy / mm / dd
         onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
 
-
         # data processing
         if update_data:
             if multiprocessing:
@@ -96,7 +98,7 @@ def main(
                             utils.workflow.workflow, 
                             path=file, 
                             instruments_types=instruments_types, 
-                            base_dir=basedir_out, verbose=False
+                            base_dir=basedir_out, cfg=CFG, verbose=False
                         ) 
                         for file in onlyfiles]
                         for future in concurrent.futures.as_completed(futures):
@@ -104,7 +106,7 @@ def main(
             else:
                 for file in tqdm(onlyfiles, desc=date.strftime("%Y-%m-%d"), disable=disable_progress_bar):
                     utils.workflow.workflow(
-                        file, instruments_types, basedir_out, verbose=False
+                        file, instruments_types, basedir_out, CFG, verbose=False
                     )
         
         # list all files in out directory
@@ -119,7 +121,7 @@ def main(
                 utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
             # add to calendar
-            for file in tqdm(onlyfiles, desc="calendar   ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="calendar  ", disable=disable_progress_bar):
                 utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
             
         
@@ -131,15 +133,19 @@ def main(
                 utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
 
             # add to map
-            for file in tqdm(onlyfiles, desc="map        ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="map       ", disable=disable_progress_bar):
                 utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
 
     if update_climatology:
         # get station id from file name
         stations_id = ["-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5]) for onlyfile in onlyfiles]
-        
+        # exclude moving stations
+        stations_id = [station for station in stations_id if station not in CFG["exclude_stations_id_from_climatology"]]
         for station_id in tqdm(stations_id, desc="climatology", disable=disable_progress_bar):
-            utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
+            try:
+                utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
+            except ValueError:
+                print(f'ValueError encountered with {station_id}')
 
 
 if __name__ == "__main__":

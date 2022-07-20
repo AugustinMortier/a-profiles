@@ -1,0 +1,20 @@
+{
+    "exclude_stations_id_from_climatology": ["0-20000-0-07617-A"],
+    "parameters": {
+        "CHM15k": {
+            "inversion": {
+                "method": "forward"
+            }
+        },
+        "Mini-MPL": {
+            "inversion": {
+                "method": "forward"
+            }
+        },
+        "CL61": {
+            "inversion": {
+                "method": "forward"
+            }
+        }
+    }
+}

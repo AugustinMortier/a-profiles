@@ -4,6 +4,27 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.8
+^^^^^^^
+Jul 15, 2022
+
+- Fix climatology computation bug, which was returning only a single profile instead of seasonal profiles.
+- New configuration file `cfg.json` with a new *exclude_stations_id_from_climatology* key for removing some stations with changing altitude.
+- Add a try/except block in the climatology computation for excluding stations with non monotonic global indexes.
+
+0.5.7
+^^^^^^^
+Jul 14, 2022
+
+- Remove time duplicates if they exist in the L2 file (e.g: *L2_0-380-61_A20220708.nc*) that were causing conflicts when trying to read multiple files for computing the climatology with `xarray.open_mfdataset`.
+
+0.5.6
+^^^^^^^
+Jul 13, 2022
+
+- Fix a bug in the PBL detection that was triggering an *IndexError* when no valid point was found in a profile (e.g: *L2_0-20000-003590_A20220701.nc*).
+- Improve the previous clouds detection fix, by checking if any valid point was found in the processed profile.
+
 0.5.5
 ^^^^^^^
 Jul 13, 2022

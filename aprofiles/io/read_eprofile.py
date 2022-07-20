@@ -1,6 +1,7 @@
 # @author Augustin Mortier
 # @desc A-Profiles - E-PROFILE reading class
 
+import numpy as np
 import xarray as xr
 
 
@@ -41,6 +42,9 @@ class ReadEPROFILE:
             :class:`xarray.Dataset`
         """
         ds = xr.open_dataset(self.path, decode_times=True)
+        # remove time duplicate values if exists
+        if len(ds.time.values) != len(np.unique(ds.time.values)):
+            ds = ds.drop_duplicates(dim='time')
         # in CEDA archive, dimensions come as (altitude, time). Transpose all variables which have altitude as dimension.
         if ds.latitude.dims[0]=='altitude':
             ds = ds.transpose(..., 'altitude')
