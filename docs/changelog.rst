@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.9
+^^^^^^^
+Oct 27, 2022
+
+- Support Python 3.10.
+
 0.5.8
 ^^^^^^^
 Jul 15, 2022
