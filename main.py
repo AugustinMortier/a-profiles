@@ -40,12 +40,15 @@ def main(path):
     # plot image
     #profiles.plot(zref='agl', show_foc=False, show_clouds=True, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/clouds.png")
     #profiles.plot(zref='agl', show_foc=True, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/foc.png")
-    profiles.plot(zref='agl', show_foc=False, show_clouds=False, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, zmax=6000., save_fig="docs/_static/images/pbl.png")
+    profiles.plot(
+        zref='agl', show_foc=False, show_clouds=False, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, zmax=6000., 
+        #save_fig="docs/_static/images/pbl.png"
+    )
     
     
     profiles.plot(
         zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, 
-        save_fig="docs/_static/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
+        #save_fig="docs/_static/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
     )
     
     # plot single profile
