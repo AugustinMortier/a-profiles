@@ -135,4 +135,4 @@ def write(profiles, base_dir, verbose):
 
     # writes to netcdf
     ds_towrite.to_netcdf(path, mode='w')
-
+    
