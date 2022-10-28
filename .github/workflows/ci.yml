@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up python 3.9
       uses: actions/setup-python@v4
       with:
@@ -34,6 +34,8 @@ jobs:
         token: d2e9bf06-e330-47bc-85b4-11491973821e
   docs:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
     - name: Set up python 3.9
       uses: actions/setup-python@v4
       with:
