@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.9]
+        python: [3.8, 3.9, 3.10, 3.11]
     steps:
     - uses: actions/checkout@v3
     - name: Install Poetry
@@ -37,16 +37,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [3.9]
+        python: [3.8, 3.9, 3.10, 3.11]
     steps:
     - uses: actions/checkout@v3
+    - name: Install Poetry
+      run: pipx install poetry
     - name: Set up python ${{ matrix.python }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python }}
         cache: "poetry"
-    - name: Install Poetry
-      run: pipx install poetry
     - name: Install package
       run: poetry install -E docs
     - name: Make the docs
