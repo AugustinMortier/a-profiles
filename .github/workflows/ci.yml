@@ -19,6 +19,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python }}
+        cache: "poetry"
     - name: Install Poetry
       uses: snok/install-poetry@v1
     - name: Install package
@@ -43,6 +44,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python }}
+        cache: "poetry"
     - name: Install Poetry
       uses: snok/install-poetry@v1
     - name: Install package
