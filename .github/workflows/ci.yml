@@ -8,11 +8,11 @@ on:
   pull_request:
 
 jobs:
-  strategy:
-    matrix:
-      python: [3.8, 3.9, 3.10, 3.11]
   build:    
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.8, 3.9, 3.10, 3.11]
     steps:
     - uses: actions/checkout@v3
     - name: Set up python ${{ matrix.python }}
@@ -35,6 +35,9 @@ jobs:
         token: d2e9bf06-e330-47bc-85b4-11491973821e
   docs:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.8, 3.9, 3.10, 3.11]
     steps:
     - uses: actions/checkout@v3
     - name: Set up python ${{ matrix.python }}
