@@ -6,7 +6,7 @@ authors = ["augustinm <augustinm@met.no>"]
 license = "GPL-3.0"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = ">=3.8,<=3.11"
 matplotlib = "^3.5.0"
 miepython = "^2.2.1"
 netCDF4 = "^1.5.8"
