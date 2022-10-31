@@ -35,17 +35,14 @@ jobs:
         token: d2e9bf06-e330-47bc-85b4-11491973821e
   docs:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python: ['3.10']
     steps:
     - uses: actions/checkout@v3
     - name: Install Poetry
       run: pipx install poetry
-    - name: Set up python ${{ matrix.python }}
+    - name: Set up python 3.10
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python }}
+        python-version: 3.10
         cache: 'poetry'
     - name: Install package
       run: poetry install -E docs
