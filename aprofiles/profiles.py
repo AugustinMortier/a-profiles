@@ -2,6 +2,7 @@
 # @desc A-Profiles - ProfilesData class
 
 import copy
+from pathlib import Path
 
 import numpy as np
 import xarray as xr
@@ -455,7 +456,7 @@ class ProfilesData:
         else:
             apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, show_fig, save_fig)
     
-    def write(self, base_dir='examples/data/V-Profiles/', verbose=False):
+    def write(self, base_dir=Path('examples', 'data', 'V-Profiles'), verbose=False):
         """Calls :meth:`aprofiles.io.write_profiles.write()`."""
         apro.io.write_profiles.write(self, base_dir, verbose=verbose)
         
