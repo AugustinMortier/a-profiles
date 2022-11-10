@@ -4,6 +4,15 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.10
+^^^^^^^
+Nov 10, 2022
+
+- Create a *aprocess* command (calling `cli/aprocess.py`).
+- Update Typer (from 0.4.0 to 0.7.0).
+- Use *Path* library.
+- Clean up imports.
+
 0.5.9
 ^^^^^^^
 Oct 27, 2022
