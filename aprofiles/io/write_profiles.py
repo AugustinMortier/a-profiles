@@ -75,7 +75,7 @@ def write(profiles, base_dir, verbose):
         warnings.warn(f"{path} already exists and will be overwritten.")
     else:
         from pathlib import Path
-        Path(os.path.join(base_dir, yyyy, mm, dd)).mkdir(parents=True, exist_ok=True)
+        Path(base_dir, yyyy, mm, dd).mkdir(parents=True, exist_ok=True)
 
     # creates a copy od original dataset -> writes only necessary data
     ds_towrite = copy.deepcopy(ds)
