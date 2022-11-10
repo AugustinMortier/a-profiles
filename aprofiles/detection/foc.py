@@ -1,8 +1,6 @@
 # @author Augustin Mortier
 # @desc A-Profiles - Fog or Condensation detection
 
-import numpy as np
-import xarray as xr
 from aprofiles import utils
 
 
