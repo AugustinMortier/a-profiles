@@ -2,9 +2,10 @@
 # @desc A-Profiles - Read config file
 
 import json
+from pathlib import Path
 
 
 def read():
     # read alc_parameters files
-    with open('cli/config/cfg.json') as json_file:
+    with open(Path('cli', 'config', 'cfg.json')) as json_file:
         return json.load(json_file)
