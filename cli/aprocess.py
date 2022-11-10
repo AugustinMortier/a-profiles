@@ -3,8 +3,8 @@
 # @desc A-Profiles - CLI for running aprofiles standard workflow
 
 import concurrent.futures
-import os
 from datetime import datetime, timedelta
+from enum import Enum
 from pathlib import Path
 from typing import List
 
@@ -12,10 +12,16 @@ import typer
 from pandas import date_range
 from tqdm import tqdm
 
-import utils
+import cli.utils as utils
 
+app = typer.Typer(no_args_is_help=True)
 
-# def main(dates: List[str], instrument_types: List[str], multiprocess: bool):
+class InstrumentType(str, Enum):
+    chm15k = "CHM15k"
+    minimpl = "Mini-MPL"
+    cl61 = "CL61"
+
+@app.command()
 def main(
     _dates: List[datetime] = typer.Option(
         [], "--date", formats=["%Y-%m-%d"], help="📅 Processing date."
@@ -32,8 +38,8 @@ def main(
     ),
     today: bool = typer.Option(False, help="🕑 Process today."),
     yesterday: bool = typer.Option(False, help="🕙 Process yesterday."),
-    instruments_types: List[str] = typer.Option(
-        ["CHM15k", "Mini-MPL"], "--instruments-type", help="📗 List of specific instruments to be processed."
+    instruments_types: List[InstrumentType] = typer.Option(
+        ['CHM15k', 'Mini-MPL'], "--instruments-type", help="📗 List of specific instruments to be processed."
     ),
     multiprocessing: bool = typer.Option(False, help="⚡ Use multiprocessing mode."),
     basedir_in: Path = typer.Option(
@@ -54,6 +60,8 @@ def main(
 ):
     """
     Run aprofiles standard workflow for given dates, optionally for specific instruments types.
+    
+    See some examples here: https://a-profiles.readthedocs.io/en/latest/cli.html
     """
 
     #typer.echo(f"dates: {dates}, today: {today}, yesterday: {yesterday}, from: {_from}, to: {_to}, instruments_types: {instruments_types}, multiprocessing: {multiprocessing}")
@@ -69,12 +77,17 @@ def main(
     if _from is not None:
         for date in date_range(_from, _to, freq="D"):
             dates.append(date)
+    # abort if no dates
+    if (len(dates) == 0):
+        print("No provided date. Please check aprocess --help for more information.")
+        raise typer.Abort()
+
     # progress bar
     if progress_bar:
         disable_progress_bar = False
     else:
         disable_progress_bar = True
-    
+
     # read config file
     CFG = utils.config.read()
 
@@ -84,7 +97,7 @@ def main(
         dd = str(date.day).zfill(2)
 
         # list all files in in directory
-        datepath = Path(basedir_in) / yyyy / mm / dd
+        datepath = Path(basedir_in, yyyy, mm, dd)
         onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
 
         # data processing
@@ -96,7 +109,7 @@ def main(
                             utils.workflow.workflow, 
                             path=file, 
                             instruments_types=instruments_types, 
-                            base_dir=basedir_out, cfg=CFG, verbose=False
+                            base_dir=basedir_out, CFG=CFG, verbose=False
                         ) 
                         for file in onlyfiles]
                         for future in concurrent.futures.as_completed(futures):
@@ -108,13 +121,13 @@ def main(
                     )
         
         # list all files in out directory
-        datepath = Path(basedir_out) / yyyy / mm / dd
+        datepath = Path(basedir_out, yyyy, mm, dd)
         onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
 
         if update_calendar:
             # create calendar
             calname = f"{yyyy}-{mm}-cal.json"
-            path = Path(basedir_out) / yyyy / mm / calname
+            path = Path(basedir_out, yyyy, mm, calname)
             if not path.is_file():
                 utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
@@ -126,7 +139,7 @@ def main(
         if update_map:
             # create map
             mapname = f"{yyyy}-{mm}-map.json"
-            path = Path(basedir_out) / yyyy / mm / mapname
+            path = Path(basedir_out, yyyy, mm, mapname)
             if not path.is_file():
                 utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
 
@@ -147,4 +160,4 @@ def main(
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
