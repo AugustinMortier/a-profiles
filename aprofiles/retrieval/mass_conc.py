@@ -5,7 +5,6 @@ import json
 
 import aprofiles as apro
 import numpy as np
-import xarray as xr
 
 
 def concentration_profiles(profiles, method):
