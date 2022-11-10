@@ -1,12 +1,12 @@
 # @author Augustin Mortier
 # @desc A-Profiles - Aerosol Inversion
 
-import aprofiles as apro
-import numpy as np
-import xarray as xr
-from tqdm import tqdm
-from scipy import integrate
 import warnings
+
+import numpy as np
+from tqdm import tqdm
+
+import aprofiles as apro
 
 from .ref_altitude import get_iref
 
