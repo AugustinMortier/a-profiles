@@ -8,6 +8,7 @@ import numpy as np
 
 from aprofiles import utils
 
+import os.path
 
 class SizeDistributionData:
     """Class for computing *size distributions* for a given aerosol type.
@@ -30,7 +31,8 @@ class SizeDistributionData:
         self.aer_type = aer_type
 
         # read aer_properties.json files
-        f = open("aprofiles/config/aer_properties.json")
+        AER_PROPERTIES_FILE_PATH = os.path.join(os.path.dirname(__file__), 'config', 'aer_properties.json')
+        f = open(AER_PROPERTIES_FILE_PATH)
         aer_properties = json.load(f)
         f.close()
         # check if the aer_type exist in the json file

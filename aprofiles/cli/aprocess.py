@@ -12,10 +12,12 @@ import typer
 from pandas import date_range
 from tqdm import tqdm
 
-import utils
+import aprofiles.cli.utils as utils
 
+app = typer.Typer(add_completion=False)
 
 # def main(dates: List[str], instrument_types: List[str], multiprocess: bool):
+@app.command()
 def main(
     _dates: List[datetime] = typer.Option(
         [], "--date", formats=["%Y-%m-%d"], help="📅 Processing date."
@@ -96,7 +98,7 @@ def main(
                             utils.workflow.workflow, 
                             path=file, 
                             instruments_types=instruments_types, 
-                            base_dir=basedir_out, cfg=CFG, verbose=False
+                            base_dir=basedir_out, CFG=CFG, verbose=False
                         ) 
                         for file in onlyfiles]
                         for future in concurrent.futures.as_completed(futures):
@@ -147,4 +149,4 @@ def main(
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
