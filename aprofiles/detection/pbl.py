@@ -2,9 +2,9 @@
 # @desc A-Profiles - Planetary Boundary Layer
 
 import numpy as np
-import xarray as xr
-from aprofiles import utils
 from tqdm import tqdm
+
+from aprofiles import utils
 
 
 def detect_pbl(
