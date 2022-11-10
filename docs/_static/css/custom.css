@@ -68,3 +68,7 @@ img.awesome-svg {
     left: calc(50% - 30px);
     position: relative;
 }
+
+.fa-brands, .fab {
+    font-size: 1.6em;
+}
