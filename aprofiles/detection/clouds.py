@@ -2,9 +2,9 @@
 # @desc A-Profiles - Clouds detection
 
 import numpy as np
-import xarray as xr
-from aprofiles import utils
 from tqdm import tqdm
+
+from aprofiles import utils
 
 
 def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., min_snr=0., verbose=False):
