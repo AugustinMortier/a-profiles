@@ -32,6 +32,11 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
        `poetry install`
 
+
+In order to install directly the package from this repository with git, you can also use
+
+`pip install "git+ssh://git@github.com/AugustinMortier/A-Profiles.git"`
+
 ## 🚀 Get started
 
 ### Reading Data
