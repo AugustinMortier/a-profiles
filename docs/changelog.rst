@@ -4,6 +4,13 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.11
+^^^^^^^
+Nov 15, 2022
+
+- Move *CLI* within package directory to make `aprocess` available everywhere.
+- Add *pipx* installation instructions in documentation.
+
 0.5.10
 ^^^^^^^
 Nov 10, 2022
