@@ -6,7 +6,7 @@ authors = ["augustinm <augustinm@met.no>"]
 license = "GPL-3.0"
 
 [tool.poetry.scripts]
-aprocess = {"callable = profiles.cli.aprocess:app", extras = ["cli"]}
+aprocess = {callable = "aprofiles.cli.aprocess:app", extras = ["cli"]}
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
