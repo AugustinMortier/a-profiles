@@ -34,7 +34,7 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
        `pip install .`
     
-    - with *pipx* (>21.3)
+    - with *pipx*
 
        `pipx install .`
 
