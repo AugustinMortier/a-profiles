@@ -6,7 +6,7 @@ authors = ["augustinm <augustinm@met.no>"]
 license = "GPL-3.0"
 
 [tool.poetry.scripts]
-aprocess = "aprofiles..cli.aprocess:app"
+aprocess = "cli.aprocess:app"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
@@ -19,7 +19,7 @@ scipy = "^1.7.2"
 tqdm = "^4.62.3"
 xarray = "^2022.03.0"
 sphinx = {version = "^4.3.0", optional = true}
-pydata-sphinx-theme = ">=0.9.0"
+pydata-sphinx-theme = {version = ">=0.9.0", optional = true}
 recommonmark = {version = "^0.7.1", optional = true}
 typer = {extras = ["all"], version = "^0.7.0"}
 orjson = "^3.6.7"
