@@ -54,42 +54,42 @@ returns the documentation of the CLI, with all available options.
                                                                                                                                                                 
     Run aprofiles standard workflow for given dates, optionally for specific instruments types.                                                                  
     See some examples here: https://a-profiles.readthedocs.io/en/latest/cli.html                                                                                 
-                                                                                                                                                                
-╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ --date                                             [%Y-%m-%d]              📅 Processing date.               │
-│ --from                                             [%Y-%m-%d]              📅 Initial date [default: None]   │
-│ --to                                               [%Y-%m-%d]              📅 Ending date.                   │
-│                                                                            [default: (Today's date)]         │
-│ --today                 --no-today                                         🕑 Process today.                 │
-│                                                                            [default: no-today]               │
-│ --yesterday             --no-yesterday                                     🕙 Process yesterday.             │
-│                                                                            [default: no-yesterday]           │
-│ --instruments-type                                 [CHM15k|Mini-MPL|CL61]  📗 List of specific instruments   │
-│                                                                            to be processed.                  │
-│                                                                            [default: CHM15k, Mini-MPL]       │
-│ --multiprocessing       --no-multiprocessing                               ⚡ Use multiprocessing mode.      │
-│                                                                            [default: no-multiprocessing]     │
-│ --basedir-in                                       PATH                    📂 Base path for input data.      │
-│                                                                            [default: data/e-profile]         │
-│ --basedir-out                                      PATH                    📂 Base path for output data.     │
-│                                                                            [default: data/v-profiles]        │
-│ --update-data           --no-update-data                                   📈 Update data.                   │
-│                                                                            [default: update-data]            │
-│ --update-calendar       --no-update-calendar                               🗓️ Update calendar.                │
-│                                                                            [default: update-calendar]        │
-│ --update-map            --no-update-map                                    🗺️ Update map.                     │
-│                                                                            [default: update-map]             │
-│ --update-climatology    --no-update-climatology                            ↪️ Update climatology.             │
-│                                                                            [default: update-climatology]     │
-│ --progress-bar          --no-progress-bar                                  ⌛ Progress bar.                  │
-│                                                                            [default: progress-bar]           │
-│ --install-completion                                                       Install completion for the        │
-│                                                                            current shell.                    │
-│ --show-completion                                                          Show completion for the current   │
-│                                                                            shell, to copy it or customize    │
-│                                                                            the installation.                 │
-│ --help                                                                     Show this message and exit.       │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+                                                                                                                                                          
+    ╭─ Options ────────────────────────────────────────────────────────────────────────────────────────────────────╮
+    │ --date                                             [%Y-%m-%d]              📅 Processing date.               │
+    │ --from                                             [%Y-%m-%d]              📅 Initial date [default: None]   │
+    │ --to                                               [%Y-%m-%d]              📅 Ending date.                   │
+    │                                                                            [default: (Today's date)]         │
+    │ --today                 --no-today                                         🕑 Process today.                 │
+    │                                                                            [default: no-today]               │
+    │ --yesterday             --no-yesterday                                     🕙 Process yesterday.             │
+    │                                                                            [default: no-yesterday]           │
+    │ --instruments-type                                 [CHM15k|Mini-MPL|CL61]  📗 List of specific instruments   │
+    │                                                                            to be processed.                  │
+    │                                                                            [default: CHM15k, Mini-MPL]       │
+    │ --multiprocessing       --no-multiprocessing                               ⚡ Use multiprocessing mode.      │
+    │                                                                            [default: no-multiprocessing]     │
+    │ --basedir-in                                       PATH                    📂 Base path for input data.      │
+    │                                                                            [default: data/e-profile]         │
+    │ --basedir-out                                      PATH                    📂 Base path for output data.     │
+    │                                                                            [default: data/v-profiles]        │
+    │ --update-data           --no-update-data                                   📈 Update data.                   │
+    │                                                                            [default: update-data]            │
+    │ --update-calendar       --no-update-calendar                               🗓️ Update calendar.                │
+    │                                                                            [default: update-calendar]        │
+    │ --update-map            --no-update-map                                    🗺️ Update map.                     │
+    │                                                                            [default: update-map]             │
+    │ --update-climatology    --no-update-climatology                            ↪️ Update climatology.             │
+    │                                                                            [default: update-climatology]     │
+    │ --progress-bar          --no-progress-bar                                  ⌛ Progress bar.                  │
+    │                                                                            [default: progress-bar]           │
+    │ --install-completion                                                       Install completion for the        │
+    │                                                                            current shell.                    │
+    │ --show-completion                                                          Show completion for the current   │
+    │                                                                            shell, to copy it or customize    │
+    │                                                                            the installation.                 │
+    │ --help                                                                     Show this message and exit.       │
+    ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
 Basic uses
 #############
