@@ -13,6 +13,23 @@ In the current version, the CLI has 3 possible actions:
 2. create a JSON calendar file (used by V-Profiles)
 3. create a JSON map file (used by V-Profiles)
 
+Installation
+############
+
+In order to use the CLI, A-Profiles needs to be installed with the required extras:
+
+- with *pip*
+
+.. code-block::
+
+    pip install -e .[cli]
+
+- with *poetry*
+
+.. code-block::
+
+    poetry install --extras cli
+
 Documentation
 #############
 
