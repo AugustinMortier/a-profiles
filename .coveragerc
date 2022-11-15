@@ -1,7 +1,6 @@
 [run]
 omit =
-    *__init__.py*
-    */cli/*
+    *__init__.py*,*/cli/*
 
 [report]
 exclude_lines =
