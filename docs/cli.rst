@@ -24,6 +24,13 @@ In order to use the CLI, A-Profiles needs to be installed with the required extr
 
     pip install -e .[cli]
 
+- with *pipx*
+
+.. code-block::
+
+    pipx install .[cli]
+
+
 - with *poetry*
 
 .. code-block::

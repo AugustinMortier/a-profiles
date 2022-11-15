@@ -15,10 +15,16 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
 
 ### <img src="docs/_static/images/pip.svg" height="15px"/> via *pip*
 *aprofiles* is directly available on *pip*. This will install the latest released version of *aprofiles* and its depencencies.
-    
+
+- with *pip*
+
 `pip install aprofiles`
 
-### <img src="docs/_static/images/github.svg" height="15px"/> via *Git*
+- with *pipx*
+
+`pipx install aprofiles`
+
+### <img src="docs/_static/images/github.svg" height="15px"/> from source
 1. clone this repository
 
     `git clone https://github.com/AugustinMortier/A-Profiles.git`
@@ -27,13 +33,17 @@ The official documentation is available [here](https://a-profiles.readthedocs.io
    - with *pip* (>21.3)
 
        `pip install .`
+    
+    - with *pipx* (>21.3)
+
+       `pipx install .`
 
    - with *poetry*
-
+  
        `poetry install`
 
 
-In order to install directly the package from this repository with git, you can also use
+In order to install directly the package from source with pip, you can also use the combined command
 
 `pip install "git+ssh://git@github.com/AugustinMortier/A-Profiles.git"`
 
