@@ -227,7 +227,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "dask"
-version = "2022.10.2"
+version = "2022.11.0"
 description = "Parallel PyData with Task Scheduling"
 category = "main"
 optional = false
@@ -244,10 +244,10 @@ toolz = ">=0.8.2"
 
 [package.extras]
 array = ["numpy (>=1.18)"]
-complete = ["bokeh (>=2.4.2,<3)", "distributed (==2022.10.2)", "jinja2", "numpy (>=1.18)", "pandas (>=1.0)"]
+complete = ["bokeh (>=2.4.2)", "distributed (==2022.11.0)", "jinja2", "numpy (>=1.18)", "pandas (>=1.0)"]
 dataframe = ["numpy (>=1.18)", "pandas (>=1.0)"]
-diagnostics = ["bokeh (>=2.4.2,<3)", "jinja2"]
-distributed = ["distributed (==2022.10.2)"]
+diagnostics = ["bokeh (>=2.4.2)", "jinja2"]
+distributed = ["distributed (==2022.11.0)"]
 test = ["pandas[test]", "pre-commit", "pytest", "pytest-rerunfailures", "pytest-xdist"]
 
 [[package]]
@@ -1656,8 +1656,8 @@ cycler = [
     {file = "cycler-0.11.0.tar.gz", hash = "sha256:9c87405839a19696e837b3b818fed3f5f69f16f1eec1a1ad77e043dcea9c772f"},
 ]
 dask = [
-    {file = "dask-2022.10.2-py3-none-any.whl", hash = "sha256:928003a97b890a14c8a09a01f15320d261053bda530a8bf191d84f33db4a63b8"},
-    {file = "dask-2022.10.2.tar.gz", hash = "sha256:42cb43f601709575fa46ce09e74bea83fdd464187024f56954e09d9b428ceaab"},
+    {file = "dask-2022.11.0-py3-none-any.whl", hash = "sha256:dc4ead21507391e4f2c0e5d991255975de3cdf06cc36e399507d1dfdccd692ba"},
+    {file = "dask-2022.11.0.tar.gz", hash = "sha256:0def56f16568c293fddffa9fd92da694e1edb652b366500f97b7fe64e8d3983c"},
 ]
 debugpy = [
     {file = "debugpy-1.6.3-cp310-cp310-macosx_10_15_x86_64.whl", hash = "sha256:c4b2bd5c245eeb49824bf7e539f95fb17f9a756186e51c3e513e32999d8846f3"},
