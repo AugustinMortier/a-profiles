@@ -7,5 +7,5 @@ from pathlib import Path
 
 def read():
     # read alc_parameters files
-    with open(Path('aprofiles', 'cli', 'config', 'cfg.json')) as json_file:
+    with open(Path(Path(__file__).parent, '..', 'config', 'cfg.json')) as json_file:
         return json.load(json_file)
