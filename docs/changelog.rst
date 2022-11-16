@@ -4,6 +4,13 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.12
+^^^^^^^
+Nov 16, 2022
+
+- Fix relative path of the config file read in the *CLI* to make the command work properly anywhere.
+
+
 0.5.11
 ^^^^^^^
 Nov 15, 2022
