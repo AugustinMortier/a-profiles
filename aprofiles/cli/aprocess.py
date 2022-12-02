@@ -12,7 +12,7 @@ import typer
 from pandas import date_range
 from tqdm import tqdm
 
-from . import utils
+import aprofiles.cli.utils as utils
 
 app = typer.Typer(no_args_is_help=True)
 
