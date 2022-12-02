@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.13
+^^^^^^^
+Dec 2, 2022
+
+- Create a doi and add `citation file <https://citation-file-format.github.io/>`_ in Git repository.
+
 0.5.12
 ^^^^^^^
 Nov 16, 2022
