@@ -22,7 +22,7 @@ In order to use the CLI, A-Profiles needs to be installed with the required extr
 
 .. code-block::
 
-    pip install -e .[cli]
+    pip install .[cli]
 
 - with *pipx*
 
