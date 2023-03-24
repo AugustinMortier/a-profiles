@@ -55,7 +55,7 @@ In order to install directly the package from source with pip, you can also use 
 import aprofiles as apro
 
 # read local NetCDF L2 data
-path = "examples/data/L2_0-20000-006735_A20210908.nc"
+path = "examples/data/E-PROFILE/L2_0-20000-006735_A20210908.nc"
 profiles = apro.reader.ReadProfiles(path).read()
 ``` 
 
