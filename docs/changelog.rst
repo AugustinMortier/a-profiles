@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.5.14
+^^^^^^^
+Mar 24, 2022
+
+- Explicitely add `numba` to the list of required dependencies for solving some installation issues.
+
 0.5.13
 ^^^^^^^
 Dec 2, 2022
