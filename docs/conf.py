@@ -89,8 +89,8 @@ html_theme_options = {
         }
     ],
     "logo": {
-      "image_light": "images/A-Profiles.png",
-      "image_dark": "images/A-Profiles-white.png",
+      "image_light": "_static/images/A-Profiles.png",
+      "image_dark": "_static/images/A-Profiles-white.png",
     }
 }
 

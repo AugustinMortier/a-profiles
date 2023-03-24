@@ -5,11 +5,11 @@ CLI
    :class: awesome-svg
 
 For facilitating the processing of the measurements in routine, a Command Line Interface (CLI) has been developed: 
-:download:`cli/aprocess.py <.aprocess>`
+:download:`cli/aprocess.py </../aprofiles/cli/aprocess.py>`
 
 In the current version, the CLI has 3 possible actions:
 
-1. process data for all stations via the usual A-Profiles :download:`workflow <../cli/utils/workflow.py>`
+1. process data for all stations via the usual A-Profiles :download:`workflow </../aprofiles/cli/utils/workflow.py>`
 2. create a JSON calendar file (used by V-Profiles)
 3. create a JSON map file (used by V-Profiles)
 
