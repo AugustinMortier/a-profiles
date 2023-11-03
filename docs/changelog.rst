@@ -9,9 +9,8 @@ Changelog
 ^^^^^^^
 Nov 3, 2023
 
-- Fix resampling issue `TypeError: Grouper.__init__() got an unexpected keyword argument 'base'`. 
-This required an upgrade of `xarray`` which involved dropping support for python 3.8.
-- add workers option in the CLI
+- Fix resampling issue `TypeError: Grouper.__init__() got an unexpected keyword argument 'base'` obtained with pandas v2.0.0 (see https://github.com/pydata/xarray/issues/8282). This required an upgrade of `xarray`` which involved dropping support for python 3.8.
+- Add workers option in the CLI
 
 0.5.14
 ^^^^^^^
