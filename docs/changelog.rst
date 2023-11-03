@@ -4,6 +4,15 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+
+0.5.15
+^^^^^^^
+Nov 3, 2023
+
+- Fix resampling issue `TypeError: Grouper.__init__() got an unexpected keyword argument 'base'`. 
+This required an upgrade of `xarray`` which involved dropping support for python 3.8.
+- add workers option in the CLI
+
 0.5.14
 ^^^^^^^
 Mar 24, 2022
