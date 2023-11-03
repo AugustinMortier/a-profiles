@@ -82,6 +82,6 @@ def main(path):
 
 if __name__ == "__main__":
     # read some data
-    path = "examples/data/E-PROFILE/L2_0-20000-006735_A20210908.nc"
+    #path = "examples/data/E-PROFILE/L2_0-20000-006735_A20210908.nc"
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
     main(path)

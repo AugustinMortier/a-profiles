@@ -42,6 +42,9 @@ def main(
         ['CHM15k', 'Mini-MPL'], "--instruments-type", help="📗 List of specific instruments to be processed."
     ),
     multiprocessing: bool = typer.Option(False, help="⚡ Use multiprocessing mode."),
+    workers: int = typer.Option(
+        2, "--workers", min=1, envvar="NSLOTS", help="👷 workers NSLOTS (if multiprocessing mode is enabled)"
+    ),
     basedir_in: Path = typer.Option(
         "data/e-profile", exists=True, readable=True, help="📂 Base path for input data."
     ),
@@ -104,7 +107,7 @@ def main(
         if update_data:
             if multiprocessing:
                 with tqdm(total=len(onlyfiles), desc=date.strftime("%Y-%m-%d"), disable=disable_progress_bar) as pbar:
-                    with concurrent.futures.ProcessPoolExecutor() as executor:
+                    with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                         futures = [executor.submit(
                             utils.workflow.workflow, 
                             path=file, 
