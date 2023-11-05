@@ -6,6 +6,8 @@ import json
 import matplotlib.pyplot as plt
 import numpy as np
 
+from pathlib import Path
+
 from aprofiles import utils
 
 
@@ -30,7 +32,7 @@ class SizeDistributionData:
         self.aer_type = aer_type
 
         # read aer_properties.json files
-        f = open("aprofiles/config/aer_properties.json")
+        f = open(Path(Path(__file__).parent,'config','aer_properties.json'))
         aer_properties = json.load(f)
         f.close()
         # check if the aer_type exist in the json file

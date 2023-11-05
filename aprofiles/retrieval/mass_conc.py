@@ -5,6 +5,7 @@ import json
 
 import aprofiles as apro
 import numpy as np
+from pathlib import Path
 
 
 def concentration_profiles(profiles, method):
@@ -45,7 +46,7 @@ def concentration_profiles(profiles, method):
     """
 
     # read aer_properties.json files
-    f = open("aprofiles/config/aer_properties.json")
+    f = open(Path(Path(__file__).parent,'..','config','aer_properties.json'))
     aer_properties = json.load(f)
     f.close()
     # check if the aer_type exist in the json file
