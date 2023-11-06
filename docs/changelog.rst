@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.6.0
+^^^^^^^
+Nov 3, 2023
+
+- Support python3.11.
+- Fix relative paths issues occuring when the CLI is triggered without a local copy of the repository (via module load on ecFlow).
 
 0.5.15
 ^^^^^^^
