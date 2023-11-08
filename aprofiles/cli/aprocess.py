@@ -106,7 +106,7 @@ def main(
         # data processing
         if update_data:
             if multiprocessing:
-                with tqdm(total=len(onlyfiles), desc=date.strftime("%Y-%m-%d"), disable=disable_progress_bar) as pbar:
+                with tqdm(total=len(onlyfiles), desc=f"{date.strftime('%Y-%m-%d')} ⚡", disable=disable_progress_bar) as pbar:
                     with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                         futures = [executor.submit(
                             utils.workflow.workflow, 
@@ -118,7 +118,7 @@ def main(
                         for future in concurrent.futures.as_completed(futures):
                             pbar.update(1)
             else:
-                for file in tqdm(onlyfiles, desc=date.strftime("%Y-%m-%d"), disable=disable_progress_bar):
+                for file in tqdm(onlyfiles, desc=f"{date.strftime('%Y-%m-%d')}   ", disable=disable_progress_bar):
                     utils.workflow.workflow(
                         file, instruments_types, basedir_out, CFG, verbose=False
                     )
@@ -135,7 +135,7 @@ def main(
                 utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
             # add to calendar
-            for file in tqdm(onlyfiles, desc="calendar  ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="calendar     ", disable=disable_progress_bar):
                 utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
             
         
@@ -147,7 +147,7 @@ def main(
                 utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
 
             # add to map
-            for file in tqdm(onlyfiles, desc="map       ", disable=disable_progress_bar):
+            for file in tqdm(onlyfiles, desc="map          ", disable=disable_progress_bar):
                 utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
 
     if update_climatology:
@@ -157,7 +157,7 @@ def main(
         stations_id = [station for station in stations_id if station not in CFG["exclude_stations_id_from_climatology"]]
 
         if multiprocessing:
-            with tqdm(total=len(stations_id), desc='clim.     ', disable=disable_progress_bar) as pbar:
+            with tqdm(total=len(stations_id), desc=f"clim.      ⚡", disable=disable_progress_bar) as pbar:
                 with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                     futures = [executor.submit(
                         utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
@@ -166,7 +166,7 @@ def main(
                     for future in concurrent.futures.as_completed(futures):
                         pbar.update(1)
         else:
-            for station_id in tqdm(stations_id, desc='clim.     ', disable=disable_progress_bar):
+            for station_id in tqdm(stations_id, desc='clim.        ', disable=disable_progress_bar):
                 utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
 
 
