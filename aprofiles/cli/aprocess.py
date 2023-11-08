@@ -113,7 +113,7 @@ def main(
                             path=file, 
                             instruments_types=instruments_types, 
                             base_dir=basedir_out, CFG=CFG, verbose=False
-                        ) 
+                        )
                         for file in onlyfiles]
                         for future in concurrent.futures.as_completed(futures):
                             pbar.update(1)
@@ -161,7 +161,7 @@ def main(
                 with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                     futures = [executor.submit(
                         utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
-                    ) 
+                    )
                     for station_id in stations_id]
                     for future in concurrent.futures.as_completed(futures):
                         pbar.update(1)
