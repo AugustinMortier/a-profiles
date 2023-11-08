@@ -155,11 +155,19 @@ def main(
         stations_id = ["-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5]) for onlyfile in onlyfiles]
         # exclude moving stations
         stations_id = [station for station in stations_id if station not in CFG["exclude_stations_id_from_climatology"]]
-        for station_id in tqdm(stations_id, desc="climatology", disable=disable_progress_bar):
-            try:
+
+        if multiprocessing:
+            with tqdm(total=len(stations_id), desc='clim.     ', disable=disable_progress_bar) as pbar:
+                with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
+                    futures = [executor.submit(
+                        utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
+                    ) 
+                    for station_id in stations_id]
+                    for future in concurrent.futures.as_completed(futures):
+                        pbar.update(1)
+        else:
+            for station_id in tqdm(stations_id, desc='clim.     ', disable=disable_progress_bar):
                 utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
-            except ValueError:
-                print(f'ValueError encountered with {station_id}')
 
 
 if __name__ == "__main__":
