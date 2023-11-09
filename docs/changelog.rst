@@ -4,6 +4,13 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.6.2
+^^^^^^^
+Nov 9, 2023
+
+- Enable multiprocessing for climatology computation.
+- Fix bug in map processing due to the removal of time conversion warnings (0.6.1).
+
 0.6.1
 ^^^^^^^
 Nov 9, 2023
