@@ -4,6 +4,14 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.6.1
+^^^^^^^
+Nov 9, 2023
+
+CLI improvements:
+- Remove time conversion warnings in map computation.
+- Add indicator in progress-bar when using multiprocessing.
+
 0.6.0
 ^^^^^^^
 Nov 3, 2023
