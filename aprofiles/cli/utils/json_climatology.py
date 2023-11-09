@@ -30,7 +30,7 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
     try:
         # open dataset with xarray
-        ds = xr.open_mfdataset(station_files, decode_times=True, parallel=True)
+        ds = xr.open_mfdataset(station_files, parallel=True)
 
         # convert time index
         ds = convert_time_int_to_datetime(ds)
