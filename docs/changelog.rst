@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.6.3
+^^^^^^^
+Nov 10, 2023
+
+- Fix time conversion warnings in the map processing.
+
 0.6.2
 ^^^^^^^
 Nov 9, 2023
