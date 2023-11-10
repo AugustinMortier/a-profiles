@@ -23,7 +23,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
 
     # calculate the max extinction and determine the scene for each hour of the day
     # need to convert time (from int to datetime) in order to use the resample method from xarray
-    ds = ds.assign_coords(time = ds.time.data.astype("datetime64[ms]"))
+    ds["time"]= ds.time.data.astype("datetime64[ms]").astype("datetime64[ns]")
 
     # in order to prevent some monotony issue, sort by time
     ds = ds.sortby('time')
