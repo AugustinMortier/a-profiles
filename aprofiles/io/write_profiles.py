@@ -23,7 +23,7 @@ def write(profiles, base_dir, verbose):
         time_attrs = ds["time"].attrs
         ds = ds.assign_coords(time=ds.time.data.astype(f"datetime64[{resolution}]").astype(int))
         ds["time"] = ds["time"].assign_attrs(time_attrs)
-        ds["time"].attrs['units'] = 'milliseconds after epoch'
+        ds["time"].attrs['units'] = 'milliseconds since 1970-01-01T00:00:00'
         return ds
     
     def _classify_scene(ds):
@@ -132,6 +132,11 @@ def write(profiles, base_dir, verbose):
 
     # converts time
     ds_towrite = _convert_time_after_epoch(ds_towrite, resolution='ms')
+    
+    # add altitude direction
+    ds_towrite["altitude"] = ds_towrite["altitude"].assign_attrs({
+        'positive': "up"
+    })
 
     # writes to netcdf
     ds_towrite.to_netcdf(path, mode='w')
