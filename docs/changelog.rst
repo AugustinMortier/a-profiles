@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.6.4
+^^^^^^^
+Sep 16, 2024
+
+- Work on CF compliance (missing altitude direction and time units).
+
 0.6.3
 ^^^^^^^
 Nov 10, 2023
