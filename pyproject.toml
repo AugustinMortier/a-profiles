@@ -10,7 +10,7 @@ aprocess = {callable = "aprofiles.cli.aprocess:app", extras = ["cli"]}
 
 [tool.poetry.dependencies]
 python = ">=3.9,<=3.11"
-matplotlib = "^3.5.0"
+matplotlib = "^3.5.0,<3.9"
 miepython = "^2.2.1"
 netCDF4 = "^1.5.8"
 numpy = "^1.21.4"
@@ -18,7 +18,7 @@ seaborn = "^0.11.2"
 scipy = "^1.7.2"
 tqdm = "^4.62.3"
 xarray = "^2023.09.0"
-sphinx = {version = "^4.3.0", optional = true}
+sphinx = {version = "^6.0.0", optional = true}
 pydata-sphinx-theme = {version = ">=0.9.0", optional = true}
 recommonmark = {version = "^0.7.1", optional = true}
 typer = {extras = ["all"], version = "^0.7.0", optional = true}
