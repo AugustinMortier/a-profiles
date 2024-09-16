@@ -28,9 +28,9 @@ jobs:
       - name: Run tests
         run: poetry run pytest --cov=aprofiles/ --cov-report=xml tests/
       - name: Upload coverage to Codecov
-        env: CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        uses: codecov/codecov-action@v4 -t ${{ CODECOV_TOKEN }}
+        uses: codecov/codecov-action@v4
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
   docs:
     runs-on: ubuntu-latest
