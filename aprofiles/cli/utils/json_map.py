@@ -46,6 +46,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
 
     # scene for each hour
     max_retrieval_scene = ds.retrieval_scene.resample(time='1H').max().data
+    max_cloud_amount = ds.cloud_amount.resample(time='1H').max().data
 
     # open current map
     with open(Path(base_dir) / yyyy / mm / mapname, 'r') as json_file:
@@ -72,7 +73,8 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
         'max_ext:0-2km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['0-2']],
         'max_ext:2-4km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['2-4']],
         'max_ext:4-6km': [round(ext,4) if not np.isnan(ext) else None for ext in max_ext['4-6']],
-        'retrieval_scene': [retrieval_scene if not np.isnan(retrieval_scene) else None for retrieval_scene in max_retrieval_scene.tolist()]
+        'retrieval_scene': [retrieval_scene if not np.isnan(retrieval_scene) else None for retrieval_scene in max_retrieval_scene.tolist()],
+        'cloud_amount': [cloud_amount if not np.isnan(cloud_amount) else None for cloud_amount in max_cloud_amount.tolist()],
     }
 
     # write new map
