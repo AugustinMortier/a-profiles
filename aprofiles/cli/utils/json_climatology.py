@@ -45,6 +45,7 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
         # keep only clear scenes
         if aerosols_only:
             ds = ds.where(ds.retrieval_scene <= 1)
+            ds = ds.where(ds.cloud_amount == 0)
 
         # add some statistics
         attrs["ndays"] = {"ndays": len(station_files), "since": str(ds.time.data[0]).split("T")[0]}
