@@ -30,7 +30,7 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
     try:
         # open dataset with xarray
-        ds = xr.open_mfdataset(station_files, parallel=False)
+        ds = xr.open_mfdataset(station_files, parallel=True)
 
         # convert time index
         ds = convert_time_int_to_datetime(ds)
@@ -44,8 +44,7 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
         # keep only clear scenes
         if aerosols_only:
-            ds = ds.where(ds.retrieval_scene <= 1)
-            ds = ds.where(ds.cloud_amount == 0)
+            ds = ds.where((ds.retrieval_scene <= 1) & (ds.cloud_amount == 0))
 
         # add some statistics
         attrs["ndays"] = {"ndays": len(station_files), "since": str(ds.time.data[0]).split("T")[0]}
@@ -77,7 +76,8 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
         clim_path.mkdir(parents=True, exist_ok=True)
 
         # write data to json file
-        with open(Path(clim_path, f"AP_{station_id}_clim.json"), 'w') as json_file:
-            json.dump(orjson.loads(orjson.dumps(multivars_dict, option=orjson.OPT_SERIALIZE_NUMPY)), json_file)
+        with open(Path(clim_path, f"AP_{station_id}_clim.json"), 'wb') as json_file:
+            json_file.write(orjson.dumps(multivars_dict, option=orjson.OPT_SERIALIZE_NUMPY))
+
     except ValueError:
         print(f'ValueError encountered with {station_id}')
