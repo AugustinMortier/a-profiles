@@ -28,9 +28,11 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
 
+    print(station_files)
+
     try:
         # open dataset with xarray
-        ds = xr.open_mfdataset(station_files, parallel=False)
+        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=False)
 
         # convert time index
         ds = convert_time_int_to_datetime(ds)
@@ -51,9 +53,9 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
         attrs["today"] = datetime.today().strftime("%Y-%m-%d")
 
         # seasonal resampling
-        Qds = ds.resample(time="Q").mean()
+        Qds = ds.resample(time="QE").mean()
         # add number of days per season as a new variable
-        Qds["ndays"] = ds.scene.resample(time="D").count().resample(time="Q").count()
+        Qds["ndays"] = ds.scene.resample(time="D").count().resample(time="QE").count()
 
         # work with selected variable
 

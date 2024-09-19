@@ -125,7 +125,6 @@ def main(
         
         # list all files in out directory
         datepath = Path(basedir_out, yyyy, mm, dd)
-        onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
 
         if update_calendar:
             # create calendar
@@ -134,6 +133,8 @@ def main(
             if not path.is_file():
                 utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
+            # list all files in out directory
+            onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
             # add to calendar
             for file in tqdm(onlyfiles, desc="calendar     ", disable=disable_progress_bar):
                 utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
@@ -146,11 +147,15 @@ def main(
             if not path.is_file():
                 utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
 
+            # list all files in out directory
+            onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
             # add to map
             for file in tqdm(onlyfiles, desc="map          ", disable=disable_progress_bar):
                 utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
 
     if update_climatology:
+        # list all files in out directory
+        onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
         # get station id from file name
         stations_id = ["-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5]) for onlyfile in onlyfiles]
         # exclude moving stations
