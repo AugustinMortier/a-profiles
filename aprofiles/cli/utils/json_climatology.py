@@ -28,8 +28,6 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
 
-    print(station_files)
-
     try:
         # open dataset with xarray
         ds = xr.open_mfdataset(station_files, parallel=False, decode_times=False)
