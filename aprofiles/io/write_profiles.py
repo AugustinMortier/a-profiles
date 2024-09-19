@@ -141,6 +141,7 @@ def write(profiles, base_dir, verbose):
     # convert int64 to int32
     encoding = {}
     for varname, var in ds_towrite.variables.items():
+        if varname == "time": continue
         if var.dtype == np.int64:
             encoding[varname] = {"dtype": np.int32}
     
