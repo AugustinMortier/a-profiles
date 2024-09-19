@@ -138,6 +138,11 @@ def write(profiles, base_dir, verbose):
         'positive': "up"
     })
 
+    # convert int64 to int32
+    encoding = {}
+    for varname, var in ds_towrite.variables.items():
+        if var.dtype == np.int64:
+            encoding[varname] = {"dtype": np.int32}
+    
     # writes to netcdf
-    ds_towrite.to_netcdf(path, mode='w')
-
+    ds_towrite.to_netcdf(path, mode='w', encoding=encoding)
