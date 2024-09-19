@@ -37,7 +37,7 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
         zmax_asl = zmax + ds.attrs['station_altitude']
         
         # extinction for each hour
-        max_ext_profiles = ds.where((ds.altitude>=zmin_asl) & (ds.altitude<zmax_asl), drop=True).extinction.resample(time="1H").max().data
+        max_ext_profiles = ds.where((ds.altitude>=zmin_asl) & (ds.altitude<zmax_asl), drop=True).extinction.resample(time="1h").max().data
 
         # take the maximum value in each profile
         with warnings.catch_warnings():
@@ -45,8 +45,8 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
             max_ext[layer] = np.nanmax(max_ext_profiles, axis=1)
 
     # scene for each hour
-    max_retrieval_scene = ds.retrieval_scene.resample(time='1H').max().data
-    max_cloud_amount = ds.cloud_amount.resample(time='1H').max().data
+    max_retrieval_scene = ds.retrieval_scene.resample(time='1h').max().data
+    max_cloud_amount = ds.cloud_amount.resample(time='1h').max().data
 
     # open current map
     with open(Path(base_dir) / yyyy / mm / mapname, 'r') as json_file:
