@@ -12,14 +12,6 @@ import pandas as pd
 import xarray as xr
 
 
-def convert_time_int_to_datetime(ds):
-    time_data = [time * 1e6 for time in ds.time.data]
-    time_attrs = ds["time"].attrs
-    ds = ds.assign_coords(time=(pd.to_datetime(time_data)))
-    ds["time"] = ds["time"].assign_attrs(time_attrs)
-    ds["time"].attrs["units"] = "datetime"
-    return ds
-
 def compute_climatology(basedir, station_id, variables, aerosols_only):
     # get all files
     station_files = []
@@ -30,10 +22,7 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
     try:
         # open dataset with xarray
-        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=False)
-
-        # convert time index
-        ds = convert_time_int_to_datetime(ds)
+        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True)
 
         # store attributes which are destroyed by the resampling method
         attrs = ds.attrs
