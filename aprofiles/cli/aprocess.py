@@ -27,7 +27,7 @@ def main(
         [], "--date", formats=["%Y-%m-%d"], help="📅 Processing date."
     ),
     _from: datetime = typer.Option(
-        None, "--from", formats=["%Y-%m-%d"], help="📅 Initial date"
+        None, "--from", formats=["%Y-%m-%d"], help="📅 Initial date."
     ),
     _to: datetime = typer.Option(
         datetime.today(),
@@ -36,14 +36,14 @@ def main(
         help="📅 Ending date.",
         show_default="Today's date",
     ),
-    today: bool = typer.Option(False, help="🕑 Process today."),
-    yesterday: bool = typer.Option(False, help="🕙 Process yesterday."),
+    today: bool = typer.Option(False, help="🕑 Process today's data."),
+    yesterday: bool = typer.Option(False, help="🕙 Process yesterday's data."),
     instruments_types: List[InstrumentType] = typer.Option(
         ['CHM15k', 'Mini-MPL'], "--instruments-type", help="📗 List of specific instruments to be processed."
     ),
-    multiprocessing: bool = typer.Option(False, help="⚡ Use multiprocessing mode."),
+    multiprocessing: bool = typer.Option(False, help="🚀 Use multiprocessing mode."),
     workers: int = typer.Option(
-        2, "--workers", min=1, envvar="NSLOTS", help="👷 workers NSLOTS (if multiprocessing mode is enabled)"
+        2, "--workers", min=1, envvar="NSLOTS", help="👷 Number of workers (NSLOTS, if multiprocessing mode is enabled)."
     ),
     basedir_in: Path = typer.Option(
         "data/e-profile", exists=True, readable=True, help="📂 Base path for input data."
@@ -52,14 +52,13 @@ def main(
         "data/v-profiles",
         exists=True,
         writable=True,
-        help="📂 Base path for output data.",
+        help="📂 Base path for output data."
     ),
     update_data: bool = typer.Option(True, help="📈 Update data."),
     update_calendar: bool = typer.Option(True, help="🗓️ Update calendar."),
     update_map: bool = typer.Option(True, help="🗺️ Update map."),
     update_climatology: bool = typer.Option(True, help="↪️ Update climatology."),
-    progress_bar: bool = typer.Option(True, help="⌛ Progress bar."),
-    # rsync: bool = typer.Option(False, help="📤 Rsync to webserver."),
+    progress_bar: bool = typer.Option(True, help="⌛ Show progress bar."),
 ):
     """
     Run aprofiles standard workflow for given dates, optionally for specific instruments types.
@@ -107,7 +106,7 @@ def main(
         if update_data:
             if multiprocessing:
                 with Progress() as progress:
-                    task = progress.add_task(f"{date.strftime('%Y-%m-%d')} ⚡", total=len(onlyfiles))
+                    task = progress.add_task(f"{date.strftime('%Y-%m-%d')} :rocket:", total=len(onlyfiles))
                     with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                         futures = [executor.submit(
                             utils.workflow.workflow, 
@@ -164,7 +163,7 @@ def main(
         
         if multiprocessing:
             with Progress() as progress:
-                task = progress.add_task(total=len(stations_id), description=f"clim.      ⚡", disable=disable_progress_bar)
+                task = progress.add_task(total=len(stations_id), description=f"clim.      :rocket:", disable=disable_progress_bar)
                 with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                     futures = [executor.submit(
                         utils.json_climatology.compute_climatology,
