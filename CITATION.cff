@@ -1,13 +1,13 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: 'If you use this software, please cite it as below.'
 authors:
-- family-names: "Mortier"
-  given-names: "Augustin"
-  email: augustinm@met.no
-  affiliation: MET Norway
-  orcid: "https://orcid.org/0000-0002-7724-3583"
-title: "A-Profiles"
-version: 0.5.13
-doi: 10.5281/zenodo.7389683
+  - family-names: 'Mortier'
+    given-names: 'Augustin'
+    email: augustinm@met.no
+    affiliation: MET Norway
+    orcid: 'https://orcid.org/0000-0002-7724-3583'
+title: 'A-Profiles'
+version: 0.7.0
+doi: 10.5281/zenodo.13819499
 date-released: 2022-12-02
-url: "https://github.com/AugustinMortier/A-Profiles"
+url: 'https://github.com/AugustinMortier/A-Profiles'
