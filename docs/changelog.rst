@@ -4,6 +4,13 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.7.0
+^^^^^^^
+Sep 20, 2024
+
+- Support Python 3.12.
+- Replace *tqdm* with *rich*
+
 0.6.5
 ^^^^^^^
 Sep 20, 2024

@@ -2,7 +2,7 @@
 # @desc A-Profiles - Clouds detection
 
 import numpy as np
-from tqdm import tqdm
+from rich.progress import track
 
 from aprofiles import utils
 
@@ -332,11 +332,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
     ).data.attenuated_backscatter_0
 
     clouds_bases, clouds_peaks, clouds_tops = [], [], []
-    for i in (
-        tqdm(range(len(profiles.data.time.data)), desc="clouds")
-        if verbose
-        else range(len(profiles.data.time.data))
-    ):
+    for i in (track(range(len(profiles.data.time.data)), description="clouds",disable=not verbose)):
         clouds = _detect_clouds_from_rcs(
             rcs.data[i, :], zmin, thr_noise, thr_clouds, min_snr
         )

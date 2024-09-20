@@ -2,7 +2,7 @@
 # @desc A-Profiles - Planetary Boundary Layer
 
 import numpy as np
-from tqdm import tqdm
+from rich.progress import track
 
 from aprofiles import utils
 
@@ -115,11 +115,7 @@ def detect_pbl(
         lowest_clouds = [np.nan for _ in np.arange(len(profiles.data.time))]
 
     pbl = []
-    for i in (
-        tqdm(range(len(profiles.data.time.data)), desc="pbl   ")
-        if verbose
-        else range(len(profiles.data.time.data))
-    ):
+    for i in (track(range(len(profiles.data.time.data)), description="pbl   ", disable=not verbose)):
         lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
         pbl.append(
             _detect_pbl_from_rcs(

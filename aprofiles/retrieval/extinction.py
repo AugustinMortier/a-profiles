@@ -4,7 +4,7 @@
 import warnings
 
 import numpy as np
-from tqdm import tqdm
+from rich.progress import track
 
 import aprofiles as apro
 
@@ -248,11 +248,7 @@ def inversion(
     ext, lr, aod, z_ref = [], [], [], []
     aod_min, aod_max = 0, 2
     vertical_resolution = profiles._get_resolution("altitude")
-    for i in (
-        tqdm(range(len(profiles.data.time.data)), desc="klett ")
-        if verbose
-        else range(len(profiles.data.time.data))
-    ):
+    for i in (track(range(len(profiles.data.time.data)), description="klett ",disable=not verbose)):
         # for this inversion, it is important to use the right units
         if "Mm" in profiles.data.attenuated_backscatter_0.units:
             calibrated_data = rcs.data[i, :] * 1e-6 # conversion from Mm-1.sr-1 to m-1.sr-1

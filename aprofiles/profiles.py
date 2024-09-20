@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import xarray as xr
-from tqdm import tqdm
+from rich.progress import track
 
 import aprofiles as apro
 
@@ -123,11 +123,7 @@ class ProfilesData:
 
         snr = []
 
-        for i in (
-            tqdm(range(len(self.data.time.data)), desc="snr   ")
-            if verbose
-            else range(len(self.data.time.data))
-        ):
+        for i in (track(range(len(self.data.time.data)), description="snr   ", disable=not verbose)):
             snr.append(_1D_snr(self.data[var].data[i, :], step))
 
         # creates dataarrays

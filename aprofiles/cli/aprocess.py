@@ -10,7 +10,7 @@ from typing import List
 
 import typer
 from pandas import date_range
-from tqdm import tqdm
+from rich.progress import Progress, track
 
 import aprofiles.cli.utils as utils
 
@@ -106,7 +106,8 @@ def main(
         # data processing
         if update_data:
             if multiprocessing:
-                with tqdm(total=len(onlyfiles), desc=f"{date.strftime('%Y-%m-%d')} ⚡", disable=disable_progress_bar) as pbar:
+                with Progress() as progress:
+                    task = progress.add_task(f"{date.strftime('%Y-%m-%d')} ⚡", total=len(onlyfiles))
                     with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                         futures = [executor.submit(
                             utils.workflow.workflow, 
@@ -116,9 +117,9 @@ def main(
                         )
                         for file in onlyfiles]
                         for future in concurrent.futures.as_completed(futures):
-                            pbar.update(1)
+                            progress.update(task, advance=1)
             else:
-                for file in tqdm(onlyfiles, desc=f"{date.strftime('%Y-%m-%d')}   ", disable=disable_progress_bar):
+                for file in track(onlyfiles, description=f"{date.strftime('%Y-%m-%d')}   ", disable=disable_progress_bar):
                     utils.workflow.workflow(
                         file, instruments_types, basedir_out, CFG, verbose=False
                     )
@@ -136,7 +137,7 @@ def main(
             # list all files in out directory
             onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
             # add to calendar
-            for file in tqdm(onlyfiles, desc="calendar     ", disable=disable_progress_bar):
+            for file in track(onlyfiles, description="calendar     ", disable=disable_progress_bar):
                 utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
             
         
@@ -150,7 +151,7 @@ def main(
             # list all files in out directory
             onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
             # add to map
-            for file in tqdm(onlyfiles, desc="map          ", disable=disable_progress_bar):
+            for file in track(onlyfiles, description="map          ", disable=disable_progress_bar):
                 utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
 
     if update_climatology:
@@ -162,7 +163,8 @@ def main(
         stations_id = [station for station in stations_id if station not in CFG["exclude_stations_id_from_climatology"]]
         
         if multiprocessing:
-            with tqdm(total=len(stations_id), desc=f"clim.      ⚡", disable=disable_progress_bar) as pbar:
+            with Progress() as progress:
+                task = progress.add_task(total=len(stations_id), description=f"clim.      ⚡", disable=disable_progress_bar)
                 with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                     futures = [executor.submit(
                         utils.json_climatology.compute_climatology,
@@ -173,9 +175,9 @@ def main(
                     )
                     for station_id in stations_id]
                     for future in concurrent.futures.as_completed(futures):
-                        pbar.update(1)
+                        progress.update(task, advance=1)
         else:
-            for station_id in tqdm(stations_id, desc='clim.        ', disable=disable_progress_bar):
+            for station_id in track(stations_id, description='clim.        ', disable=disable_progress_bar):
                 utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
 
 
