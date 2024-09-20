@@ -1,14 +1,12 @@
 # @author Augustin Mortier
 # @desc A-Profiles - Code for creating climatology json file to be used in V-Profiles
 
-from datetime import date, datetime, time
-import json
+from datetime import datetime
 from pathlib import Path
 import os
 
 import numpy as np
 import orjson
-import pandas as pd
 import xarray as xr
 
 
@@ -22,10 +20,14 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
     try:
         # open dataset with xarray
-        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True)
-
+        vars = variables.split("-") + ['retrieval_scene', 'cloud_amount', 'scene']
+        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks={'time': 1000})[vars]
+        
+        # seasonal resampling
+        Qds = ds.resample(time="QE").mean().compute()
+        
         # store attributes which are destroyed by the resampling method
-        attrs = ds.attrs
+        attrs = Qds.attrs
         # replace np.int by int
         for attr in attrs:
             if isinstance(attrs[attr], np.uint32):
@@ -33,14 +35,12 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
         # keep only clear scenes
         if aerosols_only:
-            ds = ds.where((ds.retrieval_scene <= 1) & (ds.cloud_amount == 0))
+            Qds = Qds.where((Qds.retrieval_scene <= 1) & (Qds.cloud_amount == 0))
 
         # add some statistics
         attrs["ndays"] = {"ndays": len(station_files), "since": str(ds.time.data[0]).split("T")[0]}
         attrs["today"] = datetime.today().strftime("%Y-%m-%d")
 
-        # seasonal resampling
-        Qds = ds.resample(time="QE").mean()
         # add number of days per season as a new variable
         Qds["ndays"] = ds.scene.resample(time="D").count().resample(time="QE").count()
 
