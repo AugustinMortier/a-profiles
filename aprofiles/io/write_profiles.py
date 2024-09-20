@@ -20,9 +20,11 @@ def write(profiles, base_dir, verbose):
     """
     
     def _convert_time_after_epoch(ds):
+        time_attrs = ds["time"].attrs
         ds = ds.assign_coords(time=ds.time.data.astype(f"datetime64[ms]").astype(f'float32'))
         # milliseconds to days
-        ds['time'] = ds['time'] / (1000 * 60 * 60 * 24) 
+        ds['time'] = ds['time'] / (1000 * 60 * 60 * 24)
+        ds["time"] = ds["time"].assign_attrs(time_attrs)
         ds["time"].attrs['units'] = 'days since 1970-01-01T00:00:00'
         return ds
     
