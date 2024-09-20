@@ -23,15 +23,15 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
         vars = variables.split("-") + ['retrieval_scene', 'cloud_amount', 'scene']
         ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks={'time': 1000})[vars]
         
-        # seasonal resampling
-        Qds = ds.resample(time="QE").mean().compute()
-        
         # store attributes which are destroyed by the resampling method
-        attrs = Qds.attrs
+        attrs = ds.attrs
         # replace np.int by int
         for attr in attrs:
             if isinstance(attrs[attr], np.uint32):
                 attrs[attr] = int(attrs[attr])
+        
+        # seasonal resampling
+        Qds = ds.resample(time="QE").mean().compute()
 
         # keep only clear scenes
         if aerosols_only:
