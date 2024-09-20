@@ -19,11 +19,11 @@ def write(profiles, base_dir, verbose):
         - verbose (bool): Verbose mode. Defaults to False.
     """
     
-    def _convert_time_after_epoch(ds, resolution='ms'):
-        time_attrs = ds["time"].attrs
-        ds = ds.assign_coords(time=ds.time.data.astype(f"datetime64[{resolution}]").astype(int))
-        ds["time"] = ds["time"].assign_attrs(time_attrs)
-        ds["time"].attrs['units'] = 'milliseconds since 1970-01-01T00:00:00'
+    def _convert_time_after_epoch(ds):
+        ds = ds.assign_coords(time=ds.time.data.astype(f"datetime64[ms]").astype(f'float32'))
+        # milliseconds to days
+        ds['time'] = ds['time'] / (1000 * 60 * 60 * 24) 
+        ds["time"].attrs['units'] = 'days since 1970-01-01T00:00:00'
         return ds
     
     def _classify_scene(ds):
@@ -131,7 +131,7 @@ def write(profiles, base_dir, verbose):
         ds_towrite = ds_towrite.drop(nodim_var)
 
     # converts time
-    ds_towrite = _convert_time_after_epoch(ds_towrite, resolution='ms')
+    ds_towrite = _convert_time_after_epoch(ds_towrite)
     
     # add altitude direction
     ds_towrite["altitude"] = ds_towrite["altitude"].assign_attrs({

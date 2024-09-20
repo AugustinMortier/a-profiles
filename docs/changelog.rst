@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.6.5
+^^^^^^^
+Sep 20, 2024
+
+- Work on CF compliance (write time as days).
+
 0.6.4
 ^^^^^^^
 Sep 16, 2024
