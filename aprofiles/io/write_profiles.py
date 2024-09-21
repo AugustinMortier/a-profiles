@@ -147,5 +147,8 @@ def write(profiles, base_dir, verbose):
         if var.dtype == np.int64:
             encoding[varname] = {"dtype": np.int32}
     
+    # convert also the quality_flag's variable flag_values attribute also to NC_INT instead of NC_INT64
+    ds_towrite["quality_flag"] = ds_towrite.quality_flag.assign_attrs({'flag_values': np.array([0,1,2], dtype=np.int32)})
+    
     # writes to netcdf
     ds_towrite.to_netcdf(path, mode='w', encoding=encoding)
