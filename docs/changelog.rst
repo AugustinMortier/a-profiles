@@ -4,6 +4,12 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.7.2
+^^^^^^^
+Sep 21, 2024
+
+- Update quality flags attrs type for CF compliance.
+
 0.7.1
 ^^^^^^^
 Sep 21, 2024
