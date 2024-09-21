@@ -1,5 +1,6 @@
 [![CI](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml/badge.svg)](https://github.com/AugustinMortier/A-Profiles/actions/workflows/ci.yml)
 [![Documentation Status](https://readthedocs.org/projects/a-profiles/badge/?version=latest)](https://a-profiles.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://img.shields.io/badge/docs-online-brightgreen)]([https://<username>.github.io/<repository-name>/](https://augustinmortier.github.io/a-profiles/))
 [![codecov](https://codecov.io/gh/AugustinMortier/A-Profiles/branch/master/graph/badge.svg?token=CQH8TD7VES)](https://codecov.io/gh/AugustinMortier/A-Profiles)
 
 <img src="docs/_static/images/A-Profiles.png#gh-light-mode-only" width="200" style="margin: 20px 10px"/>
@@ -9,7 +10,7 @@
 Python library for reading and processing ALC (Automated Lidars and Ceilometers) measurements. A-Profiles supports [E-PROFILE](https://e-profile.eu/#/cm_profile) ceilometer data. This library is used by [V-Profiles](https://vprofiles.met.no).
 
 ## 📗 Documentation
-The official documentation is available [here](https://a-profiles.readthedocs.io/).
+The official documentation is available [here](https://augustinmortier.github.io/a-profiles/).
 
 ## ✨ Installation
 
