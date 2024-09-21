@@ -4,6 +4,14 @@ Changelog
 .. image:: _static/images/history-solid.svg
    :class: awesome-svg
 
+0.7.1
+^^^^^^^
+Sep 21, 2024
+
+- Update dependencies
+- Fix documentation
+- Makes climatology much faster by using dask
+
 0.7.0
 ^^^^^^^
 Sep 20, 2024

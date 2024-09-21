@@ -50,3 +50,9 @@ jobs:
         run: |
           cd docs
           poetry run make html
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html  # Path to the generated HTML files
+  
