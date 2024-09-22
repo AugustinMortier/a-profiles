@@ -19,16 +19,17 @@ def plot(da, var="aod", show_fig=True, save_fig=None, **kwargs):
         - save_fig (str, optional): Path of the saved figure. Defaults to `None`.
 
     Example:
-
-        >>> import aprofiles as apro
-        >>> # read example file
-        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-        >>> reader = apro.reader.ReadProfiles(path)
-        >>> profiles = reader.read()
-        >>> # retrieve pbl height
-        >>> profiles.pbl(zmin=200, zmax=3000)
-        >>> # attenuated backscatter image
-        >>> profiles.plot(var="pbl" ymin=0., ymax=3000., min_snr=2.)
+        ``` python
+        import aprofiles as apro
+        # read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        # retrieve pbl height
+        profiles.pbl(zmin=200, zmax=3000)
+        # attenuated backscatter image
+        profiles.plot(var="pbl" ymin=0., ymax=3000., min_snr=2.)
+        ```
 
         .. figure:: ../../docs/assets/images/time_series.png
             :scale: 50 %

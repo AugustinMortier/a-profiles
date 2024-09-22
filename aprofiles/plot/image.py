@@ -141,19 +141,16 @@ def plot(
         - save_fig (str, optional): Path of the saved figure. Defaults to `None`.
 
     Example:
-        >>> import aprofiles as apro
-        >>> # read example file
-        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-        >>> reader = apro.reader.ReadProfiles(path)
-        >>> profiles = reader.read()
-        >>> # attenuated backscatter image
-        >>> profiles.plot(vmin=1e-2, vmax=1e1, log=True)
-
-        .. figure:: ../../docs/assets/images/attenuated_backscatter.png
-            :scale: 50 %
-            :alt: attenuated backscatter profiles
-
-            Image of attenuated backscatter profiles.
+        ``` python
+        import aprofiles as apro
+        # read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        # attenuated backscatter image
+        profiles.plot(vmin=1e-2, vmax=1e1, log=True)
+        ```
+        ![Image of attenuated backscatter profiles](assets/images/attenuated_backscatter.png){: style="width: 50%;" }
     """
 
     # calculates max value from data
