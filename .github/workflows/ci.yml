@@ -47,9 +47,7 @@ jobs:
       - name: Install package
         run: poetry install -E docs
       - name: Make the docs
-        run: |
-          cd docs
-          poetry run make html
+        run: poetry run mkdocs gh-deploy --force
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
