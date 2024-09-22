@@ -10,10 +10,13 @@ theme:
   name: material
   logo: assets/images/A-Profiles-white.png
   features:
+    - navigation.path
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.instant
     - navigation.tracking
+    - navigation.expand
     - navigation.sections
-    #- navigation.expand   # Automatically expands sections
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
