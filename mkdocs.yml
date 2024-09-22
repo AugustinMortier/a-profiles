@@ -8,7 +8,7 @@ site_url: "https://github.com/AugustinMortier/A-Profiles"
 # Theme configuration
 theme:
   name: material
-  logo: assets/images/A-Profiles.png
+  logo: assets/images/A-Profiles-white.png
   features:
     - navigation.instant
     - navigation.tracking
@@ -38,8 +38,8 @@ theme:
 
 # To set logos for different color schemes, use:
 extra:
-  logo_light: assets/images/A-Profiles-white.png
-  logo_dark: assets/images/A-Profiles.png
+  logo_default: assets/images/A-Profiles-white.png
+  logo_slate: assets/images/A-Profiles.png
 
 # Repository information (replaces the 'icon_links' feature in Sphinx)
 repo_name: "AugustinMortier/A-Profiles"
@@ -61,10 +61,11 @@ plugins:
   - autorefs
   - mkdocstrings:
       default_handler: python
-  #- markdown-include
 
 # Markdown extensions
-markdown_extensions:
+markdown_extensions:  
+  - markdown_include.include:
+      base_path: docs/
   - admonition
   - codehilite:
       guess_lang: false

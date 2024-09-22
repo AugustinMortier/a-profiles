@@ -1,16 +1,13 @@
-/*themes*/
-html[data-theme="light"] {
-    
+/*light theme*/
+body[data-md-color-scheme=default] {
 }
 
-/* anything related to the dark theme */
-html[data-theme="dark"] {
-    --pst-color-background: #282b34; /*body*/
-    --pst-color-on-background: #212529; /*header*/
+/*dark theme*/
+body[data-md-color-scheme=slate] {
 }
 
-html[data-theme=dark] img:not(.only-dark,.dark-light) {
-    filter: brightness(.8) contrast(1.2);
+body[data-md-color-scheme=slate] img:not(.only-dark,.dark-light) {
+    filter: brightness(.9) contrast(1.1);
 }
 
 img.awesome-svg {
