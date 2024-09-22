@@ -1,0 +1,26 @@
+/*themes*/
+html[data-theme="light"] {
+    
+}
+
+/* anything related to the dark theme */
+html[data-theme="dark"] {
+    --pst-color-background: #282b34; /*body*/
+    --pst-color-on-background: #212529; /*header*/
+}
+
+html[data-theme=dark] img:not(.only-dark,.dark-light) {
+    filter: brightness(.8) contrast(1.2);
+}
+
+img.awesome-svg {
+    height: 30px !important;
+    filter: invert(74%) sepia(5%) saturate(91%) hue-rotate(155deg) brightness(92%) contrast(82%) !important;
+    margin: 10px 0px 20px 0px;
+    left: calc(50% - 30px);
+    position: relative;
+}
+
+.fa-brands, .fab {
+    font-size: 1.6em;
+}

@@ -207,7 +207,7 @@ class EMCData:
             >>> #plot information
             >>> emc.plot()
 
-            .. figure:: ../../docs/_static/images/volcanic_ash-emc.png
+            .. figure:: ../../docs/assets/images/volcanic_ash-emc.png
                 :scale: 80 %
                 :alt: volcanic ash properties
 

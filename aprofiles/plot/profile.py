@@ -162,7 +162,7 @@ def plot(
         >>> datetime = np.datetime64('2021-09-09T10:25:00')
         >>> profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
 
-        .. figure:: ../../docs/_static/images/Profile-Oslo-20210909T212005.png
+        .. figure:: ../../docs/assets/images/Profile-Oslo-20210909T212005.png
             :scale: 80 %
             :alt: profile
 

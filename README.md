@@ -2,8 +2,8 @@
 [![Documentation Status](https://img.shields.io/badge/docs-online-brightgreen)](https://augustinmortier.github.io/a-profiles/)
 [![codecov](https://codecov.io/gh/AugustinMortier/A-Profiles/branch/master/graph/badge.svg?token=CQH8TD7VES)](https://codecov.io/gh/AugustinMortier/A-Profiles)
 
-<img src="docs/_static/images/A-Profiles.png#gh-light-mode-only" width="200" style="margin: 20px 10px"/>
-<img src="docs/_static/images/A-Profiles-white.png#gh-dark-mode-only" width="200" style="margin: 20px 10px"/>
+<img src="docs/assets/images/A-Profiles.png#gh-light-mode-only" width="200" style="margin: 20px 10px"/>
+<img src="docs/assets/images/A-Profiles-white.png#gh-dark-mode-only" width="200" style="margin: 20px 10px"/>
 
 
 Python library for reading and processing ALC (Automated Lidars and Ceilometers) measurements. A-Profiles supports [E-PROFILE](https://e-profile.eu/#/cm_profile) ceilometer data. This library is used by [V-Profiles](https://vprofiles.met.no).
@@ -13,7 +13,7 @@ The official documentation is available [here](https://augustinmortier.github.io
 
 ## ✨ Installation
 
-### <img src="docs/_static/images/pip.svg" height="15px"/> via *pip*
+### <img src="docs/assets/images/pip.svg" height="15px"/> via *pip*
 *aprofiles* is directly available on *pip*. This will install the latest released version of *aprofiles* and its depencencies.
 
 - with *pip*
@@ -24,7 +24,7 @@ The official documentation is available [here](https://augustinmortier.github.io
 
 `pipx install aprofiles`
 
-### <img src="docs/_static/images/github.svg" height="15px"/> from source
+### <img src="docs/assets/images/github.svg" height="15px"/> from source
 1. clone this repository
 
     `git clone https://github.com/AugustinMortier/A-Profiles.git`
@@ -67,7 +67,7 @@ profiles.extrapolate_below(z=150, inplace=True)
 # image plotting of backscatter signal in log scale
 profiles.plot(zref='agl', vmin=1e-2, vmax=1e1, log=True)
 ``` 
-<img src="docs/_static/images/QL-Oslo-20210909.png" title="Attenuated Backscatter Signal" width="800"/>
+<img src="docs/assets/images/QL-Oslo-20210909.png" title="Attenuated Backscatter Signal" width="800"/>
 
 
 ### Profiles Analysis
@@ -89,7 +89,7 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
 # image plotting with additional retrievals
 profiles.plot(show_fog=True, show_clouds=True, show_pbl=True, vmin=1e-2, vmax=1e1, log=True)
 ```
-<img src="docs/_static/images/QL-Fog&Clouds&PBL-Oslo-20210909.png" title="Fog or Condensation and Clouds Detection" width="800"/>
+<img src="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png" title="Fog or Condensation and Clouds Detection" width="800"/>
 
 ##### Single Profile
 ```
@@ -97,7 +97,7 @@ profiles.plot(show_fog=True, show_clouds=True, show_pbl=True, vmin=1e-2, vmax=1e
 datetime = np.datetime64('2021-09-09T21:20:00')
 profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
 ```
-<img src="docs/_static/images/Profile-Oslo-20210909T212005.png" title="Single Profile View" width="400"/>
+<img src="docs/assets/images/Profile-Oslo-20210909T212005.png" title="Single Profile View" width="400"/>
 
 ## ⚖️ License
 [GPL-3.0](LICENSE).

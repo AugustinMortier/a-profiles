@@ -31,7 +31,7 @@ class ExtinctionToAttenuatedBackscatter:
             >>> # plot modelled extinction
             >>> sim_profiles.plot('extinction_model')
 
-            .. figure:: ../../docs/_static/images/simulation_step-model.png
+            .. figure:: ../../docs/assets/images/simulation_step-model.png
                 :scale: 80 %
                 :alt: simlation step model
 

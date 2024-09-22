@@ -100,7 +100,7 @@ class ProfilesData:
             >>> # snr image
             >>> profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
 
-            .. figure:: ../../docs/_static/images/snr.png
+            .. figure:: ../../docs/assets/images/snr.png
                 :scale: 50 %
                 :alt: snr
 
@@ -160,13 +160,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.attrs.gaussian_filter
             0.50
 
-            .. figure:: ../../docs/_static/images/attenuated_backscatter.png
+            .. figure:: ../../docs/assets/images/attenuated_backscatter.png
                 :scale: 50 %
                 :alt: before filtering
 
                 Before gaussian filtering.
 
-            .. figure:: ../../docs/_static/images/gaussian_filter.png
+            .. figure:: ../../docs/assets/images/gaussian_filter.png
                 :scale: 50 %
                 :alt: after gaussian filtering
 
@@ -250,13 +250,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.extrapolation_low_layers_altitude_agl
             150
 
-            .. figure:: ../../docs/_static/images/lowest.png
+            .. figure:: ../../docs/assets/images/lowest.png
                 :scale: 50 %
                 :alt: before extrapolation
 
                 Before extrapolation.
 
-            .. figure:: ../../docs/_static/images/lowest_extrap.png
+            .. figure:: ../../docs/assets/images/lowest_extrap.png
                 :scale: 50 %
                 :alt: after desaturation
 
@@ -356,13 +356,13 @@ class ProfilesData:
             >>> profiles.data.attenuated_backscatter_0.desaturated
             True
 
-            .. figure:: ../../docs/_static/images/saturated.png
+            .. figure:: ../../docs/assets/images/saturated.png
                 :scale: 50 %
                 :alt: before desaturation
 
                 Before desaturation.
 
-            .. figure:: ../../docs/_static/images/desaturated.png
+            .. figure:: ../../docs/assets/images/desaturated.png
                 :scale: 50 %
                 :alt: after desaturation
 

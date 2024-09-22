@@ -30,7 +30,7 @@ def plot(da, var="aod", show_fig=True, save_fig=None, **kwargs):
         >>> # attenuated backscatter image
         >>> profiles.plot(var="pbl" ymin=0., ymax=3000., min_snr=2.)
 
-        .. figure:: ../../docs/_static/images/time_series.png
+        .. figure:: ../../docs/assets/images/time_series.png
             :scale: 50 %
             :alt: time series
 

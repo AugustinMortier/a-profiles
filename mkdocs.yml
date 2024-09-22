@@ -1,0 +1,85 @@
+# Project information
+site_name: A-Profiles
+site_author: Augustin Mortier
+site_description: Documentation for A-Profiles
+copyright: "2024, Augustin Mortier"
+site_url: "https://github.com/AugustinMortier/A-Profiles"
+
+# Theme configuration
+theme:
+  name: material
+  logo: assets/images/A-Profiles.png
+  features:
+    - navigation.instant
+    - navigation.tracking
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+  highlightjs: true
+
+  
+  # Custom CSS and JS (equivalent of 'html_css_files' and 'html_js_files')
+  extra_css:
+    - css/custom.css
+  extra_javascript:
+    - js/custom.js
+
+# To set logos for different color schemes, use:
+extra:
+  logo_light: assets/images/A-Profiles-white.png
+  logo_dark: assets/images/A-Profiles.png
+
+# Repository information (replaces the 'icon_links' feature in Sphinx)
+repo_name: "AugustinMortier/A-Profiles"
+repo_url: "https://github.com/AugustinMortier/A-Profiles"
+edit_uri: ""
+
+# Navigation and Sidebar
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Examples: examples.md
+  - API Reference: api.md    
+  - CLI: cli.md
+  - Changelog: changelog.md
+
+# Plugins
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+  #- markdown-include
+
+# Markdown extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: True
+  - footnotes
+  - abbr
+  - attr_list
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.emoji
+  - pymdownx.highlight
+
+# Static resources
+extra_css:
+  - assets/css/custom.css
+extra_javascript:
+  - assets/js/custom.js

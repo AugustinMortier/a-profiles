@@ -92,7 +92,7 @@ class SizeDistributionData:
             >>> # plot profile
             >>> sd.plot()
 
-            .. figure:: ../../docs/_static/images/urban_sd.png
+            .. figure:: ../../docs/assets/images/urban_sd.png
                 :scale: 80 %
                 :alt: urban size distribution
 
