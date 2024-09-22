@@ -12,16 +12,14 @@ found in the [data]{.title-ref} attribute, which is a
 retrieval methods might add information as additional
 `xarray.DataArray`{.interpreted-text role="class"}.
 
-```{autodoc}
-aprofiles.profiles
+::: aprofiles.profiles
 
 Aeronet
 =======
 
 Not implemented yet.
 
-```{autodoc}
-aprofiles.aeronet
+::: aprofiles.aeronet
 
 Rayleigh
 ========
@@ -29,8 +27,7 @@ Rayleigh
 The `~aprofiles.rayleigh.RayleighData`{.interpreted-text role="class"}
 class is used for producing Rayleigh profiles in a standard atmosphere.
 
-```{autodoc}
-aprofiles.rayleigh
+::: aprofiles.rayleigh
 
 Size Distribution
 =================
@@ -48,8 +45,7 @@ Aerosol properties are defined in
 `config/aer_properties.json <../../aprofiles/config/aer_properties.json>`{.interpreted-text
 role="download"}
 
-```{autodoc}
-aprofiles.size\_distribution
+::: aprofiles.size_distribution
 
 Extinction to Mass Coefficient
 ==============================
@@ -58,8 +54,7 @@ The `~aprofiles.emc.EMCData`{.interpreted-text role="class"} class is
 used for computing an [Extinction to Mass Coefficient]{.title-ref} for a
 given aerosol type.
 
-```{autodoc}
-aprofiles.emc
+::: aprofiles.emc
 
 [^1]: Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J.,
     King, M. D., \... & Slutsker, I. (2002). Variability of absorption

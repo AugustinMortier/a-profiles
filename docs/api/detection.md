@@ -11,16 +11,14 @@ Fog or Condensation
 This method allows for the detection of fog or condensation in single
 profiles.
 
-```{autodoc}
-aprofiles.detection.foc
+::: aprofiles.detection.foc
 
 Clouds
 ======
 
 This method allows for the detection of clouds in single profiles.
 
-```{autodoc}
-aprofiles.detection.clouds
+::: aprofiles.detection.clouds
 
 Planetary Boundary Layer
 ========================
@@ -28,5 +26,4 @@ Planetary Boundary Layer
 This method allows for tge tracking of the PBL height in single
 profiles.
 
-```{autodoc}
-aprofiles.detection.pbl
+::: aprofiles.detection.pbl

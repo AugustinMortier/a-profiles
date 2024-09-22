@@ -9,8 +9,7 @@ This module is used to plot an image (time, altitude) a given variable
 of an instance of the
 `aprofiles.profiles.ProfilesData`{.interpreted-text role="class"} class.
 
-```{autodoc}
-aprofiles.plot.image
+::: aprofiles.plot.image
 
 Profile
 =======
@@ -20,8 +19,7 @@ This module is used to plot a single profile for, a given
 of an instance of the
 `aprofiles.profiles.ProfilesData`{.interpreted-text role="class"} class.
 
-```{autodoc}
-aprofiles.plot.profile
+::: aprofiles.plot.profile
 
 Time Series
 ===========
@@ -30,5 +28,4 @@ This module is used to plot a time series of a given variable of an
 instance of the `aprofiles.profiles.ProfilesData`{.interpreted-text
 role="class"} class.
 
-```{autodoc}
-aprofiles.plot.timeseries
+::: aprofiles.plot.timeseries

@@ -21,3 +21,13 @@ img.awesome-svg {
 .fa-brands, .fab {
     font-size: 1.6em;
 }
+
+a.download {
+    text-decoration: underline;
+    color: #007bff;
+  }
+  
+  a.download::before {
+    content: "⇩ ";  /* Adding a download icon before the text */
+  }
+  

@@ -84,3 +84,8 @@ extra_css:
   - assets/css/custom.css
 extra_javascript:
   - assets/js/custom.js
+
+extra_files:
+  - aprofiles/cli/aprocess.py
+  - aprofiles/cli/utils/workflow.py
+

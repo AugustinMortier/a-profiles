@@ -11,8 +11,7 @@ Aerosol Extinction
 This module is used to calculate extinction profiles from single
 attenuated backscatter profiles using an apriori.
 
-```{autodoc}
-aprofiles.retrieval.extinction
+::: aprofiles.retrieval.extinction
 
 Mass Concentration
 ==================
@@ -20,6 +19,5 @@ Mass Concentration
 This module is used to calculate mass concentration profiles from
 extinction profiles for given aerosol types.
 
-```{autodoc}
-aprofiles.retrieval.mass\_conc
+::: aprofiles.retrieval.mass_conc
 
