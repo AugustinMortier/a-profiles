@@ -17,6 +17,7 @@ theme:
     - navigation.tracking
     - navigation.expand
     - navigation.sections
+    - navigation.footer
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
