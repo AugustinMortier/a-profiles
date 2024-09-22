@@ -12,30 +12,37 @@ def concentration_profiles(profiles, method):
     """Calculates Mass concentration profiles for different aerosol types
 
     Args:
-        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
-        - method ({'mortier_2013','literature'}): method for calculating EMC
+        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
+        method (str): Method for calculating EMC. Must be one of {"mortier_2013", "literature"}.
 
     Returns:
-        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.Dataset`.
+        (aprofiles.profiles.ProfilesData):
+            object with additional (xarray.Dataset):
+
             - `'mass_concentration:<aer_type>'`
 
     Example:
         Profiles preparation
-
-        >>> import aprofiles as apro
-        >>> # read example file
-        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-        >>> reader = apro.reader.ReadProfiles(path)
-        >>> profiles = reader.read()
-        >>> # extrapolate lowest layers
-        >>> profiles.extrapolate_below(z=150, inplace=True)
+        ```python
+        import aprofiles as apro
+        # read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        # extrapolate lowest layers
+        profiles.extrapolate_below(z=150, inplace=True)
+        ```
 
         Forward inversion
-
-        >>> # aerosol inversion
-        >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='forward', method_mass_conc='mortier_2013')
-        >>> # plot mass concentration profiles for urban particles
-        >>> profiles.plot(var='mass_concentration:urban', zmax=6000, vmin=0, vmax=100)
+        ```python
+        # aerosol inversion
+        profiles.inversion(
+            zmin=4000, zmax=6000, remove_outliers=False, method='forward', 
+            method_mass_conc='mortier_2013'
+        )
+        # plot mass concentration profiles for urban particles
+        profiles.plot(var='mass_concentration:urban', zmax=6000, vmin=0, vmax=100)
+        ```
 
         .. figure:: ../../docs/assets/images/mass_conc-urban.png
             :scale: 50 %

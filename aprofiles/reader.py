@@ -6,7 +6,8 @@ from aprofiles.profiles import ProfilesData
 
 
 class ReadProfiles:
-    """Base class for reading profiles data.
+    """
+    Base class for reading profiles data.
 
     Attributes:
         path (str): path of the file to be read.
@@ -16,24 +17,26 @@ class ReadProfiles:
         self.path = path
 
     def read(self):
-        """Method which calls the relevant reading class based on the file name.
+        """
+        Method which calls the relevant reading class based on the file name.
 
         Returns:
-            :class:`aprofiles.profiles.ProfilesData`
+            (aprofiles.profiles.ProfilesData):
 
         Example:
-            >>> # import library
-            >>> import aprofiles as apro
-            >>> path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-            >>> # initialize reading class with file path
-            >>> reader = apro.reader.ReadProfiles(path)
-            >>> # calls the read method
-            >>> profiles = reader.read()
-            >>> # print ProfilesData object
-            >>> print(profiles)
+            ```python
+            # import library
+            import aprofiles as apro
+            path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
+            # initialize reading class with file path
+            reader = apro.reader.ReadProfiles(path)
+            # calls the read method
+            profiles = reader.read()
+            # print ProfilesData object
+            print(profiles)
             <aprofiles.profiles.ProfilesData object at 0x7f011055fad0>
-            >>> # print the content of this ProfilesData object
-            >>> profiles.__dict__
+            # print the content of this ProfilesData object
+            profiles.__dict__
             {'_data': <xarray.Dataset>
             Dimensions:                          (altitude: 511, layer: 3, time: 273)
             Coordinates:
@@ -77,6 +80,7 @@ class ReadProfiles:
                 instrument_serial_number:     TUB110019
                 history:                      Thu Sep  9 00:30:28 2021: ncpdq -O -a time,...
                 NCO:                          netCDF Operators version 4.9.1 (Homepage = ...}
+            ```
         """
 
         # get the right reading class
@@ -89,7 +93,8 @@ class ReadProfiles:
 
 
 class ReadAeronet:
-    """Base class for reading Aeronet data.
+    """
+    Base class for reading Aeronet data.
 
     Attributes:
         path (str): path of the file to be read.

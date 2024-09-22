@@ -16,26 +16,30 @@ class ExtinctionToAttenuatedBackscatter:
     """Class for simulating measurements (attenuated backscatter profiles) for different models.
 
     Attributes:
-        - `model` ({'null', 'step'}): atmospheric model to be simulated.
-        - `wavelength` (float): Wavelength of the Rayleigh profile to be computed, in nm.
-        - `lidar_ratio` (float): Lidar Ratio, in sr.
-        - `noise` (float): Noise level. The noise is normalized to the maximum extinction value in the profile.
+        `model` ({'null', 'step'}): atmospheric model to be simulated.
+        `wavelength` (float): Wavelength of the Rayleigh profile to be computed, in nm.
+        `lidar_ratio` (float): Lidar Ratio, in sr.
+        `noise` (float): Noise level. The noise is normalized to the maximum extinction value in the profile.
 
     Example:
-            >>> # some imports
-            >>> import aprofiles as apro
-            >>> # simulate rayleigh profiles with a random noise
-            >>> simulator = apro.simulator.ExtinctionToAttenuatedBackscatter(model = 'step', wavelength = 1064., lidar_ratio = 50., noise = 0.5);
-            >>> # calls the to_profiles_data method
-            >>> sim_profiles = simulator.to_profiles_data()
-            >>> # plot modelled extinction
-            >>> sim_profiles.plot('extinction_model')
+        ```python
+        # some imports
+        import aprofiles as apro
+        # simulate rayleigh profiles with a random noise
+        simulator = apro.simulator.ExtinctionToAttenuatedBackscatter(
+            model = 'step', wavelength = 1064., lidar_ratio = 50., noise = 0.5
+        );
+        # calls the to_profiles_data method
+        sim_profiles = simulator.to_profiles_data()
+        # plot modelled extinction
+        sim_profiles.plot('extinction_model')
+        ```
 
-            .. figure:: ../../docs/assets/images/simulation_step-model.png
-                :scale: 80 %
-                :alt: simlation step model
+        .. figure:: ../../docs/assets/images/simulation_step-model.png
+            :scale: 80 %
+            :alt: simlation step model
 
-                Simulation of aerosol extinction using a step model.
+            Simulation of aerosol extinction using a step model.
     """    
     # get the right reading class
     def __init__(self, model, wavelength, lidar_ratio, noise):
@@ -50,10 +54,11 @@ class ExtinctionToAttenuatedBackscatter:
         self.data = ds
     
     def to_profiles_data(self: xr.DataArray):
-        """Method which returns an instance of the :class:`aprofiles.profiles.ProfilesData` class.
+        """
+        Method which returns an instance of the (aprofiles.profiles.ProfilesData) class.
 
         Returns:
-            :class:`aprofiles.profiles.ProfilesData` object
+            (aprofiles.profiles.ProfilesData):
         """  
         return ProfilesData(self.data)
 
@@ -61,7 +66,7 @@ class ExtinctionToAttenuatedBackscatter:
         """Calculates the extinction coefficient profiles for a given aerosol model (vertical distribution, lidar ratio) at a given wavelength and with a random noise.
 
         Returns:
-            :class:`xr.Dataset`
+            (xr.Dataset):
         """        
         _time = pd.date_range(
             start=datetime.combine(date.today(), time(0, 0, 0)),
@@ -111,10 +116,10 @@ class ExtinctionToAttenuatedBackscatter:
         """Calculates the attenuated backscatter measurements for given extinction profiles
         
         Args:
-            - ds (xr.Dataset): Dataset which contains extinction profiles (`time`, `altitude`)
+            ds (xr.Dataset): Dataset which contains extinction profiles (`time`, `altitude`)
         
         Returns:
-            :class:`xr.Dataset`
+            (xr.Dataset):
         """
         # frequently used variables
         altitude = ds.altitude.data

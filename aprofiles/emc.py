@@ -11,24 +11,26 @@ from aprofiles import size_distribution
 
 
 class EMCData:
-    """Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.
+    """
+    Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.
     This class calls the :func:`get_emc()` method.
 
     Attributes:
-        - `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
-        - `wavelength` (int or float): wavelength, in mm.
-        - `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `EMC`.
-        - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
+       `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
+       `wavelength` (int or float): wavelength, in mm.
+       `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `EMC`.
+       `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
-        >>> #some imports
-        >>> import aprofiles as apro
-        >>> emc_data = EMCData('volcanic_ash', 532.)
-        >>> emc_data.__dict__.keys()
+        ```python
+        #some imports
+        import aprofiles as apro
+        emc_data = EMCData('volcanic_ash', 532.)
+        emc_data.__dict__.keys()
         dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'emc'])
-        >>> print(f'{emc_data.conv_factor:.2e} m {emc_data.emc):.2e} m2.g-1')
+        print(f'{emc_data.conv_factor:.2e} m {emc_data.emc):.2e} m2.g-1')
         6.21e-07 m 0.62 m2.g-1
-
+        ```
     """
 
     def __init__(self, aer_type: str, wavelength: float, method: str = "mortier_2013"):
@@ -76,10 +78,12 @@ class EMCData:
             self.conv_factor = -99
 
     def get_emc(self):
-        """Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution shape (the amplitude is unknown), density, and using the `Mie theory <https://miepython.readthedocs.io>`_ to calculate the extinction efficiency.
+        """
+        Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution shape (the amplitude is unknown), density, and using the `Mie theory <https://miepython.readthedocs.io>`_ to calculate the extinction efficiency.
 
         Returns:
-            :class:`EMCData` with additional attributes:
+            (EMCData): with additional attributes:
+
                 - `nsd` (1D Array): Number Size Distribution
                 - `vsd` (1D Array): Volume Size Distribution
                 - `radius` (1D Array): Radius, in µm
@@ -144,12 +148,12 @@ class EMCData:
             """Compute Conversion Factor for a given Size Distribution and Efficiency
 
             Args:
-                - nsd (1D Array): Number Size Distribution (µm-3.µm-1)
-                - qext (1D Array): Extinction Efficiency (unitless)
-                - radius (1D Array): Radius, in µm
+                nsd (1D Array): Number Size Distribution (µm-3.µm-1)
+                qext (1D Array): Extinction Efficiency (unitless)
+                radius (1D Array): Radius, in µm
 
             Returns:
-                [float]: Conversion factor (m)
+                (float): Conversion factor (m)
 
             """
             # radius resolution
@@ -197,15 +201,18 @@ class EMCData:
         return self
 
     def plot(self, show_fig=True):
-        """Plot main information of an instance of the :class:`EMCData` class.
+        """
+        Plot main information of an instance of the (EMCData): class.
 
         Example:
-            >>> #import aprofiles
-            >>> import aprofiles as apro
-            >>> #compute emc for biomas burning particles at 532 nm
-            >>> emc = apro.emc.EMCData('volcanic_ash', 532.);
-            >>> #plot information
-            >>> emc.plot()
+            ```python
+            #import aprofiles
+            import aprofiles as apro
+            #compute emc for biomas burning particles at 532 nm
+            emc = apro.emc.EMCData('volcanic_ash', 532.);
+            #plot information
+            emc.plot()
+            ```
 
             .. figure:: ../../docs/assets/images/volcanic_ash-emc.png
                 :scale: 80 %

@@ -13,10 +13,10 @@ def plot(da, var="aod", show_fig=True, save_fig=None, **kwargs):
     """Plot time series of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
     Args:
-        - da (:class:`xarray.DataArray`): DataArray
-        - var (str, optional): [description]. Defaults to `'aod'`.
-        - show_fig (bool, optional): Show Figure. Defaults to `True`.
-        - save_fig (str, optional): Path of the saved figure. Defaults to `None`.
+        da (xarray.DataArray): DataArray
+        var (str, optional): Variable of the DataArray to be plotted.
+        show_fig (bool, optional): Show Figure.
+        save_fig (str, optional): Path of the saved figure.
 
     Example:
         ``` python

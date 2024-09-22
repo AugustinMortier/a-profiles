@@ -5,12 +5,12 @@ title: Data Classes
 ProfilesData
 ============
 
-The `~aprofiles.profiles.ProfilesData`{.interpreted-text role="class"}
+The (aprofiles.profiles.ProfilesData):
 class contains profiles data information. Most of the information can be
 found in the [data]{.title-ref} attribute, which is a
-`xarray.Dataset`{.interpreted-text role="class"}. Detection and
-retrieval methods might add information as additional
-`xarray.DataArray`{.interpreted-text role="class"}.
+(xarray.Dataset):. Detection and
+retrieval methods might add information as :additional
+(xarray.DataArray):).
 
 ::: aprofiles.profiles
 
@@ -24,7 +24,7 @@ Not implemented yet.
 Rayleigh
 ========
 
-The `~aprofiles.rayleigh.RayleighData`{.interpreted-text role="class"}
+The (aprofiles.rayleigh.RayleighData):
 class is used for producing Rayleigh profiles in a standard atmosphere.
 
 ::: aprofiles.rayleigh
@@ -37,20 +37,19 @@ distribution of a population of particles for a given type. The values
 describing the size distribution for the different aerosol types are
 taken from the literature:
 
--   [dust]{.title-ref}, [biomass\_burning]{.title-ref}, and
-    [urban]{.title-ref} aerosols[^1]
--   [volcanic\_ash]{.title-ref}[^2]
+-   `dust`, `biomass_burning`, and `urban` aerosols[^1]
+-   `volcanic_ash`[^2]
 
 Aerosol properties are defined in
-`config/aer_properties.json <../../aprofiles/config/aer_properties.json>`{.interpreted-text
-role="download"}
+[`config/aer_properties.json`](../../aprofiles/config/aer_properties.json){: .title-ref role="download"}
+
 
 ::: aprofiles.size_distribution
 
 Extinction to Mass Coefficient
 ==============================
 
-The `~aprofiles.emc.EMCData`{.interpreted-text role="class"} class is
+The (aprofiles.emc.EMCData): class is
 used for computing an [Extinction to Mass Coefficient]{.title-ref} for a
 given aerosol type.
 

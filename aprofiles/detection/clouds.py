@@ -12,30 +12,34 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
     The detection is performed on each individual profile. It is based on the analysis of the vertical gradient of the profile as respect to the level of noise measured in the profile.
 
     Args:
-        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
-        - time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection. Defaults to `1`.
-        - zmin (float, optional): altitude AGL, in m, above which we look for clouds. Defaults to `0`. We recommend using the same value as used in the extrapolation_low_layers method.
-        - thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] >= thr_noise * noise(z). Defaults to `5`.
-        - thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds. Defaults to `4`.
-        - min_snr (float, optional). Minimum SNR required at the clouds peak value to consider the cloud as valid. Defaults to `0`.
-        - verbose (bool, optional): verbose mode. Defaults to `False`.
+        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
+        time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection.
+        zmin (float, optional): altitude AGL, in m, above which we look for clouds. We recommend using the same value as used in the extrapolation_low_layers method.
+        thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] data[base(z)] >= thr_noise * noise(z).
+        thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds.
+        min_snr (float, optional): Minimum SNR required at the clouds peak value to consider the cloud as valid.
+        verbose (bool, optional): verbose mode. Defaults to `False`.
 
     Returns:
-        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.
-            - `'clouds_bases' (time, altitude)`: mask array corresponding to the bases of the clouds.
-            - `'clouds_peaks' (time, altitude)`: mask array corresponding to the peaks (maximum signal measured) of the clouds.
-            - `'clouds_tops' (time, altitude)`: mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
+        (aprofiles.profiles.ProfilesData): 
+            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):
+
+            - `'clouds_bases' (time, altitude)`: Mask array corresponding to the bases of the clouds.
+            - `'clouds_peaks' (time, altitude)`: Mask array corresponding to the peaks (maximum signal measured) of the clouds.
+            - `'clouds_tops' (time, altitude)`: Mask array corresponding to the top of the cloud if the beam crosses the cloud. If not, the top corresponds to the first value where the signal becomes lower than the one measured at the base of the cloud.
 
     Example:
-        >>> import aprofiles as apro
-        >>> # read example file
-        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-        >>> reader = apro.reader.ReadProfiles(path)
-        >>> profiles = reader.read()
-        >>> # clouds detection
-        >>> profiles.clouds(zmin=300.)
-        >>> # attenuated backscatter image with clouds
-        >>> profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
+        ```python
+        import aprofiles as apro
+        # read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        # clouds detection
+        profiles.clouds(zmin=300.)
+        # attenuated backscatter image with clouds
+        profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
+        ```
 
         .. figure:: ../../examples/images/clouds.png
             :scale: 50 %

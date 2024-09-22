@@ -11,12 +11,13 @@ import xarray as xr
 
 
 def write(profiles, base_dir, verbose):
-    """Writing method for an instance of a :class:`aprofiles.profiles.ProfilesData` class.
+    """
+    Writing method for an instance of a (aprofiles.profiles.ProfilesData): class.
 
     Args:
-        - aprofiles (:class:`aprofiles.profiles.ProfilesData`): Object to be written.
-        - base_dir (str): Base path of the file should be written.
-        - verbose (bool): Verbose mode. Defaults to False.
+        profiles (aprofiles.profiles.ProfilesData): Object to be written.
+        base_dir (str): Base path of the file should be written.
+        verbose (bool): Verbose mode.
     """
     
     def _convert_time_after_epoch(ds):

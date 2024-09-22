@@ -51,7 +51,15 @@ nav:
   - Home: index.md
   - Installation: installation.md
   - Examples: examples.md
-  - API Reference: api.md    
+  - API: 
+    - Overview: api.md
+    - Reading: api/reading.md
+    - Data Classes: api/data_classes.md
+    - Detection: api/detection.md
+    - Retrieval: api/retrieval.md
+    - Simulation: api/simulation.md
+    - Plotting: api/plotting.md
+    - Writing: api/writing.md
   - CLI: cli.md
   - Changelog: changelog.md
 
