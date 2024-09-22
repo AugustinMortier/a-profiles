@@ -111,11 +111,7 @@ class ProfilesData:
             profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
             ```
 
-            .. figure:: ../../docs/assets/images/snr.png
-                :scale: 50 %
-                :alt: snr
-
-                Signal to Noise Ratio.
+            ![Signal to Noise Ratio](../../assets/images/snr.png)
         """
 
         def _1D_snr(array, step):
@@ -174,17 +170,8 @@ class ProfilesData:
             0.50
             ```
 
-            .. figure:: ../../docs/assets/images/attenuated_backscatter.png
-                :scale: 50 %
-                :alt: before filtering
-
-                Before gaussian filtering.
-
-            .. figure:: ../../docs/assets/images/gaussian_filter.png
-                :scale: 50 %
-                :alt: after gaussian filtering
-
-                After gaussian filtering (sigma=0.5).
+            ![Before gaussian filtering](../../assets/images/attenuated_backscatter.png)
+            ![After gaussian filtering (sigma=0.5)](../../assets/images/gaussian_filter.png)
         """
         import copy
 
@@ -271,17 +258,8 @@ class ProfilesData:
             150
             ```
 
-            .. figure:: ../../docs/assets/images/lowest.png
-                :scale: 50 %
-                :alt: before extrapolation
-
-                Before extrapolation.
-
-            .. figure:: ../../docs/assets/images/lowest_extrap.png
-                :scale: 50 %
-                :alt: after desaturation
-
-                After extrapolation.
+            ![Before extrapolation](../../assets/images/lowest.png)
+            ![After extrapolation](../../assets/images/lowest_extrap.png)
         """
 
         # get index of z
@@ -381,17 +359,8 @@ class ProfilesData:
             True
             ```
 
-            .. figure:: ../../docs/assets/images/saturated.png
-                :scale: 50 %
-                :alt: before desaturation
-
-                Before desaturation.
-
-            .. figure:: ../../docs/assets/images/desaturated.png
-                :scale: 50 %
-                :alt: after desaturation
-
-                After desaturation.
+            ![Before desaturation](../../assets/images/saturated.png)
+            ![After desaturation](../../assets/images/desaturated.png)
         """
 
         imax = self._get_index_from_altitude_AGL(z)

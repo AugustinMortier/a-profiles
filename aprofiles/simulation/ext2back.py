@@ -35,11 +35,7 @@ class ExtinctionToAttenuatedBackscatter:
         sim_profiles.plot('extinction_model')
         ```
 
-        .. figure:: ../../docs/assets/images/simulation_step-model.png
-            :scale: 80 %
-            :alt: simlation step model
-
-            Simulation of aerosol extinction using a step model.
+        ![Simulation of aerosol extinction using a step model](../../assets/images/simulation_step-model.png)
     """    
     # get the right reading class
     def __init__(self, model, wavelength, lidar_ratio, noise):

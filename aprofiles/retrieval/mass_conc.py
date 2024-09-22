@@ -44,12 +44,7 @@ def concentration_profiles(profiles, method):
         profiles.plot(var='mass_concentration:urban', zmax=6000, vmin=0, vmax=100)
         ```
 
-        .. figure:: ../../docs/assets/images/mass_conc-urban.png
-            :scale: 50 %
-            :alt: mass concentration
-
-            Mass concentration profiles in the case of urban particles.
-
+        ![Mass concentration profiles in the case of urban particles](../../assets/images/mass_conc-urban.png)
     """
 
     # read aer_properties.json files

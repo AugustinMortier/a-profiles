@@ -12,6 +12,8 @@ theme:
   features:
     - navigation.instant
     - navigation.tracking
+    - navigation.sections
+    #- navigation.expand   # Automatically expands sections
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -38,8 +40,13 @@ theme:
 
 # To set logos for different color schemes, use:
 extra:
-  logo_default: assets/images/A-Profiles-white.png
-  logo_slate: assets/images/A-Profiles.png
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://vprofiles.met.no
+      name: V-Profiles
+  # Optional: Support for dark/light mode with custom logos
+  logo_light: assets/images/A-Profiles-white.png  # Logo for light mode
+  logo_dark: assets/images/A-Profiles.png         # Logo for dark mode
 
 # Repository information (replaces the 'icon_links' feature in Sphinx)
 repo_name: "AugustinMortier/A-Profiles"
@@ -93,7 +100,7 @@ extra_css:
 extra_javascript:
   - assets/js/custom.js
 
-extra_files:
-  - aprofiles/cli/aprocess.py
-  - aprofiles/cli/utils/workflow.py
+#extra_files:
+#  - aprofiles/cli/aprocess.py
+#  - aprofiles/cli/utils/workflow.py
 

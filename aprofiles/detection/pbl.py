@@ -49,11 +49,7 @@ def detect_pbl(
         profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
         ```
 
-        .. figure:: ../../examples/images/pbl.png
-            :scale: 50 %
-            :alt: clouds detection
-
-            Planetary Boundary Layer Height detection.
+        ![Planetary Boundary Layer Height detection](../../assets/images/pbl.png)
     """
 
     from scipy.ndimage.filters import uniform_filter1d

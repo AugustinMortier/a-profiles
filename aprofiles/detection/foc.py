@@ -56,11 +56,7 @@ def detect_foc(profiles, method="cloud_base", var="attenuated_backscatter_0", z_
         profiles.plot(show_foc=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
         ```
 
-        .. figure:: ../../examples/images/foc.png
-            :scale: 50 %
-            :alt: foc detection
-
-            Fog or condensation (foc) detection.
+        ![Fog or condensation (foc) detection](../../assets/images/foc.png)
     """
 
     if method == "cloud_base":

@@ -132,7 +132,8 @@ def plot(
     show_fig=True,
     save_fig=None
 ):
-    """Plot single profile of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
+    """
+    Plot single profile of selected variable from (aprofiles.profiles.ProfilesData): object.
 
     Args:
         da (xarray.DataArray): DataArray.
@@ -164,11 +165,7 @@ def plot(
         profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
         ```
 
-        .. figure:: ../../docs/assets/images/Profile-Oslo-20210909T212005.png
-            :scale: 80 %
-            :alt: profile
-
-            Single profile of attenuated backscatter.
+        ![Single profile of attenuated backscatter](../../assets/images/Profile-Oslo-20210909T212005.png){: style="width: 60%;" }
     """
 
     if datetime is None:

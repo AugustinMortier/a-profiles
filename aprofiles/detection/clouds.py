@@ -41,11 +41,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
         ```
 
-        .. figure:: ../../examples/images/clouds.png
-            :scale: 50 %
-            :alt: clouds detection
-
-            Clouds detection.
+        ![Clouds detection](../../assets/images/clouds.png)
     """
 
     def _detect_clouds_from_rcs(data, zmin, thr_noise, thr_clouds, min_snr):

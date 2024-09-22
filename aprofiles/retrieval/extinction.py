@@ -200,11 +200,7 @@ def inversion(
         profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
         ```
 
-        .. figure:: ../../docs/assets/images/backward.png
-            :scale: 50 %
-            :alt: clouds detection
-
-            Extinction profiles retrieved with the backward method.
+        ![Extinction profiles retrieved with the backward method](../../assets/images/backward.png)
 
         Forward inversion
         ```python
@@ -214,11 +210,7 @@ def inversion(
         profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
         ```
 
-        .. figure:: ../../docs/assets/images/forward.png
-            :scale: 50 %
-            :alt: clouds detection
-
-            Extinction profiles retrieved with the forward method.
+        ![Extinction profiles retrieved with the forward method](../../assets/images/forward.png)
     """
 
     # we work on profiles averaged in time to reduce the noise

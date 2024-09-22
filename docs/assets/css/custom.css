@@ -31,3 +31,10 @@ a.download {
     content: "⇩ ";  /* Adding a download icon before the text */
   }
   
+  .md-header-nav__icon .vprofiles {
+    background-image: url('../assets/images/vprofiles-bold.ico');
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}

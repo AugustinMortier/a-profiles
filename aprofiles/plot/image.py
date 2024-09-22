@@ -150,7 +150,7 @@ def plot(
         # attenuated backscatter image
         profiles.plot(vmin=1e-2, vmax=1e1, log=True)
         ```
-        ![Image of attenuated backscatter profiles](assets/images/attenuated_backscatter.png){: style="width: 50%;" }
+        ![Image of attenuated backscatter profiles](../../assets/images/attenuated_backscatter.png)
     """
 
     # calculates max value from data

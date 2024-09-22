@@ -102,12 +102,7 @@ class SizeDistributionData:
             sd.plot()
             ```
 
-            .. figure:: ../../docs/assets/images/urban_sd.png
-                :scale: 80 %
-                :alt: urban size distribution
-
-                Size distributions for urban particles.
-
+            ![Size distributions for urban particles](../../assets/images/urban_sd.png)
         """
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 
