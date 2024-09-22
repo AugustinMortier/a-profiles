@@ -50,7 +50,7 @@ In order to install directly the package from source with pip, you can also use 
 ## 🚀 Get started
 
 ### Reading Data
-```
+```python
 # import library
 import aprofiles as apro
 
@@ -60,7 +60,7 @@ profiles = apro.reader.ReadProfiles(path).read()
 ``` 
 
 ### Basic corrections and Image plotting
-``` 
+```python
 # extrapolate lowest layers for removing outliers
 profiles.extrapolate_below(z=150, inplace=True)
 
@@ -71,7 +71,7 @@ profiles.plot(zref='agl', vmin=1e-2, vmax=1e1, log=True)
 
 
 ### Profiles Analysis
-```
+```python
 # fog/condensation detection
 profiles.foc(zmin_cloud=200) 
 
@@ -85,14 +85,14 @@ profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
 ### Visualization
 
 #### Image
-```
+```python
 # image plotting with additional retrievals
 profiles.plot(show_fog=True, show_clouds=True, show_pbl=True, vmin=1e-2, vmax=1e1, log=True)
 ```
 <img src="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png" title="Fog or Condensation and Clouds Detection" width="800"/>
 
 ##### Single Profile
-```
+```python
 # plot single profile at 21:20
 datetime = np.datetime64('2021-09-09T21:20:00')
 profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True, show_pbl=True)
