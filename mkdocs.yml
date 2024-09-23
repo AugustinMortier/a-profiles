@@ -18,7 +18,6 @@ theme:
     - navigation.expand
     - navigation.sections
     - navigation.footer
-    - header.autohide
   palette:
     - media: '(prefers-color-scheme: light)'
       scheme: default
