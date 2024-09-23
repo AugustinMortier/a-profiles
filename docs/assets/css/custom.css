@@ -8,17 +8,9 @@ body[data-md-color-scheme=slate] img:not(.only-dark, .dark-light) {
   filter: brightness(.9) contrast(1.1);
 }
 
-img.awesome-svg {
-  height: 30px !important;
-  filter: invert(74%) sepia(5%) saturate(91%) hue-rotate(155deg) brightness(92%) contrast(82%) !important;
-  margin: 10px 0px 20px 0px;
-  left: calc(50% - 30px);
-  position: relative;
-}
-
-.fa-brands,
-.fab {
-  font-size: 1.6em;
+.twemoji {
+  /*font-size: 1.6em;*/
+  margin: auto;
 }
 
 a.download {

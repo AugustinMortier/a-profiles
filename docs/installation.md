@@ -1,11 +1,8 @@
----
-title: Installation
----
+# Installation
 
-![image](assets/images/python-brands.svg){.awesome-svg .awesome-svg}
+:fontawesome-brands-python:
 
-via *pip*
-=========
+## :simple-pipx: via *pip/pipx* 
 
 *aprofiles* is directly available on *pip*. This will install the latest
 released version of *aprofiles* and its depencencies.
@@ -14,8 +11,8 @@ released version of *aprofiles* and its depencencies.
 pip install aprofiles
 ```
 
-via *Git*
-=========
+
+## :simple-github: via *Github*
 
 1.  clone *aprofiles* repository
 
@@ -25,13 +22,13 @@ via *Git*
 
 2.  installation
 
-    - with *pip* (>21.3):
+    :simple-pipx: with *pip/pipx* (>21.3):
     
     ```
     pip install .
     ```
-    
-    - with *poetry*:
+
+    :simple-poetry: with *poetry*:
     
     ```
     poetry install

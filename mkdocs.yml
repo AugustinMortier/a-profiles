@@ -18,6 +18,10 @@ theme:
     - navigation.expand
     - navigation.sections
     - navigation.footer
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+
   palette:
     - media: '(prefers-color-scheme: light)'
       scheme: default
@@ -88,19 +92,31 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: True
+      toc_depth: 2
   - footnotes
   - abbr
   - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.superfences
   - pymdownx.details
   - pymdownx.emoji
   - pymdownx.highlight
+  - pymdownx.snippets
+  - md_in_html
+  - pymdownx.arithmatex:
+      generic: true
 
 # Static resources
 extra_css:
   - assets/css/custom.css
+  - https://unpkg.com/katex@0/dist/katex.min.css
 extra_javascript:
   - assets/js/custom.js
+  - assets/js/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
 #extra_files:
 #  - aprofiles/cli/aprocess.py
 #  - aprofiles/cli/utils/workflow.py

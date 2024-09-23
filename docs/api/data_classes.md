@@ -1,67 +1,40 @@
----
-title: Data Classes
----
+# Data Classes
 
-ProfilesData
-============
+## ProfilesData
 
-The (aprofiles.profiles.ProfilesData):
-class contains profiles data information. Most of the information can be
-found in the [data]{.title-ref} attribute, which is a
-(xarray.Dataset):. Detection and
-retrieval methods might add information as :additional
-(xarray.DataArray):).
+The [`ProfilesData`](#profilesdata) class contains profile data information. Most of the information can be found in the `data` attribute, which is an [`xarray.Dataset`](https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html). Detection and retrieval methods might add information as additional [`xarray.DataArray`](https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html).
 
 ::: aprofiles.profiles
 
-Aeronet
-=======
+## Aeronet
 
 Not implemented yet.
 
 ::: aprofiles.aeronet
 
-Rayleigh
-========
+## Rayleigh
 
-The (aprofiles.rayleigh.RayleighData):
-class is used for producing Rayleigh profiles in a standard atmosphere.
+The [`RayleighData`](#rayleighdata) class is used for producing Rayleigh profiles in a standard atmosphere.
 
 ::: aprofiles.rayleigh
 
-Size Distribution
-=================
+## Size Distribution
 
-The size distribution module is used to produce volume and number size
-distribution of a population of particles for a given type. The values
-describing the size distribution for the different aerosol types are
-taken from the literature:
+The size distribution module is used to produce volume and number size distributions of a population of particles for a given type. The values describing the size distribution for different aerosol types are taken from the literature:
 
--   `dust`, `biomass_burning`, and `urban` aerosols[^1]
--   `volcanic_ash`[^2]
+- `dust`, `biomass_burning`, and `urban` aerosols[^1]
+- `volcanic_ash`[^2]
 
-Aerosol properties are defined in
-[`config/aer_properties.json`](../../aprofiles/config/aer_properties.json){: .title-ref role="download"}
-
+Aerosol properties are defined in [`config/aer_properties.json`](../../aprofiles/config/aer_properties.json){: .title-ref role="download"}
 
 ::: aprofiles.size_distribution
 
-Extinction to Mass Coefficient
-==============================
+## Extinction to Mass Coefficient
 
-The (aprofiles.emc.EMCData): class is
-used for computing an [Extinction to Mass Coefficient]{.title-ref} for a
-given aerosol type.
+The [`EMCData`](#emcdata) class is used for computing an *Extinction to Mass Coefficient* for a given aerosol type.
 
 ::: aprofiles.emc
 
-[^1]: Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J.,
-    King, M. D., \... & Slutsker, I. (2002). Variability of absorption
-    and optical properties of key aerosol types observed in worldwide
-    locations. Journal of the atmospheric sciences, 59(3), 590-608.
+[^1]: Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., ... & Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. *Journal of the Atmospheric Sciences*, 59(3), 590-608.
 
-[^2]: Mortier, A., Goloub, P., Podvin, T., Deroo, C., Chaikovsky, A.,
-    Ajtai, N., \... & Derimian, Y. (2013). Detection and
-    characterization of volcanic ash plumes over Lille during the
-    Eyjafjallajökull eruption. Atmospheric Chemistry and Physics, 13(7),
-    3705-3720.
+[^2]: Mortier, A., Goloub, P., Podvin, T., Deroo, C., Chaikovsky, A., Ajtai, N., ... & Derimian, Y. (2013). Detection and characterization of volcanic ash plumes over Lille during the Eyjafjallajökull eruption. *Atmospheric Chemistry and Physics*, 13(7), 3705-3720.

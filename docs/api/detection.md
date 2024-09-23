@@ -1,29 +1,21 @@
----
-title: Detection
----
+# Detection
 
-The following functions are methods from the class
-`aprofiles.profiles.ProfilesData`{.interpreted-text role="class"}.
+The following functions are methods from the class [`ProfilesData`](../data_classes/#profilesdata).
 
-Fog or Condensation
-===================
+## Fog or Condensation
 
-This method allows for the detection of fog or condensation in single
-profiles.
+This method allows for the detection of fog or condensation in single profiles.
 
 ::: aprofiles.detection.foc
 
-Clouds
-======
+## Clouds
 
 This method allows for the detection of clouds in single profiles.
 
 ::: aprofiles.detection.clouds
 
-Planetary Boundary Layer
-========================
+## Planetary Boundary Layer
 
-This method allows for tge tracking of the PBL height in single
-profiles.
+This method allows for the tracking of the Planetary Boundary Layer (PBL) height in single profiles.
 
 ::: aprofiles.detection.pbl

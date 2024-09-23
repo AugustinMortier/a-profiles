@@ -1,8 +1,6 @@
----
-title: API
----
+# Overview
 
-![image](assets/images/cogs-solid.svg){.awesome-svg .awesome-svg}
+:material-api:
 
 Documentation of the core API of [aprofiles](/).
 

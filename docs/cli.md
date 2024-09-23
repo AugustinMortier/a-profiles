@@ -1,8 +1,6 @@
----
-title: CLI
----
+# CLI
 
-![image](assets/images/keyboard-solid.svg){.awesome-svg .awesome-svg}
+:material-keyboard:
 
 For facilitating the processing of the measurements in routine, a
 Command Line Interface (CLI) has been developed:
@@ -14,32 +12,24 @@ In the current version, the CLI has 3 possible actions:
 2.  create a JSON calendar file (used by V-Profiles)
 3.  create a JSON map file (used by V-Profiles)
 
-Installation
-============
+## Installation
 
 In order to use the CLI, A-Profiles needs to be installed with the
 required extras:
 
--   with *pip*
+:simple-pipx: via *pip/pipx*
 
-``` {.}
+```
 pip install .[cli]
 ```
 
--   with *pipx*
+:simple-poetry: via *poetry*
 
-``` {.}
-pipx install .[cli]
 ```
-
--   with *poetry*
-
-``` {.}
 poetry install --extras cli
 ```
 
-Documentation
-=============
+## Documentation
 
     aprocess --help
 
@@ -75,43 +65,46 @@ See some examples here: https://a-profiles.readthedocs.io/en/latest/cli.html
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-Basic uses
-==========
+## Basic uses
 
-run a specific date
--------------------
+### run a specific date
 
-    aprocess --date 2021-09-09
+```
+aprocess --date 2021-09-09
+```
 
-run today\'s files
-------------------
+### run today\'s files
 
-    aprocess --today
+```
+aprocess --today
+```
 
-run yesterday\'s files
-----------------------
+### run yesterday\'s files
 
-    aprocess --yesterday
+```
+aprocess --yesterday
+```
 
-More advanced uses
-==================
+## More advanced uses
 
 It is possible to combine different options.
 
-run today\'s and yesterday\'s files for CHM15k only
----------------------------------------------------
+### run today\'s and yesterday\'s files for CHM15k only
 
-    aprocess --today --yesterday --instruments-type CHM15k
+```
+aprocess --today --yesterday --instruments-type CHM15k
+```
 
-update only calendar files for 2021
------------------------------------
+### update only calendar files for 2021
 
-    aprocess --from 2021-01-01 --to 2021-12-31 --no-update-data --no-update-map
+```
+aprocess --from 2021-01-01 --to 2021-12-31 --no-update-data --no-update-map
+```
 
-use multiprocessing
--------------------
+### use multiprocessing
 
 The data processing can be run in parallel by using the
-[multiprocessing]{.title-ref} option :
-
-    aprocess --today --yesterday --multiprocessing
+[`multiprocessing`] option :
+```
+aprocess --today --yesterday --multiprocessing
+```

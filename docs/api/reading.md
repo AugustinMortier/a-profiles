@@ -1,8 +1,5 @@
----
-title: Reader
----
+# Reading
 
-The `Reader`{.interpreted-text role="ref"} module includes classes for
-reading profiles (NetCDF) and Aeronet (txt) data.
+The [`Reader`](#aprofiles.reader) module includes classes for reading profiles (NetCDF) and Aeronet (txt) data.
 
 ::: aprofiles.reader

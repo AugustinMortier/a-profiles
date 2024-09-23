@@ -1,6 +1,4 @@
----
-title: 'A-Profiles'
----
+# A-Profiles
 
 Welcome to *A-Profiles* documentation!
 
@@ -18,10 +16,12 @@ At present time, *A-Profiles* supports
 [E-PROFILE](https://e-profile.eu/#/cm_profile) data reading. This
 library is used by [V-Profiles](https://vprofiles.met.no).
 
-# Welcome to A-Profiles Documentation
+# Documentation
 
-- [Installation](installation.md)
-- [Examples](examples.md)
-- [API](api.md)
-- [Command Line Interface (CLI)](cli.md)
-- [Changelog](changelog.md)
+<div class="grid cards" markdown>
+- [:fontawesome-brands-python: Installation](installation.md)
+- [:simple-rocket: Examples](examples.md)
+- [:material-api: API](api.md)
+- [:material-keyboard: Command Line Interface (CLI)](cli.md)
+- [:material-history: Changelog](changelog.md)
+</div>
