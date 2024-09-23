@@ -4,6 +4,17 @@ title: Changelog
 
 ![image](assets/images/history-solid.svg){.awesome-svg .awesome-svg}
 
+0.8.0
+=====
+
+Sep 23, 2024
+
+-   Use *mkdocs* for documentation
+-   Compress all variables when writing AP files
+-   New logo
+-   Update README.md
+   
+
 0.7.2
 =====
 
