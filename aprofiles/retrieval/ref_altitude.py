@@ -15,7 +15,7 @@ def get_iref(data, imin, imax, min_snr):
         min_snr (float): Minimum SNR required to return a valid value.
 
     Returns:
-        int: index of the reference point.
+        (int): index of the reference point.
     """
     # function that returns best index to be used for initializing the Klett backward inversion
 

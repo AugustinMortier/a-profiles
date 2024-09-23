@@ -30,33 +30,33 @@ def detect_foc(profiles, method="cloud_base", var="attenuated_backscatter_0", z_
     """Detects fog or condensation.
 
     Args:
-        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
-        - method ({'cloud_base', 'snr'}, optional): Defaults to `'cloud_base'`.
-        - var (str, optional). Used for 'snr' method. Variable to calculate SNR from. Defaults to `'attenuated_backscatter_0'`.
-        - z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR. Defaults to `2000.`.
-        - min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation. Defaults to `2.`.
-        - zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation. Defaults to `200.`.
+        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
+        method ({'cloud_base', 'snr'}, optional): Detection method.
+        var (str, optional): Used for 'snr' method. Variable to calculate SNR from.
+        z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR.
+        min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation.
+        zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation.
 
     Returns:
-        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.
+        (aprofiles.profiles.ProfilesData): 
+            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):
+            
             - `'foc' (time)`: mask array corresponding to the presence of foc.
 
     Example:
-        >>> import aprofiles as apro
-        >>> # read example file
-        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-        >>> reader = apro.reader.ReadProfiles(path)
-        >>> profiles = reader.read()
-        >>> # foc detection
-        >>> profiles.foc()
-        >>> # attenuated backscatter image with pbl up to 6km of altitude
-        >>> profiles.plot(show_foc=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
+        ```python
+        import aprofiles as apro
+        # read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        # foc detection
+        profiles.foc()
+        # attenuated backscatter image with pbl up to 6km of altitude
+        profiles.plot(show_foc=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
+        ```
 
-        .. figure:: ../../examples/images/foc.png
-            :scale: 50 %
-            :alt: foc detection
-
-            Fog or condensation (foc) detection.
+        ![Fog or condensation (foc) detection](../../assets/images/foc.png)
     """
 
     if method == "cloud_base":

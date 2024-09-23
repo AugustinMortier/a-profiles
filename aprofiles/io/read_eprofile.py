@@ -6,7 +6,8 @@ import xarray as xr
 
 
 class ReadEPROFILE:
-    """E-PROFILE reading class.
+    """
+    E-PROFILE reading class.
 
     Data:
         [https://data.ceda.ac.uk/badc/eprofile/data/daily_files/]
@@ -19,7 +20,8 @@ class ReadEPROFILE:
         self.path = path
 
     def _check_path(self):
-        """Check the path
+        """
+        Check the path
 
         Raises:
             OSError: [description]
@@ -36,10 +38,11 @@ class ReadEPROFILE:
             )
 
     def _read_l2file(self):
-        """Read single file using `xr.open_dataset()`.
+        """
+        Read single file using `xr.open_dataset()`.
 
         Returns:
-            :class:`xarray.Dataset`
+            (xarray.Dataset):
         """
         ds = xr.open_dataset(self.path, decode_times=True)
         # remove time duplicate values if exists
@@ -58,10 +61,11 @@ class ReadEPROFILE:
         return ds
 
     def read(self):
-        """Method which reads E-PROFILE data.
+        """
+        Method which reads E-PROFILE data.
 
         Returns:
-            :class:`xarray.Dataset`
+            (xarray.Dataset):
         """
         
         self._check_path()

@@ -10,31 +10,29 @@ sns.set_theme()
 
 
 def plot(da, var="aod", show_fig=True, save_fig=None, **kwargs):
-    """Plot time series of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
+    """
+    Plot time series of selected variable from (aprofiles.profiles.ProfilesData): object.
 
     Args:
-        - da (:class:`xarray.DataArray`): DataArray
-        - var (str, optional): [description]. Defaults to `'aod'`.
-        - show_fig (bool, optional): Show Figure. Defaults to `True`.
-        - save_fig (str, optional): Path of the saved figure. Defaults to `None`.
+        da (xarray.DataArray): DataArray
+        var (str, optional): Variable of the DataArray to be plotted.
+        show_fig (bool, optional): Show Figure.
+        save_fig (str, optional): Path of the saved figure.
 
     Example:
+        ``` python
+        import aprofiles as apro
+        # read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        # retrieve pbl height
+        profiles.pbl(zmin=200, zmax=3000)
+        # attenuated backscatter image
+        profiles.plot(var="pbl" ymin=0., ymax=3000., min_snr=2.)
+        ```
 
-        >>> import aprofiles as apro
-        >>> # read example file
-        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-        >>> reader = apro.reader.ReadProfiles(path)
-        >>> profiles = reader.read()
-        >>> # retrieve pbl height
-        >>> profiles.pbl(zmin=200, zmax=3000)
-        >>> # attenuated backscatter image
-        >>> profiles.plot(var="pbl" ymin=0., ymax=3000., min_snr=2.)
-
-        .. figure:: ../../docs/_static/images/time_series.png
-            :scale: 50 %
-            :alt: time series
-
-            Time series of Planetary Boundary Layer height.
+        ![Time series of Planetary Boundary Layer height](../../assets/images/time_series.png)
     """
 
     def __init__(self):

@@ -12,20 +12,23 @@ from aprofiles import utils
 
 
 class SizeDistributionData:
-    """Class for computing *size distributions* for a given aerosol type.
-    This class calls the :func:`get_sd()` method, which calculates VSD and NSD (Volume and Number Size Distributions).
+    """
+    Class for computing *size distributions* for a given aerosol type.
+    This class calls the `aprofiles.size_distribution.SizeDistributionData.get_sd`: method, which calculates VSD (Volume Size Distribution) and NSD (Number Size Distribution).
 
     Attributes:
-        - `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning','urban'}): aerosol type.
-        - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
+        `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning','urban'}): aerosol type.
+        `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
-        >>> # some imports
-        >>> import aprofiles as apro
-        >>> sd = apro.size_distribution.SizeDistributionData('urban')
+        ```python
+        # some imports
+        import aprofiles as apro
+        sd = apro.size_distribution.SizeDistributionData('urban')
         # checkout the instance attributes
-        >>> apro.size_distribution.SizeDistributionData('dust').__dict__.keys()
+        apro.size_distribution.SizeDistributionData('dust').__dict__.keys()
         dict_keys(['aer_type', 'aer_properties', 'radius', 'vsd', 'nsd'])
+        ```
     """
 
     def __init__(self, aer_type):
@@ -45,7 +48,9 @@ class SizeDistributionData:
             self.get_sd()
 
     def _vsd_to_nsd(self):
-        """Transforms Volume Size Distribution to Number Size Distribution"""
+        """
+        Transforms Volume Size Distribution to Number Size Distribution
+        """
         self.nsd = [
             self.vsd[i] * 3 / (4 * np.pi * self.radius[i] ** 4)
             for i in range(len(self.radius))
@@ -53,13 +58,15 @@ class SizeDistributionData:
         return self
 
     def get_sd(self):
-        """Returns the Volume and Number Size Distributions arrays from an instance of the :class:`SizeDistributionData` class .
+        """
+        Returns the Volume and Number Size Distributions arrays from an instance of the (SizeDistributionData): class .
 
         Returns:
-            :class:`SizeDistribData` object with additional attributes.
-                - `radius` (:class:`numpy.ndarray`): radius (µm)
-                - `vsd` (:class:`numpy.ndarray`): Volume Size Distribution (µm2.µm-3)
-                - `nsd` (:class:`numpy.ndarray`): Number Size Distribution (µm-3.µm-1)
+            (SizeDistribData): object with additional attributes:
+
+                - `radius` (numpy.ndarray): radius (µm)
+                - `vsd` (numpy.ndarray): Volume Size Distribution (µm2.µm-3)
+                - `nsd` (numpy.ndarray): Number Size Distribution (µm-3.µm-1)
         """
 
         aer_properties = self.aer_properties
@@ -82,22 +89,20 @@ class SizeDistributionData:
         return self
 
     def plot(self, show_fig=True):
-        """Plot Size Distributions of an instance of the :class:`SizeDistributionData` class.
+        """
+        Plot Size Distributions of an instance of the (SizeDistributionData): class.
 
         Example:
-            >>> # import aprofiles
-            >>> import aprofiles as apro
-            >>> # get size distribution for urban particles
-            >>> sd = apro.size_distribution.SizeDistribData('urban');
-            >>> # plot profile
-            >>> sd.plot()
+            ```python
+            # import aprofiles
+            import aprofiles as apro
+            # get size distribution for urban particles
+            sd = apro.size_distribution.SizeDistribData('urban');
+            # plot profile
+            sd.plot()
+            ```
 
-            .. figure:: ../../docs/_static/images/urban_sd.png
-                :scale: 80 %
-                :alt: urban size distribution
-
-                Size distributions for urban particles.
-
+            ![Size distributions for urban particles](../../assets/images/urban_sd.png)
         """
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 

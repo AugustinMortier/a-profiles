@@ -11,12 +11,13 @@ import xarray as xr
 
 
 def write(profiles, base_dir, verbose):
-    """Writing method for an instance of a :class:`aprofiles.profiles.ProfilesData` class.
+    """
+    Writing method for an instance of a (aprofiles.profiles.ProfilesData): class.
 
     Args:
-        - aprofiles (:class:`aprofiles.profiles.ProfilesData`): Object to be written.
-        - base_dir (str): Base path of the file should be written.
-        - verbose (bool): Verbose mode. Defaults to False.
+        profiles (aprofiles.profiles.ProfilesData): Object to be written.
+        base_dir (str): Base path of the file should be written.
+        verbose (bool): Verbose mode.
     """
     
     def _convert_time_after_epoch(ds):
@@ -140,12 +141,14 @@ def write(profiles, base_dir, verbose):
         'positive': "up"
     })
 
-    # convert int64 to int32
+    # encoding with compression
     encoding = {}
     for varname, var in ds_towrite.variables.items():
         if varname == "time": continue
         if var.dtype == np.int64:
-            encoding[varname] = {"dtype": np.int32}
+            encoding[varname] = {"dtype": np.int32, "zlib": True, "chunksizes": var.shape}
+        if varname in ["extinction", "clouds_bases", "clouds_peaks", "clouds_tops"]:
+            encoding[varname] = {"zlib": True, "chunksizes": var.shape}
     
     # convert also the quality_flag's variable flag_values attribute also to NC_INT instead of NC_INT64
     ds_towrite["quality_flag"] = ds_towrite.quality_flag.assign_attrs({'flag_values': np.array([0,1,2], dtype=np.int32)})

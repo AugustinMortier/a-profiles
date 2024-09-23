@@ -3,7 +3,8 @@
 
 
 class AeronetData:
-    """Base class representing profiles data returned by :class:`aprofiles.io.reader.ReadAeronet`."""
+    """
+    Base class representing profiles data returned by (aprofiles.io.reader.ReadAeronet):."""
 
     def __init__(self, data):
         self.data = data
