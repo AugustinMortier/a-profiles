@@ -2,13 +2,13 @@
 site_name: A-Profiles
 site_author: Augustin Mortier
 site_description: Documentation for A-Profiles
-copyright: "2024, Augustin Mortier"
-site_url: "https://github.com/AugustinMortier/A-Profiles"
+copyright: '2024, Augustin Mortier'
+site_url: 'https://github.com/AugustinMortier/A-Profiles'
 
 # Theme configuration
 theme:
   name: material
-  logo: assets/images/A-Profiles-white.png
+  logo: assets/images/a-profiles.svg
   features:
     - navigation.path
     - navigation.tabs
@@ -18,15 +18,16 @@ theme:
     - navigation.expand
     - navigation.sections
     - navigation.footer
+    - header.autohide
   palette:
-    - media: "(prefers-color-scheme: light)"
+    - media: '(prefers-color-scheme: light)'
       scheme: default
       primary: indigo
       accent: indigo
       toggle:
         icon: material/lightbulb
         name: Switch to dark mode
-    - media: "(prefers-color-scheme: dark)"
+    - media: '(prefers-color-scheme: dark)'
       scheme: slate
       primary: indigo
       accent: indigo
@@ -35,7 +36,6 @@ theme:
         name: Switch to light mode
   highlightjs: true
 
-  
   # Custom CSS and JS (equivalent of 'html_css_files' and 'html_js_files')
   extra_css:
     - css/custom.css
@@ -44,33 +44,32 @@ theme:
 
 # To set logos for different color schemes, use:
 extra:
+  version:
+    provider: mike
   social:
-    - icon: fontawesome/solid/globe
+    - icon: fontawesome/brands/gitlab
       link: https://vprofiles.met.no
       name: V-Profiles
-  # Optional: Support for dark/light mode with custom logos
-  logo_light: assets/images/A-Profiles-white.png  # Logo for light mode
-  logo_dark: assets/images/A-Profiles.png         # Logo for dark mode
 
 # Repository information (replaces the 'icon_links' feature in Sphinx)
-repo_name: "AugustinMortier/A-Profiles"
-repo_url: "https://github.com/AugustinMortier/A-Profiles"
-edit_uri: ""
+repo_name: 'AugustinMortier/A-Profiles'
+repo_url: 'https://github.com/AugustinMortier/A-Profiles'
+edit_uri: ''
 
 # Navigation and Sidebar
 nav:
   - Home: index.md
   - Installation: installation.md
   - Examples: examples.md
-  - API: 
-    - Overview: api.md
-    - Reading: api/reading.md
-    - Data Classes: api/data_classes.md
-    - Detection: api/detection.md
-    - Retrieval: api/retrieval.md
-    - Simulation: api/simulation.md
-    - Plotting: api/plotting.md
-    - Writing: api/writing.md
+  - API:
+      - Overview: api.md
+      - Reading: api/reading.md
+      - Data Classes: api/data_classes.md
+      - Detection: api/detection.md
+      - Retrieval: api/retrieval.md
+      - Simulation: api/simulation.md
+      - Plotting: api/plotting.md
+      - Writing: api/writing.md
   - CLI: cli.md
   - Changelog: changelog.md
 
@@ -82,7 +81,7 @@ plugins:
       default_handler: python
 
 # Markdown extensions
-markdown_extensions:  
+markdown_extensions:
   - markdown_include.include:
       base_path: docs/
   - admonition
@@ -103,7 +102,6 @@ extra_css:
   - assets/css/custom.css
 extra_javascript:
   - assets/js/custom.js
-
 #extra_files:
 #  - aprofiles/cli/aprocess.py
 #  - aprofiles/cli/utils/workflow.py
