@@ -1,6 +1,6 @@
 # CLI
 
-:material-keyboard:
+:material-keyboard:{ style="text-align: center; font-size: xx-large; display: block" }
 
 For facilitating the processing of the measurements in routine, a
 Command Line Interface (CLI) has been developed:

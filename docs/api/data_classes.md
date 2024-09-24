@@ -1,5 +1,7 @@
 # Data Classes
 
+:material-database:{ style="text-align: center; font-size: xx-large; display: block" }
+
 ## ProfilesData
 
 The [`ProfilesData`](#profilesdata) class contains profile data information. Most of the information can be found in the `data` attribute, which is an [`xarray.Dataset`](https://xarray.pydata.org/en/stable/generated/xarray.Dataset.html). Detection and retrieval methods might add information as additional [`xarray.DataArray`](https://xarray.pydata.org/en/stable/generated/xarray.DataArray.html).
