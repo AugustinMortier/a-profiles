@@ -38,6 +38,7 @@ mkdocs-autorefs = "^1.2.0"
 pymdown-extensions = "^10.10"
 mkdocstrings = {extras = ["python"], version = "^0.26.1"}
 markdown-include = "^0.8.1"
+mkdocs-copy = "^0.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

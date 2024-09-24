@@ -2,7 +2,7 @@
 
 :material-api:
 
-Documentation of the core API of [aprofiles](/).
+Documentation of the core API of [aprofiles](index.md).
 
 - [Reading](api/reading.md)
 - [Data Classes](api/data_classes.md)
