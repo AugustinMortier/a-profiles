@@ -163,7 +163,7 @@ def main(
         
         if multiprocessing:
             with Progress() as progress:
-                task = progress.add_task(total=len(stations_id), description=f"clim.      :rocket:", disable=disable_progress_bar)
+                task = progress.add_task(total=len(stations_id), description=f"clim.      :rocket:", visible=not disable_progress_bar)
                 with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                     futures = [executor.submit(
                         utils.json_climatology.compute_climatology,
