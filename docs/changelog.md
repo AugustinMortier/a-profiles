@@ -2,6 +2,13 @@
 
 :material-history:
 
+## 0.8.1
+Sep 24, 2024
+
+- Fix progress bar visibility in CLI climatology
+- Only read relevant variables in CLI maps and calendar
+- Fix some links in documentation
+
 ## 0.8.0
 Sep 23, 2024
 
