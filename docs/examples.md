@@ -1,6 +1,6 @@
 # Examples
 
-:simple-rocket:
+:simple-rocket:{ style="text-align: center; font-size: xx-large; display: block" }
 
 Some basic examples for getting you started using *aprofiles*. For more
 information, check out the `API`{.interpreted-text role="ref"}.

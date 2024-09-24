@@ -1,5 +1,7 @@
 # Retrieval
 
+:material-pencil-box-multiple-outline:{ style="text-align: center; font-size: xx-large; display: block" }
+
 The following functions are methods from the class
 [`ProfilesData`](../data_classes/#profilesdata)
 

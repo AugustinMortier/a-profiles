@@ -1,5 +1,7 @@
 # Plotting
 
+:material-chart-scatter-plot:{ style="text-align: center; font-size: xx-large; display: block" }
+
 ## Image
 
 This module is used to plot an image (time, altitude) for a given variable of an instance of the [`ProfilesData`](../data_classes/#profilesdata) class.

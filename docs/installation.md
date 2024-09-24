@@ -1,6 +1,6 @@
 # Installation
 
-:fontawesome-brands-python:
+:fontawesome-brands-python:{ style="text-align: center; font-size: xx-large; display: block" }
 
 ## :simple-pipx: via *pip/pipx* 
 
