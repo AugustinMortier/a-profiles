@@ -20,12 +20,7 @@ def write(profiles, base_dir, verbose):
         verbose (bool): Verbose mode.
     """
     
-    def _convert_time_after_epoch(ds):
-        time_attrs = ds["time"].attrs
-        ds = ds.assign_coords(time=ds.time.data.astype(f"datetime64[ms]").astype(f'float32'))
-        # milliseconds to days
-        ds['time'] = ds['time'] / (1000 * 60 * 60 * 24)
-        ds["time"] = ds["time"].assign_attrs(time_attrs)
+    def _fix_time_units(ds):
         ds["time"].attrs['units'] = 'days since 1970-01-01T00:00:00'
         return ds
     
@@ -134,7 +129,7 @@ def write(profiles, base_dir, verbose):
         ds_towrite = ds_towrite.drop(nodim_var)
 
     # converts time
-    #ds_towrite = _convert_time_after_epoch(ds_towrite)
+    ds_towrite = _fix_time_units(ds_towrite)
     
     # add altitude direction
     ds_towrite["altitude"] = ds_towrite["altitude"].assign_attrs({
