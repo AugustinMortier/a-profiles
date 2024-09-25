@@ -20,10 +20,6 @@ def write(profiles, base_dir, verbose):
         verbose (bool): Verbose mode.
     """
     
-    def _fix_time_units(ds):
-        ds["time"].attrs['units'] = 'days since 1970-01-01T00:00:00'
-        return ds
-    
     def _classify_scene(ds):
         lowest_clouds = profiles._get_lowest_clouds()
         scene = []
@@ -127,9 +123,6 @@ def write(profiles, base_dir, verbose):
     for nodim_var in nodim_variables:
         ds_towrite.attrs[nodim_var] = ds_towrite[nodim_var].data
         ds_towrite = ds_towrite.drop(nodim_var)
-
-    # converts time
-    ds_towrite = _fix_time_units(ds_towrite)
     
     # add altitude direction
     ds_towrite["altitude"] = ds_towrite["altitude"].assign_attrs({
