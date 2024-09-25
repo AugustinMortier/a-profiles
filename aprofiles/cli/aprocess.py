@@ -106,7 +106,7 @@ def main(
         if update_data:
             if multiprocessing:
                 with Progress() as progress:
-                    task = progress.add_task(f"{date.strftime('%Y-%m-%d')} :rocket:", total=len(onlyfiles))
+                    task = progress.add_task(f"{date.strftime('%Y-%m-%d')} :rocket:", total=len(onlyfiles), visible=not disable_progress_bar)
                     with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                         futures = [executor.submit(
                             utils.workflow.workflow, 
