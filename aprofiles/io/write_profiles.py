@@ -134,7 +134,7 @@ def write(profiles, base_dir, verbose):
         ds_towrite = ds_towrite.drop(nodim_var)
 
     # converts time
-    ds_towrite = _convert_time_after_epoch(ds_towrite)
+    #ds_towrite = _convert_time_after_epoch(ds_towrite)
     
     # add altitude direction
     ds_towrite["altitude"] = ds_towrite["altitude"].assign_attrs({
