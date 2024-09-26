@@ -18,34 +18,48 @@ The official documentation is available [here](https://augustinmortier.github.io
 
 - with *pip*
 
-`pip install aprofiles`
+```
+pip install aprofiles
+```
 
 - with *pipx*
 
-`pipx install aprofiles`
+```
+pipx install aprofiles
+```
 
 ### <img src="docs/assets/images/github.svg" height="15px"/> from source
 1. clone this repository
 
-    `git clone https://github.com/AugustinMortier/A-Profiles.git`
+    ```
+    git clone https://github.com/AugustinMortier/A-Profiles.git
+    ```
 
 2. installation
    - with *pip* (>21.3)
 
-       `pip install .`
+       ```
+       pip install .
+       ```
     
     - with *pipx*
 
-       `pipx install .`
+       ```
+       pipx install .
+       ```
 
    - with *poetry*
   
-       `poetry install`
+       ```
+       poetry install
+       ```
 
 
 In order to install directly the package from source with pip, you can also use the combined command
 
-`pip install "git+ssh://git@github.com/AugustinMortier/A-Profiles.git"`
+```
+pip install "git+ssh://git@github.com/AugustinMortier/A-Profiles.git"
+```
 
 ## 🚀 Get started
 
