@@ -28,13 +28,18 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
 
         # retrievals
         # inversion method selection
-        # 1. default: forward
+        # 1. default: forward, 50sr
         method = "forward"
+        apriori = {
+            "lr": 50
+        }
         # 2. if exist, overwrite with CFG["parameters"]
         if profiles.data.instrument_type in CFG["parameters"]:
             if "inversion" in CFG["parameters"][profiles.data.instrument_type]:
                 if "method" in CFG["parameters"][profiles.data.instrument_type]["inversion"]:
                     method = CFG["parameters"][profiles.data.instrument_type]["inversion"]["method"]
-
-        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method=method, verbose=verbose)
+                if "apriori" in CFG["parameters"][profiles.data.instrument_type]["inversion"]:
+                    apriori = CFG["parameters"][profiles.data.instrument_type]["inversion"]["apriori"]
+        
+        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method=method, apriori=apriori, verbose=verbose)
         profiles.write(base_dir)
