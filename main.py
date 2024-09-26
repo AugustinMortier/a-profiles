@@ -15,21 +15,21 @@ def main(path):
     # profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
 
     # saturation
-    #profiles.plot(zmax=5000., log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/saturated.png")
+    #profiles.plot(zmax=5000., log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/saturated.png")
     #profiles.desaturate_below(z=4000., inplace=True)
-    #profiles.plot(zmax=5000., log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/desaturated.png")
+    #profiles.plot(zmax=5000., log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/desaturated.png")
 
     # gaussian filter
-    #profiles.plot(log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/attenuated_backscatter.png")
+    #profiles.plot(log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/attenuated_backscatter.png")
     #profiles.gaussian_filter(sigma=0.5, inplace=True)
-    #profiles.plot(log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/gaussian_filter.png")
+    #profiles.plot(log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/gaussian_filter.png")
 
     # extrapolation lowest layers
     # profiles.plot(zmax=1000., log=True, vmin=1e-2, vmax=1e1)
     #profiles.extrapolate_below(z=150, inplace=True)
     #profiles.plot(
     #    zref='agl', log=True, vmin=1e-2, vmax=1e1, 
-    #    save_fig="docs/_static/images/QL-Oslo-20210909.png"
+    #    save_fig="docs/assets/images/QL-Oslo-20210909.png"
     #)
     #profiles.plot(zref='agl', show_foc=False, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, zmax=6000.)
     # detection
@@ -38,24 +38,24 @@ def main(path):
     profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2., verbose=True)
 
     # plot image
-    #profiles.plot(zref='agl', show_foc=False, show_clouds=True, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/clouds.png")
-    #profiles.plot(zref='agl', show_foc=True, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/_static/images/foc.png")
+    #profiles.plot(zref='agl', show_foc=False, show_clouds=True, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/clouds.png")
+    #profiles.plot(zref='agl', show_foc=True, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/foc.png")
     profiles.plot(
         zref='agl', show_foc=False, show_clouds=False, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, zmax=6000., 
-        #save_fig="docs/_static/images/pbl.png"
+        #save_fig="docs/assets/images/pbl.png"
     )
     
     
     profiles.plot(
         zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, 
-        #save_fig="docs/_static/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
+        #save_fig="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
     )
     
     # plot single profile
     # datetime = np.datetime64('2021-09-09T19:25:00')
     datetime = np.datetime64('2021-09-09T21:20:00')
     # datetime = np.datetime64('2021-09-09T10:25:00')
-    profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_fog=False, show_clouds=False, show_pbl=False)#, save_fig="docs/_static/images/Profile-Oslo-20210909T212005.png")
+    profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_fog=False, show_clouds=False, show_pbl=False)#, save_fig="docs/assets/images/Profile-Oslo-20210909T212005.png")
 
     # aerosol inversion
 

@@ -11,24 +11,26 @@ from aprofiles import size_distribution
 
 
 class EMCData:
-    """Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.
-    This class calls the :func:`get_emc()` method.
+    """
+    Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.
+    This class calls the [`get_emc()`](#aprofiles.emc.EMCData.get_emc) method.
 
     Attributes:
-        - `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
-        - `wavelength` (int or float): wavelength, in mm.
-        - `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `EMC`.
-        - `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
+       `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
+       `wavelength` (int or float): wavelength, in mm.
+       `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `EMC`.
+       `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
-        >>> #some imports
-        >>> import aprofiles as apro
-        >>> emc_data = EMCData('volcanic_ash', 532.)
-        >>> emc_data.__dict__.keys()
+        ```python
+        #some imports
+        import aprofiles as apro
+        emc_data = EMCData('volcanic_ash', 532.)
+        emc_data.__dict__.keys()
         dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'emc'])
-        >>> print(f'{emc_data.conv_factor:.2e} m {emc_data.emc):.2e} m2.g-1')
+        print(f'{emc_data.conv_factor:.2e} m {emc_data.emc):.2e} m2.g-1')
         6.21e-07 m 0.62 m2.g-1
-
+        ```
     """
 
     def __init__(self, aer_type: str, wavelength: float, method: str = "mortier_2013"):
@@ -76,80 +78,134 @@ class EMCData:
             self.conv_factor = -99
 
     def get_emc(self):
-        """Calculates the Extinction to Mass Coefficient for a given type of particles assuming with prescribed size distribution shape (the amplitude is unknown), density, and using the `Mie theory <https://miepython.readthedocs.io>`_ to calculate the extinction efficiency.
-
+        """
+        Calculates the Extinction to Mass Coefficient for a given type of particles, assuming a prescribed size distribution shape (with unknown amplitude), density, and using [Mie theory](https://miepython.readthedocs.io) to calculate the extinction efficiency.
+        
         Returns:
-            :class:`EMCData` with additional attributes:
+            (EMCData): with additional attributes:
+            
                 - `nsd` (1D Array): Number Size Distribution
                 - `vsd` (1D Array): Volume Size Distribution
-                - `radius` (1D Array): Radius, in µm
+                - `radius` (1D Array): Radius in µm
                 - `x` (1D Array): Size parameter (unitless)
-                - `conv_factor` (float): Conversion factor, in m
-                - `emc` (float): Extinction to Mass Coefficient, in m2.g-1
+                - `conv_factor` (float): Conversion factor in m
+                - `emc` (float): Extinction to Mass Coefficient in m².g⁻¹
 
-        .. note::
-            For a population of particles, the extinction coefficient :math:`\sigma_{ext}` (m-1) can be written as follwowing:
+       !!! note
+            For a population of particles, the extinction coefficient $\sigma_{ext}$ (m⁻¹) can be written as follows:
 
-            :math:`\sigma_{ext} = \int_{r_{min}}^{r_{max}}N(r)Q_{ext}(m,r,\lambda) \pi r^2 dr`
+            $$
+            \sigma_{ext} = \int_{r_{min}}^{r_{max}} N(r) Q_{ext}(m, r, \lambda) \pi r^2 dr
+            $$
 
-            with :math:`Q_{ext}`, the `extinction efficiency` and :math:`N(r)` the `Number Size Distribution` (NSD).
+            where $Q_{ext}$ is the `extinction efficiency` and $N(r)$ is the `Number Size Distribution` (NSD).
 
-            :math:`Q_{ext}` varies with the refractive index, :math:`m`, the wavelength, :math:`\lambda` and can be calculated for spherical particles with the Mie therory.
+            $Q_{ext}$ varies with the refractive index, $m$, the wavelength, $\lambda$, and can be calculated for spherical particles using Mie theory.
 
-            Total aerosol mass concentration :math:`M_0` (µg.m-3) can be written as:
+            The total aerosol mass concentration $M_0$ (µg.m⁻³) can be expressed as:
 
-            :math:`M_0 = \int_{r_{min}}^{r_{max}}{M(r)dr}` where :math:`M(r)` is the mass size distribution (MSD).
+            $$
+            M_0 = \int_{r_{min}}^{r_{max}} M(r) dr
+            $$
 
-            This equation can be written, using the relation between NSD and MSD, as:
+            where $M(r)$ is the mass size distribution (MSD).
 
-            :math:`M_0 = \int_{r_{min}}^{r_{max}}{\\frac{4\pi r^3}{3} \\rho N(r) dr}`
+            This can be rewritten in terms of NSD and MSD as:
 
-            where :math:`\\rho` is the particles `density` (kg.m-3).
+            $$
+            M_0 = \int_{r_{min}}^{r_{max}} \\frac{4\pi r^3}{3} \\rho N(r) dr
+            $$
 
-            By normalizing the NSD with respect to the fine mode (:math:`N(r) = N_0 N_1(r)`), the combination of the previous equations leads to:
+            where $\\rho$ is the particle density (kg.m⁻³).
 
-            :math:`M_0 = \sigma_{ext} \\rho \\frac{4}{3} \\frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`
+            By normalizing the NSD with respect to the fine mode ($N(r) = N_0 N_1(r)$), we arrive at:
 
-            By commodity, we define the `conversion factor` (in m) as :math:`c_v = \\frac{4}{3} \\frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m,r,\lambda) r^2 dr}`
+            $$
+            M_0 = \sigma_{ext} \\rho \\frac{4}{3} \\frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m, r, \lambda) r^2 dr}
+            $$
 
-            so the previous equation can be simplified: :math:`M_0 = \sigma_{ext} \\rho c_v`
+            We define the `conversion factor` (in m) as:
 
-            Finally, the `Extinction to Mass Coefficient` (EMC, also called `mass extinction cross section`, usually provided in m2.g-1) is defined as the ratio between :math:`\sigma_{ext}` and :math:`M_0`:
+            $$
+            c_v = \\frac{4}{3} \\frac{\int_{r_{min}}^{r_{max}} N_1(r) r^3 dr}{\int_{r_{min}}^{r_{max}} N_1(r) Q_{ext}(m, r, \lambda) r^2 dr}
+            $$
 
-            :math:`EMC = \\frac{\sigma_{ext}}{M_0} = \\frac{1}{\\rho c_v}`
+            Thus, the equation simplifies to:
 
-            with :math:`\\rho` being expressed in (g.m-3).
+            $$
+            M_0 = \sigma_{ext} \\rho c_v
+            $$
+
+            Finally, the `Extinction to Mass Coefficient` (EMC, also called `mass extinction cross section`, usually in m².g⁻¹) is defined as:
+
+            $$
+            EMC = \\frac{\sigma_{ext}}{M_0} = \\frac{1}{\\rho c_v}
+            $$
+
+            with $\\rho$ expressed in g.m⁻³.
 
             
-            .. table:: Conversion Factors and EMC calculated for the main aerosol types
-                :widths: auto
-
-                +-----------------+------------------------+------------------+
-                | Aerosol Type    | Conversion Factor (µm) | EMC (m2.g-1)     |
-                |                 +-----------+------------+--------+---------+
-                |                 | 532 nm    | 1064 nm    | 532 nm | 1064 nm |
-                +=================+===========+============+========+=========+
-                | Urban           | 0.31      | 1.92       | 1.86   | 0.31    |
-                +-----------------+-----------+------------+--------+---------+
-                | Desert dust     | 0.68      | 1.04       | 0.58   | 0.38    |
-                +-----------------+-----------+------------+--------+---------+
-                | Biomass burning | 0.26      | 1.28       | 3.30   | 0.68    |
-                +-----------------+-----------+------------+--------+---------+
-                | Volcanic ash    | 0.62      | 0.56       | 0.62   | 0.68    |
-                +-----------------+-----------+------------+--------+---------+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aerosol Type</th>
+                        <th colspan=2>Conversion Factor (µm)</th>
+                        <th colspan=2>EMC (m².g⁻¹) </th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th>532 nm</th>
+                        <th>1064 nm</th>
+                        <th>532 nm</th>
+                        <th>1064 nm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Urban</td>
+                        <td>0.31</td>
+                        <td>1.92</td>
+                        <td>1.86</td>
+                        <td>0.31</td>
+                    </tr>
+                    <tr>
+                        <td>Desert dust</td>
+                        <td>0.68</td>
+                        <td>1.04</td>
+                        <td>0.58</td>
+                        <td>0.38</td>
+                    </tr>
+                    <tr>
+                        <td>Biomass burning</td>
+                        <td>0.26</td>
+                        <td>1.28</td>
+                        <td>3.30</td>
+                        <td>0.68</td>
+                    </tr>
+                    <tr>
+                        <td>Volcanic ash</td>
+                        <td>0.62</td>
+                        <td>0.56</td>
+                        <td>0.62</td>
+                        <td>0.68</td>
+                    </tr>
+                </tbody>
+                <caption>Conversion Factors and EMC calculated for the main aerosol types</caption>
+            </table>
 
         """
+
 
         def _compute_conv_factor(nsd, qext, radius):
             """Compute Conversion Factor for a given Size Distribution and Efficiency
 
             Args:
-                - nsd (1D Array): Number Size Distribution (µm-3.µm-1)
-                - qext (1D Array): Extinction Efficiency (unitless)
-                - radius (1D Array): Radius, in µm
+                nsd (1D Array): Number Size Distribution (µm-3.µm-1)
+                qext (1D Array): Extinction Efficiency (unitless)
+                radius (1D Array): Radius, in µm
 
             Returns:
-                [float]: Conversion factor (m)
+                (float): Conversion factor (m)
 
             """
             # radius resolution
@@ -197,21 +253,20 @@ class EMCData:
         return self
 
     def plot(self, show_fig=True):
-        """Plot main information of an instance of the :class:`EMCData` class.
+        """
+        Plot main information of an instance of the [`EMCData`](#aprofiles.emc.EMCData) class.
 
         Example:
-            >>> #import aprofiles
-            >>> import aprofiles as apro
-            >>> #compute emc for biomas burning particles at 532 nm
-            >>> emc = apro.emc.EMCData('volcanic_ash', 532.);
-            >>> #plot information
-            >>> emc.plot()
+            ```python
+            #import aprofiles
+            import aprofiles as apro
+            #compute emc for biomas burning particles at 532 nm
+            emc = apro.emc.EMCData('volcanic_ash', 532.);
+            #plot information
+            emc.plot()
+            ```
 
-            .. figure:: ../../docs/_static/images/volcanic_ash-emc.png
-                :scale: 80 %
-                :alt: volcanic ash properties
-
-                Volcanic Ash particles properties used for EMC calculation.
+            ![Volcanic Ash particles properties used for EMC calculation](../../assets/images/volcanic_ash-emc.png)
         """
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 

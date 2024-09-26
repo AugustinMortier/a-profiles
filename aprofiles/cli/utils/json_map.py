@@ -19,7 +19,8 @@ def add_to_map(fn, base_dir, yyyy, mm, dd, mapname):
     # for each station, write an array with extinction values, and array with scenes for each hour of the day
     
     # read data
-    ds = xr.open_dataset(fn)
+    vars_to_read = ['extinction', 'retrieval_scene', 'cloud_amount']
+    ds = xr.open_dataset(fn, chunks=-1)[vars_to_read].load()
 
     # calculate the max extinction and determine the scene for each hour of the day
     # need to convert time (from int to datetime) in order to use the resample method from xarray

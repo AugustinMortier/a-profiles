@@ -6,27 +6,30 @@ import numpy as np
 
 
 class RayleighData:
-    """Class for computing *rayleigh profile* in a standard atmosphere.
+    """
+    Class for computing *rayleigh profile* in a standard atmosphere.
     This class calls the :func:`get_optics_in_std_atmo()` method, which produces profiles of `backscatter` and `extinction` coefficients.
 
     Attributes:
-        - altitude (array-like): array of altitude ASL to be used to compute the rayleigh profile, in m.
-        - wavelength (float): Wavelength of the Rayleigh profile to be computed, in nm.
-        - T0 (float): Temperature at ground level, in K.
-        - P0 (float): Pressure at ground level, in hPa.
+        altitude (array-like): array of altitude ASL to be used to compute the rayleigh profile, in m.
+        wavelength (float): Wavelength of the Rayleigh profile to be computed, in nm.
+        T0 (float): Temperature at ground level, in K.
+        P0 (float): Pressure at ground level, in hPa.
 
     Example:
-        >>> # some imports
-        >>> import aprofiles as apro
-        >>> import numpy as np
-        >>> # creates altitude array
-        >>> altitude = np.arange(15,15000,15)
-        >>> wavelength = 1064.
-        >>> # produce rayleigh profile
-        >>> rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
+        ```python
+        # some imports
+        import aprofiles as apro
+        import numpy as np
+        # creates altitude array
+        altitude = np.arange(15,15000,15)
+        wavelength = 1064.
+        # produce rayleigh profile
+        rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
         # checkout the instance attributes
-        >>> rayleigh.__dict__.keys()
+        rayleigh.__dict__.keys()
         dict_keys(['altitude', 'T0', 'P0', 'wavelength', 'cross_section', 'backscatter', 'extinction'])
+        ```
     """
 
     def __init__(self, altitude: list, wavelength: float, T0=298, P0=1013):
@@ -39,19 +42,22 @@ class RayleighData:
         self.get_optics_in_std_atmo()
 
     def get_optics_in_std_atmo(self):
-        """Function that returns *backscatter* and *extinction* profiles [#]_ for an instance of a :class:`RayleighData` class.
+        """
+        Function that returns *backscatter* and *extinction* profiles [#]_ for an instance of a (RayleighData): class.
 
         .. [#] Bucholtz, A. (1995). Rayleigh-scattering calculations for the terrestrial atmosphere. Applied optics, 34(15), 2765-2773.
 
         Returns:
-            :class:`aprofiles.rayleigh.RayleighData` object with additional attributes.
-                - `extinction` (:class:`numpy.ndarray`): extinction coefficient (m-1)
-                - `backscatter` (:class:`numpy.ndarray`): backscatter coefficient (m-1.sr-1)
-                - `cross_section` (:class:`numpy.ndarray`): cross section (cm-2)
+            (aprofiles.rayleigh.RayleighData): object with additional attributes:
+
+                - `extinction` (numpy.ndarray): extinction coefficient (m-1)
+                - `backscatter` (numpy.ndarray): backscatter coefficient (m-1.sr-1)
+                - `cross_section` (numpy.ndarray): cross section (cm-2)
         """
 
         def _refi_air(wavelength):
-            """Function that calculates the refractive index of the air at a given wavelength in a standard atmosphere [#]_.
+            """
+            Function that calculates the refractive index of the air at a given wavelength in a standard atmosphere [#]_.
 
             .. [#] Peck, E. R., & Reeder, K. (1972). Dispersion of air. JOSA, 62(8), 958-962.
 
@@ -136,21 +142,24 @@ class RayleighData:
         return self
 
     def plot(self, show_fig=True):
-        """Plot extinction profile of an instance of the :class:`RayleighData` class.
+        """
+        Plot extinction profile of an instance of the (RayleighData): class.
 
         Example:
-            >>> # some imports
-            >>> import aprofiles as apro
-            >>> import numpy as np
-            >>> # creates altitude array
-            >>> altitude = np.arange(15,15000,15)
-            >>> wavelength = 1064.
-            >>> # produce rayleigh profile
-            >>> rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
-            >>> # plot profile
-            >>> rayleigh.plot()
+            ```python
+            # some imports
+            import aprofiles as apro
+            import numpy as np
+            # creates altitude array
+            altitude = np.arange(15,15000,15)
+            wavelength = 1064.
+            # produce rayleigh profile
+            rayleigh = apro.rayleigh.RayleighData(altitude, wavelength, T0=298, P0=1013);
+            # plot profile
+            rayleigh.plot()
+            ```
 
-            .. figure:: ../../docs/_static/images/rayleigh.png
+            .. figure:: ../../docs/assets/images/rayleigh.png
                 :scale: 80 %
                 :alt: rayleigh profile
 

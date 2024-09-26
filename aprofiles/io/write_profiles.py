@@ -11,22 +11,14 @@ import xarray as xr
 
 
 def write(profiles, base_dir, verbose):
-    """Writing method for an instance of a :class:`aprofiles.profiles.ProfilesData` class.
+    """
+    Writing method for an instance of a (aprofiles.profiles.ProfilesData): class.
 
     Args:
-        - aprofiles (:class:`aprofiles.profiles.ProfilesData`): Object to be written.
-        - base_dir (str): Base path of the file should be written.
-        - verbose (bool): Verbose mode. Defaults to False.
+        profiles (aprofiles.profiles.ProfilesData): Object to be written.
+        base_dir (str): Base path of the file should be written.
+        verbose (bool): Verbose mode.
     """
-    
-    def _convert_time_after_epoch(ds):
-        time_attrs = ds["time"].attrs
-        ds = ds.assign_coords(time=ds.time.data.astype(f"datetime64[ms]").astype(f'float32'))
-        # milliseconds to days
-        ds['time'] = ds['time'] / (1000 * 60 * 60 * 24)
-        ds["time"] = ds["time"].assign_attrs(time_attrs)
-        ds["time"].attrs['units'] = 'days since 1970-01-01T00:00:00'
-        return ds
     
     def _classify_scene(ds):
         lowest_clouds = profiles._get_lowest_clouds()
@@ -131,21 +123,20 @@ def write(profiles, base_dir, verbose):
     for nodim_var in nodim_variables:
         ds_towrite.attrs[nodim_var] = ds_towrite[nodim_var].data
         ds_towrite = ds_towrite.drop(nodim_var)
-
-    # converts time
-    ds_towrite = _convert_time_after_epoch(ds_towrite)
     
     # add altitude direction
     ds_towrite["altitude"] = ds_towrite["altitude"].assign_attrs({
         'positive': "up"
     })
 
-    # convert int64 to int32
+    # encoding with compression
     encoding = {}
     for varname, var in ds_towrite.variables.items():
         if varname == "time": continue
         if var.dtype == np.int64:
-            encoding[varname] = {"dtype": np.int32}
+            encoding[varname] = {"dtype": np.int32, "zlib": True, "chunksizes": var.shape}
+        if varname in ["extinction", "clouds_bases", "clouds_peaks", "clouds_tops"]:
+            encoding[varname] = {"zlib": True, "chunksizes": var.shape}
     
     # convert also the quality_flag's variable flag_values attribute also to NC_INT instead of NC_INT64
     ds_towrite["quality_flag"] = ds_towrite.quality_flag.assign_attrs({'flag_values': np.array([0,1,2], dtype=np.int32)})

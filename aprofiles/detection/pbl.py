@@ -21,35 +21,35 @@ def detect_pbl(
     Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.
 
     Args:
-        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
-        - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL. Defaults to `1`.
-        - zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL. Defaults to `100`.
-        - zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL. Defaults to `3000`.
-        - wav_width (float, optional): Width of the wavelet used in the convolution, in m. Defaults to `200`.
-        - under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile. Defaults to `True`.
-        - min_snr (float, optional). Minimum SNR at the retrieved PBL height required to return a valid value. Defaults to `1.`.
-        - verbose (bool, optional): verbose mode. Defaults to `False`.
+        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
+        time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL.
+        zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL.
+        zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL.
+        wav_width (float, optional): Width of the wavelet used in the convolution, in m.
+        under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile.
+        min_snr (float, optional): Minimum SNR at the retrieved PBL height required to return a valid value.
+        verbose (bool, optional): verbose mode.
 
     Returns:
-        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray` in :attr:`aprofiles.profiles.ProfilesData.data`.
+        (aprofiles.profiles.ProfilesData): 
+            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):
+            
             - `'pbl' (time, altitude)`: mask array corresponding to the pbl height.
 
     Example:
-        >>> import aprofiles as apro
-        >>> # read example file
-        >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-        >>> reader = apro.reader.ReadProfiles(path)
-        >>> profiles = reader.read()
-        >>> # pbl detection
-        >>> profiles.pbl(zmin=100., zmax=3000.)
-        >>> # attenuated backscatter image with pbl up to 6km of altitude
-        >>> profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
+        ```python
+        import aprofiles as apro
+        # read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        # pbl detection
+        profiles.pbl(zmin=100., zmax=3000.)
+        # attenuated backscatter image with pbl up to 6km of altitude
+        profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)
+        ```
 
-        .. figure:: ../../examples/images/pbl.png
-            :scale: 50 %
-            :alt: clouds detection
-
-            Planetary Boundary Layer Height detection.
+        ![Planetary Boundary Layer Height detection](../../assets/images/pbl.png)
     """
 
     from scipy.ndimage.filters import uniform_filter1d

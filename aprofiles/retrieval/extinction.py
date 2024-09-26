@@ -12,22 +12,26 @@ from .ref_altitude import get_iref
 
 
 def backward_inversion(data, iref, apriori, rayleigh):
-    """Backward (Klett [#]_ ) inversion method.
+    """
+    Backward (Klett [Klett1985]_ ) inversion method.
 
-    .. [#] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.
+    .. [Klett1985] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.
 
     Args:
-        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient.
-        - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
-        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
-        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.
+        data (array_like): 1D array of a single profile of the attenuated backscatter coefficient.
+        iref (float): Index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
+        apriori (dict): A priori values used to constrain the inversion. Valid keys include:
+            - **lr** (float): Lidar Ratio (in sr).
+            - **aod** (float): AOD (unitless).
+        rayleigh (:class:`aprofiles.rayleigh.RayleighData`): Instance of the `RayleighData` class.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.
 
     Returns:
-        array_like: Extinction coefficient, in m-1.
+        (array_like): Extinction coefficient (in m⁻¹).
     """
+
 
     if "aod" in apriori:
         # search by dichotomy the LR that matches the apriori aod
@@ -76,16 +80,16 @@ def forward_inversion(data, iref, apriori, rayleigh):
     After the convergence, the aerosol extinction is retrieved in the next upper layer.
 
     Args:
-        - data (array_like): 1D Array of single profile of attenuated backscatter coefficient, in m-1.sr-1.
-        - iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
-        - apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
-        - rayleigh (:class:`aprofiles.rayleigh.RayleighData`). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.
+        data (array_like): 1D Array of single profile of attenuated backscatter coefficient, in m-1.sr-1.
+        iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.
+        apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
+        rayleigh (aprofiles.rayleigh.RayleighData). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.
 
     Returns:
-        array_like: Extinction coefficient, in m-1.
+        (array_like): Extinction coefficient (in m⁻¹).
     """
 
     if "aod" in apriori:
@@ -154,63 +158,59 @@ def inversion(
     """Aerosol inversion of the attenuated backscatter profiles using an apriori.
 
     Args:
-        - profiles (:class:`aprofiles.profiles.ProfilesData`): `ProfilesData` instance.
-        - time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles. Defaults to 1.
-        - zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude. Defaults to 4000..
-        - zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude. Defaults to 6000..
-        - min_snr (float, optional). Minimum SNR required at the reference altitude to be valid. Defaults to 0.
-        - under_clouds (bool, optional): If True, and if the `ProfilesData` has a `cloud_base` variable (returned by the `clouds` method), forces the initialization altitude to be found below the first cloud detected in the profile. Defaults to True.
-        - method ({‘backward’, ‘forward’}, optional). Defaults to ‘forward’.
-        - apriori (dict, optional). A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless). Defaults to {‘lr’: 50}.
-        - remove_outliers (bool, optional). Remove profiles considered as outliers based on aod calculation (AOD<0, or AOD>2). Defaults to False (while development. to be changed afterwards).
-        - verbose (bool, optional): verbose mode. Defaults to False.
+        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
+        time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles.
+        zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude.
+        zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude.
+        min_snr (float, optional): Minimum SNR required at the reference altitude to be valid.
+        under_clouds (bool, optional): If True, and if the `ProfilesData` has a `cloud_base` variable (returned by the `clouds` method), forces the initialization altitude to be found below the first cloud detected in the profile.
+        method (str, optional): must be in [‘backward’, ‘forward’].
+        apriori (dict, optional): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
+        remove_outliers (bool, optional): Remove profiles considered as outliers based on aod calculation (AOD<0, or AOD>2).
+        verbose (bool, optional): verbose mode.
 
     Raises:
         NotImplementedError: AOD apriori is not implemented yet.
 
     Returns:
-        :class:`aprofiles.profiles.ProfilesData` object with additional :class:`xarray.DataArray`.
+        (aprofiles.profiles.ProfilesData):
+            object with additional (xarray.DataArray):
+
             - `'extinction' (time, altitude)`: 2D array corresponding to the aerosol extinction, in km-1.
             - `'aod' (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.
             - `'lidar_ratio' (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.
 
+    Example:
+        Profiles preparation
+        ```python
+        import aprofiles as apro
+        #read example file
+        path = "examples/data/L2_0-20000-001492_A20210909.nc"
+        reader = apro.reader.ReadProfiles(path)
+        profiles = reader.read()
+        #extrapolate lowest layers
+        profiles.extrapolate_below(z=150, inplace=True)
+        ```
 
-        Example:
-            Profiles preparation
+        Backward inversion
+        ```python
+        #aerosol inversion
+        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='backward')
+        #plot extinction profiles
+        profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
+        ```
 
-            >>> import aprofiles as apro
-            >>> #read example file
-            >>> path = "examples/data/L2_0-20000-001492_A20210909.nc"
-            >>> reader = apro.reader.ReadProfiles(path)
-            >>> profiles = reader.read()
-            >>> #extrapolate lowest layers
-            >>> profiles.extrapolate_below(z=150, inplace=True)
+        ![Extinction profiles retrieved with the backward method](../../assets/images/backward.png)
 
-            Backward inversion
+        Forward inversion
+        ```python
+        #aerosol inversion
+        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='forward')
+        #plot extinction profiles
+        profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
+        ```
 
-            >>> #aerosol inversion
-            >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='backward')
-            >>> #plot extinction profiles
-            >>> profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
-
-            .. figure:: ../../docs/_static/images/backward.png
-                :scale: 50 %
-                :alt: clouds detection
-
-                Extinction profiles retrieved with the backward method.
-
-            Forward inversion
-
-            >>> #aerosol inversion
-            >>> profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='forward')
-            >>> #plot extinction profiles
-            >>> profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)
-
-            .. figure:: ../../docs/_static/images/forward.png
-                :scale: 50 %
-                :alt: clouds detection
-
-                Extinction profiles retrieved with the forward method.
+        ![Extinction profiles retrieved with the forward method](../../assets/images/forward.png)
     """
 
     # we work on profiles averaged in time to reduce the noise

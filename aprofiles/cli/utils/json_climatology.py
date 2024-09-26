@@ -30,12 +30,12 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
             if isinstance(attrs[attr], np.uint32):
                 attrs[attr] = int(attrs[attr])
         
-        # seasonal resampling
-        Qds = ds.resample(time="QE").mean().compute()
-
         # keep only clear scenes
         if aerosols_only:
-            Qds = Qds.where((Qds.retrieval_scene <= 1) & (Qds.cloud_amount == 0))
+            ds = ds.where((ds.retrieval_scene <= 1) & (ds.cloud_amount == 0))
+            
+        # seasonal resampling
+        Qds = ds.resample(time="QE").mean().compute()
 
         # add some statistics
         attrs["ndays"] = {"ndays": len(station_files), "since": str(ds.time.data[0]).split("T")[0]}
