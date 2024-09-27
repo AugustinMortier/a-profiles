@@ -7,7 +7,7 @@
             "inversion": {
                 "method": "forward",
                 "apriori": {
-                    "cfg": "config/lr_ifs.json"
+                    "cfg": "lr_ifs.json"
                 }
             }
         },
