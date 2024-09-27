@@ -245,6 +245,21 @@ def inversion(
     rayleigh = apro.rayleigh.RayleighData(
         altitude, T0=298, P0=1013, wavelength=wavelength
     )
+    
+    # apriori definition
+    if 'cfg' in apriori:
+        cfg_path = apriori['cfg']
+        # open config 
+        f = open(Path(Path(__file__).parent, '..', cfg_path))
+        cfg = json.load(f)
+        f.close()
+        station_id = f'{profiles._data.attrs["wigos_station_id"]}-{profiles._data.attrs["instrument_id"]}'
+        if station_id in cfg:
+            apriori = cfg[station_id]["apriori"]
+        else:
+            apriori = cfg["attributes"]["default"]["apriori"]
+    else:
+        cfg = None
 
     # aerosol inversion
     ext, lr, aod, z_ref = [], [], [], []
@@ -266,20 +281,6 @@ def inversion(
         elif method == "forward":
             iref = imax
         z_ref.append(altitude[iref])
-        
-        if 'cfg' in apriori:
-            cfg_path = apriori['cfg']
-            # open config 
-            f = open(Path(Path(__file__).parent, '..', cfg_path))
-            cfg = json.load(f)
-            f.close()
-            station_id = f'{profiles._data.attrs["wigos_station_id"]}-{profiles._data.attrs["instrument_id"]}'
-            if station_id in cfg:
-                apriori = cfg[station_id]["apriori"]
-            else:
-                apriori = cfg["attributes"]["default"]["apriori"]
-        else:
-            cfg = None
 
         if iref is not None:
             # aerosol inversion
@@ -319,7 +320,7 @@ def inversion(
         'apriori_variable': list(apriori.keys())[0],
         'apriori_value': apriori[list(apriori.keys())[0]],
         })
-    if cfg:
+    if cfg is not None:
         profiles.data["extinction"] = profiles.data.extinction.assign_attrs({
             'use_cfg': 'True',
             'cfg_file': cfg_path,
