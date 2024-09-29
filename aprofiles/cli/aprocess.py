@@ -180,7 +180,8 @@ def main(
                         utils.json_climatology.compute_climatology,
                         basedir_out, 
                         station_id, 
-                        variables="extinction", 
+                        season_variables=["extinction"],
+                        all_variables=["aod", "lidar_ratio"],
                         aerosols_only=True
                     )
                     for station_id in stations_id]
@@ -188,7 +189,7 @@ def main(
                         progress.update(task, advance=1)
         else:
             for station_id in track(stations_id, description='clim.        ', disable=disable_progress_bar):
-                utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
+                utils.json_climatology.compute_climatology(basedir_out, station_id, season_variables=["extinction"], all_variables=["aod", "lidar_ratio"], aerosols_only=True)
 
 
 if __name__ == "__main__":
