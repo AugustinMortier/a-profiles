@@ -320,21 +320,6 @@ def inversion(
         'apriori_variable': list(apriori.keys())[0],
         'apriori_value': apriori[list(apriori.keys())[0]],
         })
-    if cfg is not None:
-        profiles.data["extinction"] = profiles.data.extinction.assign_attrs({
-            'use_cfg': 'True',
-            'cfg_file': cfg_path,
-            'use_default': str(not station_id in cfg),
-            'cfg_attributes': str(cfg.get('attributes'))
-        })
-        if cfg.get(station_id):
-            profiles.data["extinction"] = profiles.data.extinction.assign_attrs({
-                f'cfg_{station_id}': str(cfg.get(station_id)),
-            })
-    else:
-        profiles.data["extinction"] = profiles.data.extinction.assign_attrs({
-            'use_cfg': 'False'
-        })
 
     profiles.data["aod"] = ("time", aod)
     profiles.data["aod"] = profiles.data.aod.assign_attrs({
@@ -347,6 +332,21 @@ def inversion(
         'long_name': f"Lidar Ratio @ {int(wavelength)} nm",
         'units': 'sr'
     })
+    if cfg is not None:
+        profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
+            'use_cfg': 'True',
+            'cfg_file': cfg_path,
+            'use_default': str(not station_id in cfg),
+            'cfg_attributes': str(cfg.get('attributes'))
+        })
+        if cfg.get(station_id):
+            profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
+                f'cfg_{station_id}': str(cfg.get(station_id)),
+            })
+    else:
+        profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
+            'use_cfg': 'False'
+        })
 
     profiles.data["z_ref"] = ('time', z_ref)
     profiles.data["z_ref"] = profiles.data.z_ref.assign_attrs({
