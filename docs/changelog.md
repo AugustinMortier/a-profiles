@@ -2,6 +2,16 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.8.4
+Sep 27, 2024
+
+- Add `lidar_ratio` to maps.json
+
+## 0.8.3
+Sep 26, 2024
+
+- Fix time precision (double instead of float)
+  
 ## 0.8.2
 Sep 25, 2024
 

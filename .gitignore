@@ -1,9 +1,6 @@
 .vscode
 dev.ipynb
-data/e-profile
-data/e-profile_test
-data/v-profiles
-data/debug
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

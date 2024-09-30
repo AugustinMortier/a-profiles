@@ -54,6 +54,11 @@ def main(
         writable=True,
         help="📂 Base path for output data."
     ),
+    apriori_cfg: Path = typer.Option(
+        "config",
+        help="📂 Base path for a priori config file."
+    ),
+    
     update_data: bool = typer.Option(True, help="📈 Update data."),
     update_calendar: bool = typer.Option(True, help="🗓️ Update calendar."),
     update_map: bool = typer.Option(True, help="🗺️ Update map."),
@@ -92,6 +97,12 @@ def main(
 
     # read config file
     CFG = utils.config.read()
+    
+    # insert apriori config path
+    for instrument_type in CFG["parameters"]:
+        apriori = CFG["parameters"][instrument_type]["inversion"]["apriori"]
+        if "cfg" in apriori:
+            CFG["parameters"][instrument_type]["inversion"]["apriori"]["cfg"] = str(Path(apriori_cfg, apriori["cfg"]))
 
     for date in dates:
         yyyy = str(date.year)
@@ -169,7 +180,8 @@ def main(
                         utils.json_climatology.compute_climatology,
                         basedir_out, 
                         station_id, 
-                        variables="extinction", 
+                        season_variables=["extinction"],
+                        all_variables=["aod", "lidar_ratio"],
                         aerosols_only=True
                     )
                     for station_id in stations_id]
@@ -177,7 +189,7 @@ def main(
                         progress.update(task, advance=1)
         else:
             for station_id in track(stations_id, description='clim.        ', disable=disable_progress_bar):
-                utils.json_climatology.compute_climatology(basedir_out, station_id, variables="extinction", aerosols_only=True)
+                utils.json_climatology.compute_climatology(basedir_out, station_id, season_variables=["extinction"], all_variables=["aod", "lidar_ratio"], aerosols_only=True)
 
 
 if __name__ == "__main__":

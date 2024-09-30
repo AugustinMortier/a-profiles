@@ -3,6 +3,8 @@
 
 import warnings
 
+import json
+from pathlib import Path
 import numpy as np
 from rich.progress import track
 
@@ -96,7 +98,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
         # search by dichotomy the LR that matches the apriori aod
         raise NotImplementedError("AOD apriori is not implemented yet")
         lr_aer = 50
-    else:
+    elif "lr" in apriori:
         # if we assume the LR, no need to minimize for matching aod
         lr_aer = apriori["lr"]
     lr_mol = 8.0 * np.pi / 3.0
@@ -165,7 +167,7 @@ def inversion(
         min_snr (float, optional): Minimum SNR required at the reference altitude to be valid.
         under_clouds (bool, optional): If True, and if the `ProfilesData` has a `cloud_base` variable (returned by the `clouds` method), forces the initialization altitude to be found below the first cloud detected in the profile.
         method (str, optional): must be in [‘backward’, ‘forward’].
-        apriori (dict, optional): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).
+        apriori (dict, optional): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr), ‘aod’ (unitless), 'cfg' (path of config file).
         remove_outliers (bool, optional): Remove profiles considered as outliers based on aod calculation (AOD<0, or AOD>2).
         verbose (bool, optional): verbose mode.
 
@@ -243,6 +245,21 @@ def inversion(
     rayleigh = apro.rayleigh.RayleighData(
         altitude, T0=298, P0=1013, wavelength=wavelength
     )
+    
+    # apriori definition
+    if 'cfg' in apriori:
+        cfg_path = apriori['cfg']
+        # open config 
+        f = open(Path(Path(__file__).parent, '..', cfg_path))
+        cfg = json.load(f)
+        f.close()
+        station_id = f'{profiles._data.attrs["wigos_station_id"]}-{profiles._data.attrs["instrument_id"]}'
+        if station_id in cfg:
+            apriori = cfg[station_id]["apriori"]
+        else:
+            apriori = cfg["attributes"]["default"]["apriori"]
+    else:
+        cfg = None
 
     # aerosol inversion
     ext, lr, aod, z_ref = [], [], [], []
@@ -315,6 +332,21 @@ def inversion(
         'long_name': f"Lidar Ratio @ {int(wavelength)} nm",
         'units': 'sr'
     })
+    if cfg is not None:
+        profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
+            'use_cfg': 'True',
+            'cfg_file': cfg_path,
+            'use_default': str(not station_id in cfg),
+            'cfg_attributes': str(cfg.get('attributes'))
+        })
+        if cfg.get(station_id):
+            profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
+                f'cfg_{station_id}': str(cfg.get(station_id)),
+            })
+    else:
+        profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
+            'use_cfg': 'False'
+        })
 
     profiles.data["z_ref"] = ('time', z_ref)
     profiles.data["z_ref"] = profiles.data.z_ref.assign_attrs({

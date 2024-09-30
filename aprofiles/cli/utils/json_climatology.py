@@ -1,4 +1,4 @@
-# @author Augustin Mortier
+    # @author Augustin Mortier
 # @desc A-Profiles - Code for creating climatology json file to be used in V-Profiles
 
 from datetime import datetime
@@ -10,7 +10,7 @@ import orjson
 import xarray as xr
 
 
-def compute_climatology(basedir, station_id, variables, aerosols_only):
+def compute_climatology(basedir, station_id, season_variables, all_variables, aerosols_only):
     # get all files
     station_files = []
     for root, dirs, files in os.walk(basedir, followlinks=True):
@@ -20,7 +20,7 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
     try:
         # open dataset with xarray
-        vars = variables.split("-") + ['retrieval_scene', 'cloud_amount', 'scene']
+        vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
         ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1)[vars].load()
         
         # store attributes which are destroyed by the resampling method
@@ -48,13 +48,14 @@ def compute_climatology(basedir, station_id, variables, aerosols_only):
 
         # select variables
         multivars_dict = {}
-        vars = variables.split("-")
-        vars.append("ndays")
 
-        for var in vars:
-            # dataarray
-            da = Qds[var]
-            multivars_dict[var] = da.to_dict()
+        # add seasonal variables
+        for var in season_variables + ["ndays"]:
+            multivars_dict[var] = Qds[var].to_dict()
+        
+        # add all variables
+        for var in all_variables:
+            multivars_dict[var] = ds[var].to_dict()
 
         # add attributes as separate key
         multivars_dict["attrs"] = attrs
