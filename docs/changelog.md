@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.9.0
+Sep 30, 2024
+
+- Add `aod` and `lidar_ratio` to climatology files
+
 ## 0.8.4
 Sep 27, 2024
 
