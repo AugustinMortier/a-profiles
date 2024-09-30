@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.9.1
+Sep 30, 2024
+
+- fix pip version number
+  
 ## 0.9.0
 Sep 30, 2024
 
