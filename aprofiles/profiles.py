@@ -95,9 +95,6 @@ class ProfilesData:
         Returns:
             (ProfilesData): object with additional (xarray.DataArray): `snr`.
 
-        .. note::
-            This calculation is relatively heavy in terms of calculation.
-
         Example:
             ```python
             import aprofiles as apro
@@ -105,36 +102,43 @@ class ProfilesData:
             path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
             reader = apro.reader.ReadProfiles(path)
             profiles = reader.read()
-            # snr calculcation
+            # snr calculation
             profiles.snr()
             # snr image
             profiles.plot(var='snr',vmin=0, vmax=3, cmap='Greys_r')
             ```
-
-            ![Signal to Noise Ratio](../../assets/images/snr.png)
         """
-
-        def _1D_snr(array, step):
-            array = np.asarray(array)
-            snr = []
-            for i in np.arange(len(array)):
-                gates = np.arange(i - step, i + step)
-                indexes = [i for i in gates if i > 0 and i < len(array)]
-                mean = np.nanmean(array[indexes])
-                std = np.nanstd(array[indexes])
-                if std != 0:
-                    snr.append(mean / std)
-                else:
-                    snr.append(0)
-            return np.asarray(snr)
-
-        snr = []
-
-        for i in (track(range(len(self.data.time.data)), description="snr   ", disable=not verbose)):
-            snr.append(_1D_snr(self.data[var].data[i, :], step))
-
-        # creates dataarrays
-        self.data["snr"] = (('time', 'altitude'), np.asarray(snr))
+        
+        # Get the dimensions of the data array
+        time_len, altitude_len = self.data[var].shape
+        
+        # Preallocate the SNR array with zeros
+        snr_array = np.zeros((time_len, altitude_len))
+        
+        # Loop over each time step
+        for t in track(range(time_len), description="snr   ", disable=not verbose):
+            # Extract 1D slice for current time step
+            array = self.data[var].data[t, :]
+            
+            # Create a sliding window view for the rolling calculation
+            sliding_windows = np.lib.stride_tricks.sliding_window_view(array, window_shape=2*step+1, axis=0)
+            
+            # Calculate mean and std across the window axis
+            means = np.nanmean(sliding_windows, axis=1)
+            stds = np.nanstd(sliding_windows, axis=1)
+            
+            # Handle the edges (where sliding window can't be applied due to boundary)
+            means = np.pad(means, pad_width=(step,), mode='constant', constant_values=np.nan)
+            stds = np.pad(stds, pad_width=(step,), mode='constant', constant_values=np.nan)
+            
+            # Avoid division by zero
+            stds = np.where(stds == 0, np.nan, stds)
+            
+            # Compute SNR
+            snr_array[t, :] = np.divide(means, stds, where=(stds != 0))
+        
+        # Add the SNR DataArray to the object's data attribute
+        self.data["snr"] = (('time', 'altitude'), snr_array)
         self.data["snr"] = self.data.snr.assign_attrs({
             'long_name': 'Signal to Noise Ratio',
             'units': '',
