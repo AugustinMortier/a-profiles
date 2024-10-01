@@ -2,6 +2,13 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.9.2
+Oct 1, 2024
+
+- change snr calculation
+- fix build
+- sort climatology by time
+
 ## 0.9.1
 Sep 30, 2024
 
