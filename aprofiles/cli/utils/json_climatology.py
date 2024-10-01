@@ -21,7 +21,7 @@ def compute_climatology(basedir, station_id, season_variables, all_variables, ae
     try:
         # open dataset with xarray
         vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
-        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1)[vars].load()
+        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1)[vars].order_by('time').load()
         
         # store attributes which are destroyed by the resampling method
         attrs = ds.attrs
