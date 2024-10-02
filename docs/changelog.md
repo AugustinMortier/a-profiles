@@ -2,10 +2,16 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.9.6
+Oct 2, 2024
+
+- fix time unit in cliamatology files
+- fix typo in documentation
+  
 ## 0.9.5
 Oct 2, 2024
 
-- write time as int in cliamatology files
+- write time as int in climatology files
   
 ## 0.9.4
 Oct 2, 2024
