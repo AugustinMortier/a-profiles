@@ -5,7 +5,7 @@
 ## 0.9.6
 Oct 2, 2024
 
-- fix time unit in cliamatology files
+- fix time unit in climatology files
 - fix typo in documentation
   
 ## 0.9.5
