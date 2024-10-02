@@ -45,8 +45,8 @@ def compute_climatology(basedir, station_id, season_variables, all_variables, ae
         Qds["ndays"] = ds.scene.resample(time="D").count().resample(time="QE").count()
 
         # add Z to time
-        ds.coords['time'] = ds['time'].astype(int)
-        Qds.coords['time'] = Qds['time'].astype(int)
+        ds.coords['time'] = (ds['time'].astype(int)  * 1e-6).astype(int)
+        Qds.coords['time'] = (Qds['time'].astype(int)  * 1e-6).astype(int)
 
         # select variables
         multivars_dict = {}
