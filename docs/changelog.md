@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.9.5
+Oct 2, 2024
+
+- write time as int in cliamatology files
+  
 ## 0.9.4
 Oct 2, 2024
 
