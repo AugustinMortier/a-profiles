@@ -17,11 +17,11 @@ def compute_climatology(basedir, station_id, season_variables, all_variables, ae
         for file in files:
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
-
+    
     try:
         # open dataset with xarray
         vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
-        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1)[vars].order_by('time').load()
+        ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1)[vars].load()
         
         # store attributes which are destroyed by the resampling method
         attrs = ds.attrs
@@ -44,7 +44,9 @@ def compute_climatology(basedir, station_id, season_variables, all_variables, ae
         # add number of days per season as a new variable
         Qds["ndays"] = ds.scene.resample(time="D").count().resample(time="QE").count()
 
-        # work with selected variable
+        # add Z to time
+        ds.coords['time'] = ds['time'].dt.strftime('%Y-%m-%dT%H:%M:%SZ')
+        Qds.coords['time'] = ds['time'].dt.strftime('%Y-%m-%dT%H:%M:%SZ')
 
         # select variables
         multivars_dict = {}

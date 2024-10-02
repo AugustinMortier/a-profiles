@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.9.3
+Oct 2, 2024
+
+- add Z as suffix to time in climatology json files
+
 ## 0.9.2
 Oct 1, 2024
 
