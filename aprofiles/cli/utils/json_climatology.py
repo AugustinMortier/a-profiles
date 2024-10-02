@@ -46,7 +46,7 @@ def compute_climatology(basedir, station_id, season_variables, all_variables, ae
 
         # add Z to time
         ds.coords['time'] = ds['time'].dt.strftime('%Y-%m-%dT%H:%M:%SZ')
-        Qds.coords['time'] = ds['time'].dt.strftime('%Y-%m-%dT%H:%M:%SZ')
+        Qds.coords['time'] = Qds['time'].dt.strftime('%Y-%m-%dT%H:%M:%SZ')
 
         # select variables
         multivars_dict = {}
