@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.9.7
+Oct 3, 2024
+
+- round up values in climatology files
+
 ## 0.9.6
 Oct 2, 2024
 

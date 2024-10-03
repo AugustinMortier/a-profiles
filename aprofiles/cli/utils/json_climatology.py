@@ -48,16 +48,20 @@ def compute_climatology(basedir, station_id, season_variables, all_variables, ae
         ds.coords['time'] = (ds['time'].astype(int)  * 1e-6).astype(int)
         Qds.coords['time'] = (Qds['time'].astype(int)  * 1e-6).astype(int)
 
+        # round altitude to 3 decimals
+        ds.coords['altitude'] = ds['altitude'].round(3)
+        Qds.coords['altitude'] = Qds['altitude'].round(3)
+
         # select variables
         multivars_dict = {}
 
         # add seasonal variables
         for var in season_variables + ["ndays"]:
-            multivars_dict[var] = Qds[var].to_dict()
+            multivars_dict[var] = Qds[var].round(6).to_dict()
         
         # add all variables
         for var in all_variables:
-            multivars_dict[var] = ds[var].to_dict()
+            multivars_dict[var] = ds[var].round(6).to_dict()
 
         # add attributes as separate key
         multivars_dict["attrs"] = attrs
