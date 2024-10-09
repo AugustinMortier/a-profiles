@@ -19,21 +19,21 @@ required extras:
 
 :simple-pipx: via *pip/pipx*
 
-```
+``` bash
 pip install .[cli]
 ```
 
 :simple-poetry: via *poetry*
 
-```
+``` bash
 poetry install --extras cli
 ```
 
 ## Documentation
 
-`apro` commands which can be listed with
+`apro` commands can be listed with `apro --help`
 
-``` console
+``` bash
 apro --help
                                                                                                                                        
  Usage: apro [OPTIONS] COMMAND [ARGS]...                                                                                               
@@ -52,7 +52,7 @@ apro --help
 
 ### `run` command
 
-```
+``` bash
 apro run --help
                                                                                                                                         
  Usage: apro run [OPTIONS]                                                                                                              
@@ -90,19 +90,19 @@ apro run --help
 
 ##### run a specific date
 
-```
+``` bash
 apro run --date 2021-09-09
 ```
 
 ##### run today\'s files
 
-```
+``` bash
 apro run --today
 ```
 
 ##### run yesterday\'s files
 
-```
+``` bash
 apro run --yesterday
 ```
 
@@ -110,13 +110,13 @@ It is possible to combine different options.
 
 ##### run today\'s and yesterday\'s files for CHM15k only
 
-```
+``` bash
 apro run --today --yesterday --instruments-type CHM15k
 ```
 
 ##### update only calendar files for 2021
 
-```
+``` bash
 apro run --from 2021-01-01 --to 2021-12-31 --no-update-data --no-update-map
 ```
 
@@ -124,14 +124,14 @@ apro run --from 2021-01-01 --to 2021-12-31 --no-update-data --no-update-map
 
 The data processing can be run in parallel by using the
 [`multiprocessing`] option :
-```
+``` bash
 apro run --today --yesterday --multiprocessing
 ```
 
 
 ### `l2b` command
 
-```
+``` bash
 apro l2b --help
                                                                                                                                         
  Usage: apro l2b [OPTIONS]                                                                                                              
