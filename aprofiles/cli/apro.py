@@ -22,7 +22,7 @@ class InstrumentType(str, Enum):
     cl61 = "CL61"
 
 @app.command()
-def main(
+def run(
     _dates: List[datetime] = typer.Option(
         [], "--date", formats=["%Y-%m-%d"], help="📅 Processing date."
     ),
@@ -66,9 +66,9 @@ def main(
     progress_bar: bool = typer.Option(True, help="⌛ Show progress bar."),
 ):
     """
-    Run aprofiles standard workflow for given dates, optionally for specific instruments types.
+    run aprofiles standard workflow for given dates and specific instruments types
     
-    See some examples here: https://a-profiles.readthedocs.io/en/latest/cli.html
+    see some examples [here](https://augustinmortier.github.io/a-profiles/cli/)
     """
 
     #typer.echo(f"dates: {dates}, today: {today}, yesterday: {yesterday}, from: {_from}, to: {_to}, instruments_types: {instruments_types}, multiprocessing: {multiprocessing}")
@@ -142,13 +142,13 @@ def main(
             calname = f"{yyyy}-{mm}-cal.json"
             path = Path(basedir_out, yyyy, mm, calname)
             if not path.is_file():
-                utils.json_calendar.make_calendar(basedir_out, yyyy, mm, calname)
+                utils.calendar.make_calendar(basedir_out, yyyy, mm, calname)
 
             # list all files in out directory
             onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
             # add to calendar
             for file in track(onlyfiles, description="calendar     ", disable=disable_progress_bar):
-                utils.json_calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
+                utils.calendar.add_to_calendar(file, basedir_out, yyyy, mm, dd, calname)
             
         
         if update_map:
@@ -156,13 +156,13 @@ def main(
             mapname = f"{yyyy}-{mm}-map.json"
             path = Path(basedir_out, yyyy, mm, mapname)
             if not path.is_file():
-                utils.json_map.make_map(basedir_out, yyyy, mm, mapname)
+                utils.map.make_map(basedir_out, yyyy, mm, mapname)
 
             # list all files in out directory
             onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
             # add to map
             for file in track(onlyfiles, description="map          ", disable=disable_progress_bar):
-                utils.json_map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
+                utils.map.add_to_map(file, basedir_out, yyyy, mm, dd, mapname)
 
     if update_climatology:
         # list all files in out directory
@@ -177,7 +177,7 @@ def main(
                 task = progress.add_task(total=len(stations_id), description=f"clim.      :rocket:", visible=not disable_progress_bar)
                 with concurrent.futures.ProcessPoolExecutor(max_workers=workers) as executor:
                     futures = [executor.submit(
-                        utils.json_climatology.compute_climatology,
+                        utils.climatology.compute_climatology,
                         basedir_out, 
                         station_id, 
                         season_variables=["extinction"],
@@ -189,8 +189,30 @@ def main(
                         progress.update(task, advance=1)
         else:
             for station_id in track(stations_id, description='clim.        ', disable=disable_progress_bar):
-                utils.json_climatology.compute_climatology(basedir_out, station_id, season_variables=["extinction"], all_variables=["aod", "lidar_ratio"], aerosols_only=True)
+                utils.climatology.compute_climatology(basedir_out, station_id, season_variables=["extinction"], all_variables=["aod", "lidar_ratio"], aerosols_only=True)
 
+
+@app.command()
+def l2b(
+        basedir_in: Path = typer.Option(
+            "data/v-profiles", exists=True, readable=True, help="📂 Base path for input data."
+        ),
+        basedir_out: Path = typer.Option(
+            "data/l2b", exists=True, writable=True, help="📂 Base path for output data."
+        ),
+        progress_bar: bool = typer.Option(True, help="⌛ Show progress bar.")
+    ):
+    """
+    make E-PROFILE L2b files out of AP files
+    """
+
+    # if basedir_in is "data/v-profiles", use today's date to find the directory
+    if basedir_in == Path("data/v-profiles"):
+        # get todays date
+        today = datetime.today()
+        basedir_in = Path(basedir_in, today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'))
+    
+    utils.l2b.make_files(basedir_in, basedir_out, progress_bar)
 
 if __name__ == "__main__":
     app()

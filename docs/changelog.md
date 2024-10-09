@@ -2,6 +2,13 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.10.0
+Oct 10, 2024
+
+- revisit CLI: two commands
+    - `apro run` (formerly `aprocess`: run standard workflow)
+    - `apro l2b` (creates L2b files out of AP files)
+
 ## 0.9.7
 Oct 3, 2024
 

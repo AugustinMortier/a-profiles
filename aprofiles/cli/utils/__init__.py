@@ -1,1 +1,1 @@
-from . import json_calendar, json_climatology, json_map, config, workflow
+from . import calendar, climatology, map, l2b, config, workflow
