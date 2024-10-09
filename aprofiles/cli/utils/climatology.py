@@ -10,10 +10,10 @@ import orjson
 import xarray as xr
 
 
-def compute_climatology(basedir, station_id, season_variables, all_variables, aerosols_only):
+def compute_climatology(path, station_id, season_variables, all_variables, aerosols_only):
     # get all files
     station_files = []
-    for root, dirs, files in os.walk(basedir, followlinks=True):
+    for root, dirs, files in os.walk(path, followlinks=True):
         for file in files:
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
@@ -67,7 +67,7 @@ def compute_climatology(basedir, station_id, season_variables, all_variables, ae
         multivars_dict["attrs"] = attrs
 
         # define path
-        clim_path = Path(basedir, "climato")
+        clim_path = Path(path, "climato")
         # create directory if does not exist
         clim_path.mkdir(parents=True, exist_ok=True)
 
