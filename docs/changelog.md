@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.10.1
+Oct 10, 2024
+
+- preserve time dimension in L2B files
+
 ## 0.10.0
 Oct 10, 2024
 

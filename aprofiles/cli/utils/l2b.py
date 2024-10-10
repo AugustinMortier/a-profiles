@@ -25,8 +25,8 @@ def make_files(path_in: Path, path_out: Path, time_steps: int, progress_bar: boo
         start_idx = max(0, ds.time.size - time_steps)
 
         for i in range(start_idx, ds.time.size):
-            ds1t = ds.isel(time=i)
-            mmhh = pd.to_datetime(ds1t.time.data).strftime('%H%M')
+            ds1t = ds.isel(time=slice(i,i+1))
+            mmhh = pd.to_datetime(ds1t.time[0].data).strftime('%H%M')
             file_name = Path(path_out, f"L2B_{unique_id}{yyyymmdd}{mmhh}.nc")
             ds1t.to_netcdf('out.nc')
             os.rename('out.nc',file_name)
