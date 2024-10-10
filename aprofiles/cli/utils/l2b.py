@@ -31,7 +31,7 @@ def make_files(path_in: Path, path_out: Path, progress_bar: bool) -> None:
         for i in myrange:
             ds1t = ds.isel(time=i)
             mmhh = pd.to_datetime(ds1t.time.data).strftime('%H%M')
-            file_name = Path(path_out, f"{unique_id}_{yyyymmdd}{mmhh}.nc")
+            file_name = Path(path_out, f"L2B_{unique_id}{yyyymmdd}{mmhh}.nc")
             ds1t.to_netcdf('out.nc')
             os.rename('out.nc',file_name)
 
