@@ -7,7 +7,7 @@ Oct 10, 2024
 
 - revisit CLI: two commands
     - `apro run` (formerly `aprocess`: run standard workflow)
-    - `apro l2b` (creates L2b files out of AP files)
+    - `apro l2b` (creates L2B files out of AP files)
 
 ## 0.9.7
 Oct 3, 2024
