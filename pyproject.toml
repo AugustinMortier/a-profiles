@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "aprofiles"
-version = "0.9.7"
+version = "0.10.0"
 description = "Analysis of atmospheric profilers measurements"
 authors = ["augustinm <augustinm@met.no>"]
 license = "GPL-3.0"
 
 [tool.poetry.scripts]
-aprocess = {callable = "aprofiles.cli.aprocess:app", extras = ["cli"]}
+apro = {callable = "aprofiles.cli.apro:app", extras = ["cli"]}
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
@@ -39,6 +39,7 @@ pymdown-extensions = "^10.10"
 mkdocstrings = {extras = ["python"], version = "^0.26.1"}
 markdown-include = "^0.8.1"
 mkdocs-copy = "^0.0.1"
+ipywidgets = "^8.1.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -7,12 +7,12 @@ from pathlib import Path
 import xarray as xr
 
 
-def make_calendar(base_dir, yyyy, mm, calname):
+def make_calendar(path, yyyy, mm, calname):
     # one calendar, per month
-    with open(Path(base_dir, yyyy, mm, calname), 'w') as json_file:
+    with open(Path(path, yyyy, mm, calname), 'w') as json_file:
         json.dump({}, json_file)
 
-def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
+def add_to_calendar(fn, path, yyyy, mm, dd, calname):
     # calendar collects the number of inversions with no low-level clouds (<6km) at each station
     # for each station, write number of each scene class (aer, cloud<6km, cloud>6km, )
     
@@ -28,7 +28,7 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     scene_counts['total'] = len(ds.retrieval_scene.data)
 
     # open current calendar
-    with open(Path(base_dir, yyyy, mm, calname), 'r') as json_file:
+    with open(Path(path, yyyy, mm, calname), 'r') as json_file:
         data = json.load(json_file)
     json_file.close()        
 
@@ -39,5 +39,5 @@ def add_to_calendar(fn, base_dir, yyyy, mm, dd, calname):
     data[station_id][dd] = scene_counts
 
     # write new calendar
-    with open(Path(base_dir, yyyy, mm, calname), 'w') as json_file:
+    with open(Path(path, yyyy, mm, calname), 'w') as json_file:
         json.dump(data, json_file)
