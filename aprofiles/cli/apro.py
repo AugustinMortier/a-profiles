@@ -200,6 +200,9 @@ def l2b(
         path_out: Path = typer.Option(
             "data/l2b", exists=True, writable=True, help="📂 Base path for output data."
         ),
+        time_steps: int = typer.Option(
+            12, help="🔂 Number of most recent time steps to be processed."
+        ),
         progress_bar: bool = typer.Option(True, help="⌛ Show progress bar.")
     ):
     """
@@ -212,7 +215,7 @@ def l2b(
         today = datetime.today()
         path_in = Path(path_in, today.strftime('%Y'), today.strftime('%m'), today.strftime('%d'))
     
-    utils.l2b.make_files(path_in, path_out, progress_bar)
+    utils.l2b.make_files(path_in, path_out, time_steps, progress_bar)
 
 if __name__ == "__main__":
     app()
