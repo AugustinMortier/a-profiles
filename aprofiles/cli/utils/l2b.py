@@ -21,12 +21,12 @@ def make_files(path_in: Path, path_out: Path, time_steps: int, progress_bar: boo
         unique_id = f"{ds.attrs['wigos_station_id']}_{ds.attrs['instrument_id']}"
         yyyymmdd = str(ds.time.data[0].astype('M8[D]')).replace('-','')        
         
-        # we just work with n latest time steps
-        start_idx = max(0, ds.time.size - time_steps)
-
-        for i in range(start_idx, ds.time.size):
-            ds1t = ds.isel(time=slice(i,i+1))
-            mmhh = pd.to_datetime(ds1t.time[0].data).strftime('%H%M')
-            file_name = Path(path_out, f"L2B_{unique_id}{yyyymmdd}{mmhh}.nc")
-            ds1t.to_netcdf('out.nc')
-            os.rename('out.nc',file_name)
+        # we just work with the 6 latest time steps, that is 30 min worth of data
+        start_idx = max(0, ds.time.size - 6)
+        ds30min = ds.isel(time=slice(start_idx,ds.time.size))
+        mmhh = pd.to_datetime(ds30min.time[0].data).strftime('%H%M')
+        
+        # write output file
+        file_name = Path(path_out, f"L2B_{unique_id}{yyyymmdd}{mmhh}.nc")
+        ds30min.to_netcdf('out.tmp')
+        os.rename('out.tmp',file_name)

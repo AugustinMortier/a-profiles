@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.10.2
+Oct 18, 2024
+
+- make 30 minutes batch L2b files
+
 ## 0.10.1
 Oct 10, 2024
 
