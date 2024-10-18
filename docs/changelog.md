@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.10.3
+Oct 18, 2024
+
+- use time_steps option (6 by default, for working with 30 minutes batch files)
+  
 ## 0.10.2
 Oct 18, 2024
 

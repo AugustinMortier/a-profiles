@@ -22,7 +22,7 @@ def make_files(path_in: Path, path_out: Path, time_steps: int, progress_bar: boo
         yyyymmdd = str(ds.time.data[0].astype('M8[D]')).replace('-','')        
         
         # we just work with the 6 latest time steps, that is 30 min worth of data
-        start_idx = max(0, ds.time.size - 6)
+        start_idx = max(0, ds.time.size - time_steps)
         ds30min = ds.isel(time=slice(start_idx,ds.time.size))
         mmhh = pd.to_datetime(ds30min.time[0].data).strftime('%H%M')
         

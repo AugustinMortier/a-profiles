@@ -201,7 +201,7 @@ def l2b(
             "data/l2b", exists=True, writable=True, help="📂 Base path for output data."
         ),
         time_steps: int = typer.Option(
-            12, help="🔂 Number of most recent time steps to be processed."
+            6, help="🔂 Number of most recent time steps to be processed."
         ),
         progress_bar: bool = typer.Option(True, help="⌛ Show progress bar.")
     ):
