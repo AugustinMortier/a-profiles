@@ -7,7 +7,7 @@
             "inversion": {
                 "method": "forward",
                 "apriori": {
-                    "cfg": "lr_ifs.json"
+                    "cfg": "aer_ifs.json"
                 }
             }
         },
@@ -15,7 +15,7 @@
             "inversion": {
                 "method": "forward",
                 "apriori": {
-                    "lr": 50
+                    "cfg": "aer_ifs.json"
                 }
             }
         },
@@ -23,7 +23,7 @@
             "inversion": {
                 "method": "forward",
                 "apriori": {
-                    "lr": 50
+                    "cfg": "aer_ifs.json"
                 }
             }
         }
