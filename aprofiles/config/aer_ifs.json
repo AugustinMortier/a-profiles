@@ -6,9 +6,7 @@
             "od550aerbc": 0.1,
             "od550aerdust": 0.2
         },
-        "apriori": {
-            "lr": 42
-        }
+        "lr": 42
     },
     "0-20000-0-01492-A": {
         "l0_wavelength": 1064.0,
@@ -17,21 +15,12 @@
             "od550aerbc": 0.1,
             "od550aerdust": 0.2
         },
-        "apriori": {
-            "lr": 42
-        }
+        "lr": 42
     },
     "attributes": {
         "default": {
-            "apriori": {
-                "lr": 48
-            }
+            "lr": 48
         },
-        "files": [
-            "od550.nc",
-            "od550bc.nc",
-            "..."
-        ],
         "date": "26-09-2024T09:20:00"
     }
 }
