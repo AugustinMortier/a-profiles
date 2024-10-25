@@ -245,21 +245,6 @@ def inversion(
     rayleigh = apro.rayleigh.RayleighData(
         altitude, T0=298, P0=1013, wavelength=wavelength
     )
-    
-    # apriori definition
-    if 'cfg' in apriori:
-        cfg_path = apriori['cfg']
-        # open config 
-        f = open(Path(Path(__file__).parent, '..', cfg_path))
-        cfg = json.load(f)
-        f.close()
-        station_id = f'{profiles._data.attrs["wigos_station_id"]}-{profiles._data.attrs["instrument_id"]}'
-        if station_id in cfg:
-            apriori = cfg[station_id]["apriori"]
-        else:
-            apriori = cfg["attributes"]["default"]["apriori"]
-    else:
-        cfg = None
 
     # aerosol inversion
     ext, lr, aod, z_ref = [], [], [], []
@@ -330,22 +315,12 @@ def inversion(
     profiles.data["lidar_ratio"] = ('time', lr)
     profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
         'long_name': f"Lidar Ratio @ {int(wavelength)} nm",
-        'units': 'sr'
+        'units': 'sr',
+        'use_cfg': apriori['use_cfg']
     })
-    if cfg is not None:
+    if 'cfg' in apriori:
         profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
-            'use_cfg': 'True',
-            'cfg_file': cfg_path,
-            'use_default': str(not station_id in cfg),
-            'cfg_attributes': str(cfg.get('attributes'))
-        })
-        if cfg.get(station_id):
-            profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
-                f'cfg_{station_id}': str(cfg.get(station_id)),
-            })
-    else:
-        profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
-            'use_cfg': 'False'
+            'cfg': str(apriori['cfg'])
         })
 
     profiles.data["z_ref"] = ('time', z_ref)
