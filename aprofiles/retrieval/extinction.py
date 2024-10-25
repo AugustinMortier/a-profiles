@@ -316,7 +316,7 @@ def inversion(
     profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
         'long_name': f"Lidar Ratio @ {int(wavelength)} nm",
         'units': 'sr',
-        'use_cfg': apriori['use_cfg']
+        'use_cfg': str(apriori['use_cfg'])
     })
     if 'cfg' in apriori:
         profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({

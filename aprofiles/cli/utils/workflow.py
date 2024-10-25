@@ -49,7 +49,7 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
                 if station_id in aer_ifs:
                     apriori = {
                         var_apriori: aer_ifs[station_id][var_apriori],
-                        "use_cfg": 'True',
+                        "use_cfg": True,
                         "cfg": {
                             "data": aer_ifs[station_id]["data"],
                             "use_default": 'False',
@@ -60,7 +60,7 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
                 else:
                     apriori = {
                         var_apriori: aer_ifs["attributes"]["default"][var_apriori],
-                        "use_cfg": 'True',
+                        "use_cfg": True,
                         "cfg": {
                             "use_default": 'True',
                             "attributes": aer_ifs["attributes"],
