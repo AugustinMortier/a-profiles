@@ -2,6 +2,8 @@
 # @desc A-Profiles - Standard workflow
 
 import aprofiles as apro
+from pathlib import Path
+import json
 import warnings
 
 
@@ -31,15 +33,44 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
         # 1. default: forward, 50sr
         method = "forward"
         apriori = {
-            "lr": 50
+            "lr": 50,
+            "use_cfg": False
         }
         # 2. if exist, overwrite with CFG["parameters"]
+        var_apriori = CFG["parameters"][profiles.data.instrument_type]["inversion"]["apriori"]["var"]
         if profiles.data.instrument_type in CFG["parameters"]:
+            if 'cfg' in CFG["parameters"][profiles.data.instrument_type]["inversion"]["apriori"]:
+                cfg_path = CFG["parameters"][profiles.data.instrument_type]["inversion"]["apriori"]["cfg"]
+                # open config 
+                f = open(Path(Path(__file__).parent, '..', '..', cfg_path))
+                aer_ifs = json.load(f)
+                f.close()
+                station_id = f'{profiles._data.attrs["wigos_station_id"]}-{profiles._data.attrs["instrument_id"]}'
+                if station_id in aer_ifs:
+                    apriori = {
+                        var_apriori: aer_ifs[station_id][var_apriori],
+                        "use_cfg": 'True',
+                        "cfg": {
+                            "data": aer_ifs[station_id]["data"],
+                            "use_default": 'False',
+                            "attributes": aer_ifs["attributes"],
+                            "path": cfg_path
+                        } 
+                    } 
+                else:
+                    apriori = {
+                        var_apriori: aer_ifs["attributes"]["default"][var_apriori],
+                        "use_cfg": 'True',
+                        "cfg": {
+                            "use_default": 'True',
+                            "attributes": aer_ifs["attributes"],
+                            "path": cfg_path
+                        }
+                    }
+                    
             if "inversion" in CFG["parameters"][profiles.data.instrument_type]:
                 if "method" in CFG["parameters"][profiles.data.instrument_type]["inversion"]:
                     method = CFG["parameters"][profiles.data.instrument_type]["inversion"]["method"]
-                if "apriori" in CFG["parameters"][profiles.data.instrument_type]["inversion"]:
-                    apriori = CFG["parameters"][profiles.data.instrument_type]["inversion"]["apriori"]
         
         profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method=method, apriori=apriori, verbose=verbose)
         profiles.write(base_dir)

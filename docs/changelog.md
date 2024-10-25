@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.10.5
+Oct 25, 2024
+
+- change `aer_ifs.json` structure
+
 ## 0.10.4
 Oct 19, 2024
 
