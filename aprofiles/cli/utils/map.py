@@ -9,17 +9,17 @@ import numpy as np
 import xarray as xr
 
 
-def make_map(path, yyyy, mm, mapname):
+def make_map(path, yyyy: str, mm: str, mapname) -> None:
     # one map, per day, which collects the maximum extinction with no low-level clouds (<6km) at each station
-    with open(Path(path) / yyyy / mm / mapname, 'w') as json_file:
+    with open(Path(path, yyyy, mm, mapname), 'w') as json_file:
         json.dump({}, json_file)
 
-def add_to_map(fn, path, yyyy, mm, dd, mapname):
+def add_to_map(fn, path, yyyy: str, mm: str, dd: str, mapname) -> None:
     # map collects the maximum extinction value with no low-level clouds (<6km) at each station at a hourly resolution
     # for each station, write an array with extinction values, and array with scenes for each hour of the day
     
     # read data
-    vars_to_read = ['extinction', 'retrieval_scene', 'cloud_amount', 'lidar_ratio']
+    vars_to_read = ['extinction', 'retrieval_scene', 'cloud_amount', 'lidar_ratio', 'aer_type', 'emc']
     ds = xr.open_dataset(fn, chunks=-1)[vars_to_read].load()
 
     # calculate the max extinction and determine the scene for each hour of the day
@@ -49,9 +49,14 @@ def add_to_map(fn, path, yyyy, mm, dd, mapname):
     max_retrieval_scene = ds.retrieval_scene.resample(time='1h').max().data
     max_cloud_amount = ds.cloud_amount.resample(time='1h').max().data
     mean_lidar_ratio = ds.lidar_ratio.resample(time='1h').mean().data
+    
+    # make emc dictionary
+    emc = dict()
+    for i, aer_type in enumerate(ds.aer_type.data):
+        emc[aer_type] = round(float(ds.emc[i].data), 3)
 
     # open current map
-    with open(Path(path) / yyyy / mm / mapname, 'r') as json_file:
+    with open(Path(path, yyyy, mm, mapname), 'r') as json_file:
         data = json.load(json_file)
     json_file.close()        
 
@@ -78,8 +83,9 @@ def add_to_map(fn, path, yyyy, mm, dd, mapname):
         'retrieval_scene': [retrieval_scene if not np.isnan(retrieval_scene) else None for retrieval_scene in max_retrieval_scene.tolist()],
         'cloud_amount': [cloud_amount if not np.isnan(cloud_amount) else None for cloud_amount in max_cloud_amount.tolist()],
         'lidar_ratio': [lidar_ratio if not np.isnan(lidar_ratio) else None for lidar_ratio in mean_lidar_ratio.tolist()],
+        'emc': emc
     }
 
     # write new map
-    with open(Path(path) / yyyy / mm / mapname, 'w') as json_file:
+    with open(Path(path, yyyy, mm, mapname), 'w') as json_file:
         json.dump(data, json_file)
