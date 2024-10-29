@@ -65,11 +65,11 @@ def concentration_profiles(profiles, method, apriori):
         emc = apro.emc.EMCData(aer_type, wavelength, method)
 
         # compute mass_concentration profile. Use extinction as base.
-        mass_concentration = profiles.data.extinction*1e-3 #conversion from km-1 to m-1
+        mass_concentration = profiles.data.extinction * 1e-3 #conversion from km-1 to m-1
         # mass_concentration = copy.deepcopy(profiles.data.extinction)
         mass_concentration.data = np.divide(mass_concentration, emc.emc)
         # # conversion from g.m-3 to µg.m-3
-        mass_concentration.data = mass_concentration.data*1e6
+        mass_concentration.data = mass_concentration.data * 1e6
 
         # creates dataset with a dataarray for each aer_type
         profiles.data[f"mass_concentration:{aer_type}"] = (('time', 'altitude'), mass_concentration.data)
@@ -81,12 +81,13 @@ def concentration_profiles(profiles, method, apriori):
     
     # add ifs emc
     if apriori["emc"]:
+        aer_type = "ifs"
         # compute mass_concentration profile. Use extinction as base.
-        mass_concentration = profiles.data.extinction*1e-3 #conversion from km-1 to m-1
+        mass_concentration = profiles.data.extinction * 1e-3 #conversion from km-1 to m-1
         # mass_concentration = copy.deepcopy(profiles.data.extinction)
         mass_concentration.data = np.divide(mass_concentration, apriori["emc"])
         # # conversion from g.m-3 to µg.m-3
-        mass_concentration.data = mass_concentration.data*1e6
+        mass_concentration.data = mass_concentration.data * 1e6
 
         # creates dataset with a dataarray for each aer_type
         profiles.data[f"mass_concentration:{aer_type}"] = (('time', 'altitude'), mass_concentration.data)
