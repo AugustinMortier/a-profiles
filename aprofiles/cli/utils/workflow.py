@@ -34,6 +34,7 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
         method = "forward"
         apriori = {
             "lr": 50,
+            "emc": False,
             "use_cfg": False
         }
         # 2. if exist, overwrite with CFG["parameters"]
@@ -56,7 +57,9 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
                             "attributes": aer_ifs["attributes"],
                             "path": cfg_path
                         } 
-                    } 
+                    }
+                    if aer_ifs[station_id]["emc"]:
+                        apriori["emc"] = aer_ifs[station_id]["emc"]
                 else:
                     apriori = {
                         var_apriori: aer_ifs["attributes"]["default"][var_apriori],
@@ -67,6 +70,8 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
                             "path": cfg_path
                         }
                     }
+                    if aer_ifs["attributes"]["default"]["emc"]:
+                        apriori["emc"] = aer_ifs["attributes"]["default"]["emc"]
                     
             if "inversion" in CFG["parameters"][profiles.data.instrument_type]:
                 if "method" in CFG["parameters"][profiles.data.instrument_type]["inversion"]:

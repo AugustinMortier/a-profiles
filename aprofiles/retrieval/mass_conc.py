@@ -8,12 +8,13 @@ import numpy as np
 from pathlib import Path
 
 
-def concentration_profiles(profiles, method):
+def concentration_profiles(profiles, method, apriori):
     """Calculates Mass concentration profiles for different aerosol types
 
     Args:
         profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
         method (str): Method for calculating EMC. Must be one of {"mortier_2013", "literature"}.
+        apriori (dict): Apriori emc value (m2.g-1).
 
     Returns:
         (aprofiles.profiles.ProfilesData):
@@ -77,6 +78,24 @@ def concentration_profiles(profiles, method):
             'units': 'µg.m-3',
             'emc': emc.emc,
         })
+    
+    # add ifs emc
+    if apriori["emc"]:
+        # compute mass_concentration profile. Use extinction as base.
+        mass_concentration = profiles.data.extinction*1e-3 #conversion from km-1 to m-1
+        # mass_concentration = copy.deepcopy(profiles.data.extinction)
+        mass_concentration.data = np.divide(mass_concentration, apriori["emc"])
+        # # conversion from g.m-3 to µg.m-3
+        mass_concentration.data = mass_concentration.data*1e6
+
+        # creates dataset with a dataarray for each aer_type
+        profiles.data[f"mass_concentration:{aer_type}"] = (('time', 'altitude'), mass_concentration.data)
+        profiles.data[f"mass_concentration:{aer_type}"] = profiles.data[f"mass_concentration:{aer_type}"].assign_attrs({
+            'long_name': f"Mass concentration [{aer_type.replace('_', ' ')} particles]",
+            'units': 'µg.m-3',
+            'emc': apriori["emc"],
+        })
+        
     return profiles
 
 
