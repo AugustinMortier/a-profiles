@@ -2,11 +2,15 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.11.0
+Oct 29, 2024
+
+- add ifs emc to netcdf files and emc for different aerosol types and ifs to map json files
+  
 ## 0.10.6
 Oct 25, 2024
 
 - fix CI
-
 
 ## 0.10.5
 Oct 25, 2024

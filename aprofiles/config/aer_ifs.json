@@ -6,7 +6,8 @@
             "od550aerbc": 0.1,
             "od550aerdust": 0.2
         },
-        "lr": 42
+        "lr": 42,
+        "emc": 1
     },
     "0-20000-0-00203-A": {
         "l0_wavelength": 1064.0,
@@ -15,7 +16,8 @@
             "od550aerbc": 0.1,
             "od550aerdust": 0.2
         },
-        "lr": 42
+        "lr": 42,
+        "emc": 2
     },
     "0-20000-0-01492-A": {
         "l0_wavelength": 1064.0,
@@ -24,11 +26,13 @@
             "od550aerbc": 0.1,
             "od550aerdust": 0.2
         },
-        "lr": 42
+        "lr": 42,
+        "emc": 3
     },
     "attributes": {
         "default": {
-            "lr": 48
+            "lr": 48,
+            "emc": 0.8
         },
         "date": "26-09-2024T09:20:00"
     }

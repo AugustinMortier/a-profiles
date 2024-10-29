@@ -19,7 +19,7 @@ class EMCData:
        `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
        `wavelength` (int or float): wavelength, in mm.
        `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `EMC`.
-       `aer_properties` (dict): dictionnary describing the optical and microphophysical properties of the prescribed aerosol (read from *aer_properties.json*)
+       `aer_properties` (dict): dictionary describing the optical and micro-physical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
         ```python

@@ -7,12 +7,12 @@ from pathlib import Path
 import xarray as xr
 
 
-def make_calendar(path, yyyy, mm, calname):
+def make_calendar(path, yyyy: str, mm: str, calname: str) -> None:
     # one calendar, per month
     with open(Path(path, yyyy, mm, calname), 'w') as json_file:
         json.dump({}, json_file)
 
-def add_to_calendar(fn, path, yyyy, mm, dd, calname):
+def add_to_calendar(fn, path, yyyy: str, mm: str, dd: str, calname: str) -> None:
     # calendar collects the number of inversions with no low-level clouds (<6km) at each station
     # for each station, write number of each scene class (aer, cloud<6km, cloud>6km, )
     

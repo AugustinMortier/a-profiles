@@ -403,7 +403,7 @@ class ProfilesData:
         return apro.detection.pbl.detect_pbl(self, time_avg, zmin, zmax, wav_width, under_clouds, min_snr, verbose)
 
     def inversion(self, time_avg=1, zmin=4000., zmax=6000., min_snr=0., under_clouds=False, method="forward", 
-        apriori={"lr": 50., "use_cfg": False}, remove_outliers=False, mass_conc=True, mass_conc_method="mortier_2013", verbose=False,
+        apriori={"lr": 50., "emc": False, "use_cfg": False}, remove_outliers=False, mass_conc=True, mass_conc_method="mortier_2013", verbose=False,
     ):
         """
         Calls :meth:`aprofiles.retrieval.extinction.inversion()` to calculate extinction profiles.
@@ -411,7 +411,7 @@ class ProfilesData:
         """
         apro.retrieval.extinction.inversion(self, time_avg, zmin, zmax, min_snr, under_clouds, method, apriori, remove_outliers, verbose)
         if mass_conc:
-            apro.retrieval.mass_conc.concentration_profiles(self, mass_conc_method)
+            apro.retrieval.mass_conc.concentration_profiles(self, mass_conc_method, apriori)
         return apro
 
     def plot(
