@@ -31,11 +31,11 @@ Aerosol properties are defined in [`config/aer_properties.json`](../../aprofiles
 
 ::: aprofiles.size_distribution
 
-## Extinction to Mass Coefficient
+## Mass to Extinction Coefficient
 
-The [`EMCData`](#emcdata) class is used for computing an *Extinction to Mass Coefficient* for a given aerosol type.
+The [`MECData`](#mecdata) class is used for computing a *Mass to Extinction Coefficient* for a given aerosol type.
 
-::: aprofiles.emc
+::: aprofiles.mec
 
 [^1]: Dubovik, O., Holben, B., Eck, T. F., Smirnov, A., Kaufman, Y. J., King, M. D., ... & Slutsker, I. (2002). Variability of absorption and optical properties of key aerosol types observed in worldwide locations. *Journal of the Atmospheric Sciences*, 59(3), 590-608.
 
