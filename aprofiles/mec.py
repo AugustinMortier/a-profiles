@@ -1,5 +1,5 @@
 # @author Augustin Mortier
-# @desc A-Profiles - Extinction to Mass Coefficient
+# @desc A-Profiles - Mass to Extinction Coefficient
 import json
 from pathlib import Path
 
@@ -10,25 +10,25 @@ import numpy as np
 from aprofiles import size_distribution
 
 
-class EMCData:
+class MECData:
     """
-    Class for computing the *Extinction to Mass Coefficient* for a given aerosol type.
-    This class calls the [`get_emc()`](#aprofiles.emc.EMCData.get_emc) method.
+    Class for computing the *Mass to Extinction Coefficient* for a given aerosol type.
+    This class calls the [`get_mec()`](#aprofiles.mec.MECData.get_mec) method.
 
     Attributes:
        `aer_type` ({'dust', 'volcanic_ash', 'biomass_burning', 'urban'}): aerosol type.
        `wavelength` (int or float): wavelength, in mm.
-       `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `EMC`.
+       `method` ({'mortier_2013', 'literature'}): method to retrieve or compute `MEC`.
        `aer_properties` (dict): dictionary describing the optical and micro-physical properties of the prescribed aerosol (read from *aer_properties.json*)
 
     Example:
         ```python
         #some imports
         import aprofiles as apro
-        emc_data = EMCData('volcanic_ash', 532.)
-        emc_data.__dict__.keys()
-        dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'emc'])
-        print(f'{emc_data.conv_factor:.2e} m {emc_data.emc):.2e} m2.g-1')
+        mec_data = MECData('volcanic_ash', 532.)
+        mec_data.__dict__.keys()
+        dict_keys(['aer_type', 'wavelength', 'aer_properties', 'nsd', 'vsd', 'radius', 'qext', 'conv_factor', 'mec'])
+        print(f'{mec_data.conv_factor:.2e} m {mec_data.mec):.2e} m2.g-1')
         6.21e-07 m 0.62 m2.g-1
         ```
     """
@@ -72,24 +72,24 @@ class EMCData:
                 )
             else:
                 self.aer_properties = aer_properties[self.aer_type]
-                self.get_emc()
+                self.get_mec()
         elif self.method == "literature":
-            self.emc = 3.33  # CHECK V-PROFILES VALUES. CHECK CODE IN LAPTOP?
+            self.mec = 3.33  # CHECK V-PROFILES VALUES. CHECK CODE IN LAPTOP?
             self.conv_factor = -99
 
-    def get_emc(self):
+    def get_mec(self):
         """
         Calculates the Extinction to Mass Coefficient for a given type of particles, assuming a prescribed size distribution shape (with unknown amplitude), density, and using [Mie theory](https://miepython.readthedocs.io) to calculate the extinction efficiency.
         
         Returns:
-            (EMCData): with additional attributes:
+            (MECData): with additional attributes:
             
                 - `nsd` (1D Array): Number Size Distribution
                 - `vsd` (1D Array): Volume Size Distribution
                 - `radius` (1D Array): Radius in µm
                 - `x` (1D Array): Size parameter (unitless)
                 - `conv_factor` (float): Conversion factor in m
-                - `emc` (float): Extinction to Mass Coefficient in m².g⁻¹
+                - `mec` (float): Extinction to Mass Coefficient in m².g⁻¹
 
        !!! note
             For a population of particles, the extinction coefficient $\sigma_{ext}$ (m⁻¹) can be written as follows:
@@ -136,10 +136,10 @@ class EMCData:
             M_0 = \sigma_{ext} \\rho c_v
             $$
 
-            Finally, the `Extinction to Mass Coefficient` (EMC, also called `mass extinction cross section`, usually in m².g⁻¹) is defined as:
+            Finally, the `Extinction to Mass Coefficient` (MEC, also called `mass extinction cross section`, usually in m².g⁻¹) is defined as:
 
             $$
-            EMC = \\frac{\sigma_{ext}}{M_0} = \\frac{1}{\\rho c_v}
+            MEC = \\frac{\sigma_{ext}}{M_0} = \\frac{1}{\\rho c_v}
             $$
 
             with $\\rho$ expressed in g.m⁻³.
@@ -150,7 +150,7 @@ class EMCData:
                     <tr>
                         <th>Aerosol Type</th>
                         <th colspan=2>Conversion Factor (µm)</th>
-                        <th colspan=2>EMC (m².g⁻¹) </th>
+                        <th colspan=2>MEC (m².g⁻¹) </th>
                     </tr>
                     <tr>
                         <th></th>
@@ -190,7 +190,7 @@ class EMCData:
                         <td>0.68</td>
                     </tr>
                 </tbody>
-                <caption>Conversion Factors and EMC calculated for the main aerosol types</caption>
+                <caption>Conversion Factors and MEC calculated for the main aerosol types</caption>
             </table>
 
         """
@@ -247,26 +247,26 @@ class EMCData:
         self.x = x
         self.qext = qext
         self.conv_factor = _compute_conv_factor(sd.nsd, qext, sd.radius)
-        self.emc = 1 / (
+        self.mec = 1 / (
             self.conv_factor * self.aer_properties["density"] * 1e6
         )  # convert density from g.cm-3 to g.m-3
         return self
 
     def plot(self, show_fig=True):
         """
-        Plot main information of an instance of the [`EMCData`](#aprofiles.emc.EMCData) class.
+        Plot main information of an instance of the [`MECData`](#aprofiles.mec.MECData) class.
 
         Example:
             ```python
             #import aprofiles
             import aprofiles as apro
-            #compute emc for biomas burning particles at 532 nm
-            emc = apro.emc.EMCData('volcanic_ash', 532.);
+            #compute mec for biomas burning particles at 532 nm
+            mec = apro.mec.MECData('volcanic_ash', 532.);
             #plot information
-            emc.plot()
+            mec.plot()
             ```
 
-            ![Volcanic Ash particles properties used for EMC calculation](../../assets/images/volcanic_ash-emc.png)
+            ![Volcanic Ash particles properties used for MEC calculation](../../assets/images/volcanic_ash-mec.png)
         """
         fig, ax = plt.subplots(1, 1, figsize=(6, 6))
 
@@ -302,7 +302,7 @@ class EMCData:
         plt.text(
             0.975,
             0.75,
-            f"$EMC: {self.emc:.2f}\ m^2/g$",
+            f"$MEC: {self.mec:.2f}\ m^2/g$",
             horizontalalignment="right",
             verticalalignment="center",
             transform=ax.transAxes,
@@ -314,7 +314,7 @@ class EMCData:
             loc="upper right", bbox_to_anchor=(1, 1), bbox_transform=ax.transAxes
         )
         plt.title(
-            f"{self.aer_type.capitalize().replace('_', ' ')} particles properties for EMC calculation",
+            f"{self.aer_type.capitalize().replace('_', ' ')} particles properties for MEC calculation",
             weight="bold",
         )
         plt.tight_layout()
@@ -325,9 +325,9 @@ class EMCData:
 def _main():
     import aprofiles as aprofiles
 
-    emc_data = EMCData("urban", 1064.0)
-    print(f"{emc_data.conv_factor:.2e} m {emc_data.emc:.2f} m2.g-1")
-    emc_data.plot()
+    mec_data = MECData("urban", 1064.0)
+    print(f"{mec_data.conv_factor:.2e} m {mec_data.mec:.2f} m2.g-1")
+    mec_data.plot()
 
 
 if __name__ == "__main__":

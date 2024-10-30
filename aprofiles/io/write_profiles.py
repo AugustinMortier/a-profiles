@@ -74,21 +74,21 @@ def write(profiles, base_dir, verbose):
     # creates a copy od original dataset -> writes only necessary data
     ds_towrite = copy.deepcopy(ds)
 
-    # for the mass concentration, we just need the emc.
-    emc = {}
+    # for the mass concentration, we just need the mec.
+    mec = {}
     for data_var in list(ds_towrite.data_vars):
         if 'mass_concentration:' in data_var:
-            emc[data_var.split(':')[1]] = ds[data_var].emc
+            mec[data_var.split(':')[1]] = ds[data_var].mec
             ds_towrite = ds_towrite.drop(data_var)
 
-    # add emc as new dataarray
-    ds_towrite["emc"] = xr.DataArray(
-        data=list(emc.values()),
+    # add mec as new dataarray
+    ds_towrite["mec"] = xr.DataArray(
+        data=list(mec.values()),
         dims=["aer_type"],
         coords=dict(
-            aer_type=list(emc.keys()),
+            aer_type=list(mec.keys()),
         ),
-        attrs=dict(long_name="Extinction to Mass Coefficient", units='m2.g-1', wavelength=ds.l0_wavelength.data),
+        attrs=dict(long_name="Mass to Extinction Coefficient", units='m2.g-1', wavelength=ds.l0_wavelength.data),
     )
     # add attributes to aer_type
     ds_towrite["aer_type"] = ds_towrite["aer_type"].assign_attrs({

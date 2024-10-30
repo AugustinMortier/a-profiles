@@ -13,8 +13,8 @@ def concentration_profiles(profiles, method, apriori):
 
     Args:
         profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
-        method (str): Method for calculating EMC. Must be one of {"mortier_2013", "literature"}.
-        apriori (dict): Apriori emc value (m2.g-1).
+        method (str): Method for calculating MEC. Must be one of {"mortier_2013", "literature"}.
+        apriori (dict): Apriori mec value (m2.g-1).
 
     Returns:
         (aprofiles.profiles.ProfilesData):
@@ -61,13 +61,13 @@ def concentration_profiles(profiles, method, apriori):
         raise ValueError("wavelength units is not `nm`.")
 
     for aer_type in aer_types:
-        # calculates emc
-        emc = apro.emc.EMCData(aer_type, wavelength, method)
+        # calculates mec
+        mec = apro.mec.MECData(aer_type, wavelength, method)
 
         # compute mass_concentration profile. Use extinction as base.
         mass_concentration = profiles.data.extinction * 1e-3 #conversion from km-1 to m-1
         # mass_concentration = copy.deepcopy(profiles.data.extinction)
-        mass_concentration.data = np.divide(mass_concentration, emc.emc)
+        mass_concentration.data = np.divide(mass_concentration, mec.mec)
         # # conversion from g.m-3 to µg.m-3
         mass_concentration.data = mass_concentration.data * 1e6
 
@@ -76,16 +76,16 @@ def concentration_profiles(profiles, method, apriori):
         profiles.data[f"mass_concentration:{aer_type}"] = profiles.data[f"mass_concentration:{aer_type}"].assign_attrs({
             'long_name': f"Mass concentration [{aer_type.replace('_', ' ')} particles]",
             'units': 'µg.m-3',
-            'emc': emc.emc,
+            'mec': mec.mec,
         })
     
-    # add ifs emc
-    if apriori["emc"]:
+    # add ifs mec
+    if apriori["mec"]:
         aer_type = "ifs"
         # compute mass_concentration profile. Use extinction as base.
         mass_concentration = profiles.data.extinction * 1e-3 #conversion from km-1 to m-1
         # mass_concentration = copy.deepcopy(profiles.data.extinction)
-        mass_concentration.data = np.divide(mass_concentration, apriori["emc"])
+        mass_concentration.data = np.divide(mass_concentration, apriori["mec"])
         # # conversion from g.m-3 to µg.m-3
         mass_concentration.data = mass_concentration.data * 1e6
 
@@ -94,7 +94,7 @@ def concentration_profiles(profiles, method, apriori):
         profiles.data[f"mass_concentration:{aer_type}"] = profiles.data[f"mass_concentration:{aer_type}"].assign_attrs({
             'long_name': f"Mass concentration [{aer_type.replace('_', ' ')}]",
             'units': 'µg.m-3',
-            'emc': apriori["emc"],
+            'mec': apriori["mec"],
         })
         
     return profiles

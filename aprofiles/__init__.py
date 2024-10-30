@@ -1,6 +1,6 @@
 # Some scripts to be run when aprofiles is loaded
 
-from . import aeronet, profiles, rayleigh, reader, size_distribution, emc, utils
+from . import aeronet, mec, profiles, rayleigh, reader, size_distribution, utils
 from .detection import clouds, foc, pbl
 from .io import read_aeronet, read_eprofile, write_profiles
 from .plot import image, profile
