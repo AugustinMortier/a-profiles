@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.11.1
+Oct 29, 2024
+
+- replace emc (Extinction to Mass Coefficient) to mec (Mass to Extinction Coefficient)
+  
 ## 0.11.0
 Oct 29, 2024
 
