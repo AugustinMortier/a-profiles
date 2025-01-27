@@ -26,6 +26,7 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
         # detection
         profiles.foc(zmin_cloud=250.)
         profiles.clouds(zmin=250., thr_noise=5., thr_clouds=4., verbose=verbose)
+        profiles.ml_clouds(time_avg=1, verbose=False)
         profiles.pbl(zmin=200., zmax=3000., under_clouds=False, min_snr=1., verbose=verbose)
 
         # retrievals
