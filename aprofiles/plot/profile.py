@@ -29,6 +29,26 @@ def _plot_foc(da, time, zref):
         plt.plot([], [], "^m", ms=10, lw=0, label="fog or condensation")
         plt.plot(0, foc_markers[i_time], "m", marker=10, ms=10, lw=0)
 
+def _plot_ml_clouds(da, time, var, zref):
+    """Plot clouds layers
+    Args:
+        da ([type]): [description]
+        time ([type]): time for which to plot the clouds
+    """
+    # time
+    da_time = da.time.data
+    i_time = np.argmin(abs(da_time - time))
+    # altitude
+    if zref.upper() == "AGL":
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data
+    
+    c_indexes = da.ml_clouds.data[i_time,:]
+    if not np.isnan(da.ml_clouds.data[i_time]).all():
+        plt.plot([], [], "^m", ms=10, lw=0, label="ML clouds")
+        plt.plot(da[var].data[i_time, c_indexes], altitude[c_indexes], "m", marker=10, ms=10, lw=0)
+    
 
 def _plot_clouds(da, time, var, zref):
     """Plot clouds layers
@@ -129,6 +149,7 @@ def plot(
     show_foc=False,
     show_pbl=False,
     show_clouds=False,
+    show_ml_clouds=False,
     show_fig=True,
     save_fig=None
 ):
@@ -148,6 +169,7 @@ def plot(
         show_foc (bool, optional): Add foc detection.
         show_pbl (bool, optional): Add PBL height.
         show_clouds (bool, optional): Add clouds detection.
+        show_ml_clouds (bool, optional): Add ml_clouds detection.
         show_fig (bool, optional): Show figure.
         save_fig (str, optional): Path of the saved figure.
 
@@ -195,6 +217,8 @@ def plot(
         _plot_foc(da, da_time[i_time], zref)
     if show_clouds:
         _plot_clouds(da, da_time[i_time], var, zref)
+    if show_ml_clouds:
+        _plot_ml_clouds(da, da_time[i_time], var, zref)
     if show_pbl:
         _plot_pbl(da, da_time[i_time], var, zref)
 

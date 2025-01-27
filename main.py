@@ -33,6 +33,7 @@ def main(path):
     #)
     #profiles.plot(zref='agl', show_foc=False, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, zmax=6000.)
     # detection
+    profiles.ml_clouds(time_avg=1, verbose=False)
     profiles.foc(zmin_cloud=200)
     profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
     profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2., verbose=True)
@@ -78,7 +79,7 @@ def main(path):
     # rayleigh = apro.rayleigh_data.RayleighData(altitude, wavelength=wavelength, T0=298, P0=1013);
     # rayleigh.plot()
     # retrievals
-    #profiles.write('testdir')
+    profiles.write('testdir')
 
 if __name__ == "__main__":
     # read some data
