@@ -396,6 +396,12 @@ class ProfilesData:
         """
         return apro.detection.clouds.detect_clouds(self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
 
+    def ml_clouds(self, time_avg=1, verbose=False):
+        """
+        Calls :meth:`aprofiles.detection.ml_clouds.detect_clouds()`.
+        """
+        return apro.detection.ml_clouds.detect_clouds(self, time_avg, verbose)
+    
     def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
         """
         Calls :meth:`aprofiles.detection.pbl.detect_pbl()`.
@@ -416,7 +422,7 @@ class ProfilesData:
 
     def plot(
         self, var="attenuated_backscatter_0", datetime=None, zref="agl", zmin=None, zmax=None, vmin=None, vmax=None, log=False,
-        show_foc=False, show_pbl=False, show_clouds=False, cmap="coolwarm", show_fig=True, save_fig=None, **kwargs
+        show_foc=False, show_pbl=False, show_clouds=False, show_ml_clouds=False, cmap="coolwarm", show_fig=True, save_fig=None, **kwargs
     ):
         """
         Plotting method.
@@ -435,6 +441,7 @@ class ProfilesData:
             show_foc (bool, optional): Show fog or condensation retrievals.
             show_pbl (bool, optional): Show PBL height retrievals.
             show_clouds (bool, optional): Show clouds retrievals.
+            show_ml_clouds (bool, optional): Show ml_clouds retrievals.
             cmap (str, optional): Matplotlib colormap.
             show_fig (bool, optional): Show Figure.
             save_fig (str, optional): Path of the saved figure.
@@ -452,11 +459,11 @@ class ProfilesData:
         if datetime is None:
             # check dimension of var
             if len(list(self.data[var].dims)) == 2:
-                apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, cmap, show_fig, save_fig)
+                apro.plot.image.plot(self.data, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, show_ml_clouds, cmap, show_fig, save_fig)
             else:
                 apro.plot.timeseries.plot(self.data, var, show_fig, save_fig, **kwargs)
         else:
-            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, show_fig, save_fig)
+            apro.plot.profile.plot(self.data, datetime, var, zref, zmin, zmax, vmin, vmax, log, show_foc, show_pbl, show_clouds, show_ml_clouds, show_fig, save_fig)
     
     def write(self, base_dir=Path('examples', 'data', 'V-Profiles'), verbose=False):
         """

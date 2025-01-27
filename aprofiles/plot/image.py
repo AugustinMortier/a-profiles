@@ -91,6 +91,29 @@ def _plot_clouds(da, zref):
         plt.plot(t, altitude[t_indexes], "k.", ms=3)
 
 
+def _plot_ml_clouds(da, zref):
+    """Plot ml_clouds as markers.
+    Args:
+        da ([type]): [description]
+    """
+    # time
+    time = da.time.data
+    ml_clouds = da.ml_clouds
+    # altitude
+    if zref.upper() == "AGL":
+        altitude = da.altitude.data - da.station_altitude.data
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data
+    
+    # 2D array
+    C = np.transpose(ml_clouds.data)
+    C_plot = np.where(C, 1, np.nan)
+
+    plt.pcolormesh(
+        time, altitude, C_plot, shading="nearest", cmap='Greys_r', vmin=0, vmax=1, alpha=0.9
+    )
+
+
 def _plot_pbl(da, zref):
     """Plot PBL as markers
     Args:
@@ -118,6 +141,7 @@ def plot(
     show_foc=False,
     show_pbl=False,
     show_clouds=False,
+    show_ml_clouds=False,
     cmap="coolwarm",
     show_fig=True,
     save_fig = None
@@ -136,6 +160,7 @@ def plot(
         show_foc (bool, optional): Add foc detection.
         show_pbl (bool, optional): Add PBL height.
         show_clouds (bool, optional): Add clouds detection.
+        show_ml_clouds (bool, optional): Add machine learning-based clouds detection.
         cmap (str, optional): Matplotlib colormap.
         show_fig (bool, optional): Show figure.
         save_fig (str, optional): Path of the saved figure.
@@ -154,7 +179,7 @@ def plot(
     """
 
     # calculates max value from data
-    if vmax is None:
+    if vmax is None and type(da[var].data[0][0]) != np.bool:
         perc = np.percentile(da[var].data, 70)
         pow10 = np.ceil(np.log10(perc))
         vmax = 10 ** (pow10)
@@ -175,7 +200,7 @@ def plot(
     if log:
         import matplotlib.colors as colors
 
-        plt.pcolormesh(
+        pcm = plt.pcolormesh(
             time,
             altitude,
             C,
@@ -184,15 +209,19 @@ def plot(
             shading="nearest",
         )
     else:
-        plt.pcolormesh(
+        pcm = plt.pcolormesh(
             time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading="nearest"
         )
+    # store colorbar
+    cbar = fig.colorbar(pcm, ax=axs)
 
     # add addition information
     if show_foc:
         _plot_foc(da, zref)
     if show_clouds:
         _plot_clouds(da, zref)
+    if show_ml_clouds:
+        _plot_ml_clouds(da, zref)
     if show_pbl:
         _plot_pbl(da, zref)
 
@@ -220,8 +249,6 @@ def plot(
     if show_foc or show_clouds or show_pbl:
         plt.legend(loc="upper right")
 
-    # colorbar
-    cbar = plt.colorbar()
     # label
     if "units" in list(da[var].attrs) and da[var].units is not None:
         label = f"{da[var].long_name} ({da[var].units})"
