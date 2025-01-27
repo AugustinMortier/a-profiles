@@ -48,7 +48,7 @@ def main(path):
     
     
     profiles.plot(
-        zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, 
+        zref='agl', show_foc=True, show_clouds=True, show_ml_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, 
         #save_fig="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
     )
     
