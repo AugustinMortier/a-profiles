@@ -121,7 +121,6 @@ def detect_pbl(
     for i in (track(range(len(profiles.data.time.data)), description="pbl   ", disable=not verbose)):
         lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
         _zmax = np.nanmin([zmax, lowest_cloud_agl])
-        print(_zmax, lowest_cloud_agl, zmax)
         pbl.append(
             _detect_pbl_from_rcs(
                 rcs.data[i, :],
