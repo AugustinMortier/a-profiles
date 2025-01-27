@@ -87,7 +87,7 @@ def detect_pbl(
         # sets to nan outside of PBL search range
         gradient[0: profiles._get_index_from_altitude_AGL(zmin):] = np.nan
         gradient[profiles._get_index_from_altitude_AGL(zmax):] = np.nan
-        if not np.isnan([np.nan, np.nan]).all():
+        if not np.isnan(gradient).all():
             i_pbl = np.nanargmin(gradient)
         else:
             return np.nan
