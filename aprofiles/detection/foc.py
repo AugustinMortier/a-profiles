@@ -8,16 +8,7 @@ import numpy as np
 def _detect_fog_from_ml_cloud(profiles, zmin_cloud):
     # returns a bool list with True where fog/condensation cases
     # if the base of the first cloud (given by the constructor) is below
-    time = profiles.data.time.data
-    altitude = profiles.data.altitude.data
-
-    first_cloud_base_height = np.full(np.shape(time), np.nan)
-    for i, _ in enumerate(time):
-        ml_clouds_profile = profiles.data.ml_clouds[i,:]
-        i_clouds = np.squeeze(np.where(ml_clouds_profile))
-        if len(i_clouds) > 0:
-            first_cloud_base_height[i] = altitude[i_clouds[0]]
-
+    first_cloud_base_height = profiles._get_lowest_ml_clouds()
     foc = [True if x <= zmin_cloud else False for x in first_cloud_base_height]
     return foc
 

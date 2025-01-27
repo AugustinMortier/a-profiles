@@ -72,7 +72,16 @@ class ProfilesData:
                 lowest_clouds.append(self.data.altitude.data[i_clouds[0]])
             else:
                 lowest_clouds.append(np.nan)
+        return lowest_clouds
 
+    def _get_lowest_ml_clouds(self):
+        # returns an array of the altitude (in m, ASL) of the lowest ml_cloud for each timestamp
+        lowest_clouds = np.full(np.shape(self.data.time.data), np.nan)
+        for i, _ in enumerate(self.data.time.data):
+            ml_clouds_profile = self.data.ml_clouds[i,:]
+            i_clouds = np.squeeze(np.where(ml_clouds_profile))
+            if len(i_clouds) > 0:
+                lowest_clouds[i] = self.data.altitude.data[i_clouds[0]]
         return lowest_clouds
 
     def _get_itime(self, datetime):

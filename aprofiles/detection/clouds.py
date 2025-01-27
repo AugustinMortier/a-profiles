@@ -240,8 +240,7 @@ def detect_clouds(profiles, time_avg=1., zmin=0., thr_noise=5., thr_clouds=4., m
         # 7. merge layers: for a couple of base and peaks 1,2 if data(b2)>data(p1), then merge layers 1 and 2 by removing p1 and b2
         i_bases, i_peaks, i_tops = _merge_layers(avg_data, i_bases, i_peaks, i_tops)
 
-        # 8. find peaks as maximum between base and top
-        print(i_bases, i_tops)
+        # 8. find peaks as maximum between base and top    
         i_peaks = [
             i_bases[i] + np.argmax(data[i_bases[i]: i_tops[i]])
             for i in range(len(i_bases))
