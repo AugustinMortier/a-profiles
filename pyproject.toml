@@ -37,6 +37,7 @@ mkdocs-autorefs = "^1.3.0"
 pymdown-extensions = "^10.14.3"
 mkdocstrings = "^0.28.0"
 markdown-include = "^0.8.1"
+mkdocstrings-python = "^1.14.3"
 
 [tool.poetry.group.cli.dependencies]
 typer = "^0.15.1"
