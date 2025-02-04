@@ -2,13 +2,10 @@
 # @desc A-Profiles - Clouds detection using trained Machine Learning algorithm (Deep Embedded Clustering)
 
 import numpy as np
-from rich.progress import track
 from tensorflow.keras.models import load_model
 from skimage.transform import resize
 from pathlib import Path
 import joblib
-
-from aprofiles import utils
 
 
 def detect_clouds(profiles, time_avg=1., verbose=False):
