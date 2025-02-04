@@ -6,7 +6,7 @@ authors = ["augustinm <augustinm@met.no>"]
 license = "GPL-3.0"
 
 [tool.poetry.scripts]
-apro = {callable = "aprofiles.cli.apro:app", extras = ["cli"]}
+apro = "aprofiles.cli.apro:app"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
