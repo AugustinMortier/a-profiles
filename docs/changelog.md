@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.11.2
+Feb 4, 2025
+
+- use *groups* instead of *extras* for dependencies installation
+  
 ## 0.11.1
 Oct 29, 2024
 
