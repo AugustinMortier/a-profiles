@@ -1,14 +1,30 @@
 # @author Augustin Mortier
 # @desc A-Profiles - Clouds detection using trained Machine Learning algorithm (Deep Embedded Clustering)
 
+import os
+import warnings
+import absl.logging
+from sklearn.exceptions import InconsistentVersionWarning
+
+# Suppress TensorFlow CUDA messages
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
+# Suppress Abseil warnings
+absl.logging.set_verbosity(absl.logging.ERROR)
+
+# Suppress scikit-learn version warnings
+warnings.simplefilter("ignore", InconsistentVersionWarning)
+
+# Suppress TensorFlow progress bar
+import tensorflow as tf
+tf.keras.utils.disable_interactive_logging()
+
 import numpy as np
-from rich.progress import track
 from tensorflow.keras.models import load_model
 from skimage.transform import resize
 from pathlib import Path
 import joblib
-
-from aprofiles import utils
 
 
 def detect_clouds(profiles, time_avg=1., verbose=False):
