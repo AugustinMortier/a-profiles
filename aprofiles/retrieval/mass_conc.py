@@ -80,7 +80,7 @@ def concentration_profiles(profiles, method, apriori):
         })
     
     # add ifs mec
-    if apriori["mec"]:
+    if apriori.get("mec"):
         aer_type = "ifs"
         # compute mass_concentration profile. Use extinction as base.
         mass_concentration = profiles.data.extinction * 1e-3 #conversion from km-1 to m-1

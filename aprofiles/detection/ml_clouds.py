@@ -61,8 +61,8 @@ def detect_clouds(profiles, time_avg=1., verbose=False):
     
     # paramaters
     ML_PATHS = {
-        'encoder': Path('aprofiles','detection','ml_models','encoder.keras'),
-        'kmeans': Path('aprofiles','detection','ml_models','kmeans.pkl')
+        'encoder': Path(Path(__file__).parent,'ml_models','encoder.keras'),
+        'kmeans': Path(Path(__file__).parent,'ml_models','kmeans.pkl')
     }
     vmin, vmax = -2, 2
     target_size = (256, 512)
