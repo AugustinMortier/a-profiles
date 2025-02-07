@@ -61,20 +61,22 @@ def detect_clouds(profiles, time_avg=1., verbose=False):
         ![Clouds detection](../../assets/images/ml_clouds.png)
     """
     
-    # paramaters
-    ML_PATHS = {
-        'encoder': Path(Path(__file__).parent,'ml_models','encoder.keras'),
-        'kmeans': Path(Path(__file__).parent,'ml_models','kmeans.pkl')
+    # ML parameters
+    ML = {
+        'paths': {
+            'encoder': Path(Path(__file__).parent,'ml_models','encoder.keras'),
+            'kmeans': Path(Path(__file__).parent,'ml_models','kmeans.pkl')    
+        },
+        'params': {
+            'vmin': -2,
+            'vmax': 2,
+            'target_size': (256, 512)    
+        }
     }
-    vmin, vmax = -2, 2
-    target_size = (256, 512)
 
     def _prepare_data(data, vmin, vmax, target_size):
         # Log transform
         #data = np.log(data)
-
-        # Transpose and flip
-        #data = np.flip(data.transpose(), axis=0)
 
         # Clip data to the range [vmin, vmax] and then scale it
         data_clipped = np.clip(data, vmin, vmax)
@@ -95,70 +97,85 @@ def detect_clouds(profiles, time_avg=1., verbose=False):
         )
         return resized_data
     
+    
+    def _ml_clouds(prepared_data, encoder, cluster, target_size, output_shape):
+        # Add batch and channel dimensions for further processing
+        data_array = np.expand_dims(np.expand_dims(prepared_data, axis=0), axis=-1)
+
+        # Encode the image to get feature representation
+        encoded_img = encoder.predict(data_array)[0]  # Remove batch dimension
+
+        # Step 1: Aggregate Encoded Features
+        aggregated_encoded_img = np.mean(encoded_img, axis=-1)  # Aggregated to single-channel (16, 32)
+
+        # Optional: Normalize for better visualization
+        aggregated_encoded_img = (aggregated_encoded_img - aggregated_encoded_img.min()) / (aggregated_encoded_img.max() - aggregated_encoded_img.min())
+
+        # Step 2: Flatten Encoded Features and Cluster
+        encoded_img_flat = encoded_img.reshape(-1, encoded_img.shape[-1])  # Flatten spatial dimensions for clustering
+        pixel_labels = cluster.predict(encoded_img_flat)  # Get cluster labels for each pixel
+
+        # Step 3: Map clusters to categories
+        category_mapping = {
+            1: False,  # molecules
+            3: False,  # molecules
+            5: False,  # noise
+            4: False,  # aerosols
+            2: True,  # clouds
+            6: True,  # clouds
+            0: False,  # other
+            7: False   # other
+        }
+        pixel_labels = np.vectorize(category_mapping.get)(pixel_labels)
+
+        # Reshape the cluster labels back to the spatial dimensions
+        pixel_labels_image_shape = pixel_labels.reshape(encoded_img.shape[0], encoded_img.shape[1])
+
+        # Step 4: Upsample the cluster labels to match the original image size
+        upsampled_pixel_labels = resize(
+            pixel_labels_image_shape,
+            (target_size[0], target_size[1]),
+            order=0,  # Nearest-neighbor interpolation
+            preserve_range=True,
+            anti_aliasing=False
+        )
+        #upsampled_pixel_labels = upsampled_pixel_labels.astype(int)  # Ensure the labels are integers
+        
+        # resize upsampled_pixel_labels to original size
+        resized_upsampled_pixel_labels = resize(
+                upsampled_pixel_labels,
+                output_shape=output_shape,
+                order=0,  # Nearest-neighbor interpolation to avoid smoothing
+                anti_aliasing=False
+            )
+        
+        return resized_upsampled_pixel_labels
+    
+    def _split_matrix(matrix, max_size):
+        return [matrix[i:i+max_size] for i in range(0, matrix.shape[0], max_size)]
+
+    def _combine_matrices(matrices):
+        return np.vstack(matrices)
+    
     # we work on profiles averaged in time to reduce the noise
     rcs = profiles.time_avg(
         time_avg, var="attenuated_backscatter_0"
     ).data.attenuated_backscatter_0
     
-    # prepare data
-    prepared_data = _prepare_data(rcs, vmin, vmax, target_size)
+    split_rcs_list = _split_matrix(rcs, 100)
     
     # Load the encoder and kmeans model
-    encoder = load_model(ML_PATHS['encoder'])
-    cluster = joblib.load(ML_PATHS['kmeans'])
-
-    # Add batch and channel dimensions for further processing
-    data_array = np.expand_dims(np.expand_dims(prepared_data, axis=0), axis=-1)
-
-    # Encode the image to get feature representation
-    encoded_img = encoder.predict(data_array)[0]  # Remove batch dimension
-
-    # Step 1: Aggregate Encoded Features
-    aggregated_encoded_img = np.mean(encoded_img, axis=-1)  # Aggregated to single-channel (16, 32)
-
-    # Optional: Normalize for better visualization
-    aggregated_encoded_img = (aggregated_encoded_img - aggregated_encoded_img.min()) / (aggregated_encoded_img.max() - aggregated_encoded_img.min())
-
-    # Step 2: Flatten Encoded Features and Cluster
-    encoded_img_flat = encoded_img.reshape(-1, encoded_img.shape[-1])  # Flatten spatial dimensions for clustering
-    pixel_labels = cluster.predict(encoded_img_flat)  # Get cluster labels for each pixel
-
-    # Step 3: Map clusters to categories
-    category_mapping = {
-        1: False,  # molecules
-        3: False,  # molecules
-        5: False,  # noise
-        4: False,  # aerosols
-        2: True,  # clouds
-        6: True,  # clouds
-        0: False,  # other
-        7: False   # other
-    }
-    pixel_labels = np.vectorize(category_mapping.get)(pixel_labels)
-
-    # Reshape the cluster labels back to the spatial dimensions
-    pixel_labels_image_shape = pixel_labels.reshape(encoded_img.shape[0], encoded_img.shape[1])
-
-    # Step 4: Upsample the cluster labels to match the original image size
-    upsampled_pixel_labels = resize(
-        pixel_labels_image_shape,
-        (target_size[0], target_size[1]),
-        order=0,  # Nearest-neighbor interpolation
-        preserve_range=True,
-        anti_aliasing=False
-    )
-    #upsampled_pixel_labels = upsampled_pixel_labels.astype(int)  # Ensure the labels are integers
+    encoder = load_model(ML['paths']['encoder'])
+    cluster = joblib.load(ML['paths']['kmeans'])
     
-    # resize upsampled_pixel_labels to original size
-    resized_upsampled_pixel_labels = resize(
-            upsampled_pixel_labels,
-            output_shape=np.shape(rcs),
-            order=0,  # Nearest-neighbor interpolation to avoid smoothing
-            anti_aliasing=False
-        )
+    # prepare data
+    split_ml_clouds = []
+    for split_rcs in split_rcs_list:
+        prepared_data = _prepare_data(split_rcs, ML['params']['vmin'], ML['params']['vmax'], ML['params']['target_size'])
+        split_ml_clouds.append(_ml_clouds(prepared_data, encoder, cluster, ML['params']['target_size'], output_shape=np.shape(split_rcs)))
     
-    ml_clouds = resized_upsampled_pixel_labels
-    
+    # aggregate split_ml_clouds
+    ml_clouds = _combine_matrices(split_ml_clouds)
     
     # creates dataarrays
     profiles.data["ml_clouds"] = (("time", "altitude"), ml_clouds)
