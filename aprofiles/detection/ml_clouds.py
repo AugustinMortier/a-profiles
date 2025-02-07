@@ -9,6 +9,8 @@ from sklearn.exceptions import InconsistentVersionWarning
 # Suppress TensorFlow CUDA messages
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ['XLA_FLAGS'] = '--xla_gpu_cuda_data_dir='  # Prevents unnecessary CUDA checks
+os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "false"  # Avoids some GPU-related logs
 
 # Suppress Abseil warnings
 absl.logging.set_verbosity(absl.logging.ERROR)
