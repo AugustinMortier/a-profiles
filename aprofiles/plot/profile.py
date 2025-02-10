@@ -29,7 +29,6 @@ def _plot_foc(da, time, zref):
         plt.plot([], [], "^m", ms=10, lw=0, label="fog or condensation")
         plt.plot(0, foc_markers[i_time], "m", marker=10, ms=10, lw=0)
 
-
 def _plot_clouds(da, time, var, zref):
     """Plot clouds layers
     Args:
@@ -44,54 +43,12 @@ def _plot_clouds(da, time, var, zref):
         altitude = da.altitude.data - da.station_altitude.data
     elif zref.upper() == "ASL":
         altitude = da.altitude.data
-
-    # plot bases
-    b_indexes = [i for i, x in enumerate(da.clouds_bases[i_time, :].data) if x]
-    plt.plot(da[var].data[i_time, b_indexes], altitude[b_indexes], "k.")
-
-    # plot peaks
-    p_indexes = [i for i, x in enumerate(da.clouds_peaks[i_time, :].data) if x]
-    plt.plot(da[var].data[i_time, p_indexes], altitude[p_indexes], "k.")
-
-    # plot tops
-    t_indexes = [i for i, x in enumerate(da.clouds_tops[i_time, :].data) if x]
-    plt.plot(da[var].data[i_time, t_indexes], altitude[t_indexes], "k.")
-
-    # plot some pretty lines around each cloud
-    for i, _ in enumerate(b_indexes):
-        # bottom line
-        if i == 0:
-            plt.plot(
-                [
-                    da[var].data[i_time, b_indexes[i]],
-                    da[var].data[i_time, p_indexes[i]],
-                ],
-                [altitude[b_indexes[i]], altitude[b_indexes[i]]],
-                ":k",
-                label="cloud layer",
-            )
-        else:
-            plt.plot(
-                [
-                    da[var].data[i_time, b_indexes[i]],
-                    da[var].data[i_time, p_indexes[i]],
-                ],
-                [altitude[b_indexes[i]], altitude[b_indexes[i]]],
-                ":k",
-            )
-        # top line
-        plt.plot(
-            [da[var].data[i_time, t_indexes[i]], da[var].data[i_time, p_indexes[i]]],
-            [altitude[t_indexes[i]], altitude[t_indexes[i]]],
-            ":k",
-        )
-        # vertical line
-        plt.plot(
-            [da[var].data[i_time, p_indexes[i]], da[var].data[i_time, p_indexes[i]]],
-            [altitude[b_indexes[i]], altitude[t_indexes[i]]],
-            ":k",
-        )
-
+    
+    c_indexes = da.clouds.data[i_time,:]
+    if not np.isnan(da.clouds.data[i_time]).all():
+        #plt.plot([], [], "^m", ms=10, lw=0, label=f'Clouds ({da.clouds.method})')
+        plt.plot(da[var].data[i_time, c_indexes], altitude[c_indexes], "m", marker=10, ms=6, lw=0, label=f'clouds ({da.clouds.method})')
+    
 
 def _plot_pbl(da, time, var, zref):
     """Plot planetary boundary layer

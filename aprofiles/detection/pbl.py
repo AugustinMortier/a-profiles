@@ -87,7 +87,10 @@ def detect_pbl(
         # sets to nan outside of PBL search range
         gradient[0: profiles._get_index_from_altitude_AGL(zmin):] = np.nan
         gradient[profiles._get_index_from_altitude_AGL(zmax):] = np.nan
-        i_pbl = np.nanargmin(gradient)
+        if not np.isnan(gradient).all():
+            i_pbl = np.nanargmin(gradient)
+        else:
+            return np.nan
 
         # calculates SNR
         snr = utils.snr_at_iz(data, i_pbl, step=10)
@@ -102,9 +105,9 @@ def detect_pbl(
     ).data.attenuated_backscatter_0
 
     # if under_clouds, check if clouds_bases is available
-    if under_clouds and "clouds_bases" in list(profiles.data.data_vars):
+    if under_clouds and "clouds" in list(profiles.data.data_vars):
         lowest_clouds = profiles._get_lowest_clouds()
-    elif under_clouds and "clouds_bases" not in list(profiles.data.data_vars):
+    elif under_clouds and "clouds" not in list(profiles.data.data_vars):
         import warnings
 
         warnings.warn(
@@ -117,11 +120,12 @@ def detect_pbl(
     pbl = []
     for i in (track(range(len(profiles.data.time.data)), description="pbl   ", disable=not verbose)):
         lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
+        _zmax = np.nanmin([zmax, lowest_cloud_agl])
         pbl.append(
             _detect_pbl_from_rcs(
                 rcs.data[i, :],
                 zmin,
-                np.nanmin([zmax, lowest_cloud_agl]),
+                _zmax,
                 wav_width,
                 min_snr,
             )

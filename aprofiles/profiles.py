@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 import xarray as xr
 from rich.progress import track
+from typing import Literal
 
 import aprofiles as apro
 
@@ -62,17 +63,15 @@ class ProfilesData:
             return (
                 min(np.diff(self.data.time.data)).astype("timedelta64[s]").astype(int)
             )
-
+    
     def _get_lowest_clouds(self):
         # returns an array of the altitude (in m, ASL) of the lowest cloud for each timestamp
-        lowest_clouds = []
-        for i in np.arange(len(self.data.time.data)):
-            i_clouds = apro.utils.get_true_indexes(self.data.clouds_bases.data[i, :])
+        lowest_clouds = np.full(np.shape(self.data.time.data), np.nan)
+        for i, _ in enumerate(self.data.time.data):
+            clouds_profile = self.data.clouds[i,:]
+            i_clouds = np.squeeze(np.where(clouds_profile))
             if len(i_clouds) > 0:
-                lowest_clouds.append(self.data.altitude.data[i_clouds[0]])
-            else:
-                lowest_clouds.append(np.nan)
-
+                lowest_clouds[i] = self.data.altitude.data[i_clouds[0]]
         return lowest_clouds
 
     def _get_itime(self, datetime):
@@ -389,12 +388,12 @@ class ProfilesData:
         Calls :meth:`aprofiles.detection.foc.detect_foc()`.
         """
         return apro.detection.foc.detect_foc(self, method, var, z_snr, min_snr, zmin_cloud)
-
-    def clouds(self, time_avg=1, zmin=0, thr_noise=5., thr_clouds=4., min_snr=0.0, verbose=False):
+    
+    def clouds(self, method: Literal["dec", "vg"]="dec", time_avg=1, zmin=0, thr_noise=5., thr_clouds=4., min_snr=0.0, verbose=False):
         """
         Calls :meth:`aprofiles.detection.clouds.detect_clouds()`.
         """
-        return apro.detection.clouds.detect_clouds(self, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
+        return apro.detection.clouds.detect_clouds(self, method, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
 
     def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
         """

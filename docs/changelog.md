@@ -2,11 +2,21 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.12.0
+Feb 10, 2025
+
+- add [AI-Profiles](https://github.com/AugustinMortier/ai-profiles) Deep Embedded Clustering (DEC) cloud detection method in addition to the vertical gradient (VG). The two methods are available into the cloud detection function. DEC is the default selected method.
+- revisit documentation accordingly
+- use *snr* method as a fallback to detect fog or condensation if the method is called before the cloud detection
+  
+> [!WARNING]  
+> breaking change: the cloud detection output is now defined into a single *cloud* boolean variable instead of the combination of *bases*, *peaks*, and *tops*, so both cloud detection methods (DEC)
+
 ## 0.11.2
 Feb 4, 2025
 
 - use *groups* instead of *extras* for dependencies installation
-  
+
 ## 0.11.1
 Oct 29, 2024
 

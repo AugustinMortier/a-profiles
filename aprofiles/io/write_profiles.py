@@ -135,7 +135,7 @@ def write(profiles, base_dir, verbose):
         if varname == "time": continue
         if var.dtype == np.int64:
             encoding[varname] = {"dtype": np.int32, "zlib": True, "chunksizes": var.shape}
-        if varname in ["extinction", "clouds_bases", "clouds_peaks", "clouds_tops"]:
+        if varname in ["extinction", "clouds"]:
             encoding[varname] = {"zlib": True, "chunksizes": var.shape}
     
     # convert also the quality_flag's variable flag_values attribute also to NC_INT instead of NC_INT64

@@ -90,7 +90,7 @@ profiles.plot(zref='agl', vmin=1e-2, vmax=1e1, log=True)
 profiles.foc(zmin_cloud=200) 
 
 # clouds detection
-profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
+profiles.clouds()
 
 # planetary boundary layer
 profiles.pbl(zmin=200, zmax=3000, under_clouds=True)

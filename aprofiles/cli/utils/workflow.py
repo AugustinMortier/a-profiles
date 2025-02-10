@@ -25,13 +25,18 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
 
         # detection
         profiles.foc(zmin_cloud=250.)
-        profiles.clouds(zmin=250., thr_noise=5., thr_clouds=4., verbose=verbose)
+        
+        if "cloud" in CFG["parameters"][profiles.data.instrument_type]:
+            if "method" in CFG["parameters"][profiles.data.instrument_type]["cloud"]:
+                    cloud_method = CFG["parameters"][profiles.data.instrument_type]["cloud"]["method"]
+            profiles.clouds(cloud_method, time_avg=1, zmin=250., thr_noise=5., thr_clouds=4., verbose=verbose)
+        
         profiles.pbl(zmin=200., zmax=3000., under_clouds=False, min_snr=1., verbose=verbose)
 
         # retrievals
         # inversion method selection
         # 1. default: forward, 50sr
-        method = "forward"
+        inversion_method = "forward"
         apriori = {
             "lr": 50,
             "mec": False,
@@ -75,7 +80,7 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
                     
             if "inversion" in CFG["parameters"][profiles.data.instrument_type]:
                 if "method" in CFG["parameters"][profiles.data.instrument_type]["inversion"]:
-                    method = CFG["parameters"][profiles.data.instrument_type]["inversion"]["method"]
+                    inversion_method = CFG["parameters"][profiles.data.instrument_type]["inversion"]["method"]
         
-        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method=method, apriori=apriori, verbose=verbose)
+        profiles.inversion(zmin=4000., zmax=6000., remove_outliers=True, method=inversion_method, apriori=apriori, verbose=verbose)
         profiles.write(base_dir)

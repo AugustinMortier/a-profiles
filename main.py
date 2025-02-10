@@ -33,29 +33,33 @@ def main(path):
     #)
     #profiles.plot(zref='agl', show_foc=False, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, zmax=6000.)
     # detection
+    profiles.clouds()
     profiles.foc(zmin_cloud=200)
-    profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4, verbose=True)
+
     profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2., verbose=True)
 
     # plot image
     #profiles.plot(zref='agl', show_foc=False, show_clouds=True, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/clouds.png")
     #profiles.plot(zref='agl', show_foc=True, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/foc.png")
-    profiles.plot(
-        zref='agl', show_foc=False, show_clouds=False, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, zmax=6000., 
-        #save_fig="docs/assets/images/pbl.png"
-    )
+    #profiles.plot(
+    #    zref='agl', show_foc=False, show_clouds=False, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, zmax=6000., 
+    #    #save_fig="docs/assets/images/pbl.png"
+    #)
     
     
     profiles.plot(
         zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, 
-        #save_fig="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
+        save_fig="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
     )
     
     # plot single profile
     # datetime = np.datetime64('2021-09-09T19:25:00')
     datetime = np.datetime64('2021-09-09T21:20:00')
     # datetime = np.datetime64('2021-09-09T10:25:00')
-    profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_fog=False, show_clouds=False, show_pbl=False)#, save_fig="docs/assets/images/Profile-Oslo-20210909T212005.png")
+    profiles.plot(
+        datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_foc=False, show_clouds=True, show_pbl=True,
+        save_fig="docs/assets/images/Profile-Oslo-20210909T212005.png"
+    )
 
     # aerosol inversion
 
@@ -65,8 +69,8 @@ def main(path):
     # profiles.plot(var='aod')
 
     # forward
-    profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method="forward", verbose=True)
-    profiles.plot(var="extinction", zmax=6000, vmin=0, vmax=5e-2)
+    #profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method="forward", verbose=True)
+    #profiles.plot(var="extinction", show_clouds=True, zmax=6000, vmin=0, vmax=5e-2)
     #profiles.plot(var="mass_concentration:dust", zmax=6000, vmin=0, vmax=5e-2)
     #profiles.plot('mass_concentration:dust', zmax=6000, vmin=0, vmax=100, cmap='Oranges')
     #profiles.plot('mass_concentration:urban', zmax=6000, vmin=0, vmax=100, cmap='Reds')

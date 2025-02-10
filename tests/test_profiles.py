@@ -65,19 +65,19 @@ class TestProfilesData:
         # test attributes
         assert desaturate_profiles.data.attenuated_backscatter_0.attrs['desaturated'] is True
 
+    def test_clouds(self, subtime_profiles):
+        extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
+        extrap_profiles.clouds()
+        clouds = extrap_profiles.data.clouds
+        # test types
+        assert type(clouds) is xr.core.dataarray.DataArray
+        assert type(clouds.data[0][0]) is np.bool_
+
     def test_foc(self, subtime_profiles):
         subtime_profiles.foc()
         foc = subtime_profiles.data.foc
         # test types
         assert type(foc) is xr.core.dataarray.DataArray
-
-    def test_clouds(self, subtime_profiles):
-        extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
-        extrap_profiles.clouds()
-        clouds_bases = extrap_profiles.data.clouds_bases
-        # test types
-        assert type(clouds_bases) is xr.core.dataarray.DataArray
-        assert type(clouds_bases.data[0][0]) is np.bool_
     
     def test_pbl(self, subtime_profiles):
         extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
@@ -120,13 +120,14 @@ class TestProfilesData:
     def test_plot(self, subtime_profiles):
         # data processing
         subtime_profiles.extrapolate_below(z=150, inplace=True)
-        subtime_profiles.foc(zmin_cloud=200) 
-        subtime_profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
+        subtime_profiles.clouds()
+        subtime_profiles.foc(zmin_cloud=200)
         subtime_profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
         # call plotting functions
-        fig1 = subtime_profiles.plot(show_foc=True, show_clouds=True, show_pbl=True, show_fig=False)
+        fig1 = subtime_profiles.plot(show_foc=True, show_clouds=True, show_pbl=True, vmin=1e-1, vmax=1e2, log=True, show_fig=False)
         fig2 = subtime_profiles.plot(datetime=np.datetime64('2021-09-09T21:20:00'), show_foc=True, show_clouds=True, show_pbl=True, show_fig=False)
         fig3 = subtime_profiles.plot(var='calibration_constant_0', show_fig=False)
+        
     
     def test_write(self, subtime_profiles):
         # call writing function

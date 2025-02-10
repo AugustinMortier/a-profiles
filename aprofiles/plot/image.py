@@ -2,6 +2,7 @@
 # @desc A-Profiles - Image plot
 
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import numpy as np
 import pandas as pd
 
@@ -42,53 +43,29 @@ def _plot_foc(da, zref):
 
 
 def _plot_clouds(da, zref):
-    """Plot clouds as markers.
+    """Plot clouds.
     Args:
         da ([type]): [description]
     """
     # time
     time = da.time.data
+    clouds = da.clouds
     # altitude
     if zref.upper() == "AGL":
         altitude = da.altitude.data - da.station_altitude.data
     elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    
+    # 2D array
+    C = np.transpose(clouds.data)
+    C_plot = np.where(C, 1, np.nan)
 
-    for i in range(len(time)):
-        # plot bases
-        b_indexes = [i for i, x in enumerate(da.clouds_bases[i, :].data) if x]
-        p_indexes = [i for i, x in enumerate(da.clouds_peaks[i, :].data) if x]
-        t_indexes = [i for i, x in enumerate(da.clouds_tops[i, :].data) if x]
-
-        # plot line from base to peak
-        for j, _ in enumerate(b_indexes):
-            y = altitude[b_indexes[j]: p_indexes[j]]
-            x = [time[i] for _ in y]
-            plt.plot(x, y, "w-", lw=2.0, alpha=0.2)
-
-        # plot line from peak to base
-        for j, _ in enumerate(b_indexes):
-            y = altitude[p_indexes[j]: t_indexes[j]]
-            x = [time[i] for _ in y]
-            plt.plot(x, y, "w-", lw=2.0, alpha=0.2)
-
-        """
-        #plot line from base to top
-        for j, _ in enumerate(b_indexes):
-            y = altitude[b_indexes[j]:t_indexes[j]]
-            x = [time[i] for _ in y]
-            plt.plot(x, y, 'w-', lw=2, alpha=0.9)
-        """
-        # plot markers
-        t = [time[i] for _ in b_indexes]
-        if i == 0:
-            plt.plot(t, altitude[b_indexes], "k.", ms=3, label="clouds")
-        else:
-            plt.plot(t, altitude[b_indexes], "k.", ms=3)
-        t = [time[i] for _ in p_indexes]
-        plt.plot(t, altitude[p_indexes], "k.", ms=3)
-        t = [time[i] for _ in t_indexes]
-        plt.plot(t, altitude[t_indexes], "k.", ms=3)
+    plt.pcolormesh(
+        time, altitude, C_plot, shading="nearest", cmap='Greys_r', vmin=0, vmax=1, alpha=0.9
+    )
+    
+    # Manually create a legend entry
+    plt.plot([], [], lw=0, marker="s", ms=10, color='white', alpha=0.9, label='clouds')
 
 
 def _plot_pbl(da, zref):
@@ -154,7 +131,7 @@ def plot(
     """
 
     # calculates max value from data
-    if vmax is None:
+    if vmax is None and type(da[var].data[0][0]) != np.bool:
         perc = np.percentile(da[var].data, 70)
         pow10 = np.ceil(np.log10(perc))
         vmax = 10 ** (pow10)
@@ -175,7 +152,7 @@ def plot(
     if log:
         import matplotlib.colors as colors
 
-        plt.pcolormesh(
+        pcm = plt.pcolormesh(
             time,
             altitude,
             C,
@@ -184,9 +161,11 @@ def plot(
             shading="nearest",
         )
     else:
-        plt.pcolormesh(
+        pcm = plt.pcolormesh(
             time, altitude, C, vmin=vmin, vmax=vmax, cmap=cmap, shading="nearest"
         )
+    # store colorbar
+    cbar = fig.colorbar(pcm, ax=axs)
 
     # add addition information
     if show_foc:
@@ -220,8 +199,6 @@ def plot(
     if show_foc or show_clouds or show_pbl:
         plt.legend(loc="upper right")
 
-    # colorbar
-    cbar = plt.colorbar()
     # label
     if "units" in list(da[var].attrs) and da[var].units is not None:
         label = f"{da[var].long_name} ({da[var].units})"
