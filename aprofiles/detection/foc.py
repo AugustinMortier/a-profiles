@@ -59,9 +59,9 @@ def detect_foc(profiles, method: Literal["cloud_base", "snr"]="cloud_base", var=
         ![Fog or condensation (foc) detection](../../assets/images/foc.png)
     """
 
-    if method == "cloud_base":
+    if method == "cloud_base" and "clouds" in profiles.data:
         foc = _detect_fog_from_cloud(profiles, zmin_cloud)
-    elif method.upper() == "SNR":
+    else:
         foc = _detect_fog_from_snr(profiles, z_snr, var, min_snr)
 
     # creates dataarray
