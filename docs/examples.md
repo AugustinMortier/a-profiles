@@ -53,6 +53,7 @@ The application of a Gaussian filter can help increase the SNR (which can be det
 ### Fog or condensation detection
 
 Fog or condensation prevents the laser beam from propagating into the atmosphere. It is important to detect these cases to filter the data when trying to quantify the aerosol content. Two methods are available:
+
 - *cloud_base* (default): uses the minimum cloud base height.
 - *snr* (fallback if no clouds are available): identifies areas under a certain altitude for which snr values lower than the prescribed threshold.
 
@@ -65,6 +66,7 @@ Fog or condensation prevents the laser beam from propagating into the atmosphere
 ### Clouds detection
 
 The clouds module aims to detect the clouds from the aerosols. Two methods are available: 
+
 - *dec* (default): Deep Embedded Clustering (see [AI-Profiles](https://github.com/AugustinMortier/ai-profiles)).
 - *vg*: Vertical Gradient.
 
