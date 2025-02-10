@@ -504,6 +504,11 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         # aggregate split_ml_clouds
         clouds = _combine_matrices(split_ml_clouds)
         
+        options = {
+            'encoder': ML['paths']['encoder'],
+            'kmeans': ML['paths']['kmeans']
+        }
+        
     elif method == 'vg':
         import numpy as np
         if None in (zmin, thr_noise, thr_clouds, min_snr):
@@ -517,6 +522,13 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
 
             # store info in 2D array
             clouds.append(i_clouds)
+            
+        options = {
+            'zmin': zmin,
+            'thr_noise': thr_noise,
+            'thr_clouds': thr_clouds,
+            'min_snr': min_snr
+        }
 
     # creates dataarrays
     profiles.data["clouds"] = (("time", "altitude"), clouds)
@@ -525,10 +537,7 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         'units': 'bool',
         'time_avg': time_avg,
         'method': method,
-        'options': {
-            'thr_noise': thr_noise,
-            'thr_clouds': thr_clouds,
-        }
+        'options': str(options)
     })
     return profiles
 

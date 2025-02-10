@@ -29,8 +29,7 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
         if "cloud" in CFG["parameters"][profiles.data.instrument_type]:
             if "method" in CFG["parameters"][profiles.data.instrument_type]["cloud"]:
                     cloud_method = CFG["parameters"][profiles.data.instrument_type]["cloud"]["method"]
-            profiles.clouds(cloud_method, zmin=250., thr_noise=5., thr_clouds=4., verbose=verbose)
-            profiles.ml_clouds(time_avg=1, verbose=False)
+            profiles.clouds(cloud_method, time_avg=1, zmin=250., thr_noise=5., thr_clouds=4., verbose=verbose)
         
         profiles.pbl(zmin=200., zmax=3000., under_clouds=False, min_snr=1., verbose=verbose)
 
