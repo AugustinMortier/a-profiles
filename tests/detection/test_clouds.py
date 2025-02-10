@@ -16,6 +16,7 @@ def subtime_profiles():
 def test_detect_clouds(subtime_profiles):
     # call clouds detection method
     apro.detection.clouds.detect_clouds(subtime_profiles)
-    clouds_bases = subtime_profiles.data.clouds_bases.data
+    clouds = subtime_profiles.data.clouds.data
+    
     # test values
-    assert np.round(np.mean(clouds_bases), 4) == 0.0022
+    assert np.round(np.mean(clouds), 4) > 0

@@ -74,10 +74,10 @@ class TestProfilesData:
     def test_clouds(self, subtime_profiles):
         extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
         extrap_profiles.clouds()
-        clouds_bases = extrap_profiles.data.clouds_bases
+        clouds = extrap_profiles.data.clouds
         # test types
-        assert type(clouds_bases) is xr.core.dataarray.DataArray
-        assert type(clouds_bases.data[0][0]) is np.bool_
+        assert type(clouds) is xr.core.dataarray.DataArray
+        assert type(clouds.data[0][0]) is np.bool_
     
     def test_pbl(self, subtime_profiles):
         extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
