@@ -13,9 +13,17 @@ def subtime_profiles():
     profiles.data = profiles.data.sel(time=slice(datetime1, datetime2))
     return profiles
 
-def test_detect_clouds(subtime_profiles):
+def test_detect_clouds_dec(subtime_profiles):
     # call clouds detection method
-    apro.detection.clouds.detect_clouds(subtime_profiles)
+    apro.detection.clouds.detect_clouds(subtime_profiles, method='dec')
+    clouds = subtime_profiles.data.clouds.data
+    
+    # test values
+    assert np.round(np.mean(clouds), 4) > 0
+
+def test_detect_clouds_vg(subtime_profiles):
+    # call clouds detection method
+    apro.detection.clouds.detect_clouds(subtime_profiles, method='vg')
     clouds = subtime_profiles.data.clouds.data
     
     # test values
