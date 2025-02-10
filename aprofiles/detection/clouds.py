@@ -145,37 +145,6 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
             # it is important to keep the tops in the same order, so not to use utils.get_true_indexes() function here
             return utils.get_true_indexes(bases), utils.get_true_indexes(peaks), i_tops
 
-        def _find_tops2(data, i_bases, i_peaks):
-            # function that finds the top of the layers by identifying the positive gradient above the peak
-            tops = np.asarray([False for x in np.ones(len(data))])
-            i_tops = []
-
-            gradient = np.gradient(data)
-            for i in range(len(i_bases)):
-                mask_value = np.asarray(
-                    [True if gradient[j] > 0 else False for j in range(len(data))]
-                )
-                mask_altitude = np.asarray(
-                    [True if j > i_peaks[i] else False for j in range(len(data))]
-                )
-                # the top is the first value that corresponds to the intersection of the two masks
-                cross_mask = np.logical_and(mask_value, mask_altitude)
-                i_cross_mask = utils.get_true_indexes(cross_mask)
-                if len(i_cross_mask) > 0:
-                    if tops[i_cross_mask[0]]:
-                        # print('top already found. remove current layer')
-                        bases[i_bases[i]] = False
-                        peaks[i_peaks[i]] = False
-                    else:
-                        tops[i_cross_mask[0]] = True
-                        i_tops.append(i_cross_mask[0])
-                else:
-                    # print('no top found for base',i_bases[i])
-                    bases[i_bases[i]] = False
-                    peaks[i_peaks[i]] = False
-            # it is important to keep the tops in the same order, so not to use utils.get_true_indexes() function here
-            return utils.get_true_indexes(bases), utils.get_true_indexes(peaks), i_tops
-
         def _mask_cloud(profile: aprofiles.profiles, bases: list[int], tops: list[int]) -> np.ndarray:
             """Generate a boolean mask for cloud presence in a given profile.
 
