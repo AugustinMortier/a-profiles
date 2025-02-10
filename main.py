@@ -49,14 +49,17 @@ def main(path):
     
     profiles.plot(
         zref='agl', show_foc=True, show_clouds=True, show_pbl=True, log=True, vmin=1e-2, vmax=1e1, 
-        #save_fig="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
+        save_fig="docs/assets/images/QL-Fog&Clouds&PBL-Oslo-20210909.png"
     )
     
     # plot single profile
     # datetime = np.datetime64('2021-09-09T19:25:00')
     datetime = np.datetime64('2021-09-09T21:20:00')
     # datetime = np.datetime64('2021-09-09T10:25:00')
-    profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_foc=False, show_clouds=True, show_pbl=True)#, save_fig="docs/assets/images/Profile-Oslo-20210909T212005.png")
+    profiles.plot(
+        datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_foc=False, show_clouds=True, show_pbl=True,
+        save_fig="docs/assets/images/Profile-Oslo-20210909T212005.png"
+    )
 
     # aerosol inversion
 
