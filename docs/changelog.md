@@ -2,6 +2,12 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.12.1
+Feb 10, 2025
+
+- write *cloud_base_height* variable provided in original files
+- update documentation
+
 ## 0.12.0
 Feb 10, 2025
 

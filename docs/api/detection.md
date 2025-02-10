@@ -12,7 +12,7 @@ This method allows for the detection of fog or condensation in single profiles.
 
 ## Clouds
 
-This method allows for the detection of clouds in single profiles.
+This method allows for the detection of clouds in attenuated backscatter profiles.
 
 ::: aprofiles.detection.clouds
 

@@ -27,7 +27,9 @@ def _detect_fog_from_snr(profiles, z_snr, var, min_snr):
     return foc
 
 def detect_foc(profiles, method: Literal["cloud_base", "snr"]="cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
-    """Detects fog or condensation.
+    """Detects fog or condensation. Two methods are available:
+    - cloud_base (default): uses the minimum cloud base height.
+    - snr (fallback if no clouds are available): identifies areas under a certain altitude for which snr values lower than the prescribed threshold.
 
     Args:
         profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
