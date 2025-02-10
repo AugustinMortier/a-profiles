@@ -395,12 +395,6 @@ class ProfilesData:
         """
         return apro.detection.clouds.detect_clouds(self, method, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose)
 
-    #def ml_clouds(self, time_avg=1, verbose=False):
-    #    """
-    #    Calls :meth:`aprofiles.detection.ml_clouds.detect_clouds()`.
-    #    """
-    #    return apro.detection.ml_clouds.detect_clouds(self, time_avg, verbose)
-    
     def pbl(self, time_avg=1, zmin=100., zmax=3000., wav_width=200., under_clouds=True, min_snr=2., verbose=False):
         """
         Calls :meth:`aprofiles.detection.pbl.detect_pbl()`.

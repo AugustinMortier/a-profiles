@@ -105,9 +105,9 @@ def detect_pbl(
     ).data.attenuated_backscatter_0
 
     # if under_clouds, check if clouds_bases is available
-    if under_clouds and "ml_clouds" in list(profiles.data.data_vars):
-        lowest_clouds = profiles._get_lowest_ml_clouds()
-    elif under_clouds and "ml_clouds" not in list(profiles.data.data_vars):
+    if under_clouds and "clouds" in list(profiles.data.data_vars):
+        lowest_clouds = profiles._get_lowest_clouds()
+    elif under_clouds and "clouds" not in list(profiles.data.data_vars):
         import warnings
 
         warnings.warn(

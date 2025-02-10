@@ -229,9 +229,9 @@ def inversion(
     """
 
     # if under_clouds, check if clouds_bases is available
-    if under_clouds and "ml_clouds" in list(profiles.data.data_vars):
-        lowest_clouds = profiles._get_lowest_ml_clouds()
-    elif under_clouds and "ml_clouds" not in list(profiles.data.data_vars):
+    if under_clouds and "clouds" in list(profiles.data.data_vars):
+        lowest_clouds = profiles._get_lowest_clouds()
+    elif under_clouds and "clouds" not in list(profiles.data.data_vars):
         warnings.warn(
             "under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object."
         )

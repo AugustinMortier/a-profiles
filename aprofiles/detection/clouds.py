@@ -39,10 +39,10 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         # clouds detection
         profiles.clouds(method="dec")
         # attenuated backscatter image with clouds
-        profiles.plot(show_ml_clouds=True, vmin=1e-2, vmax=1e1, log=True)
+        profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
         ```
 
-        ![Clouds detection](../../assets/images/ml_clouds.png)
+        ![Clouds detection](../../assets/images/clouds.png)
     
     Example 2:
         ```python
