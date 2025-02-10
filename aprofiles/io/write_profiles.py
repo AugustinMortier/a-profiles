@@ -114,7 +114,7 @@ def write(profiles, base_dir, verbose):
     })
 
     # drop other variables
-    drop_variables = ['start_time', 'cloud_base_height', 'vertical_visibility', 'cbh_uncertainties', 'uncertainties_att_backscatter_0']
+    drop_variables = ['start_time', 'vertical_visibility', 'cbh_uncertainties', 'uncertainties_att_backscatter_0']
     for drop_var in drop_variables:
         ds_towrite = ds_towrite.drop(drop_var)
     
