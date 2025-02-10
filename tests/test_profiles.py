@@ -120,7 +120,8 @@ class TestProfilesData:
     def test_plot(self, subtime_profiles):
         # data processing
         subtime_profiles.extrapolate_below(z=150, inplace=True)
-        subtime_profiles.foc(zmin_cloud=200) 
+        subtime_profiles.clouds()
+        subtime_profiles.foc(zmin_cloud=200)
         subtime_profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
         # call plotting functions
         fig1 = subtime_profiles.plot(show_foc=True, show_clouds=True, show_pbl=True, show_fig=False)
