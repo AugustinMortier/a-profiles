@@ -21,15 +21,15 @@ def write(profiles, base_dir, verbose):
     """
     
     def _classify_scene(ds):
-        lowest_ml_clouds = profiles._get_lowest_ml_clouds()
+        lowest_clouds = profiles._get_lowest_clouds()
         scene = []
         # got clouds classification here: https://www.metoffice.gov.uk/weather/learn-about/weather/types-of-weather/clouds
-        for i, lowest_ml_cloud in enumerate(lowest_ml_clouds):
-            if lowest_ml_cloud<=1981:
+        for i, lowest_cloud in enumerate(lowest_clouds):
+            if lowest_cloud<=1981:
                 scene.append(3)
-            elif lowest_ml_cloud>1981 and lowest_ml_cloud<=6096:
+            elif lowest_cloud>1981 and lowest_cloud<=6096:
                 scene.append(2)
-            elif lowest_ml_cloud>6096:
+            elif lowest_cloud>6096:
                 scene.append(1)
             else:
                 scene.append(0)
@@ -39,13 +39,13 @@ def write(profiles, base_dir, verbose):
         return scene
     
     def _classify_retrieval_scene(ds):
-        lowest_ml_clouds = profiles._get_lowest_ml_clouds()
+        lowest_clouds = profiles._get_lowest_clouds()
         z_ref = profiles.data.z_ref.data
         scene = []
-        for i, _ in enumerate(lowest_ml_clouds):
-            if lowest_ml_clouds[i]>z_ref[i]:
+        for i, _ in enumerate(lowest_clouds):
+            if lowest_clouds[i]>z_ref[i]:
                 scene.append(1)
-            elif lowest_ml_clouds[i]<z_ref[i]:
+            elif lowest_clouds[i]<z_ref[i]:
                 scene.append(3)
             else:
                 scene.append(0)
@@ -135,7 +135,7 @@ def write(profiles, base_dir, verbose):
         if varname == "time": continue
         if var.dtype == np.int64:
             encoding[varname] = {"dtype": np.int32, "zlib": True, "chunksizes": var.shape}
-        if varname in ["extinction", "clouds_bases", "clouds_peaks", "clouds_tops", "ml_clouds"]:
+        if varname in ["extinction", "clouds"]:
             encoding[varname] = {"zlib": True, "chunksizes": var.shape}
     
     # convert also the quality_flag's variable flag_values attribute also to NC_INT instead of NC_INT64

@@ -42,63 +42,13 @@ def _plot_foc(da, zref):
 
 
 def _plot_clouds(da, zref):
-    """Plot clouds as markers.
+    """Plot clouds.
     Args:
         da ([type]): [description]
     """
     # time
     time = da.time.data
-    # altitude
-    if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
-        altitude = da.altitude.data
-
-    for i in range(len(time)):
-        # plot bases
-        b_indexes = [i for i, x in enumerate(da.clouds_bases[i, :].data) if x]
-        p_indexes = [i for i, x in enumerate(da.clouds_peaks[i, :].data) if x]
-        t_indexes = [i for i, x in enumerate(da.clouds_tops[i, :].data) if x]
-
-        # plot line from base to peak
-        for j, _ in enumerate(b_indexes):
-            y = altitude[b_indexes[j]: p_indexes[j]]
-            x = [time[i] for _ in y]
-            plt.plot(x, y, "w-", lw=2.0, alpha=0.2)
-
-        # plot line from peak to base
-        for j, _ in enumerate(b_indexes):
-            y = altitude[p_indexes[j]: t_indexes[j]]
-            x = [time[i] for _ in y]
-            plt.plot(x, y, "w-", lw=2.0, alpha=0.2)
-
-        """
-        #plot line from base to top
-        for j, _ in enumerate(b_indexes):
-            y = altitude[b_indexes[j]:t_indexes[j]]
-            x = [time[i] for _ in y]
-            plt.plot(x, y, 'w-', lw=2, alpha=0.9)
-        """
-        # plot markers
-        t = [time[i] for _ in b_indexes]
-        if i == 0:
-            plt.plot(t, altitude[b_indexes], "k.", ms=3, label="clouds")
-        else:
-            plt.plot(t, altitude[b_indexes], "k.", ms=3)
-        t = [time[i] for _ in p_indexes]
-        plt.plot(t, altitude[p_indexes], "k.", ms=3)
-        t = [time[i] for _ in t_indexes]
-        plt.plot(t, altitude[t_indexes], "k.", ms=3)
-
-
-def _plot_ml_clouds(da, zref):
-    """Plot ml_clouds as markers.
-    Args:
-        da ([type]): [description]
-    """
-    # time
-    time = da.time.data
-    ml_clouds = da.ml_clouds
+    clouds = da.clouds
     # altitude
     if zref.upper() == "AGL":
         altitude = da.altitude.data - da.station_altitude.data
@@ -106,7 +56,7 @@ def _plot_ml_clouds(da, zref):
         altitude = da.altitude.data
     
     # 2D array
-    C = np.transpose(ml_clouds.data)
+    C = np.transpose(clouds.data)
     C_plot = np.where(C, 1, np.nan)
 
     plt.pcolormesh(
@@ -141,7 +91,6 @@ def plot(
     show_foc=False,
     show_pbl=False,
     show_clouds=False,
-    show_ml_clouds=False,
     cmap="coolwarm",
     show_fig=True,
     save_fig = None
@@ -160,7 +109,6 @@ def plot(
         show_foc (bool, optional): Add foc detection.
         show_pbl (bool, optional): Add PBL height.
         show_clouds (bool, optional): Add clouds detection.
-        show_ml_clouds (bool, optional): Add machine learning-based clouds detection.
         cmap (str, optional): Matplotlib colormap.
         show_fig (bool, optional): Show figure.
         save_fig (str, optional): Path of the saved figure.
@@ -220,8 +168,6 @@ def plot(
         _plot_foc(da, zref)
     if show_clouds:
         _plot_clouds(da, zref)
-    if show_ml_clouds:
-        _plot_ml_clouds(da, zref)
     if show_pbl:
         _plot_pbl(da, zref)
 
