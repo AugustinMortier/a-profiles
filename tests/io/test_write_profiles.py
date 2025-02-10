@@ -19,8 +19,8 @@ def profiles():
     profiles.data.sel(time=slice(datetime1, datetime2))
     # data processing
     profiles.extrapolate_below(z=150, inplace=True)
-    profiles.foc(zmin_cloud=200) 
     profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
+    profiles.foc(zmin_cloud=200)
     profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
     profiles.inversion()
     return profiles

@@ -65,12 +65,6 @@ class TestProfilesData:
         # test attributes
         assert desaturate_profiles.data.attenuated_backscatter_0.attrs['desaturated'] is True
 
-    def test_foc(self, subtime_profiles):
-        subtime_profiles.foc()
-        foc = subtime_profiles.data.foc
-        # test types
-        assert type(foc) is xr.core.dataarray.DataArray
-
     def test_clouds(self, subtime_profiles):
         extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
         extrap_profiles.clouds()
@@ -78,6 +72,12 @@ class TestProfilesData:
         # test types
         assert type(clouds) is xr.core.dataarray.DataArray
         assert type(clouds.data[0][0]) is np.bool_
+
+    def test_foc(self, subtime_profiles):
+        subtime_profiles.foc()
+        foc = subtime_profiles.data.foc
+        # test types
+        assert type(foc) is xr.core.dataarray.DataArray
     
     def test_pbl(self, subtime_profiles):
         extrap_profiles = subtime_profiles.extrapolate_below(z=150.)
@@ -121,7 +121,6 @@ class TestProfilesData:
         # data processing
         subtime_profiles.extrapolate_below(z=150, inplace=True)
         subtime_profiles.foc(zmin_cloud=200) 
-        subtime_profiles.clouds(zmin=300, thr_noise=5, thr_clouds=4)
         subtime_profiles.pbl(zmin=200, zmax=3000, under_clouds=True)
         # call plotting functions
         fig1 = subtime_profiles.plot(show_foc=True, show_clouds=True, show_pbl=True, show_fig=False)

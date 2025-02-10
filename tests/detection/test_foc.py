@@ -11,6 +11,7 @@ def subtime_profiles():
     datetime1 = np.datetime64('2021-09-09T21:00:00')
     datetime2 = np.datetime64('2021-09-09T23:00:00')
     profiles.data = profiles.data.sel(time=slice(datetime1, datetime2))
+    apro.detection.clouds.detect_clouds(profiles)
     return profiles
 
 def test_detect_foc(subtime_profiles):
