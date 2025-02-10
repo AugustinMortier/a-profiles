@@ -2,6 +2,7 @@
 # @desc A-Profiles - Image plot
 
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import numpy as np
 import pandas as pd
 
@@ -62,6 +63,9 @@ def _plot_clouds(da, zref):
     plt.pcolormesh(
         time, altitude, C_plot, shading="nearest", cmap='Greys_r', vmin=0, vmax=1, alpha=0.9
     )
+    
+    # Manually create a legend entry
+    plt.plot([], [], lw=0, marker="s", ms=10, color='white', alpha=0.9, label='clouds')
 
 
 def _plot_pbl(da, zref):

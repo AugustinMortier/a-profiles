@@ -46,8 +46,8 @@ def _plot_clouds(da, time, var, zref):
     
     c_indexes = da.clouds.data[i_time,:]
     if not np.isnan(da.clouds.data[i_time]).all():
-        plt.plot([], [], "^m", ms=10, lw=0, label=f'Clouds ({da.clouds.method})')
-        plt.plot(da[var].data[i_time, c_indexes], altitude[c_indexes], "m", marker=10, ms=10, lw=0)
+        #plt.plot([], [], "^m", ms=10, lw=0, label=f'Clouds ({da.clouds.method})')
+        plt.plot(da[var].data[i_time, c_indexes], altitude[c_indexes], "m", marker=10, ms=6, lw=0, label=f'clouds ({da.clouds.method})')
     
 
 def _plot_pbl(da, time, var, zref):
