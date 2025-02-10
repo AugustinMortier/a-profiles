@@ -70,7 +70,7 @@ gradient of the attenuated backscatter profiles.
 {!../examples/03_02_clouds.py!}
 ```
 
-![Clouds detection](assets/images/clouds.png)
+![Clouds detection](assets/images/clouds_dec.png)
 
 ### Planetary Boundary Layer tracking
 

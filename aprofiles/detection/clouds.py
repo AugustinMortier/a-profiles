@@ -42,7 +42,7 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
         ```
 
-        ![Clouds detection](../../assets/images/clouds.png)
+        ![Clouds detection](../../assets/images/clouds_dec.png)
     
     Example 2:
         ```python
@@ -57,7 +57,7 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)
         ```
 
-        ![Clouds detection](../../assets/images/clouds.png)
+        ![Clouds detection](../../assets/images/clouds_vg.png)
     """
 
     def _vg_clouds(data, zmin, thr_noise, thr_clouds, min_snr):
@@ -521,14 +521,14 @@ def _main():
 
     # basic corrections
     profiles.extrapolate_below(z=150.0, inplace=True)
-    profiles.desaturate_below(z=4000., inplace=True)
+    #profiles.desaturate_below(z=4000., inplace=True)
 
     # detection
-    profiles.clouds(method="dec", zmin=300, thr_noise=4, thr_clouds=4, verbose=True)
+    profiles.clouds(method="vg", zmin=300, thr_noise=4, thr_clouds=4, verbose=True)
     profiles.plot(show_clouds=True, log=True, vmin=1e-2, vmax=1e1)
     # plot single profile
-    datetime = np.datetime64("2021-09-09T21:20:00")
-    profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True)
+    #datetime = np.datetime64("2021-09-09T21:20:00")
+    #profiles.plot(datetime=datetime, vmin=-1, vmax=10, zmax=12000, show_clouds=True)
 
 
 if __name__ == "__main__":

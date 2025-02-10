@@ -8,10 +8,10 @@ profiles = apro.reader.ReadProfiles(path).read()
 profiles.extrapolate_below(z=150., inplace=True)
 
 # clouds detection
-profiles.clouds(zmin=300., thr_noise=5., thr_clouds=4., verbose=True)
+profiles.clouds()
 
 # plot image with clouds
 profiles.plot(
     show_clouds=True, log=True, vmin=1e-2, vmax=1e1,
-    save_fig="examples/images/clouds.png"
+    save_fig="examples/images/clouds_dec.png"
 )
