@@ -3,20 +3,12 @@
 
 from aprofiles import utils
 import numpy as np
+from typing import Literal
 
-
-def _detect_fog_from_ml_cloud(profiles, zmin_cloud):
+def _detect_fog_from_cloud(profiles, zmin_cloud):
     # returns a bool list with True where fog/condensation cases
     # if the base of the first cloud (given by the constructor) is below
-    first_cloud_base_height = profiles._get_lowest_ml_clouds()
-    foc = [True if x <= zmin_cloud else False for x in first_cloud_base_height]
-    return foc
-
-def _detect_fog_from_cloud_base_height(profiles, zmin_cloud):
-    # returns a bool list with True where fog/condensation cases
-    # if the base of the first cloud (given by the constructor) is below
-    first_cloud_base_height = profiles.data.cloud_base_height.data[:, 0]
-    # condition
+    first_cloud_base_height = profiles._get_lowest_clouds()
     foc = [True if x <= zmin_cloud else False for x in first_cloud_base_height]
     return foc
 
@@ -34,12 +26,12 @@ def _detect_fog_from_snr(profiles, z_snr, var, min_snr):
     foc = [True if x <= min_snr else False for x in snr]
     return foc
 
-def detect_foc(profiles, method="ml_cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
+def detect_foc(profiles, method: Literal["cloud_base", "snr"]="cloud_base", var="attenuated_backscatter_0", z_snr=2000., min_snr=2., zmin_cloud=200.):
     """Detects fog or condensation.
 
     Args:
         profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
-        method ({'ml_cloud_base', 'cloud_base', 'snr'}, optional): Detection method.
+        method ({'cloud_base', 'snr'}, optional): Detection method.
         var (str, optional): Used for 'snr' method. Variable to calculate SNR from.
         z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR.
         min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation.
@@ -67,10 +59,8 @@ def detect_foc(profiles, method="ml_cloud_base", var="attenuated_backscatter_0",
         ![Fog or condensation (foc) detection](../../assets/images/foc.png)
     """
 
-    if method == "ml_cloud_base":
-        foc = _detect_fog_from_ml_cloud(profiles, zmin_cloud)
     if method == "cloud_base":
-        foc = _detect_fog_from_cloud_base_height(profiles, zmin_cloud)
+        foc = _detect_fog_from_cloud(profiles, zmin_cloud)
     elif method.upper() == "SNR":
         foc = _detect_fog_from_snr(profiles, z_snr, var, min_snr)
 
