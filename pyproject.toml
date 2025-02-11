@@ -48,3 +48,7 @@ mkdocstrings-python = { version = "^1.14.3", optional = true }
 dev = ["pytest", "black", "ipykernel", "pytest-cov", "ipython", "pymdown-extensions", "ipywidgets"]
 docs = ["mkdocs-material", "mkdocs-autorefs", "mkdocs-copy", "mkdocstrings", "markdown-include", "mkdocstrings-python"]
 cli = ["typer"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
