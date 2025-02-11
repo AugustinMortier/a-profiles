@@ -2,6 +2,13 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.12.2
+Feb 11, 2025
+
+- CLI updates:
+  - skip corrupted files in calendar and map files making
+  - fix some conflicts in climatology due to file format changes
+  
 ## 0.12.1
 Feb 10, 2025
 
