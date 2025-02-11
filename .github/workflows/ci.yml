@@ -51,7 +51,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install package
-        run: poetry install --with docs
+        run: poetry install -E docs
       - name: Make the docs
         run: poetry run mkdocs gh-deploy --force
       - name: Deploy to GitHub Pages

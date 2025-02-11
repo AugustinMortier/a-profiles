@@ -26,7 +26,7 @@ pip install .[cli]
 :simple-poetry: via *poetry*
 
 ``` bash
-poetry install --with cli
+poetry install -E cli
 ```
 
 ## Documentation

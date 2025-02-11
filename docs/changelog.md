@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.12.3
+Feb 11, 2025
+
+- goes from *groups* to *extras* for dependencies support with pip
+
 ## 0.12.2
 Feb 11, 2025
 
