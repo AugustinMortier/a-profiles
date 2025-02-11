@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.12.4
+Feb 11, 2025
+
+- fix *pip* extras dependencies installation
+
 ## 0.12.3
 Feb 11, 2025
 
