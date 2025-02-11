@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install package
-        run: poetry install
+        run: poetry install -E dev
       - name: Lint with black
         run: poetry run black . --diff
       - name: Run tests
