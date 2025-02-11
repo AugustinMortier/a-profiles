@@ -18,7 +18,13 @@ def add_to_calendar(fn, path, yyyy: str, mm: str, dd: str, calname: str) -> None
     
     # read data
     vars_to_read = ['retrieval_scene']
-    ds = xr.open_dataset(fn, chunks=-1)[vars_to_read].load()
+    
+    # in some cases, the file might be corrupted. Just skip it then.
+    try:
+        ds = xr.open_dataset(fn, engine='netcdf4', chunks=-1)[vars_to_read].load()
+    except OSError:
+        print(f'File {fn} is corrupted. Skipping...')
+        return
 
     # counts scenes
     scene_classes = [4, 3, 1, 0]

@@ -20,7 +20,13 @@ def add_to_map(fn, path, yyyy: str, mm: str, dd: str, mapname) -> None:
     
     # read data
     vars_to_read = ['extinction', 'retrieval_scene', 'cloud_amount', 'lidar_ratio', 'aer_type', 'mec']
-    ds = xr.open_dataset(fn, chunks=-1)[vars_to_read].load()
+    
+    # in some cases, the file might be corrupted. Just skip it then.
+    try:
+        ds = xr.open_dataset(fn, engine='netcdf4', chunks=-1)[vars_to_read].load()
+    except OSError:
+        print(f'File {fn} is corrupted. Skipping...')
+        return
 
     # calculate the max extinction and determine the scene for each hour of the day
     # need to convert time (from int to datetime) in order to use the resample method from xarray
