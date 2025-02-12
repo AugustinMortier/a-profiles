@@ -21,17 +21,17 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
     if profiles.data.attrs['instrument_type'] in instruments_types:
 
         # extrapolation lowest layers
-        profiles.extrapolate_below(z=150., inplace=True)
-
-        # detection
-        profiles.foc(zmin_cloud=250.)
+        profiles.extrapolate_below(z=260., inplace=True)
         
+        # cloud detection
         if "cloud" in CFG["parameters"][profiles.data.instrument_type]:
             if "method" in CFG["parameters"][profiles.data.instrument_type]["cloud"]:
                     cloud_method = CFG["parameters"][profiles.data.instrument_type]["cloud"]["method"]
-            profiles.clouds(cloud_method, time_avg=1, zmin=250., thr_noise=5., thr_clouds=4., verbose=verbose)
+            profiles.clouds(cloud_method, time_avg=1, zmin=300., thr_noise=5., thr_clouds=4., verbose=verbose)
         
-        profiles.pbl(zmin=200., zmax=3000., under_clouds=False, min_snr=1., verbose=verbose)
+        # foc and pbl
+        profiles.foc(zmin_cloud=300.)        
+        profiles.pbl(zmin=300., zmax=3000., under_clouds=False, min_snr=1.5, verbose=verbose)
 
         # retrievals
         # inversion method selection

@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.12.5
+Feb 12, 2025
+
+- adjust some parameters in cli workflow
+  
 ## 0.12.4
 Feb 11, 2025
 

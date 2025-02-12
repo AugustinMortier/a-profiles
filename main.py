@@ -26,7 +26,7 @@ def main(path):
 
     # extrapolation lowest layers
     # profiles.plot(zmax=1000., log=True, vmin=1e-2, vmax=1e1)
-    #profiles.extrapolate_below(z=150, inplace=True)
+    profiles.extrapolate_below(z=260, inplace=True)
     #profiles.plot(
     #    zref='agl', log=True, vmin=1e-2, vmax=1e1, 
     #    save_fig="docs/assets/images/QL-Oslo-20210909.png"
@@ -34,9 +34,9 @@ def main(path):
     #profiles.plot(zref='agl', show_foc=False, show_clouds=False, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, zmax=6000.)
     # detection
     profiles.clouds()
-    profiles.foc(zmin_cloud=200)
+    profiles.foc(zmin_cloud=300)
 
-    profiles.pbl(zmin=200, zmax=3000, under_clouds=False, min_snr=2., verbose=True)
+    profiles.pbl(zmin=300, zmax=3000, under_clouds=False, min_snr=1.5, verbose=True)
 
     # plot image
     #profiles.plot(zref='agl', show_foc=False, show_clouds=True, show_pbl=False, log=True, vmin=1e-2, vmax=1e1, save_fig="docs/assets/images/clouds.png")
@@ -88,4 +88,6 @@ if __name__ == "__main__":
     # read some data
     #path = "examples/data/E-PROFILE/L2_0-20000-006735_A20210908.nc"
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
+    #path = "data/e-profile/2025/02/12/L2_0-20000-0-01492_A20250212.nc"
+    
     main(path)
