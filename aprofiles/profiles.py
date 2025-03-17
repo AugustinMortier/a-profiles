@@ -288,7 +288,7 @@ class ProfilesData:
         """
 
         # get index of z
-        imax = _get_indices_from_altitude_AGL(self, z)
+        imax = self._get_indices_from_altitude_AGL(z)
         nt = np.shape(self.data[var].data)[0]
 
         if method == "cst":
@@ -337,11 +337,14 @@ class ProfilesData:
             Make sure that the range correction is not already applied to the selected variable.
         """
 
-        # for the altitude correction, must one use the altitude above the ground level
-        z_agl = self.data.altitude.data - self.data.station_altitude.data
+        range_corrected_data = []
 
-        data = self.data[var].data
-        range_corrected_data = np.multiply(data, z_agl)
+        for i in range(len(self.data.time.data)):
+            # for the altitude correction, must one use the altitude above the ground level
+            z_agl = self.data.altitude.data - self.data.station_altitude.data[i]
+
+            data = self.data[var].data[i, :]
+            range_corrected_data.append(np.multiply(data, z_agl))
 
         if inplace:
             self.data[var].data = range_corrected_data
@@ -393,10 +396,10 @@ class ProfilesData:
             ![After desaturation](../../assets/images/desaturated.png)
         """
 
-        imax = self._get_index_from_altitude_AGL(z)
+        imax = self._get_indices_from_altitude_AGL(z)
         unsaturated_data = copy.deepcopy(self.data[var].data)
         for i in range(len(self.data.time.data)):
-            unsaturated_data[i, :imax] = abs(unsaturated_data[i, :imax])
+            unsaturated_data[i, : imax[i]] = abs(unsaturated_data[i, : imax[i]])
 
         if inplace:
             self.data[var].data = unsaturated_data
