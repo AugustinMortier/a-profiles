@@ -148,6 +148,8 @@ def plot(
     # altitude
     if zref.upper() == "AGL":
         altitude = da.altitude.data
+    else:
+        print("Only AGL reference is supported in image visualization")
 
     fig, axs = plt.subplots(1, 1, figsize=(12, 4))
 
@@ -192,8 +194,24 @@ def plot(
     altitude = da.station_altitude.data
     station_id = da.attrs["site_location"]
     # title
+    str_latitude = (
+        f"{latitude[0]:.2f}"
+        if len(np.unique(latitude)) == 1
+        else f"{np.min(latitude):.2f}-{np.max(latitude):.2f}"
+    )
+    str_longitude = (
+        f"{longitude[0]:.2f}"
+        if len(np.unique(longitude)) == 1
+        else f"{np.min(longitude):.2f}-{np.max(longitude):.2f}"
+    )
+    str_altitude = (
+        f"{altitude[0]:.2f}"
+        if len(np.unique(altitude)) == 1
+        else f"{np.min(altitude):.2f}-{np.max(altitude):.2f}"
+    )
+
     plt.title(
-        f"{station_id} ({latitude:.2f};{longitude:.2f};{altitude:.1f}m) - {yyyy}/{mm:02}/{dd:02}",
+        f"{station_id} ({str_latitude};{str_longitude};{str_altitude}m) - {yyyy}/{mm:02}/{dd:02}",
         weight="bold",
     )
     # labels
