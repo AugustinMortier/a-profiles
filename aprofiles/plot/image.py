@@ -20,9 +20,9 @@ def _plot_foc(da, zref):
     time = da.time.data
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    else:
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
 
     foc_markers = [altitude[0] if x else np.nan for x in da.foc.data]
 
