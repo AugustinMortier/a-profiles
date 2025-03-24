@@ -62,10 +62,13 @@ class ReadEPROFILE:
                     position_key == "station_altitude"
                     and ds.altitude.long_name == "Altitude above sea level"
                 ):
+                    # Store existing attributes
+                    altitude_attrs = ds.altitude.attrs
                     ds = ds.assign_coords(
                         altitude=np.round(ds.altitude - ds[position_key].data, 3)
                     )
-                    ds.altitude.attrs["long_name"] = "Altitude above ground level"
+                    altitude_attrs["long_name"] = "Altitude above ground level"
+                    ds["altitude"] = ds.altitude.assign_attrs(altitude_attrs)
 
                 altitude_array = np.ones(np.shape(ds.time.data)) * ds[position_key].data
                 ds[position_key] = xr.DataArray(
