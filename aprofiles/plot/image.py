@@ -149,12 +149,12 @@ def plot(
     if zref.upper() == "AGL":
         altitude = da.altitude.data
     else:
-        print("Only AGL reference is supported in image visualization")
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
 
     fig, axs = plt.subplots(1, 1, figsize=(12, 4))
 
     # 2D array
-    C = np.transpose(da[var].data)
+    C = da[var].data.T
 
     if log:
         import matplotlib.colors as colors

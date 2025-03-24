@@ -22,7 +22,7 @@ def _plot_foc(da, time, zref):
     if zref.upper() == "AGL":
         altitude = da.altitude.data
     elif zref.upper() == "ASL":
-        altitude = da.altitude.data + da.station_altitude.data
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
 
     foc_markers = [altitude[0] if x else np.nan for x in da.foc.data]
     if not np.isnan(foc_markers[i_time]):
@@ -43,7 +43,7 @@ def _plot_clouds(da, time, var, zref):
     if zref.upper() == "AGL":
         altitude = da.altitude.data
     elif zref.upper() == "ASL":
-        altitude = da.altitude.data + da.station_altitude.data
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
 
     c_indexes = da.clouds.data[i_time, :]
     if not np.isnan(da.clouds.data[i_time]).all():
@@ -71,9 +71,9 @@ def _plot_pbl(da, time, var, zref):
     i_time = np.argmin(abs(da_time - time))
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
 
     # get index of pbl
     i_pbl = np.argmin(abs(da.altitude.data - da.pbl.data[i_time]))
@@ -144,9 +144,9 @@ def plot(
 
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
 
     fig, axs = plt.subplots(1, 1, figsize=(6, 6))
     plt.plot(da[var].data[i_time], altitude)
@@ -170,9 +170,9 @@ def plot(
         plt.xlim([vmin, vmax])
 
     # set title and axis labels
-    latitude = da.station_latitude.data
-    longitude = da.station_longitude.data
-    altitude = da.station_altitude.data
+    latitude = da.station_latitude.data[i_time]
+    longitude = da.station_longitude.data[i_time]
+    altitude = da.station_altitude.data[i_time]
     station_id = da.attrs["site_location"]
     # title
     plt.title(
