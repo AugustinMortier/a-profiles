@@ -43,8 +43,7 @@ class ProfilesData:
         Returns:
             (int): Closest index of the vertical dimension to the given altitude AGL
         """
-        altitude_asl = altitude + self.data.station_altitude.data
-        return int(np.argmin(abs(self.data.altitude.data - altitude_asl)))
+        return int(np.argmin(abs(self.data.altitude.data - altitude)))
 
     def _get_indices_from_altitude_AGL(self, altitude):
         """
@@ -58,9 +57,8 @@ class ProfilesData:
         """
 
         altitudes = np.full_like(self.data.station_altitude.data, altitude)
-        altitudes_asl = altitudes + self.data.station_altitude.data
         closest_indices = [
-            np.argmin(abs(self.data.altitude.data - alt)) for alt in altitudes_asl
+            np.argmin(abs(self.data.altitude.data - alt)) for alt in altitudes
         ]
         return closest_indices
 
