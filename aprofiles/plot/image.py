@@ -23,7 +23,7 @@ def _plot_foc(da, zref):
         altitude = da.altitude.data - da.station_altitude.data
     elif zref.upper() == "ASL":
         altitude = da.altitude.data
-    
+
     foc_markers = [altitude[0] if x else np.nan for x in da.foc.data]
 
     # plot line from peak to base
@@ -55,17 +55,24 @@ def _plot_clouds(da, zref):
         altitude = da.altitude.data - da.station_altitude.data
     elif zref.upper() == "ASL":
         altitude = da.altitude.data
-    
+
     # 2D array
     C = np.transpose(clouds.data)
     C_plot = np.where(C, 1, np.nan)
 
     plt.pcolormesh(
-        time, altitude, C_plot, shading="nearest", cmap='Greys_r', vmin=0, vmax=1, alpha=0.9
+        time,
+        altitude,
+        C_plot,
+        shading="nearest",
+        cmap="Greys_r",
+        vmin=0,
+        vmax=1,
+        alpha=0.9,
     )
-    
+
     # Manually create a legend entry
-    plt.plot([], [], lw=0, marker="s", ms=10, color='white', alpha=0.9, label='clouds')
+    plt.plot([], [], lw=0, marker="s", ms=10, color="white", alpha=0.9, label="clouds")
 
 
 def _plot_pbl(da, zref):
@@ -97,14 +104,14 @@ def plot(
     show_clouds=False,
     cmap="coolwarm",
     show_fig=True,
-    save_fig = None
+    save_fig=None,
 ):
     """Plot image of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
     Args:
         da (xarray.DataArray): DataArray.
         var (str, optional): Variable of the DataArray to be plotted.
-        zref ({'agl', 'asl'}, optional): Base reference for altitude axis.
+        zref ({'agl'}, optional): Base reference for altitude axis.
         zmin (float, optional): Minimum altitude AGL (m).
         zmax (float, optional): Maximum altitude AGL (m).
         vmin (float, optional): Minimum value.
@@ -140,8 +147,6 @@ def plot(
     time = da.time.data
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
 
     fig, axs = plt.subplots(1, 1, figsize=(12, 4))
