@@ -52,9 +52,9 @@ def _plot_clouds(da, zref):
     clouds = da.clouds
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    else:
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
 
     # 2D array
     C = np.transpose(clouds.data)
@@ -84,9 +84,9 @@ def _plot_pbl(da, zref):
     time = da.time.data
     # altitude
     if zref.upper() == "AGL":
-        pbl = da.pbl.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         pbl = da.pbl.data
+    else:
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
     plt.plot(time, pbl, ".g", ms=5, lw=0, label="PBL")
 
 
