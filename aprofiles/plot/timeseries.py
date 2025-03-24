@@ -2,6 +2,7 @@
 # @desc A-Profiles - Time Series plot
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 import seaborn as sns
@@ -63,8 +64,24 @@ def plot(da, var="aod", show_fig=True, save_fig=None, **kwargs):
     altitude = da.station_altitude.data
     station_id = da.attrs["site_location"]
     # title
+    str_latitude = (
+        f"{latitude[0]:.2f}"
+        if len(np.unique(latitude)) == 1
+        else f"{np.min(latitude):.2f}-{np.max(latitude):.2f}"
+    )
+    str_longitude = (
+        f"{longitude[0]:.2f}"
+        if len(np.unique(longitude)) == 1
+        else f"{np.min(longitude):.2f}-{np.max(longitude):.2f}"
+    )
+    str_altitude = (
+        f"{altitude[0]:.2f}"
+        if len(np.unique(altitude)) == 1
+        else f"{np.min(altitude):.2f}-{np.max(altitude):.2f}"
+    )
+    # title
     plt.title(
-        f"{station_id} ({latitude:.2f};{longitude:.2f};{altitude:.1f}m) - {yyyy}/{mm:02}/{dd:02}",
+        f"{station_id} ({str_latitude};{str_longitude};{str_altitude}m) - {yyyy}/{mm:02}/{dd:02}",
         weight="bold",
     )
     # labels
