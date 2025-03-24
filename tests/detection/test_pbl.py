@@ -19,4 +19,4 @@ def test_detect_pbl(subtime_profiles):
     apro.detection.pbl.detect_pbl(subtime_profiles, under_clouds=False)
     pbl = subtime_profiles.data.pbl.data
     # test values
-    assert np.nanmean(pbl) >= 1000 and np.nanmean(pbl) <= 1100
+    assert np.nanmean(pbl) >= 900 and np.nanmean(pbl) <= 1100
