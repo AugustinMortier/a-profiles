@@ -53,12 +53,24 @@ class ReadEPROFILE:
         # in CEDA archive, dimensions come as (altitude, time). Transpose all variables which have altitude as dimension.
         if ds.latitude.dims[0] == "altitude":
             ds = ds.transpose(..., "altitude")
+
         # make sure that the station_altitude variable follows the time dimension
-        if type(ds["station_altitude"].data.tolist()) == float:
-            altitude_array = np.ones(np.shape(ds.time.data)) * ds.station_altitude.data
-            ds["station_altitude"] = xr.DataArray(
-                data=altitude_array, dims=["time"], coords={"time": ds.time}
-            )
+        position_keys = ["station_latitude", "station_longitude", "station_altitude"]
+        for position_key in position_keys:
+            if type(ds[position_key].data.tolist()) == float:
+                if (
+                    position_key == "station_altitude"
+                    and ds.altitude.long_name == "Altitude above sea level"
+                ):
+                    ds = ds.assign_coords(
+                        altitude=np.round(ds.altitude - ds[position_key].data, 3)
+                    )
+                    ds.altitude.attrs["long_name"] = "Altitude above ground level"
+
+                altitude_array = np.ones(np.shape(ds.time.data)) * ds[position_key].data
+                ds[position_key] = xr.DataArray(
+                    data=altitude_array, dims=["time"], coords={"time": ds.time}
+                )
 
         # replace wavelength with actual value in attenuated backscatter longname
         ds.attenuated_backscatter_0.attrs["long_name"] = (
