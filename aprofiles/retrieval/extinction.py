@@ -34,7 +34,6 @@ def backward_inversion(data, iref, apriori, rayleigh):
         (array_like): Extinction coefficient (in m⁻¹).
     """
 
-
     if "aod" in apriori:
         # search by dichotomy the LR that matches the apriori aod
         raise NotImplementedError("AOD apriori is not implemented yet")
@@ -105,7 +104,7 @@ def forward_inversion(data, iref, apriori, rayleigh):
 
     def _get_aer_at_i(data, i, Tm, Bm, Ta, Ba, Ea, dz, nloop_max=30, diff_ext=0.01):
         # suppress warnings
-        warnings.filterwarnings('ignore')
+        warnings.filterwarnings("ignore")
 
         for _ in range(nloop_max):
             if np.isnan(Ea[i]):
@@ -239,33 +238,42 @@ def inversion(
     else:
         lowest_clouds = [np.nan for i in np.arange(len(profiles.data.time))]
 
-    # aerosol retrieval requires a molecular profile
-    altitude = np.asarray(profiles.data.altitude.data)
-    wavelength = float(profiles.data.l0_wavelength.data)
-    rayleigh = apro.rayleigh.RayleighData(
-        altitude, T0=298, P0=1013, wavelength=wavelength
-    )
-
     # aerosol inversion
     ext, lr, aod, z_ref = [], [], [], []
     aod_min, aod_max = 0, 2
     vertical_resolution = profiles._get_resolution("altitude")
-    for i in (track(range(len(profiles.data.time.data)), description="klett ",disable=not verbose)):
+    for i in track(
+        range(len(profiles.data.time.data)), description="klett ", disable=not verbose
+    ):
+        altitude_agl = profiles.data.altitude.data
+        altitude_asl = (
+            profiles.data.altitude.data + profiles.data.station_altitude.data[i]
+        )
+
+        # aerosol retrieval requires a molecular profile: use station_altitude in addition
+        wavelength = float(profiles.data.l0_wavelength.data)
+        rayleigh = apro.rayleigh.RayleighData(
+            altitude_asl, T0=298, P0=1013, wavelength=wavelength
+        )
+
         # for this inversion, it is important to use the right units
         if "Mm" in profiles.data.attenuated_backscatter_0.units:
-            calibrated_data = rcs.data[i, :] * 1e-6 # conversion from Mm-1.sr-1 to m-1.sr-1
+            calibrated_data = (
+                rcs.data[i, :] * 1e-6
+            )  # conversion from Mm-1.sr-1 to m-1.sr-1
         else:
             calibrated_data = rcs.data[i, :]
 
         # reference altitude
-        lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
         imin = profiles._get_index_from_altitude_AGL(zmin)
-        imax = profiles._get_index_from_altitude_AGL(np.nanmin([zmax, lowest_cloud_agl]))
+        imax = profiles._get_index_from_altitude_AGL(
+            np.nanmin([zmax, lowest_clouds[i]])
+        )
         if method == "backward":
             iref = get_iref(rcs.data[i, :], imin, imax, min_snr)
         elif method == "forward":
             iref = imax
-        z_ref.append(altitude[iref])
+        z_ref.append(altitude_agl[iref])
 
         if iref is not None:
             # aerosol inversion
@@ -294,39 +302,41 @@ def inversion(
                 ext.append(_ext)
 
     # creates dataarrays
-    profiles.data["extinction"] = (("time","altitude"), np.asarray(ext) * 1e3)
-    profiles.data["extinction"] = profiles.data.extinction.assign_attrs({
-        'long_name': f"Extinction Coefficient @ {int(wavelength)} nm",
-        'method': f"{method.capitalize()} Klett",
-        'units': "km-1",
-        'time_avg': time_avg,
-        'zmin': zmin,
-        'zmax': zmax,
-        'apriori_variable': list(apriori.keys())[0],
-        'apriori_value': apriori[list(apriori.keys())[0]],
-        })
+    profiles.data["extinction"] = (("time", "altitude"), np.asarray(ext) * 1e3)
+    profiles.data["extinction"] = profiles.data.extinction.assign_attrs(
+        {
+            "long_name": f"Extinction Coefficient @ {int(wavelength)} nm",
+            "method": f"{method.capitalize()} Klett",
+            "units": "km-1",
+            "time_avg": time_avg,
+            "zmin": zmin,
+            "zmax": zmax,
+            "apriori_variable": list(apriori.keys())[0],
+            "apriori_value": apriori[list(apriori.keys())[0]],
+        }
+    )
 
     profiles.data["aod"] = ("time", aod)
-    profiles.data["aod"] = profiles.data.aod.assign_attrs({
-        'long_name': f"Aerosol Optical Depth @ {int(wavelength)} nm",
-        'unit': ''
-    })
+    profiles.data["aod"] = profiles.data.aod.assign_attrs(
+        {"long_name": f"Aerosol Optical Depth @ {int(wavelength)} nm", "unit": ""}
+    )
 
-    profiles.data["lidar_ratio"] = ('time', lr)
-    profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
-        'long_name': f"Lidar Ratio @ {int(wavelength)} nm",
-        'units': 'sr',
-        'use_cfg': str(apriori['use_cfg'])
-    })
-    if 'cfg' in apriori:
-        profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs({
-            'cfg': str(apriori['cfg'])
-        })
+    profiles.data["lidar_ratio"] = ("time", lr)
+    profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs(
+        {
+            "long_name": f"Lidar Ratio @ {int(wavelength)} nm",
+            "units": "sr",
+            "use_cfg": str(apriori["use_cfg"]),
+        }
+    )
+    if "cfg" in apriori:
+        profiles.data["lidar_ratio"] = profiles.data.lidar_ratio.assign_attrs(
+            {"cfg": str(apriori["cfg"])}
+        )
 
-    profiles.data["z_ref"] = ('time', z_ref)
-    profiles.data["z_ref"] = profiles.data.z_ref.assign_attrs({
-        'long_name': f"Reference altitude ASL",
-        'units': 'm'
-    })
+    profiles.data["z_ref"] = ("time", z_ref)
+    profiles.data["z_ref"] = profiles.data.z_ref.assign_attrs(
+        {"long_name": f"Reference altitude ASL", "units": "m"}
+    )
 
     return profiles
