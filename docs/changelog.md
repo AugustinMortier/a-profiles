@@ -2,6 +2,16 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.13.0
+Mar 24, 2025
+
+This update intends to support the processing of *moving stations*.
+- update `profiles` Object data format
+  - the reference altitude is set above ground level (instead of above sea level)
+  - add time dimension to `station_altitude`, `station_latitude` and `station_longitude`
+- update `AP` files formatting to reflect new `profiles` format
+  - add `station_altitude_t0`, `station_latitude_t0` and `station_longitude_t0` attributes for convenience
+  
 ## 0.12.5
 Feb 12, 2025
 

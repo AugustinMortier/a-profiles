@@ -20,10 +20,10 @@ def _plot_foc(da, zref):
     time = da.time.data
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
-    
+    else:
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
+
     foc_markers = [altitude[0] if x else np.nan for x in da.foc.data]
 
     # plot line from peak to base
@@ -52,20 +52,27 @@ def _plot_clouds(da, zref):
     clouds = da.clouds
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
-    
+    else:
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
+
     # 2D array
     C = np.transpose(clouds.data)
     C_plot = np.where(C, 1, np.nan)
 
     plt.pcolormesh(
-        time, altitude, C_plot, shading="nearest", cmap='Greys_r', vmin=0, vmax=1, alpha=0.9
+        time,
+        altitude,
+        C_plot,
+        shading="nearest",
+        cmap="Greys_r",
+        vmin=0,
+        vmax=1,
+        alpha=0.9,
     )
-    
+
     # Manually create a legend entry
-    plt.plot([], [], lw=0, marker="s", ms=10, color='white', alpha=0.9, label='clouds')
+    plt.plot([], [], lw=0, marker="s", ms=10, color="white", alpha=0.9, label="clouds")
 
 
 def _plot_pbl(da, zref):
@@ -77,9 +84,9 @@ def _plot_pbl(da, zref):
     time = da.time.data
     # altitude
     if zref.upper() == "AGL":
-        pbl = da.pbl.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         pbl = da.pbl.data
+    else:
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
     plt.plot(time, pbl, ".g", ms=5, lw=0, label="PBL")
 
 
@@ -97,14 +104,14 @@ def plot(
     show_clouds=False,
     cmap="coolwarm",
     show_fig=True,
-    save_fig = None
+    save_fig=None,
 ):
     """Plot image of selected variable from :class:`aprofiles.profiles.ProfilesData` object.
 
     Args:
         da (xarray.DataArray): DataArray.
         var (str, optional): Variable of the DataArray to be plotted.
-        zref ({'agl', 'asl'}, optional): Base reference for altitude axis.
+        zref ({'agl'}, optional): Base reference for altitude axis.
         zmin (float, optional): Minimum altitude AGL (m).
         zmax (float, optional): Maximum altitude AGL (m).
         vmin (float, optional): Minimum value.
@@ -140,14 +147,14 @@ def plot(
     time = da.time.data
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    else:
+        raise ValueError("Unsupported altitude reference. Use 'AGL'.")
 
     fig, axs = plt.subplots(1, 1, figsize=(12, 4))
 
     # 2D array
-    C = np.transpose(da[var].data)
+    C = da[var].data.T
 
     if log:
         import matplotlib.colors as colors
@@ -187,8 +194,24 @@ def plot(
     altitude = da.station_altitude.data
     station_id = da.attrs["site_location"]
     # title
+    str_latitude = (
+        f"{latitude[0]:.2f}"
+        if len(np.unique(latitude)) == 1
+        else f"{np.min(latitude):.2f}-{np.max(latitude):.2f}"
+    )
+    str_longitude = (
+        f"{longitude[0]:.2f}"
+        if len(np.unique(longitude)) == 1
+        else f"{np.min(longitude):.2f}-{np.max(longitude):.2f}"
+    )
+    str_altitude = (
+        f"{altitude[0]:.2f}"
+        if len(np.unique(altitude)) == 1
+        else f"{np.min(altitude):.2f}-{np.max(altitude):.2f}"
+    )
+
     plt.title(
-        f"{station_id} ({latitude:.2f};{longitude:.2f};{altitude:.1f}m) - {yyyy}/{mm:02}/{dd:02}",
+        f"{station_id} ({str_latitude};{str_longitude};{str_altitude}m) - {yyyy}/{mm:02}/{dd:02}",
         weight="bold",
     )
     # labels

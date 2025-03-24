@@ -20,14 +20,15 @@ def _plot_foc(da, time, zref):
     i_time = np.argmin(abs(da_time - time))
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
 
     foc_markers = [altitude[0] if x else np.nan for x in da.foc.data]
     if not np.isnan(foc_markers[i_time]):
         plt.plot([], [], "^m", ms=10, lw=0, label="fog or condensation")
         plt.plot(0, foc_markers[i_time], "m", marker=10, ms=10, lw=0)
+
 
 def _plot_clouds(da, time, var, zref):
     """Plot clouds layers
@@ -40,15 +41,23 @@ def _plot_clouds(da, time, var, zref):
     i_time = np.argmin(abs(da_time - time))
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
-    
-    c_indexes = da.clouds.data[i_time,:]
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
+
+    c_indexes = da.clouds.data[i_time, :]
     if not np.isnan(da.clouds.data[i_time]).all():
-        #plt.plot([], [], "^m", ms=10, lw=0, label=f'Clouds ({da.clouds.method})')
-        plt.plot(da[var].data[i_time, c_indexes], altitude[c_indexes], "m", marker=10, ms=6, lw=0, label=f'clouds ({da.clouds.method})')
-    
+        # plt.plot([], [], "^m", ms=10, lw=0, label=f'Clouds ({da.clouds.method})')
+        plt.plot(
+            da[var].data[i_time, c_indexes],
+            altitude[c_indexes],
+            "m",
+            marker=10,
+            ms=6,
+            lw=0,
+            label=f"clouds ({da.clouds.method})",
+        )
+
 
 def _plot_pbl(da, time, var, zref):
     """Plot planetary boundary layer
@@ -62,9 +71,9 @@ def _plot_pbl(da, time, var, zref):
     i_time = np.argmin(abs(da_time - time))
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
 
     # get index of pbl
     i_pbl = np.argmin(abs(da.altitude.data - da.pbl.data[i_time]))
@@ -87,7 +96,7 @@ def plot(
     show_pbl=False,
     show_clouds=False,
     show_fig=True,
-    save_fig=None
+    save_fig=None,
 ):
     """
     Plot single profile of selected variable from (aprofiles.profiles.ProfilesData): object.
@@ -135,9 +144,9 @@ def plot(
 
     # altitude
     if zref.upper() == "AGL":
-        altitude = da.altitude.data - da.station_altitude.data
-    elif zref.upper() == "ASL":
         altitude = da.altitude.data
+    elif zref.upper() == "ASL":
+        altitude = da.altitude.data + da.station_altitude.data[i_time]
 
     fig, axs = plt.subplots(1, 1, figsize=(6, 6))
     plt.plot(da[var].data[i_time], altitude)
@@ -161,9 +170,9 @@ def plot(
         plt.xlim([vmin, vmax])
 
     # set title and axis labels
-    latitude = da.station_latitude.data
-    longitude = da.station_longitude.data
-    altitude = da.station_altitude.data
+    latitude = da.station_latitude.data[i_time]
+    longitude = da.station_longitude.data[i_time]
+    altitude = da.station_altitude.data[i_time]
     station_id = da.attrs["site_location"]
     # title
     plt.title(
@@ -188,4 +197,3 @@ def plot(
         plt.savefig(save_fig)
     if show_fig:
         plt.show()
-
