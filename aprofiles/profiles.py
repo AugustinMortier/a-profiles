@@ -408,7 +408,7 @@ class ProfilesData:
             new_profiles_data = copied_dataset
 
         # add attribute
-        new_profiles_data.data[var].attrs["desaturated"] = True
+        new_profiles_data.data[var].attrs["desaturated"] = str(True)
         return new_profiles_data
 
     def foc(
