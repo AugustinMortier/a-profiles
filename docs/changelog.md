@@ -6,6 +6,7 @@
 Mar 24, 2025
 
 This update intends to support the processing of *moving stations*.
+
 - update `profiles` Object data format
   - the reference altitude is set above ground level (instead of above sea level)
   - add time dimension to `station_altitude`, `station_latitude` and `station_longitude`
