@@ -31,9 +31,9 @@ def detect_pbl(
         verbose (bool, optional): verbose mode.
 
     Returns:
-        (aprofiles.profiles.ProfilesData): 
+        (aprofiles.profiles.ProfilesData):
             adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):
-            
+
             - `'pbl' (time, altitude)`: mask array corresponding to the pbl height.
 
     Example:
@@ -54,7 +54,7 @@ def detect_pbl(
 
     from scipy.ndimage.filters import uniform_filter1d
 
-    def _detect_pbl_from_rcs(data, zmin, zmax, wav_width, min_snr):
+    def _detect_pbl(data, zmin, zmax, wav_width, min_snr):
         # detect pbl from range corrected signal between zmin and zmax using convolution with a wavelet..
         """
         from scipy import signal
@@ -73,7 +73,7 @@ def detect_pbl(
         convolution[profiles._get_index_from_altitude_AGL(zmax):] = np.nan
         i_pbl = np.nanargmax(abs(convolution))
         """
-        #-1. check if any valid data
+        # -1. check if any valid data
         if np.isnan(data).all():
             return np.nan
 
@@ -85,8 +85,8 @@ def detect_pbl(
 
         # the PBL is the maximum of the convolution
         # sets to nan outside of PBL search range
-        gradient[0: profiles._get_index_from_altitude_AGL(zmin):] = np.nan
-        gradient[profiles._get_index_from_altitude_AGL(zmax):] = np.nan
+        gradient[0 : profiles._get_index_from_altitude_AGL(zmin) :] = np.nan
+        gradient[profiles._get_index_from_altitude_AGL(zmax) :] = np.nan
         if not np.isnan(gradient).all():
             i_pbl = np.nanargmin(gradient)
         else:
@@ -118,11 +118,13 @@ def detect_pbl(
         lowest_clouds = [np.nan for _ in np.arange(len(profiles.data.time))]
 
     pbl = []
-    for i in (track(range(len(profiles.data.time.data)), description="pbl   ", disable=not verbose)):
-        lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data
+    for i in track(
+        range(len(profiles.data.time.data)), description="pbl   ", disable=not verbose
+    ):
+        lowest_cloud_agl = lowest_clouds[i] - profiles.data.station_altitude.data[i]
         _zmax = np.nanmin([zmax, lowest_cloud_agl])
         pbl.append(
-            _detect_pbl_from_rcs(
+            _detect_pbl(
                 rcs.data[i, :],
                 zmin,
                 _zmax,
@@ -133,13 +135,15 @@ def detect_pbl(
 
     # creates dataarrays
     profiles.data["pbl"] = ("time", pbl)
-    profiles.data["pbl"] = profiles.data.pbl.assign_attrs({
-        'long_name': "Planetary Boundary Layer Height, ASL",
-        'units': 'm',
-        'time_avg': time_avg,
-        'zmin': zmin,
-        'zmax': zmax
-        })
+    profiles.data["pbl"] = profiles.data.pbl.assign_attrs(
+        {
+            "long_name": "Planetary Boundary Layer Height, ASL",
+            "units": "m",
+            "time_avg": time_avg,
+            "zmin": zmin,
+            "zmax": zmax,
+        }
+    )
     return profiles
 
 
@@ -147,7 +151,7 @@ def _main():
     import aprofiles as apro
 
     path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"
-    
+
     profiles = apro.reader.ReadProfiles(path).read()
 
     # basic corrections
