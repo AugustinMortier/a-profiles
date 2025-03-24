@@ -98,7 +98,7 @@ class TestProfilesData:
         # test attributes
         assert (
             desaturate_profiles.data.attenuated_backscatter_0.attrs["desaturated"]
-            is "True"
+            == "True"
         )
 
     def test_clouds(self, subtime_profiles):
