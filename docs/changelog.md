@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.13.2
+Mar 24, 2025
+
+- Fix map processing by using new attributes name (`station_altitude_t0`, `station_latitude_t0` and `station_longitude_t0`)
+  
 ## 0.13.1
 Mar 24, 2025
 
