@@ -52,7 +52,7 @@ class ReadEPROFILE:
             ds = ds.drop_duplicates(dim="time")
         # in CEDA archive, dimensions come as (altitude, time). Transpose all variables which have altitude as dimension.
         if ds.latitude.dims[0] == "altitude":
-            ds = ds.transpose(..., "altitude")
+            ds = ds.transpose(..., "altitude").compute()
 
         # make sure that the station_altitude variable follows the time dimension
         position_keys = ["station_latitude", "station_longitude", "station_altitude"]
