@@ -2,6 +2,12 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.13.3
+May 20, 2025
+
+- Make sure files with dimensions in the the order (altitude, time) are computed, and not just lazy processed with *dask*, which made the lowest layers extrapolation not working.
+  
+
 ## 0.13.2
 Mar 24, 2025
 
