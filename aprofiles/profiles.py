@@ -55,10 +55,9 @@ class ProfilesData:
         Returns:
             (np.ndarray): Array of closest indices of the vertical dimension to the given altitudes AGL
         """
-
         altitudes = np.full_like(self.data.station_altitude.data, altitude)
         closest_indices = [
-            np.argmin(abs(self.data.altitude.data - alt)) for alt in altitudes
+            int(np.argmin(abs(self.data.altitude.data - alt))) for alt in altitudes
         ]
         return closest_indices
 
@@ -306,6 +305,7 @@ class ProfilesData:
             for t in range(nt):
                 self.data[var].data[t, : imax[t]] = filling_matrice[t, : imax[t]]
             new_profiles_data = self
+            filling_matrice[t, : imax[t]]
         else:
             copied_dataset = copy.deepcopy(self)
             for t in range(nt):
