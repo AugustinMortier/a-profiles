@@ -6,6 +6,7 @@ import os
 import warnings
 
 from aprofiles import utils
+from importlib.metadata import version
 import numpy as np
 import xarray as xr
 
@@ -164,6 +165,9 @@ def write(profiles, base_dir, verbose):
     ds_towrite["quality_flag"] = ds_towrite.quality_flag.assign_attrs(
         {"flag_values": np.array([0, 1, 2], dtype=np.int32)}
     )
+
+    # add some metadata
+    ds_towrite.attrs["aprofiles"] = version("aprofiles")
 
     # writes to netcdf
     # ds_towrite.to_netcdf(path, mode="w", encoding=encoding)

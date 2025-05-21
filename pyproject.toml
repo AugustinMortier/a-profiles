@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aprofiles"
-version = "0.13.3"
+version = "0.14.0"
 description = "Analysis of atmospheric profilers measurements"
 authors = ["augustinm <augustinm@met.no>"]
 license = "GPL-3.0"

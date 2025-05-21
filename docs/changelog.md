@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.14.0
+May 21, 2025
+
+- Add *aprofiles* version in output files metadata and as a general option of the *CLI*.
+  
 ## 0.13.3
 May 20, 2025
 

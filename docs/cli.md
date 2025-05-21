@@ -39,9 +39,10 @@ apro --help
  Usage: apro [OPTIONS] COMMAND [ARGS]...                                                                                             
                                                                                                                                      
 ╭─ Options ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ --install-completion          Install completion for the current shell.                                                           │
-│ --show-completion             Show completion for the current shell, to copy it or customize the installation.                    │
-│ --help                        Show this message and exit.                                                                         │
+│ --version             -v        Show the application version and exit                                                             │
+│ --install-completion            Install completion for the current shell.                                                         │
+│ --show-completion               Show completion for the current shell, to copy it or customize the installation.                  │
+│ --help                          Show this message and exit.                                                                       │
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ Commands ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ l2b   make E-PROFILE L2b files out of AP files                                                                                    │

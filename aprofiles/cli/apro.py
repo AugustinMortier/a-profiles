@@ -9,10 +9,12 @@ from pathlib import Path
 from typing import List
 
 import typer
+from importlib.metadata import version, PackageNotFoundError
 from pandas import date_range
 from rich.progress import Progress, track
 
 import aprofiles.cli.utils as utils
+
 
 app = typer.Typer(no_args_is_help=True)
 
@@ -272,6 +274,25 @@ def l2b(
         )
 
     utils.l2b.make_files(path_in, path_out, time_steps, progress_bar)
+
+
+@app.callback(invoke_without_command=True)
+def main(
+    ctx: typer.Context,
+    version_flag: bool = typer.Option(
+        None, "--version", "-v", help="Show the application version and exit"
+    ),
+):
+    """Main entry point for the CLI."""
+    if version_flag:
+        try:
+            library_version = version(
+                "aprofiles"
+            )  # Replace 'mypkg' with your actual package name
+            typer.echo(f"aprofiles: {library_version}")
+        except PackageNotFoundError:
+            typer.echo("Package not found. Ensure 'aprofiles' is installed.")
+        ctx.exit()
 
 
 if __name__ == "__main__":
