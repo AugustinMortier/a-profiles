@@ -1,0 +1,36 @@
+/*light theme*/
+body[data-md-color-scheme=default] {}
+
+/*dark theme*/
+body[data-md-color-scheme=slate] {}
+
+body[data-md-color-scheme=slate] img:not(.only-dark, .dark-light) {
+  filter: brightness(.9) contrast(1.1);
+}
+
+.twemoji {
+  /*font-size: 1.6em;*/
+  margin: auto;
+}
+
+a.download {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+a.download::before {
+  content: "⇩ ";
+  /* Adding a download icon before the text */
+}
+
+a.md-social__link[title="V-Profiles"] {
+  background-image: url('../images/v-profiles.svg');
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+a.md-social__link[title="V-Profiles"]>svg {
+  display: none;
+}
