@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.14.1
+May 22, 2025
+
+- Sort files per *time* and *aer_type* to ensure monotonicity.
+  
 ## 0.14.0
 May 21, 2025
 

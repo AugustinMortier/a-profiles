@@ -169,6 +169,10 @@ def write(profiles, base_dir, verbose):
     # add some metadata
     ds_towrite.attrs["aprofiles"] = version("aprofiles")
 
+    # sort to ensure monotonicity
+    ds_towrite = ds_towrite.sortby("time")
+    ds_towrite = ds_towrite.sortby("aer_type")
+
     # writes to netcdf
     # ds_towrite.to_netcdf(path, mode="w", encoding=encoding)
     ds_towrite.to_netcdf(path, mode="w")
