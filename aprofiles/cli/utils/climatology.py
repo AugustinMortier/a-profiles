@@ -17,7 +17,7 @@ def compute_climatology(path, station_id, season_variables, all_variables, aeros
         for file in files:
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
-    
+    station_files = sorted(station_files) 
     try:
         # open dataset with xarray
         vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
@@ -37,11 +37,11 @@ def compute_climatology(path, station_id, season_variables, all_variables, aeros
         for attr in attrs:
             if isinstance(attrs[attr], np.uint32):
                 attrs[attr] = int(attrs[attr])
-        
+
         # keep only clear scenes
         if aerosols_only:
             ds = ds.where((ds.retrieval_scene <= 1) & (ds.cloud_amount == 0))
-            
+
         # seasonal resampling
         Qds = ds.resample(time="QE").mean().compute()
 
@@ -66,7 +66,7 @@ def compute_climatology(path, station_id, season_variables, all_variables, aeros
         # add seasonal variables
         for var in season_variables + ["ndays"]:
             multivars_dict[var] = Qds[var].round(6).to_dict()
-        
+
         # add all variables
         for var in all_variables:
             multivars_dict[var] = ds[var].round(6).to_dict()
