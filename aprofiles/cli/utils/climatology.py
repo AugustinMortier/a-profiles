@@ -17,19 +17,14 @@ def compute_climatology(path, station_id, season_variables, all_variables, aeros
         for file in files:
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
-    station_files = sorted(station_files) 
+    station_files = sorted(station_files)
     try:
         # open dataset with xarray
         vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
         try:
-            ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1)[vars].load()
+            ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1, concat_dim="time", data_vars='minimal', coords='minimal', combine='nested', com    pat='override')[vars].load()
         except Exception as e:
-            try:
-                print(f"first open_mfdataset try failed for {station_id}: {e}, trying with different arguments")
-                ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1, concat_dim="time", data_vars='minimal', coords='minimal', combine='nested', compat='override')[vars].load()
-            except Exception as e:
-                print(f"second open_mfdataset try also failed for {station_id}: {e}")
-                raise(e)
+            raise(e)
 
         # store attributes which are destroyed by the resampling method
         attrs = ds.attrs
