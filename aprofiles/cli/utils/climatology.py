@@ -22,7 +22,7 @@ def compute_climatology(path, station_id, season_variables, all_variables, aeros
         # open dataset with xarray
         vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
         try:
-            ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1, concat_dim="time", data_vars='minimal', coords='minimal', combine='nested', com    pat='override')[vars].load()
+            ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1, concat_dim="time", join='outer', data_vars=vars, coords='minimal',combine='nested',compat='override', drop_variables=['mec'])[vars].load()
         except Exception as e:
             raise(e)
 
