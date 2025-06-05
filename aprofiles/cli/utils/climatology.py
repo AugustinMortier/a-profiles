@@ -26,6 +26,8 @@ def compute_climatology(path, station_id, season_variables, all_variables, aeros
         except Exception as e:
             raise(e)
 
+        ds = ds.sortby("time")
+        ds = ds.drop_duplicates('time', keep='last')
         # store attributes which are destroyed by the resampling method
         attrs = ds.attrs
         # replace np.int by int
