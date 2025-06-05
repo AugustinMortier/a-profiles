@@ -81,4 +81,4 @@ def compute_climatology(path, station_id, season_variables, all_variables, aeros
             json_file.write(orjson.dumps(multivars_dict, option=orjson.OPT_SERIALIZE_NUMPY))
 
     except Exception as e:
-        print(f'ValueError encountered with {station_id}: {e}')
+        print(f'Error encountered with {station_id}: {e}')
