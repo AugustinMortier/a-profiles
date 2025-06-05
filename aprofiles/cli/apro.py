@@ -202,18 +202,12 @@ def run(
             "-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5])
             for onlyfile in onlyfiles
         ]
-        # append IDs
-        extra_ids = ['0-20000-0-10577-0','0-20008-0-BRN-A','0-250-1001-75105006-A','0-20000-0-01001-A','0-756-2-ERISWIL-A','0-20000-0-06260-A','0-20000-0-10868-0','0-20000-0-07110-A','0-826-300-1-A','0-20000-0-00203-A','0-20000-0-00202-A','0-20008-0-MCR-A','0-20000-0-12935-A','0-20000-0-78990-A','0-20000-0-07014-A','0-20000-0-07606-A','0-20000-0-07145-A','0-20000-0-06275-A','0-20000-0-07617-A','0-20000-0-06267-A','0-20000-0-03501-A','0-724-0-0000000000060004-C']
-        for el in extra_ids:
-            if el not in stations_id:
-                stations_id.append(el)
         # exclude moving stations
         stations_id = [
             station
             for station in stations_id
             if station not in CFG["exclude_stations_id_from_climatology"]
         ]
-        print(f"using station_id list: {stations_id}")
 
         if multiprocessing:
             with Progress() as progress:
