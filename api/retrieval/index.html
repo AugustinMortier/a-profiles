@@ -1,0 +1,2698 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for A-Profiles">
+      
+      
+        <meta name="author" content="Augustin Mortier">
+      
+      
+        <link rel="canonical" href="https://github.com/AugustinMortier/A-Profiles/api/retrieval/">
+      
+      
+        <link rel="prev" href="../detection/">
+      
+      
+        <link rel="next" href="../simulation/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Retrieval - A-Profiles</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../assets/css/custom.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#retrieval" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A-Profiles" class="md-header__button md-logo" aria-label="A-Profiles" data-md-component="logo">
+      
+  <img src="../../assets/images/a-profiles.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A-Profiles
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Retrieval
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/AugustinMortier/A-Profiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AugustinMortier/A-Profiles
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../installation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../examples/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cli/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  CLI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A-Profiles" class="md-nav__button md-logo" aria-label="A-Profiles" data-md-component="logo">
+      
+  <img src="../../assets/images/a-profiles.svg" alt="logo">
+
+    </a>
+    A-Profiles
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/AugustinMortier/A-Profiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AugustinMortier/A-Profiles
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reading
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Classes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../detection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Retrieval
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retrieval
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aerosol-extinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aerosol Extinction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      extinction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction.backward_inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      backward_inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction.forward_inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      forward_inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction.inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mass-concentration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mass Concentration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.mass_conc" class="md-nav__link">
+    <span class="md-ellipsis">
+      mass_conc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.mass_conc.concentration_profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      concentration_profiles
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plotting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plotting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../writing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aerosol-extinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aerosol Extinction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction" class="md-nav__link">
+    <span class="md-ellipsis">
+      extinction
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction.backward_inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      backward_inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction.forward_inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      forward_inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.extinction.inversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      inversion
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mass-concentration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mass Concentration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.mass_conc" class="md-nav__link">
+    <span class="md-ellipsis">
+      mass_conc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.retrieval.mass_conc.concentration_profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      concentration_profiles
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="retrieval">Retrieval<a class="headerlink" href="#retrieval" title="Permanent link">&para;</a></h1>
+<p><span class="twemoji" style="text-align: center; font-size: xx-large; display: block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6H2v14a2 2 0 0 0 2 2h14v-2H4zm14.7 1.35-1 1-2.05-2.05 1-1c.21-.22.56-.22.77 0l1.28 1.28c.22.21.22.56 0 .77M9 12.94l6.06-6.06 2.06 2.06L11.06 15H9zM20 4v12H8V4zm0-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2"/></svg></span></p>
+<p>The following functions are methods from the class
+<a href="../data_classes/#profilesdata"><code>ProfilesData</code></a></p>
+<h2 id="aerosol-extinction">Aerosol Extinction<a class="headerlink" href="#aerosol-extinction" title="Permanent link">&para;</a></h2>
+<p>This module is used to calculate extinction profiles from single
+attenuated backscatter profiles using an a priori.</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="aprofiles.retrieval.extinction"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="aprofiles.retrieval.extinction.backward_inversion" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">backward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">)</span></code>
+
+<a href="#aprofiles.retrieval.extinction.backward_inversion" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Backward (Klett [Klett1985]_ ) inversion method.</p>
+<p>.. [Klett1985] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>data</code>
+            </td>
+            <td>
+                  <code><span title="array_like">array_like</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>1D array of a single profile of the attenuated backscatter coefficient.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>iref</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Index of the reference altitude returned by :func:<code>aprofiles.retrieval.ref_altitude.get_iref()</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>apriori</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A priori values used to constrain the inversion. Valid keys include:
+- <strong>lr</strong> (float): Lidar Ratio (in sr).
+- <strong>aod</strong> (float): AOD (unitless).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rayleigh</code>
+            </td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>aprofiles.rayleigh.RayleighData</code>): Instance of the <code>RayleighData</code> class.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="NotImplementedError">NotImplementedError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>AOD apriori is not implemented yet.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="array_like">array_like</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Extinction coefficient (in m⁻¹).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>aprofiles/retrieval/extinction.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">backward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Backward (Klett [Klett1985]_ ) inversion method.</span>
+
+<span class="sd">    .. [Klett1985] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (array_like): 1D array of a single profile of the attenuated backscatter coefficient.</span>
+<span class="sd">        iref (float): Index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.</span>
+<span class="sd">        apriori (dict): A priori values used to constrain the inversion. Valid keys include:</span>
+<span class="sd">            - **lr** (float): Lidar Ratio (in sr).</span>
+<span class="sd">            - **aod** (float): AOD (unitless).</span>
+<span class="sd">        rayleigh (:class:`aprofiles.rayleigh.RayleighData`): Instance of the `RayleighData` class.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (array_like): Extinction coefficient (in m⁻¹).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="s2">&quot;aod&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+        <span class="c1"># search by dichotomy the LR that matches the apriori aod</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;AOD apriori is not implemented yet&quot;</span><span class="p">)</span>
+        <span class="n">lr_aer</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># if we assume the LR, no need to minimize for matching aod</span>
+        <span class="n">lr_aer</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+    <span class="n">lr_mol</span> <span class="o">=</span> <span class="mf">8.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">3.0</span>
+
+    <span class="c1"># vertical resolution</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">rayleigh</span><span class="o">.</span><span class="n">altitude</span><span class="p">))</span>
+
+    <span class="n">int1_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">((</span><span class="n">lr_aer</span> <span class="o">-</span> <span class="n">lr_mol</span><span class="p">)</span> <span class="o">*</span> <span class="n">rayleigh</span><span class="o">.</span><span class="n">backscatter</span><span class="p">[:</span><span class="n">iref</span><span class="p">]</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="n">int1_b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">int1_a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">int1_a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iref</span><span class="p">)]</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="n">iref</span><span class="p">]))</span> <span class="o">+</span> <span class="n">int1_b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iref</span><span class="p">)]</span>
+
+    <span class="n">int2_a</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">nancumsum</span><span class="p">(</span><span class="n">lr_aer</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">dz</span><span class="p">)</span>
+    <span class="n">int2_b</span> <span class="o">=</span> <span class="p">[</span><span class="n">int2_a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">int2_a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iref</span><span class="p">)]</span>
+
+    <span class="c1"># initialize total backscatter</span>
+    <span class="n">back_aer_iref</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># m-1</span>
+    <span class="n">beta_tot_iref</span> <span class="o">=</span> <span class="n">rayleigh</span><span class="o">.</span><span class="n">backscatter</span><span class="p">[</span><span class="n">iref</span><span class="p">]</span> <span class="o">+</span> <span class="n">back_aer_iref</span>
+
+    <span class="c1"># total backscatter</span>
+    <span class="n">beta_tot</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">phi</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="n">beta_tot_iref</span><span class="p">)</span> <span class="o">+</span> <span class="n">int2_b</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iref</span><span class="p">)]</span>
+    <span class="c1"># aerosol backsatter (m-1.sr-1)</span>
+    <span class="n">beta_aer</span> <span class="o">=</span> <span class="n">beta_tot</span> <span class="o">-</span> <span class="n">rayleigh</span><span class="o">.</span><span class="n">backscatter</span><span class="p">[:</span><span class="n">iref</span><span class="p">]</span>
+    <span class="c1"># aerosol extinction (m-1)</span>
+    <span class="n">sigma_aer</span> <span class="o">=</span> <span class="n">lr_aer</span> <span class="o">*</span> <span class="n">beta_aer</span>
+    <span class="c1"># returns extinction in m-1 when valid, and np.nan elsewhere</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="p">[</span><span class="n">sigma_aer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sigma_aer</span><span class="p">)</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span>
+    <span class="k">return</span> <span class="n">ext</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="aprofiles.retrieval.extinction.forward_inversion" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">forward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">)</span></code>
+
+<a href="#aprofiles.retrieval.extinction.forward_inversion" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Forward iterative inversion method [#]_.</p>
+<p>.. [#] Li, D., Wu, Y., Gross, B., &amp; Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.</p>
+<p>Method principle:</p>
+<p>At z0, the aerosol transmission is assumed as being close to 1. We evaluate the aerosol extinction based on this assumption.
+This evaluation gives a refined aerosol extinction that is used to calculate a second time the aerosol transmission.
+The aerosol extinction retrieval will converge after a certain number iterations.
+After the convergence, the aerosol extinction is retrieved in the next upper layer.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>data</code>
+            </td>
+            <td>
+                  <code><span title="array_like">array_like</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>1D Array of single profile of attenuated backscatter coefficient, in m-1.sr-1.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>iref</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>index of the reference altitude returned by :func:<code>aprofiles.retrieval.ref_altitude.get_iref()</code>.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>apriori</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>rayleigh</code>
+            </td>
+            <td>
+                  <code>aprofiles.rayleigh.RayleighData). Instance of the </code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>class:<code>aprofiles.rayleigh.RayleighData</code> class.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="NotImplementedError">NotImplementedError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>AOD apriori is not implemented yet.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="array_like">array_like</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Extinction coefficient (in m⁻¹).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>aprofiles/retrieval/extinction.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Forward iterative inversion method [#]_.</span>
+
+<span class="sd">    .. [#] Li, D., Wu, Y., Gross, B., &amp; Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.</span>
+
+<span class="sd">    Method principle:</span>
+
+<span class="sd">    At z0, the aerosol transmission is assumed as being close to 1. We evaluate the aerosol extinction based on this assumption.</span>
+<span class="sd">    This evaluation gives a refined aerosol extinction that is used to calculate a second time the aerosol transmission.</span>
+<span class="sd">    The aerosol extinction retrieval will converge after a certain number iterations.</span>
+<span class="sd">    After the convergence, the aerosol extinction is retrieved in the next upper layer.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (array_like): 1D Array of single profile of attenuated backscatter coefficient, in m-1.sr-1.</span>
+<span class="sd">        iref (float): index of the reference altitude returned by :func:`aprofiles.retrieval.ref_altitude.get_iref()`.</span>
+<span class="sd">        apriori (dict): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr) and ‘aod’ (unitless).</span>
+<span class="sd">        rayleigh (aprofiles.rayleigh.RayleighData). Instance of the :class:`aprofiles.rayleigh.RayleighData` class.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (array_like): Extinction coefficient (in m⁻¹).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="s2">&quot;aod&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+        <span class="c1"># search by dichotomy the LR that matches the apriori aod</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;AOD apriori is not implemented yet&quot;</span><span class="p">)</span>
+        <span class="n">lr_aer</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="k">elif</span> <span class="s2">&quot;lr&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+        <span class="c1"># if we assume the LR, no need to minimize for matching aod</span>
+        <span class="n">lr_aer</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+    <span class="n">lr_mol</span> <span class="o">=</span> <span class="mf">8.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">3.0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_aer_at_i</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">Tm</span><span class="p">,</span> <span class="n">Bm</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">Ba</span><span class="p">,</span> <span class="n">Ea</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="n">nloop_max</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">diff_ext</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+        <span class="c1"># suppress warnings</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nloop_max</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">Ea</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                <span class="n">Ta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Ta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">nancumsum</span><span class="p">(</span><span class="n">Ea</span> <span class="o">*</span> <span class="n">dz</span><span class="p">))[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Tm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Ta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">Tm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Ta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">Bm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="c1"># test extinction</span>
+            <span class="k">if</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr_aer</span> <span class="o">*</span> <span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">Ea</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">diff_ext</span><span class="p">:</span>
+                <span class="n">Ea</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lr_aer</span> <span class="o">*</span> <span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">break</span>
+            <span class="n">Ea</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lr_aer</span> <span class="o">*</span> <span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Ea</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Ta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="c1"># vertical resolution</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">rayleigh</span><span class="o">.</span><span class="n">altitude</span><span class="p">))</span>
+
+    <span class="n">Bm</span> <span class="o">=</span> <span class="n">rayleigh</span><span class="o">.</span><span class="n">backscatter</span>
+    <span class="n">Em</span> <span class="o">=</span> <span class="n">rayleigh</span><span class="o">.</span><span class="n">extinction</span>
+    <span class="n">Tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">Em</span> <span class="o">*</span> <span class="n">dz</span><span class="p">))</span>
+
+    <span class="c1"># Initialize aer profiles</span>
+    <span class="n">Ta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+    <span class="n">Ba</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+    <span class="n">Ea</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iref</span><span class="p">):</span>
+        <span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Ea</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">Ta</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">_get_aer_at_i</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">Tm</span><span class="p">,</span> <span class="n">Bm</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">Ba</span><span class="p">,</span> <span class="n">Ea</span><span class="p">,</span> <span class="n">dz</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">Ba</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+            <span class="k">continue</span>
+    <span class="c1"># returns extinction in m-1</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">Ea</span>
+    <span class="k">return</span> <span class="n">ext</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="aprofiles.retrieval.extinction.inversion" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">inversion</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.0</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">under_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">apriori</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">},</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#aprofiles.retrieval.extinction.inversion" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Aerosol inversion of the attenuated backscatter profiles using an apriori.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>profiles</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>ProfilesData</code> instance.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>time_avg</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>in minutes, the time during which we aggregate the profiles before inverting the profiles.</p>
+              </div>
+            </td>
+            <td>
+                  <code>1</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>zmin</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>minimum altitude AGL, in m, for looking for the initialization altitude.</p>
+              </div>
+            </td>
+            <td>
+                  <code>4000.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>zmax</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>maximum altitude AGL, in m, for looking for the initialization altitude.</p>
+              </div>
+            </td>
+            <td>
+                  <code>6000.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>min_snr</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum SNR required at the reference altitude to be valid.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>under_clouds</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, and if the <code>ProfilesData</code> has a <code>cloud_base</code> variable (returned by the <code>clouds</code> method), forces the initialization altitude to be found below the first cloud detected in the profile.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>must be in [‘backward’, ‘forward’].</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;forward&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>apriori</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr), ‘aod’ (unitless), 'cfg' (path of config file).</p>
+              </div>
+            </td>
+            <td>
+                  <code>{&#39;lr&#39;: 50.0}</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>remove_outliers</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Remove profiles considered as outliers based on aod calculation (AOD&lt;0, or AOD&gt;2).</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>verbose</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>verbose mode.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="NotImplementedError">NotImplementedError</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>AOD apriori is not implemented yet.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>object with additional (xarray.DataArray):</p>
+<ul>
+<li><code>'extinction' (time, altitude)</code>: 2D array corresponding to the aerosol extinction, in km-1.</li>
+<li><code>'aod' (time)</code>: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</li>
+<li><code>'lidar_ratio' (time)</code>: 1D array corresponding to the lidar ratio associated to the extinction profiles.</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <p>Profiles preparation
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
+<span class="c1">#read example file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1">#extrapolate lowest layers</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Backward inversion
+<div class="highlight"><pre><span></span><code><span class="c1">#aerosol inversion</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">)</span>
+<span class="c1">#plot extinction profiles</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
+</code></pre></div></p>
+<p><img alt="Extinction profiles retrieved with the backward method" src="../../assets/images/backward.png" /></p>
+<p>Forward inversion
+<div class="highlight"><pre><span></span><code><span class="c1">#aerosol inversion</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">)</span>
+<span class="c1">#plot extinction profiles</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
+</code></pre></div></p>
+<p><img alt="Extinction profiles retrieved with the forward method" src="../../assets/images/forward.png" /></p>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>aprofiles/retrieval/extinction.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">inversion</span><span class="p">(</span>
+    <span class="n">profiles</span><span class="p">,</span>
+    <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.0</span><span class="p">,</span>
+    <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.0</span><span class="p">,</span>
+    <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">under_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span>
+    <span class="n">apriori</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">},</span>
+    <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Aerosol inversion of the attenuated backscatter profiles using an apriori.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
+<span class="sd">        time_avg (int, optional): in minutes, the time during which we aggregate the profiles before inverting the profiles.</span>
+<span class="sd">        zmin (float, optional): minimum altitude AGL, in m, for looking for the initialization altitude.</span>
+<span class="sd">        zmax (float, optional): maximum altitude AGL, in m, for looking for the initialization altitude.</span>
+<span class="sd">        min_snr (float, optional): Minimum SNR required at the reference altitude to be valid.</span>
+<span class="sd">        under_clouds (bool, optional): If True, and if the `ProfilesData` has a `cloud_base` variable (returned by the `clouds` method), forces the initialization altitude to be found below the first cloud detected in the profile.</span>
+<span class="sd">        method (str, optional): must be in [‘backward’, ‘forward’].</span>
+<span class="sd">        apriori (dict, optional): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr), ‘aod’ (unitless), &#39;cfg&#39; (path of config file).</span>
+<span class="sd">        remove_outliers (bool, optional): Remove profiles considered as outliers based on aod calculation (AOD&lt;0, or AOD&gt;2).</span>
+<span class="sd">        verbose (bool, optional): verbose mode.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        NotImplementedError: AOD apriori is not implemented yet.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (aprofiles.profiles.ProfilesData):</span>
+<span class="sd">            object with additional (xarray.DataArray):</span>
+
+<span class="sd">            - `&#39;extinction&#39; (time, altitude)`: 2D array corresponding to the aerosol extinction, in km-1.</span>
+<span class="sd">            - `&#39;aod&#39; (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</span>
+<span class="sd">            - `&#39;lidar_ratio&#39; (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Profiles preparation</span>
+<span class="sd">        ```python</span>
+<span class="sd">        import aprofiles as apro</span>
+<span class="sd">        #read example file</span>
+<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        profiles = reader.read()</span>
+<span class="sd">        #extrapolate lowest layers</span>
+<span class="sd">        profiles.extrapolate_below(z=150, inplace=True)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        Backward inversion</span>
+<span class="sd">        ```python</span>
+<span class="sd">        #aerosol inversion</span>
+<span class="sd">        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;backward&#39;)</span>
+<span class="sd">        #plot extinction profiles</span>
+<span class="sd">        profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        ![Extinction profiles retrieved with the backward method](../../assets/images/backward.png)</span>
+
+<span class="sd">        Forward inversion</span>
+<span class="sd">        ```python</span>
+<span class="sd">        #aerosol inversion</span>
+<span class="sd">        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;forward&#39;)</span>
+<span class="sd">        #plot extinction profiles</span>
+<span class="sd">        profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        ![Extinction profiles retrieved with the forward method](../../assets/images/forward.png)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
+    <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
+        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    #if clouds detected, set to nan profiles where cloud is found below 4000m</span>
+<span class="sd">    lowest_clouds = profiles._get_lowest_clouds()</span>
+<span class="sd">    for i in range(len(profiles.data.time.data)):</span>
+<span class="sd">        if lowest_clouds[i]&lt;=4000:</span>
+<span class="sd">            rcs.data[i,:] = [np.nan for _ in rcs.data[i,:]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># if under_clouds, check if clouds_bases is available</span>
+    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
+
+    <span class="c1"># aerosol inversion</span>
+    <span class="n">ext</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">aod</span><span class="p">,</span> <span class="n">z_ref</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">aod_min</span><span class="p">,</span> <span class="n">aod_max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span>
+    <span class="n">vertical_resolution</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_resolution</span><span class="p">(</span><span class="s2">&quot;altitude&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">track</span><span class="p">(</span>
+        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;klett &quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span>
+    <span class="p">):</span>
+        <span class="n">altitude_agl</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">altitude_asl</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># aerosol retrieval requires a molecular profile: use station_altitude in addition</span>
+        <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">rayleigh</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">rayleigh</span><span class="o">.</span><span class="n">RayleighData</span><span class="p">(</span>
+            <span class="n">altitude_asl</span><span class="p">,</span> <span class="n">T0</span><span class="o">=</span><span class="mi">298</span><span class="p">,</span> <span class="n">P0</span><span class="o">=</span><span class="mi">1013</span><span class="p">,</span> <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span>
+        <span class="p">)</span>
+
+        <span class="c1"># for this inversion, it is important to use the right units</span>
+        <span class="k">if</span> <span class="s2">&quot;Mm&quot;</span> <span class="ow">in</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
+            <span class="n">calibrated_data</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="mf">1e-6</span>
+            <span class="p">)</span>  <span class="c1"># conversion from Mm-1.sr-1 to m-1.sr-1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">calibrated_data</span> <span class="o">=</span> <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># reference altitude</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span>
+        <span class="n">imax</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">([</span><span class="n">zmax</span><span class="p">,</span> <span class="n">lowest_clouds</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;backward&quot;</span><span class="p">:</span>
+            <span class="n">iref</span> <span class="o">=</span> <span class="n">get_iref</span><span class="p">(</span><span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">imin</span><span class="p">,</span> <span class="n">imax</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span><span class="p">:</span>
+            <span class="n">iref</span> <span class="o">=</span> <span class="n">imax</span>
+        <span class="n">z_ref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">altitude_agl</span><span class="p">[</span><span class="n">iref</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">iref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># aerosol inversion</span>
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;backward&quot;</span><span class="p">:</span>
+                <span class="n">_ext</span> <span class="o">=</span> <span class="n">backward_inversion</span><span class="p">(</span><span class="n">calibrated_data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span><span class="p">:</span>
+                <span class="n">_ext</span> <span class="o">=</span> <span class="n">forward_inversion</span><span class="p">(</span><span class="n">calibrated_data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_ext</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">calibrated_data</span><span class="p">))]</span>
+
+        <span class="c1"># add aod and lr</span>
+        <span class="k">if</span> <span class="s2">&quot;aod&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+            <span class="c1"># search by dichotomy the LR that matches the apriori aod</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;AOD apriori is not implemented yet&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># if we assume the LR, no need to minimize for matching aod</span>
+            <span class="n">_lr</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+            <span class="n">_aod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nancumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_ext</span><span class="p">)</span> <span class="o">*</span> <span class="n">vertical_resolution</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">remove_outliers</span> <span class="ow">and</span> <span class="n">_aod</span> <span class="o">&lt;</span> <span class="n">aod_min</span> <span class="ow">or</span> <span class="n">remove_outliers</span> <span class="ow">and</span> <span class="n">_aod</span> <span class="o">&gt;</span> <span class="n">aod_max</span><span class="p">:</span>
+                <span class="n">lr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="n">aod</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">_ext</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_lr</span><span class="p">)</span>
+                <span class="n">aod</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_aod</span><span class="p">)</span>
+                <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ext</span><span class="p">)</span>
+
+    <span class="c1"># creates dataarrays</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Extinction Coefficient @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> Klett&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;km-1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;time_avg&quot;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+            <span class="s2">&quot;zmin&quot;</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
+            <span class="s2">&quot;zmax&quot;</span><span class="p">:</span> <span class="n">zmax</span><span class="p">,</span>
+            <span class="s2">&quot;apriori_variable&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;apriori_value&quot;</span><span class="p">:</span> <span class="n">apriori</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]],</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">aod</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">aod</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Aerosol Optical Depth @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lidar_ratio</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Lidar Ratio @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;sr&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;use_cfg&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;use_cfg&quot;</span><span class="p">]),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;cfg&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lidar_ratio</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">&quot;cfg&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;cfg&quot;</span><span class="p">])}</span>
+        <span class="p">)</span>
+
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;z_ref&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">z_ref</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;z_ref&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">z_ref</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Reference altitude ASL&quot;</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">profiles</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="mass-concentration">Mass Concentration<a class="headerlink" href="#mass-concentration" title="Permanent link">&para;</a></h2>
+<p>This module is used to calculate mass concentration profiles from
+extinction profiles for given aerosol types.</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="aprofiles.retrieval.mass_conc"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="aprofiles.retrieval.mass_conc.concentration_profiles" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">concentration_profiles</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">apriori</span><span class="p">)</span></code>
+
+<a href="#aprofiles.retrieval.mass_conc.concentration_profiles" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Calculates Mass concentration profiles for different aerosol types</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>profiles</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>ProfilesData</code> instance.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Method for calculating MEC. Must be one of {"mortier_2013", "literature"}.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>apriori</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Apriori mec value (m2.g-1).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>object with additional (xarray.Dataset):</p>
+<ul>
+<li><code>'mass_concentration:&lt;aer_type&gt;'</code></li>
+</ul>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <p>Profiles preparation
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
+<span class="c1"># read example file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># extrapolate lowest layers</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">extrapolate_below</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Forward inversion
+<div class="highlight"><pre><span></span><code><span class="c1"># aerosol inversion</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span>
+    <span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> 
+    <span class="n">method_mass_conc</span><span class="o">=</span><span class="s1">&#39;mortier_2013&#39;</span>
+<span class="p">)</span>
+<span class="c1"># plot mass concentration profiles for urban particles</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;mass_concentration:urban&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div></p>
+<p><img alt="Mass concentration profiles in the case of urban particles" src="../../assets/images/mass_conc-urban.png" /></p>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>aprofiles/retrieval/mass_conc.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">concentration_profiles</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">apriori</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates Mass concentration profiles for different aerosol types</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
+<span class="sd">        method (str): Method for calculating MEC. Must be one of {&quot;mortier_2013&quot;, &quot;literature&quot;}.</span>
+<span class="sd">        apriori (dict): Apriori mec value (m2.g-1).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (aprofiles.profiles.ProfilesData):</span>
+<span class="sd">            object with additional (xarray.Dataset):</span>
+
+<span class="sd">            - `&#39;mass_concentration:&lt;aer_type&gt;&#39;`</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Profiles preparation</span>
+<span class="sd">        ```python</span>
+<span class="sd">        import aprofiles as apro</span>
+<span class="sd">        # read example file</span>
+<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        profiles = reader.read()</span>
+<span class="sd">        # extrapolate lowest layers</span>
+<span class="sd">        profiles.extrapolate_below(z=150, inplace=True)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        Forward inversion</span>
+<span class="sd">        ```python</span>
+<span class="sd">        # aerosol inversion</span>
+<span class="sd">        profiles.inversion(</span>
+<span class="sd">            zmin=4000, zmax=6000, remove_outliers=False, method=&#39;forward&#39;, </span>
+<span class="sd">            method_mass_conc=&#39;mortier_2013&#39;</span>
+<span class="sd">        )</span>
+<span class="sd">        # plot mass concentration profiles for urban particles</span>
+<span class="sd">        profiles.plot(var=&#39;mass_concentration:urban&#39;, zmax=6000, vmin=0, vmax=100)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        ![Mass concentration profiles in the case of urban particles](../../assets/images/mass_conc-urban.png)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># read aer_properties.json files</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;aer_properties.json&#39;</span><span class="p">))</span>
+    <span class="n">aer_properties</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># check if the aer_type exist in the json file</span>
+    <span class="n">aer_types</span> <span class="o">=</span> <span class="n">aer_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="c1"># get wavelength</span>
+    <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="s2">&quot;nm&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;wavelength units is not `nm`.&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">aer_type</span> <span class="ow">in</span> <span class="n">aer_types</span><span class="p">:</span>
+        <span class="c1"># calculates mec</span>
+        <span class="n">mec</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">mec</span><span class="o">.</span><span class="n">MECData</span><span class="p">(</span><span class="n">aer_type</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">,</span> <span class="n">method</span><span class="p">)</span>
+
+        <span class="c1"># compute mass_concentration profile. Use extinction as base.</span>
+        <span class="n">mass_concentration</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span> <span class="o">*</span> <span class="mf">1e-3</span> <span class="c1">#conversion from km-1 to m-1</span>
+        <span class="c1"># mass_concentration = copy.deepcopy(profiles.data.extinction)</span>
+        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">mass_concentration</span><span class="p">,</span> <span class="n">mec</span><span class="o">.</span><span class="n">mec</span><span class="p">)</span>
+        <span class="c1"># # conversion from g.m-3 to µg.m-3</span>
+        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="mf">1e6</span>
+
+        <span class="c1"># creates dataset with a dataarray for each aer_type</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;altitude&#39;</span><span class="p">),</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+            <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Mass concentration [</span><span class="si">{</span><span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> particles]&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;µg.m-3&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mec&#39;</span><span class="p">:</span> <span class="n">mec</span><span class="o">.</span><span class="n">mec</span><span class="p">,</span>
+        <span class="p">})</span>
+
+    <span class="c1"># add ifs mec</span>
+    <span class="k">if</span> <span class="n">apriori</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mec&quot;</span><span class="p">):</span>
+        <span class="n">aer_type</span> <span class="o">=</span> <span class="s2">&quot;ifs&quot;</span>
+        <span class="c1"># compute mass_concentration profile. Use extinction as base.</span>
+        <span class="n">mass_concentration</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span> <span class="o">*</span> <span class="mf">1e-3</span> <span class="c1">#conversion from km-1 to m-1</span>
+        <span class="c1"># mass_concentration = copy.deepcopy(profiles.data.extinction)</span>
+        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">mass_concentration</span><span class="p">,</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;mec&quot;</span><span class="p">])</span>
+        <span class="c1"># # conversion from g.m-3 to µg.m-3</span>
+        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="mf">1e6</span>
+
+        <span class="c1"># creates dataset with a dataarray for each aer_type</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;altitude&#39;</span><span class="p">),</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+            <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Mass concentration [</span><span class="si">{</span><span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
+            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;µg.m-3&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mec&#39;</span><span class="p">:</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;mec&quot;</span><span class="p">],</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">profiles</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../detection/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Detection">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Detection
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../simulation/" class="md-footer__link md-footer__link--next" aria-label="Next: Simulation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Simulation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2024, Augustin Mortier
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://vprofiles.met.no" target="_blank" rel="noopener" title="V-Profiles" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m503.5 204.6-.7-1.8-69.7-181.78c-1.4-3.57-3.9-6.59-7.2-8.64-2.4-1.55-5.1-2.515-8-2.81s-5.7.083-8.4 1.11c-2.7 1.02-5.1 2.66-7.1 4.78-1.9 2.12-3.3 4.67-4.1 7.44l-47 144H160.8l-47.1-144c-.8-2.77-2.2-5.31-4.1-7.43-2-2.12-4.4-3.75-7.1-4.77a18.1 18.1 0 0 0-8.38-1.113 18.4 18.4 0 0 0-8.04 2.793 18.1 18.1 0 0 0-7.16 8.64L9.267 202.8l-.724 1.8a129.57 129.57 0 0 0-3.52 82c7.747 26.9 24.047 50.7 46.447 67.6l.27.2.59.4 105.97 79.5 52.6 39.7 32 24.2c3.7 1.9 8.3 4.3 13 4.3s9.3-2.4 13-4.3l32-24.2 52.6-39.7 106.7-79.9.3-.3c22.4-16.9 38.7-40.6 45.6-67.5 8.6-27 7.4-55.8-2.6-82"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../assets/js/custom.js"></script>
+      
+        <script src="../../assets/js/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

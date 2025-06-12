@@ -1,0 +1,3185 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for A-Profiles">
+      
+      
+        <meta name="author" content="Augustin Mortier">
+      
+      
+        <link rel="canonical" href="https://github.com/AugustinMortier/A-Profiles/api/detection/">
+      
+      
+        <link rel="prev" href="../data_classes/">
+      
+      
+        <link rel="next" href="../retrieval/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Detection - A-Profiles</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../assets/css/custom.css">
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#detection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="A-Profiles" class="md-header__button md-logo" aria-label="A-Profiles" data-md-component="logo">
+      
+  <img src="../../assets/images/a-profiles.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            A-Profiles
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Detection
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/AugustinMortier/A-Profiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AugustinMortier/A-Profiles
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../installation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../examples/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Examples
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  API
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cli/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  CLI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../changelog/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="A-Profiles" class="md-nav__button md-logo" aria-label="A-Profiles" data-md-component="logo">
+      
+  <img src="../../assets/images/a-profiles.svg" alt="logo">
+
+    </a>
+    A-Profiles
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/AugustinMortier/A-Profiles" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AugustinMortier/A-Profiles
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reading
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_classes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Classes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Detection
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Detection
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fog-or-condensation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fog or Condensation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.foc" class="md-nav__link">
+    <span class="md-ellipsis">
+      foc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.foc.detect_foc" class="md-nav__link">
+    <span class="md-ellipsis">
+      detect_foc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clouds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clouds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.clouds" class="md-nav__link">
+    <span class="md-ellipsis">
+      clouds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.clouds.detect_clouds" class="md-nav__link">
+    <span class="md-ellipsis">
+      detect_clouds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planetary-boundary-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planetary Boundary Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.pbl" class="md-nav__link">
+    <span class="md-ellipsis">
+      pbl
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.pbl.detect_pbl" class="md-nav__link">
+    <span class="md-ellipsis">
+      detect_pbl
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../retrieval/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Retrieval
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../simulation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Simulation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plotting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Plotting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../writing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Writing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CLI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Changelog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fog-or-condensation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fog or Condensation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.foc" class="md-nav__link">
+    <span class="md-ellipsis">
+      foc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.foc.detect_foc" class="md-nav__link">
+    <span class="md-ellipsis">
+      detect_foc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clouds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clouds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.clouds" class="md-nav__link">
+    <span class="md-ellipsis">
+      clouds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.clouds.detect_clouds" class="md-nav__link">
+    <span class="md-ellipsis">
+      detect_clouds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planetary-boundary-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Planetary Boundary Layer
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.pbl" class="md-nav__link">
+    <span class="md-ellipsis">
+      pbl
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aprofiles.detection.pbl.detect_pbl" class="md-nav__link">
+    <span class="md-ellipsis">
+      detect_pbl
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="detection">Detection<a class="headerlink" href="#detection" title="Permanent link">&para;</a></h1>
+<p><span class="twemoji" style="text-align: center; font-size: xx-large; display: block"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg></span></p>
+<p>The following functions are methods from the class <a href="../data_classes/#profilesdata"><code>ProfilesData</code></a>.</p>
+<h2 id="fog-or-condensation">Fog or Condensation<a class="headerlink" href="#fog-or-condensation" title="Permanent link">&para;</a></h2>
+<p>This method allows for the detection of fog or condensation in single profiles.</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="aprofiles.detection.foc"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="aprofiles.detection.foc.detect_foc" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">detect_foc</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cloud_base&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.0</span><span class="p">)</span></code>
+
+<a href="#aprofiles.detection.foc.detect_foc" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Detects fog or condensation. Two methods are available:
+- cloud_base (default): uses the minimum cloud base height.
+- snr (fallback if no clouds are available): identifies areas under a certain altitude for which snr values lower than the prescribed threshold.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>profiles</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>ProfilesData</code> instance.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code>{<span title="cloud_base">cloud_base</span>, <span title="snr">snr</span>}</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Detection method.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;cloud_base&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>var</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Used for 'snr' method. Variable to calculate SNR from.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;attenuated_backscatter_0&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>z_snr</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR.</p>
+              </div>
+            </td>
+            <td>
+                  <code>2000.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>min_snr</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation.</p>
+              </div>
+            </td>
+            <td>
+                  <code>2.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>zmin_cloud</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation.</p>
+              </div>
+            </td>
+            <td>
+                  <code>200.0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</p>
+<ul>
+<li><code>'foc' (time)</code>: mask array corresponding to the presence of foc.</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
+<span class="c1"># read example file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># foc detection</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">foc</span><span class="p">()</span>
+<span class="c1"># attenuated backscatter image with pbl up to 6km of altitude</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_foc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="Fog or condensation (foc) detection" src="../../assets/images/foc.png" /></p>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>aprofiles/detection/foc.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect_foc</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;cloud_base&quot;</span><span class="p">,</span> <span class="s2">&quot;snr&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;cloud_base&quot;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Detects fog or condensation. Two methods are available:</span>
+<span class="sd">    - cloud_base (default): uses the minimum cloud base height.</span>
+<span class="sd">    - snr (fallback if no clouds are available): identifies areas under a certain altitude for which snr values lower than the prescribed threshold.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
+<span class="sd">        method ({&#39;cloud_base&#39;, &#39;snr&#39;}, optional): Detection method.</span>
+<span class="sd">        var (str, optional): Used for &#39;snr&#39; method. Variable to calculate SNR from.</span>
+<span class="sd">        z_snr (float, optional): Used for &#39;snr&#39; method. Altitude AGL (in m) at which we calculate the SNR.</span>
+<span class="sd">        min_snr (float, optional): Used for &#39;snr&#39; method. Minimum SNR under which the profile is considered as containing fog or condensation.</span>
+<span class="sd">        zmin_cloud (float, optional): Used for &#39;cloud_base&#39; method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (aprofiles.profiles.ProfilesData): </span>
+<span class="sd">            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</span>
+
+<span class="sd">            - `&#39;foc&#39; (time)`: mask array corresponding to the presence of foc.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        import aprofiles as apro</span>
+<span class="sd">        # read example file</span>
+<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        profiles = reader.read()</span>
+<span class="sd">        # foc detection</span>
+<span class="sd">        profiles.foc()</span>
+<span class="sd">        # attenuated backscatter image with pbl up to 6km of altitude</span>
+<span class="sd">        profiles.plot(show_foc=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        ![Fog or condensation (foc) detection](../../assets/images/foc.png)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;cloud_base&quot;</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">in</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+        <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_cloud</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_snr</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">z_snr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
+
+    <span class="c1"># creates dataarray</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;foc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">foc</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;foc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">foc</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Fog or condensation mask&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">profiles</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="clouds">Clouds<a class="headerlink" href="#clouds" title="Permanent link">&para;</a></h2>
+<p>This method allows for the detection of clouds in attenuated backscatter profiles.</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="aprofiles.detection.clouds"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="aprofiles.detection.clouds.detect_clouds" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">detect_clouds</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#aprofiles.detection.clouds.detect_clouds" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Module for <em>clouds detection</em>.
+Two methods are available: 
+- "dec" (default): Deep Embedded Clustering (see <a href="https://github.com/AugustinMortier/ai-profiles">AI-Profiles</a>).
+- "vg": Vertical Gradient.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>profiles</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>ProfilesData</code> instance.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>method</code>
+            </td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;dec&#39;, &#39;vg&#39;]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>cloud detection method used.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;dec&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>time_avg</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>in minutes, the time during which we aggregates the profiles prior to the clouds detection.</p>
+              </div>
+            </td>
+            <td>
+                  <code>1.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>zmin</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>altitude AGL, in m, above which we look for clouds. We recommend using the same value as used in the extrapolation_low_layers method (only for 'vg' method).</p>
+              </div>
+            </td>
+            <td>
+                  <code>0.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>thr_noise</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] data[base(z)] &gt;= thr_noise * noise(z) (only for 'vg' method).</p>
+              </div>
+            </td>
+            <td>
+                  <code>5.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>thr_clouds</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds (only for 'vg' method).</p>
+              </div>
+            </td>
+            <td>
+                  <code>4.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>min_snr</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum SNR required at the clouds peak value to consider the cloud as valid (only for 'vg' method).</p>
+              </div>
+            </td>
+            <td>
+                  <code>0.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>verbose</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>verbose mode. Defaults to <code>False</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):
+- <code>'clouds' (time, altitude)</code>: Mask array corresponding to data flagged as a cloud.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example-1" open>
+  <summary>Example 1</summary>
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
+<span class="c1"># read example file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># clouds detection</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;dec&quot;</span><span class="p">)</span>
+<span class="c1"># attenuated backscatter image with clouds</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="Clouds detection" src="../../assets/images/clouds_dec.png" /></p>
+</details>
+
+<details class="example-2" open>
+  <summary>Example 2</summary>
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
+<span class="c1"># read example file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># clouds detection</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;vg&quot;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">300.</span><span class="p">)</span>
+<span class="c1"># attenuated backscatter image with clouds</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="Clouds detection" src="../../assets/images/clouds_vg.png" /></p>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>aprofiles/detection/clouds.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span>
+<span class="normal">476</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span>
+<span class="normal">480</span>
+<span class="normal">481</span>
+<span class="normal">482</span>
+<span class="normal">483</span>
+<span class="normal">484</span>
+<span class="normal">485</span>
+<span class="normal">486</span>
+<span class="normal">487</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span>
+<span class="normal">493</span>
+<span class="normal">494</span>
+<span class="normal">495</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
+<span class="normal">501</span>
+<span class="normal">502</span>
+<span class="normal">503</span>
+<span class="normal">504</span>
+<span class="normal">505</span>
+<span class="normal">506</span>
+<span class="normal">507</span>
+<span class="normal">508</span>
+<span class="normal">509</span>
+<span class="normal">510</span>
+<span class="normal">511</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect_clouds</span><span class="p">(</span><span class="n">profiles</span><span class="p">:</span> <span class="n">aprofiles</span><span class="o">.</span><span class="n">profiles</span><span class="o">.</span><span class="n">ProfilesData</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">,</span> <span class="s2">&quot;vg&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;dec&quot;</span><span class="p">,</span> <span class="n">time_avg</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">zmin</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">4.</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Module for *clouds detection*.</span>
+<span class="sd">    Two methods are available: </span>
+<span class="sd">    - &quot;dec&quot; (default): Deep Embedded Clustering (see [AI-Profiles](https://github.com/AugustinMortier/ai-profiles)).</span>
+<span class="sd">    - &quot;vg&quot;: Vertical Gradient.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
+<span class="sd">        method (Literal[&quot;dec&quot;, &quot;vg&quot;]): cloud detection method used.</span>
+<span class="sd">        time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection.</span>
+<span class="sd">        zmin (float, optional): altitude AGL, in m, above which we look for clouds. We recommend using the same value as used in the extrapolation_low_layers method (only for &#39;vg&#39; method).</span>
+<span class="sd">        thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] data[base(z)] &gt;= thr_noise * noise(z) (only for &#39;vg&#39; method).</span>
+<span class="sd">        thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds (only for &#39;vg&#39; method).</span>
+<span class="sd">        min_snr (float, optional): Minimum SNR required at the clouds peak value to consider the cloud as valid (only for &#39;vg&#39; method).</span>
+<span class="sd">        verbose (bool, optional): verbose mode. Defaults to `False`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (aprofiles.profiles.ProfilesData): </span>
+<span class="sd">            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</span>
+<span class="sd">            - `&#39;clouds&#39; (time, altitude)`: Mask array corresponding to data flagged as a cloud.</span>
+
+<span class="sd">    Example 1:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        import aprofiles as apro</span>
+<span class="sd">        # read example file</span>
+<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        profiles = reader.read()</span>
+<span class="sd">        # clouds detection</span>
+<span class="sd">        profiles.clouds(method=&quot;dec&quot;)</span>
+<span class="sd">        # attenuated backscatter image with clouds</span>
+<span class="sd">        profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        ![Clouds detection](../../assets/images/clouds_dec.png)</span>
+
+<span class="sd">    Example 2:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        import aprofiles as apro</span>
+<span class="sd">        # read example file</span>
+<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        profiles = reader.read()</span>
+<span class="sd">        # clouds detection</span>
+<span class="sd">        profiles.clouds(method=&quot;vg&quot;, zmin=300.)</span>
+<span class="sd">        # attenuated backscatter image with clouds</span>
+<span class="sd">        profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        ![Clouds detection](../../assets/images/clouds_vg.png)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_vg_clouds</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
+        <span class="c1"># data: 1D range corrected signal (rcs)</span>
+        <span class="c1"># zmin: altitude AGL, in m, above which we detect clouds</span>
+        <span class="c1"># thr_noise: threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] - data[base(z)] &gt;= thr_noise * noise(z)</span>
+        <span class="c1"># thr_clouds: threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds</span>
+        <span class="c1"># min_snr: minimum SNR required at the clouds peak value to consider the cloud as valid. Defaults to 2.</span>
+
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">signal</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">uniform_filter1d</span>
+
+        <span class="c1"># some useful functions:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_get_all_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span><span class="o">=</span><span class="p">[]):</span>
+            <span class="c1"># get True indexes of bases, peaks and tops, based on masks</span>
+            <span class="n">i_bases</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">)</span>
+            <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
+            <span class="n">i_tops</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">tops</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_make_all_masks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="o">=</span><span class="p">[]):</span>
+            <span class="c1"># return masks for bases, peaks and tops based on input indexes</span>
+            <span class="n">bases</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_bases</span><span class="p">)</span>
+            <span class="n">peaks</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_peaks</span><span class="p">)</span>
+            <span class="n">tops</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">make_mask</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">i_tops</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_merge_layers</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">):</span>
+            <span class="c1"># merge layers depending on the altitude of the bases and the tops</span>
+            <span class="n">remove_mode</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">while</span> <span class="n">remove_mode</span><span class="p">:</span>
+                <span class="n">remove_bases</span><span class="p">,</span> <span class="n">remove_peaks</span><span class="p">,</span> <span class="n">remove_tops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="c1"># filters based on the index</span>
+                    <span class="k">if</span> <span class="n">i_bases</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="n">remove_bases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                        <span class="c1"># remove the weakest peak</span>
+                        <span class="n">imin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]])</span>
+                        <span class="n">remove_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">imin</span><span class="p">])</span>
+                        <span class="c1"># remove lowest top</span>
+                        <span class="n">imin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">([</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i_tops</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]])</span>
+                        <span class="n">remove_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">imin</span><span class="p">])</span>
+                        <span class="c1"># start again from the bottom</span>
+                        <span class="k">break</span>
+
+                <span class="n">i_bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_bases</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_bases</span><span class="p">]</span>
+                <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_peaks</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_peaks</span><span class="p">]</span>
+                <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_tops</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_tops</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">remove_bases</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">remove_mode</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">return</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_find_tops</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">):</span>
+            <span class="c1"># function that finds the top of the layers by identifying the first value above thepeak for which the signal is lower than the base</span>
+            <span class="c1"># if no top is found, the layer is removed</span>
+            <span class="c1"># retruns lists of indexes of the bases, peaks and tops</span>
+            <span class="n">tops</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="kc">False</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))])</span>
+            <span class="c1"># conditions: look for bases above i_peaks[i], and data[top[i]] &lt;= data[base[i]]</span>
+
+            <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
+                <span class="n">mask_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="kc">True</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="k">else</span> <span class="kc">False</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+                <span class="n">mask_altitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                    <span class="p">[</span><span class="kc">True</span> <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))]</span>
+                <span class="p">)</span>
+                <span class="c1"># the top is the first value that corresponds to the intersection of the two masks</span>
+                <span class="n">cross_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">mask_value</span><span class="p">,</span> <span class="n">mask_altitude</span><span class="p">)</span>
+                <span class="n">i_cross_mask</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">cross_mask</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_cross_mask</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
+                        <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">tops</span><span class="p">[</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="n">i_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_cross_mask</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># it is important to keep the tops in the same order, so not to use utils.get_true_indexes() function here</span>
+            <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">),</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span> <span class="n">i_tops</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">_mask_cloud</span><span class="p">(</span><span class="n">profile</span><span class="p">:</span> <span class="n">aprofiles</span><span class="o">.</span><span class="n">profiles</span><span class="p">,</span> <span class="n">bases</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">tops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Generate a boolean mask for cloud presence in a given profile.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                profile (aprofiles.profiles): 1D array representing a single atmospheric profile.</span>
+<span class="sd">                bases (list[int]): List of base indices where clouds start.</span>
+<span class="sd">                tops (list[int]): List of top indices where clouds end.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                np.ndarray: Boolean mask of the same length as profile, where cloud regions are True.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">base</span><span class="p">,</span> <span class="n">top</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bases</span><span class="p">,</span> <span class="n">tops</span><span class="p">):</span>
+                <span class="n">mask</span><span class="p">[</span><span class="n">base</span><span class="p">:</span><span class="n">top</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">return</span> <span class="n">mask</span>
+
+        <span class="c1">#-1. check if any valid data</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span> <span class="o">=</span> <span class="n">_make_all_masks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[])</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;bases&quot;</span><span class="p">:</span> <span class="n">bases</span><span class="p">,</span>
+                <span class="s2">&quot;peaks&quot;</span><span class="p">:</span> <span class="n">peaks</span><span class="p">,</span>
+                <span class="s2">&quot;tops&quot;</span><span class="p">:</span> <span class="n">tops</span><span class="p">,</span>
+            <span class="p">}</span>
+
+        <span class="c1"># 0. rolling average</span>
+        <span class="n">avg_data</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># 1. first derivative</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">avg_data</span><span class="p">)</span>
+        <span class="c1">#remove zero values since np.sign(0) = 0</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span> <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1e-9</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">gradient</span><span class="p">]</span>
+
+        <span class="c1"># 2. identifies peaks and base by checking the sign changes of the derivative</span>
+        <span class="n">sign_changes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">gradient</span><span class="p">),</span> <span class="n">append</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">all_bases</span> <span class="o">=</span> <span class="n">sign_changes</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="n">all_peaks</span> <span class="o">=</span> <span class="n">sign_changes</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span>
+        <span class="c1"># limit to bases above zmin</span>
+        <span class="n">imin</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span>
+        <span class="n">all_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">imin</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">all_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">imin</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">imin</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="c1"># get indexes</span>
+        <span class="n">i_bases</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">all_bases</span><span class="p">)</span>
+        <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">all_peaks</span><span class="p">)</span>
+
+        <span class="c1"># 3. the signal should start with a base</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span> <span class="c1">#this happens if the whole profile consists of nan</span>
+            <span class="k">if</span> <span class="n">i_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># set base as the minimum between peak and n gates under</span>
+                <span class="n">gates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">5</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">i_base</span> <span class="o">=</span> <span class="n">gates</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">([</span><span class="n">data</span><span class="p">[</span><span class="n">gates</span><span class="p">[</span><span class="n">gates</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]]])]</span>
+                <span class="k">if</span> <span class="n">i_base</span> <span class="o">&gt;=</span> <span class="n">imin</span><span class="p">:</span>
+                    <span class="n">all_bases</span><span class="p">[</span><span class="n">i_base</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">all_peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># update indexes</span>
+            <span class="n">i_bases</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">all_bases</span><span class="p">)</span>
+            <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">all_peaks</span><span class="p">)</span>
+
+        <span class="c1"># 4. keeps significant couples (base,peak)</span>
+        <span class="c1"># a layer can be considered as a proper layer if the difference of signal between the peak and the base is significant (larger than the noise level)</span>
+        <span class="c1"># noise evaluation (using a high passing frequency filter)</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s2">&quot;high&quot;</span><span class="p">)</span>
+        <span class="n">noise</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="c1"># rolling average of the noise</span>
+        <span class="n">avg_abs_noise</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">noise</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="c1"># make sure we have as many peaks as bases</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">):</span>
+            <span class="n">min_len</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)])</span>
+            <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">i_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">min_len</span><span class="p">]</span>
+            <span class="n">i_bases</span> <span class="o">=</span> <span class="n">i_bases</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">min_len</span><span class="p">]</span>
+        <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span> <span class="o">=</span> <span class="n">all_bases</span><span class="p">,</span> <span class="n">all_peaks</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
+            <span class="n">data_around_peak</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">data_around_base</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">data_around_peak</span> <span class="o">-</span> <span class="n">data_around_base</span>
+                <span class="o">&lt;=</span> <span class="n">thr_noise</span> <span class="o">*</span> <span class="n">avg_abs_noise</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="p">):</span>
+                <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># get indexes</span>
+        <span class="n">i_bases</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">)</span>
+        <span class="n">i_peaks</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span>
+
+        <span class="c1"># 5. make sure we finish by a peak: remove last base if necessary</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">):</span>
+            <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">i_bases</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+        <span class="c1"># 6. find tops of clouds layers</span>
+        <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span> <span class="o">=</span> <span class="n">_find_tops</span><span class="p">(</span><span class="n">avg_data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">)</span>
+
+        <span class="c1"># 7. merge layers: for a couple of base and peaks 1,2 if data(b2)&gt;data(p1), then merge layers 1 and 2 by removing p1 and b2</span>
+        <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span> <span class="o">=</span> <span class="n">_merge_layers</span><span class="p">(</span><span class="n">avg_data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">)</span>
+
+        <span class="c1"># 8. find peaks as maximum between base and top    </span>
+        <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">))</span>
+        <span class="p">]</span>
+        <span class="c1"># reconstruct masks</span>
+        <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span> <span class="o">=</span> <span class="n">_make_all_masks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">)</span>
+
+        <span class="c1"># 9. distinction between aerosol and clouds</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_bases</span><span class="p">)):</span>
+            <span class="n">data_around_peak</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="n">data_around_base</span> <span class="o">=</span> <span class="n">avg_data</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">abs</span><span class="p">((</span><span class="n">data_around_peak</span> <span class="o">-</span> <span class="n">data_around_base</span><span class="p">)</span> <span class="o">/</span> <span class="n">data_around_base</span><span class="p">)</span>
+                <span class="o">&lt;=</span> <span class="n">thr_clouds</span>
+            <span class="p">):</span>
+                <span class="n">bases</span><span class="p">[</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">peaks</span><span class="p">[</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">tops</span><span class="p">[</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># get indexes</span>
+        <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span> <span class="o">=</span> <span class="n">_get_all_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span><span class="p">)</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        #10. set base a closest index</span>
+<span class="sd">        for i, _ in enumerate(i_peaks):</span>
+<span class="sd">            mask_value = np.asarray([True if gradient[j]&lt;0 else False for j in range(len(data))])</span>
+<span class="sd">            mask_altitude = np.asarray([True if j&lt;i_peaks[i] else False for j in range(len(data))])</span>
+<span class="sd">            #the top is the first value that corresponds to the intersection of the two masks</span>
+<span class="sd">            cross_mask = np.logical_and(mask_value, mask_altitude)</span>
+<span class="sd">            i_cross_mask = utils.get_true_indexes(cross_mask)</span>
+<span class="sd">            i_bases[i] = i_cross_mask[-1]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># 11. check snr at peak levels</span>
+        <span class="n">remove_bases</span><span class="p">,</span> <span class="n">remove_peaks</span><span class="p">,</span> <span class="n">remove_tops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">snr_at_iz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_snr</span><span class="p">:</span>
+                <span class="n">remove_bases</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_bases</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">remove_peaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">remove_tops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_tops</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="c1"># remove indexes</span>
+        <span class="n">i_bases</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_bases</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_bases</span><span class="p">]</span>
+        <span class="n">i_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_peaks</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_peaks</span><span class="p">]</span>
+        <span class="n">i_tops</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i_tops</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove_tops</span><span class="p">]</span>
+
+        <span class="c1"># 11. build cloud mask from indexes</span>
+        <span class="n">clouds</span> <span class="o">=</span> <span class="n">_mask_cloud</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">)</span>
+
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        #some plotting</span>
+<span class="sd">        fig, axs = plt.subplots(1,2,figsize=(10,10))</span>
+
+<span class="sd">        ymin, ymax = 000, 15000</span>
+<span class="sd">        altitude_agl = profiles.data.altitude.data - profiles.data.station_altitude.data</span>
+
+<span class="sd">        #signal on the left</span>
+<span class="sd">        axs[0].plot(data, altitude_agl, &#39;b&#39;, label=&#39;rcs&#39;)</span>
+<span class="sd">        axs[0].plot(avg_data, altitude_agl, &#39;c&#39;, label=&#39;rcs&#39;)</span>
+<span class="sd">        axs[0].plot(avg_abs_noise,altitude_agl,&#39;:b&#39;, label=&#39;noise level&#39;)</span>
+<span class="sd">        axs[0].plot(avg_abs_noise*thr_noise,altitude_agl,&#39;:b&#39;, label=f&#39;noise level * {thr_noise}&#39;)</span>
+<span class="sd">        axs[0].plot(data[bases], altitude_agl[bases], &#39;&lt;g&#39;, label=&#39;bases&#39;)</span>
+<span class="sd">        axs[0].plot(data[peaks], altitude_agl[peaks], &#39;&gt;r&#39;, label=&#39;peaks&#39;)</span>
+<span class="sd">        axs[0].plot(data[tops], altitude_agl[tops], &#39;^k&#39;, label=&#39;tops&#39;)</span>
+
+<span class="sd">        #set axis</span>
+<span class="sd">        axs[0].set_ylim([ymin, ymax])</span>
+<span class="sd">        #axs[0].set_xlim([-20000,20000])</span>
+<span class="sd">        axs[0].legend()</span>
+
+<span class="sd">        #derivative on the right</span>
+<span class="sd">        axs[1].plot(ddata_dz, altitude_agl, &#39;b&#39;, label=&#39;first derivative&#39;)</span>
+<span class="sd">        axs[1].plot(ddata_dz[bases], altitude_agl[bases], &#39;&lt;g&#39;, label=&#39;bases&#39;)</span>
+<span class="sd">        axs[1].plot(ddata_dz[peaks], altitude_agl[peaks], &#39;&gt;r&#39;, label=&#39;peaks&#39;)</span>
+
+<span class="sd">        axs[1].set_ylim([ymin, ymax])</span>
+<span class="sd">        axs[1].legend()</span>
+<span class="sd">        #set title</span>
+<span class="sd">        fig.suptitle(t,weight=&#39;bold&#39;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">clouds</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">target_size</span><span class="p">):</span>
+        <span class="c1"># Log transform</span>
+        <span class="c1">#data = np.log(data)</span>
+
+        <span class="c1"># Clip data to the range [vmin, vmax] and then scale it</span>
+        <span class="n">data_clipped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">)</span>
+
+        <span class="c1"># Replace NaNs with minimum values</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">data_clipped</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="n">vmin</span><span class="p">)</span>
+
+        <span class="c1"># Invert the normalized data to reflect the &#39;gray_r&#39; colormap</span>
+        <span class="n">data_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_clipped</span> <span class="o">-</span> <span class="n">vmin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">vmax</span> <span class="o">-</span> <span class="n">vmin</span><span class="p">)</span>
+        <span class="n">data_inverted</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">data_normalized</span>  <span class="c1"># Invert the grayscale values</span>
+
+        <span class="c1"># Resize the inverted data to the target size</span>
+        <span class="n">resized_data</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span>
+            <span class="n">data_inverted</span><span class="p">,</span>
+            <span class="n">output_shape</span><span class="o">=</span><span class="n">target_size</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Nearest-neighbor interpolation to avoid smoothing</span>
+            <span class="n">anti_aliasing</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">resized_data</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ml_clouds</span><span class="p">(</span><span class="n">prepared_data</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">target_size</span><span class="p">,</span> <span class="n">output_shape</span><span class="p">):</span>
+        <span class="c1"># Add batch and channel dimensions for further processing</span>
+        <span class="n">data_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">prepared_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Encode the image to get feature representation</span>
+        <span class="n">encoded_img</span> <span class="o">=</span> <span class="n">encoder</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_array</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Remove batch dimension</span>
+
+        <span class="c1"># Step 1: Aggregate Encoded Features</span>
+        <span class="n">aggregated_encoded_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">encoded_img</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Aggregated to single-channel (16, 32)</span>
+
+        <span class="c1"># Optional: Normalize for better visualization</span>
+        <span class="n">aggregated_encoded_img</span> <span class="o">=</span> <span class="p">(</span><span class="n">aggregated_encoded_img</span> <span class="o">-</span> <span class="n">aggregated_encoded_img</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">aggregated_encoded_img</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">aggregated_encoded_img</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+
+        <span class="c1"># Step 2: Flatten Encoded Features and Cluster</span>
+        <span class="n">encoded_img_flat</span> <span class="o">=</span> <span class="n">encoded_img</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">encoded_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># Flatten spatial dimensions for clustering</span>
+        <span class="n">pixel_labels</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">encoded_img_flat</span><span class="p">)</span>  <span class="c1"># Get cluster labels for each pixel</span>
+
+        <span class="c1"># Step 3: Map clusters to categories</span>
+        <span class="n">category_mapping</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mi">1</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># molecules</span>
+            <span class="mi">3</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># molecules</span>
+            <span class="mi">5</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># noise</span>
+            <span class="mi">4</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># aerosols</span>
+            <span class="mi">2</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># clouds</span>
+            <span class="mi">6</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># clouds</span>
+            <span class="mi">0</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># other</span>
+            <span class="mi">7</span><span class="p">:</span> <span class="kc">False</span>   <span class="c1"># other</span>
+        <span class="p">}</span>
+        <span class="n">pixel_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">category_mapping</span><span class="o">.</span><span class="n">get</span><span class="p">)(</span><span class="n">pixel_labels</span><span class="p">)</span>
+
+        <span class="c1"># Reshape the cluster labels back to the spatial dimensions</span>
+        <span class="n">pixel_labels_image_shape</span> <span class="o">=</span> <span class="n">pixel_labels</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">encoded_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">encoded_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Step 4: Upsample the cluster labels to match the original image size</span>
+        <span class="n">upsampled_pixel_labels</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span>
+            <span class="n">pixel_labels_image_shape</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">target_size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">target_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Nearest-neighbor interpolation</span>
+            <span class="n">preserve_range</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">anti_aliasing</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="c1">#upsampled_pixel_labels = upsampled_pixel_labels.astype(int)  # Ensure the labels are integers</span>
+
+        <span class="c1"># resize upsampled_pixel_labels to original size</span>
+        <span class="n">resized_upsampled_pixel_labels</span> <span class="o">=</span> <span class="n">resize</span><span class="p">(</span>
+                <span class="n">upsampled_pixel_labels</span><span class="p">,</span>
+                <span class="n">output_shape</span><span class="o">=</span><span class="n">output_shape</span><span class="p">,</span>
+                <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># Nearest-neighbor interpolation to avoid smoothing</span>
+                <span class="n">anti_aliasing</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">resized_upsampled_pixel_labels</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_split_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">max_size</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">max_size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">max_size</span><span class="p">)]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_combine_matrices</span><span class="p">(</span><span class="n">matrices</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">matrices</span><span class="p">)</span>
+
+
+    <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
+    <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
+        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
+
+    <span class="c1"># imports and check options</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">absl.logging</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">InconsistentVersionWarning</span>
+
+        <span class="c1"># Suppress TensorFlow CUDA messages</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;XLA_FLAGS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;--xla_gpu_cuda_data_dir=&#39;</span>  <span class="c1"># Prevents unnecessary CUDA checks</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TF_FORCE_GPU_ALLOW_GROWTH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;false&quot;</span>  <span class="c1"># Avoids some GPU-related logs</span>
+
+        <span class="c1"># Suppress Abseil warnings</span>
+        <span class="n">absl</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity</span><span class="p">(</span><span class="n">absl</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+        <span class="c1"># Suppress scikit-learn version warnings</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">InconsistentVersionWarning</span><span class="p">)</span>
+
+        <span class="c1"># Suppress TensorFlow progress bar</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+        <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">disable_interactive_logging</span><span class="p">()</span>
+
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">skimage.transform</span><span class="w"> </span><span class="kn">import</span> <span class="n">resize</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+
+        <span class="c1"># ML parameters</span>
+        <span class="n">ML</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;paths&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;encoder&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">&#39;ml_models&#39;</span><span class="p">,</span><span class="s1">&#39;encoder.keras&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;kmeans&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">&#39;ml_models&#39;</span><span class="p">,</span><span class="s1">&#39;kmeans.pkl&#39;</span><span class="p">)</span>    
+            <span class="p">},</span>
+            <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;vmin&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
+                <span class="s1">&#39;vmax&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s1">&#39;target_size&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>    
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1"># we split the rcs into subsets, so we artificially increase the time resolution of the cloud detection which is degraded by the DEC technique.</span>
+        <span class="n">split_rcs_list</span> <span class="o">=</span> <span class="n">_split_matrix</span><span class="p">(</span><span class="n">rcs</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+        <span class="c1"># Load the encoder and kmeans model</span>
+        <span class="n">encoder</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;encoder&#39;</span><span class="p">])</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;kmeans&#39;</span><span class="p">])</span>
+
+        <span class="c1"># prepare data</span>
+        <span class="n">split_ml_clouds</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">split_rcs</span> <span class="ow">in</span> <span class="n">split_rcs_list</span><span class="p">:</span>
+            <span class="n">prepared_data</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">split_rcs</span><span class="p">,</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;vmin&#39;</span><span class="p">],</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;vmax&#39;</span><span class="p">],</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;target_size&#39;</span><span class="p">])</span>
+            <span class="n">split_ml_clouds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ml_clouds</span><span class="p">(</span><span class="n">prepared_data</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;target_size&#39;</span><span class="p">],</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">split_rcs</span><span class="p">)))</span>
+
+        <span class="c1"># aggregate split_ml_clouds</span>
+        <span class="n">clouds</span> <span class="o">=</span> <span class="n">_combine_matrices</span><span class="p">(</span><span class="n">split_ml_clouds</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;encoder&#39;</span><span class="p">:</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;encoder&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;kmeans&#39;</span><span class="p">:</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;kmeans&#39;</span><span class="p">]</span>
+        <span class="p">}</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;vg&#39;</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+        <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="p">(</span><span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;For method &#39;vg&#39;, zmin, thr_noise, thr_clouds, and min_snr must be provided.&quot;</span><span class="p">)</span>
+
+        <span class="n">clouds</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">track</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;clouds&quot;</span><span class="p">,</span><span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)):</span>
+            <span class="n">i_clouds</span> <span class="o">=</span> <span class="n">_vg_clouds</span><span class="p">(</span>
+                <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span>
+            <span class="p">)</span>
+
+            <span class="c1"># store info in 2D array</span>
+            <span class="n">clouds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_clouds</span><span class="p">)</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
+            <span class="s1">&#39;thr_noise&#39;</span><span class="p">:</span> <span class="n">thr_noise</span><span class="p">,</span>
+            <span class="s1">&#39;thr_clouds&#39;</span><span class="p">:</span> <span class="n">thr_clouds</span><span class="p">,</span>
+            <span class="s1">&#39;min_snr&#39;</span><span class="p">:</span> <span class="n">min_snr</span>
+        <span class="p">}</span>
+
+    <span class="c1"># creates dataarrays</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">clouds</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clouds</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Clouds mask&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;time_avg&#39;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+        <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
+        <span class="s1">&#39;options&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">profiles</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div><h2 id="planetary-boundary-layer">Planetary Boundary Layer<a class="headerlink" href="#planetary-boundary-layer" title="Permanent link">&para;</a></h2>
+<p>This method allows for the tracking of the Planetary Boundary Layer (PBL) height in single profiles.</p>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="aprofiles.detection.pbl"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="aprofiles.detection.pbl.detect_pbl" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">detect_pbl</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">3000.0</span><span class="p">,</span> <span class="n">wav_width</span><span class="o">=</span><span class="mf">200.0</span><span class="p">,</span> <span class="n">under_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#aprofiles.detection.pbl.detect_pbl" class="headerlink" title="Permanent link">&para;</a></h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Module for <em>Planetary Boundary Layer Height</em> detection.
+Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>profiles</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p><code>ProfilesData</code> instance.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>time_avg</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>in minutes, the time during which we aggregate the profiles before detecting the PBL.</p>
+              </div>
+            </td>
+            <td>
+                  <code>1</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>zmin</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>maximum altitude AGL, in m, for retrieving the PBL.</p>
+              </div>
+            </td>
+            <td>
+                  <code>100.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>zmin</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>minimum altitude AGL, in m, for retrieving the PBL.</p>
+              </div>
+            </td>
+            <td>
+                  <code>100.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>wav_width</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Width of the wavelet used in the convolution, in m.</p>
+              </div>
+            </td>
+            <td>
+                  <code>200.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>under_clouds</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>min_snr</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum SNR at the retrieved PBL height required to return a valid value.</p>
+              </div>
+            </td>
+            <td>
+                  <code>1.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>verbose</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>verbose mode.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="ProfilesData (aprofiles.profiles.ProfilesData)" href="../data_classes/#aprofiles.profiles.ProfilesData">ProfilesData</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</p>
+<ul>
+<li><code>'pbl' (time, altitude)</code>: mask array corresponding to the pbl height.</li>
+</ul>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<details class="example" open>
+  <summary>Example</summary>
+  <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
+<span class="c1"># read example file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># pbl detection</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">pbl</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mf">100.</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">3000.</span><span class="p">)</span>
+<span class="c1"># attenuated backscatter image with pbl up to 6km of altitude</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_pbl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="Planetary Boundary Layer Height detection" src="../../assets/images/pbl.png" /></p>
+</details>
+
+            <details class="quote">
+              <summary>Source code in <code>aprofiles/detection/pbl.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect_pbl</span><span class="p">(</span>
+    <span class="n">profiles</span><span class="p">,</span>
+    <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">zmin</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
+    <span class="n">zmax</span><span class="o">=</span><span class="mf">3000.0</span><span class="p">,</span>
+    <span class="n">wav_width</span><span class="o">=</span><span class="mf">200.0</span><span class="p">,</span>
+    <span class="n">under_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">min_snr</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Module for *Planetary Boundary Layer Height* detection.</span>
+<span class="sd">    Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
+<span class="sd">        time_avg (int, optional): in minutes, the time during which we aggregate the profiles before detecting the PBL.</span>
+<span class="sd">        zmin (float, optional): maximum altitude AGL, in m, for retrieving the PBL.</span>
+<span class="sd">        zmin (float, optional): minimum altitude AGL, in m, for retrieving the PBL.</span>
+<span class="sd">        wav_width (float, optional): Width of the wavelet used in the convolution, in m.</span>
+<span class="sd">        under_clouds (bool, optional): If True, and if clouds detection have been called before, force the PBL to be found below the first cloud detected in the profile.</span>
+<span class="sd">        min_snr (float, optional): Minimum SNR at the retrieved PBL height required to return a valid value.</span>
+<span class="sd">        verbose (bool, optional): verbose mode.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (aprofiles.profiles.ProfilesData):</span>
+<span class="sd">            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</span>
+
+<span class="sd">            - `&#39;pbl&#39; (time, altitude)`: mask array corresponding to the pbl height.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        ```python</span>
+<span class="sd">        import aprofiles as apro</span>
+<span class="sd">        # read example file</span>
+<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
+<span class="sd">        profiles = reader.read()</span>
+<span class="sd">        # pbl detection</span>
+<span class="sd">        profiles.pbl(zmin=100., zmax=3000.)</span>
+<span class="sd">        # attenuated backscatter image with pbl up to 6km of altitude</span>
+<span class="sd">        profiles.plot(show_pbl=True, zmax=6000., vmin=1e-2, vmax=1e1, log=True)</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        ![Planetary Boundary Layer Height detection](../../assets/images/pbl.png)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">uniform_filter1d</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_detect_pbl</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">wav_width</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
+        <span class="c1"># detect pbl from range corrected signal between zmin and zmax using convolution with a wavelet..</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        from scipy import signal</span>
+
+<span class="sd">        #define wavelet with constant width</span>
+<span class="sd">        npoints = len(data)</span>
+<span class="sd">        width = wav_width #in meter</span>
+<span class="sd">        wav = signal.ricker(npoints, width/profiles._get_resolution(&#39;altitude&#39;))</span>
+
+<span class="sd">        #simple convolution</span>
+<span class="sd">        convolution = signal.convolve(data, wav, mode=&#39;same&#39;)</span>
+
+<span class="sd">        #the PBL is the maximum of the convolution</span>
+<span class="sd">        #sets to nan outside of PBL search range</span>
+<span class="sd">        convolution[0:profiles._get_index_from_altitude_AGL(zmin):] = np.nan</span>
+<span class="sd">        convolution[profiles._get_index_from_altitude_AGL(zmax):] = np.nan</span>
+<span class="sd">        i_pbl = np.nanargmax(abs(convolution))</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># -1. check if any valid data</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># 0. rolling average</span>
+        <span class="n">avg_data</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="c1"># simple gradient</span>
+        <span class="n">gradient</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">avg_data</span><span class="p">)</span>
+
+        <span class="c1"># the PBL is the maximum of the convolution</span>
+        <span class="c1"># sets to nan outside of PBL search range</span>
+        <span class="n">gradient</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmin</span><span class="p">)</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">gradient</span><span class="p">[</span><span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span><span class="n">zmax</span><span class="p">)</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">i_pbl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="c1"># calculates SNR</span>
+        <span class="n">snr</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">snr_at_iz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_pbl</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">snr</span> <span class="o">&gt;</span> <span class="n">min_snr</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i_pbl</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
+    <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
+        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
+
+    <span class="c1"># if under_clouds, check if clouds_bases is available</span>
+    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
+
+    <span class="n">pbl</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">track</span><span class="p">(</span>
+        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;pbl   &quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span>
+    <span class="p">):</span>
+        <span class="n">lowest_cloud_agl</span> <span class="o">=</span> <span class="n">lowest_clouds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">_zmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">([</span><span class="n">zmax</span><span class="p">,</span> <span class="n">lowest_cloud_agl</span><span class="p">])</span>
+        <span class="n">pbl</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">_detect_pbl</span><span class="p">(</span>
+                <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">zmin</span><span class="p">,</span>
+                <span class="n">_zmax</span><span class="p">,</span>
+                <span class="n">wav_width</span><span class="p">,</span>
+                <span class="n">min_snr</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># creates dataarrays</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pbl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">pbl</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pbl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pbl</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Planetary Boundary Layer Height, ASL&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;time_avg&quot;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+            <span class="s2">&quot;zmin&quot;</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
+            <span class="s2">&quot;zmax&quot;</span><span class="p">:</span> <span class="n">zmax</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">profiles</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../data_classes/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Data Classes">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Data Classes
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../retrieval/" class="md-footer__link md-footer__link--next" aria-label="Next: Retrieval">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Retrieval
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2024, Augustin Mortier
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://vprofiles.met.no" target="_blank" rel="noopener" title="V-Profiles" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="m503.5 204.6-.7-1.8-69.7-181.78c-1.4-3.57-3.9-6.59-7.2-8.64-2.4-1.55-5.1-2.515-8-2.81s-5.7.083-8.4 1.11c-2.7 1.02-5.1 2.66-7.1 4.78-1.9 2.12-3.3 4.67-4.1 7.44l-47 144H160.8l-47.1-144c-.8-2.77-2.2-5.31-4.1-7.43-2-2.12-4.4-3.75-7.1-4.77a18.1 18.1 0 0 0-8.38-1.113 18.4 18.4 0 0 0-8.04 2.793 18.1 18.1 0 0 0-7.16 8.64L9.267 202.8l-.724 1.8a129.57 129.57 0 0 0-3.52 82c7.747 26.9 24.047 50.7 46.447 67.6l.27.2.59.4 105.97 79.5 52.6 39.7 32 24.2c3.7 1.9 8.3 4.3 13 4.3s9.3-2.4 13-4.3l32-24.2 52.6-39.7 106.7-79.9.3-.3c22.4-16.9 38.7-40.6 45.6-67.5 8.6-27 7.4-55.8-2.6-82"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+        <script src="../../assets/js/custom.js"></script>
+      
+        <script src="../../assets/js/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
