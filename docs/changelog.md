@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.14.2
+Jun 12, 2025
+
+- Create daily climatology files.
+  
 ## 0.14.1
 May 22, 2025
 
