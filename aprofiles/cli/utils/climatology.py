@@ -19,22 +19,18 @@ def compute_climatology(
         for file in files:
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
-
+    
+    station_files = sorted(station_files)
     try:
         # open dataset with xarray
-        vars = (
-            season_variables
-            + all_variables
-            + ["retrieval_scene", "cloud_amount", "scene"]
-        )
-        ds = xr.open_mfdataset(
-            station_files,
-            parallel=False,
-            decode_times=True,
-            chunks=-1,
-            combine="nested",
-            compat="override",
-        )[vars].load()
+        vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
+        try:
+            ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1, concat_dim="time", join='outer', data_vars=vars, coords='minimal',combine='nested',compat='override', drop_variables=['mec'])[vars].load()
+        except Exception as e:
+            raise(e)
+
+        ds = ds.sortby("time")
+        ds = ds.drop_duplicates('time', keep='last')
 
         # store attributes which are destroyed by the resampling method
         attrs = ds.attrs
@@ -52,13 +48,13 @@ def compute_climatology(
         Dds["nprofiles"] = ds.resample(time="D").count().compute()
 
         # define path
-        clim_path = Path(path, "climato_daily")
+        clim_daily_path = Path(path, "climato_daily")
 
         # create directory if does not exist
-        clim_path.mkdir(parents=True, exist_ok=True)
+        clim_daily_path.mkdir(parents=True, exist_ok=True)
 
         # write daily file
-        Dds.to_netcdf(clim_path)
+        Dds.to_netcdf(Path(clim_daily_path, f"AP_{station_id}_clim.nc"))
 
         # seasonal resampling
         Qds = ds.resample(time="QE").mean().compute()
@@ -106,5 +102,5 @@ def compute_climatology(
                 orjson.dumps(multivars_dict, option=orjson.OPT_SERIALIZE_NUMPY)
             )
 
-    except ValueError:
-        print(f"ValueError encountered with {station_id}")
+    except Exception as e:
+        print(f'Error encountered with {station_id}: {e}')
