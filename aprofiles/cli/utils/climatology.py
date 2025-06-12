@@ -19,18 +19,34 @@ def compute_climatology(
         for file in files:
             if station_id in file and file.endswith(".nc"):
                 station_files.append(os.path.join(root, file))
-    
+
     station_files = sorted(station_files)
     try:
         # open dataset with xarray
-        vars = season_variables + all_variables + ['retrieval_scene', 'cloud_amount', 'scene']
+        vars = (
+            season_variables
+            + all_variables
+            + ["retrieval_scene", "cloud_amount", "scene"]
+        )
         try:
-            ds = xr.open_mfdataset(station_files, parallel=False, decode_times=True, chunks=-1, concat_dim="time", join='outer', data_vars=vars, coords='minimal',combine='nested',compat='override', drop_variables=['mec'])[vars].load()
+            ds = xr.open_mfdataset(
+                station_files,
+                parallel=False,
+                decode_times=True,
+                chunks=-1,
+                concat_dim="time",
+                join="outer",
+                data_vars=vars,
+                coords="minimal",
+                combine="nested",
+                compat="override",
+                drop_variables=["mec"],
+            )[vars].load()
         except Exception as e:
-            raise(e)
+            raise (e)
 
         ds = ds.sortby("time")
-        ds = ds.drop_duplicates('time', keep='last')
+        ds = ds.drop_duplicates("time", keep="last")
 
         # store attributes which are destroyed by the resampling method
         attrs = ds.attrs
@@ -45,7 +61,7 @@ def compute_climatology(
 
         # daily resampling
         Dds = ds.resample(time="D").mean().compute()
-        Dds["nprofiles"] = ds.resample(time="D").count().compute()
+        Dds["nprofiles"] = ds.scene.resample(time="D").count().compute()
 
         # define path
         clim_daily_path = Path(path, "climato_daily")
@@ -103,4 +119,4 @@ def compute_climatology(
             )
 
     except Exception as e:
-        print(f'Error encountered with {station_id}: {e}')
+        print(f"Error encountered with {station_id}: {e}")
