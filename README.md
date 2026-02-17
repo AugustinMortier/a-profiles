@@ -48,10 +48,10 @@ pipx install aprofiles
        pipx install .
        ```
 
-   - with *poetry*
+   - with *uv*
   
        ```
-       poetry install
+       uv install
        ```
 
 

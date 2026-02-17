@@ -6,6 +6,7 @@
 Feb 17, 2026
 
 - Migrate from *poetry* to *uv*.
+- Support python 3.13.
   
 ## 0.14.2
 Jun 12, 2025
