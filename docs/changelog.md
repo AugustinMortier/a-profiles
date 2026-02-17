@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.15.0
+Feb 17, 2026
+
+- Migrate from *poetry* to *uv*.
+  
 ## 0.14.2
 Jun 12, 2025
 

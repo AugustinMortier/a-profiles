@@ -28,8 +28,8 @@ pip install aprofiles
     pip install .
     ```
 
-    :simple-poetry: with *poetry*:
+    :simple-uv: with *uv*:
     
     ```
-    poetry install
+    uv install
     ```
