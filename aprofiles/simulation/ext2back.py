@@ -67,7 +67,7 @@ class ExtinctionToAttenuatedBackscatter:
         _time = pd.date_range(
             start=datetime.combine(date.today(), time(0, 0, 0)),
             end=datetime.combine(date.today(), time(23, 59, 59)),
-            periods=24 * 60 / 5,
+            periods=int(24 * 60 / 5),
         ).tolist()
         altitude = np.arange(15, 15000, 15)
 
