@@ -51,7 +51,7 @@ pipx install aprofiles
    - with *uv*
   
        ```
-       uv install
+       uv pip install .
        ```
 
 

@@ -31,5 +31,5 @@ pip install aprofiles
     :simple-uv: with *uv*:
     
     ```
-    uv install
+    uv pip install .
     ```
