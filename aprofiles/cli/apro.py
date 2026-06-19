@@ -73,7 +73,6 @@ def run(
     update_data: bool = typer.Option(True, help="📈 Update data."),
     update_calendar: bool = typer.Option(True, help="🗓️ Update calendar."),
     update_map: bool = typer.Option(True, help="🗺️ Update map."),
-    update_climatology: bool = typer.Option(True, help="↪️ Update climatology."),
     progress_bar: bool = typer.Option(True, help="⌛ Show progress bar."),
 ):
     """
@@ -194,56 +193,102 @@ def run(
             ):
                 utils.map.add_to_map(file, path_out, yyyy, mm, dd, mapname)
 
-    if update_climatology:
-        # list all files in out directory
-        onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
-        # get station id from file name
-        stations_id = [
-            "-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5])
-            for onlyfile in onlyfiles
-        ]
-        # exclude moving stations
-        stations_id = [
-            station
-            for station in stations_id
-            if station not in CFG["exclude_stations_id_from_climatology"]
-        ]
+@app.command()
+def climatology(
+    n_days: int = typer.Option(90, help="📅 Number of days to be included in the climatology."),
+    multiprocessing: bool = typer.Option(False, help="🚀 Use multiprocessing mode."),
+    workers: int = typer.Option(
+        2,
+        "--workers",
+        min=1,
+        envvar="NSLOTS",
+        help="👷 Number of workers (NSLOTS, if multiprocessing mode is enabled).",
+    ),
+    path_in: Path = typer.Option(
+        "data/v-profiles",
+        exists=True,
+        readable=True,
+        help="📂 Base path for input data.",
+    ),
+    path_out: Path = typer.Option(
+        "data/v-profiles",
+        exists=True,
+        writable=True,
+        help="📂 Base path for output data.",
+    ),
+    progress_bar: bool = typer.Option(True, help="⌛ Show progress bar."),
+):
+    """
+    compute climatology from daily AP files
+    """
 
-        if multiprocessing:
-            with Progress() as progress:
-                task = progress.add_task(
-                    total=len(stations_id),
-                    description=f"clim.      :rocket:",
-                    visible=not disable_progress_bar,
-                )
-                with concurrent.futures.ProcessPoolExecutor(
-                    max_workers=workers
-                ) as executor:
-                    futures = [
-                        executor.submit(
-                            utils.climatology.compute_climatology,
-                            path_out,
-                            station_id,
-                            season_variables=["extinction"],
-                            all_variables=["aod", "lidar_ratio"],
-                            aerosols_only=True,
-                        )
-                        for station_id in stations_id
-                    ]
-                    for future in concurrent.futures.as_completed(futures):
-                        progress.update(task, advance=1)
-        else:
-            for station_id in track(
-                stations_id, description="clim.        ", disable=disable_progress_bar
-            ):
-                utils.climatology.compute_climatology(
-                    path_out,
-                    station_id,
-                    season_variables=["extinction"],
-                    all_variables=["aod", "lidar_ratio"],
-                    aerosols_only=True,
-                )
+    # get today's date
+    today = datetime.today()
+    yyyy = str(today.year)
+    mm = str(today.month).zfill(2)
+    dd = str(today.day).zfill(2)
+    datepath = Path(path_in, yyyy, mm, dd)
+    
+    # progress bar
+    disable_progress_bar = not progress_bar
+    
+    # read config file
+    CFG = utils.config.read()
 
+    # list all files in out directory for today
+    onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
+    print(onlyfiles)
+    # get station id from file name
+    stations_id = [
+        "-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5])
+        for onlyfile in onlyfiles
+    ]
+    # exclude moving stations
+    stations_id = [
+        station
+        for station in stations_id
+        if station not in CFG["exclude_stations_id_from_climatology"]
+    ]
+    n_days = 90  # number of days to be included in the climatology (default: 90, that is 3 months)
+
+    if multiprocessing:
+        with Progress() as progress:
+            task = progress.add_task(
+                total=len(stations_id),
+                description=f"clim.      :rocket:",
+                visible=not disable_progress_bar,
+            )
+            with concurrent.futures.ProcessPoolExecutor(
+                max_workers=workers
+            ) as executor:
+                futures = [
+                    executor.submit(
+                        utils.climatology.compute_climatology,
+                        path_in,
+                        path_out,
+                        station_id,
+                        season_variables=["extinction"],
+                        all_variables=["aod", "lidar_ratio"],
+                        aerosols_only=True,
+                        n_days=n_days
+                    )
+                    for station_id in stations_id
+                ]
+                for future in concurrent.futures.as_completed(futures):
+                    progress.update(task, advance=1)
+    else:
+        for station_id in track(
+            stations_id, description="clim.        ", disable=disable_progress_bar
+        ):
+            utils.climatology.compute_climatology(
+                path_in,
+                path_out,
+                station_id,
+                season_variables=["extinction"],
+                all_variables=["aod", "lidar_ratio"],
+                aerosols_only=True,
+                n_days=n_days
+            )
 
 @app.command()
 def l2b(
