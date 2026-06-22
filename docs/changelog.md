@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.16.0
+Jun 22, 2026
+
+- Change climatology in CLI: only daily netcdf files are now computed. It is possible to read a limited number of days.
+
 ## 0.15.0
 Feb 17, 2026
 
