@@ -237,7 +237,7 @@ def climatology(
 
     # list all files in out directory for today
     onlyfiles = [str(e) for e in datepath.iterdir() if e.is_file()]
-    print(onlyfiles)
+    
     # get station id from file name
     stations_id = [
         "-".join(onlyfile.split("/")[-1].split("AP_")[1].split("-", 5)[:5])
