@@ -249,7 +249,6 @@ def climatology(
         for station in stations_id
         if station not in CFG["exclude_stations_id_from_climatology"]
     ]
-    n_days = 90  # number of days to be included in the climatology (default: 90, that is 3 months)
 
     if multiprocessing:
         with Progress() as progress:
