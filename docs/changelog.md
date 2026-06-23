@@ -2,6 +2,11 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
+## 0.16.1
+Jun 23, 2026
+
+- Make sure the to close opened datasets.
+  
 ## 0.16.0
 Jun 22, 2026
 
