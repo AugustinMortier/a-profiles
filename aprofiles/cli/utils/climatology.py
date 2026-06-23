@@ -122,7 +122,9 @@ def compute_climatology(
         # write output
         # ------------------------------------------------------------------
         Dds.to_netcdf(clim_file)
-
+        # close datasets
+        ds.close()
+        Dds.close()
 
     except Exception as e:
         print(f"Error encountered with {station_id}: {e}")

@@ -47,3 +47,6 @@ def add_to_calendar(fn, path, yyyy: str, mm: str, dd: str, calname: str) -> None
     # write new calendar
     with open(Path(path, yyyy, mm, calname), 'w') as json_file:
         json.dump(data, json_file)
+        
+    # close datasets
+    ds.close()

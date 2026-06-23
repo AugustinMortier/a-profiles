@@ -30,3 +30,7 @@ def make_files(path_in: Path, path_out: Path, time_steps: int, progress_bar: boo
         file_name = Path(path_out, f"L2B_{unique_id}{yyyymmdd}{mmhh}.nc")
         ds30min.to_netcdf('out.tmp')
         os.rename('out.tmp',file_name)
+        
+        # close datasets
+        ds.close()
+        ds30min.close()

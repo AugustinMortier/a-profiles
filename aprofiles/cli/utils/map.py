@@ -125,3 +125,6 @@ def add_to_map(fn, path, yyyy: str, mm: str, dd: str, mapname) -> None:
     # write new map
     with open(Path(path, yyyy, mm, mapname), "w") as json_file:
         json.dump(data, json_file)
+    
+    # close datasets
+    ds.close()
