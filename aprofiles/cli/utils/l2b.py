@@ -16,7 +16,7 @@ def make_files(path_in: Path, path_out: Path, time_steps: int, progress_bar: boo
 
     for f in track(files, description=f"Reading AP files", disable=not progress_bar):
 
-        ds = xr.open_dataset(f, decode_times=True, chunks=-1)
+        ds = xr.load_dataset(f, decode_times=True, chunks=-1)
         # get unique id and extract yyyymmdd from first time step
         unique_id = f"{ds.attrs['wigos_station_id']}_{ds.attrs['instrument_id']}"
         yyyymmdd = str(ds.time.data[0].astype('M8[D]')).replace('-','')        
