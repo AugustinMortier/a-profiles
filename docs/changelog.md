@@ -2,13 +2,13 @@
 
 :material-history:{ style="text-align: center; font-size: xx-large; display: block" }
 
-## 0.16.1
-Jun 23, 2026
+## 0.16.2
+Jun 25, 2026
 
 - Use *load_dataset* instead of *open_dataset* in *l2b* function to avoid locking file issues.
  
-## 0.16.2
-Jun 235, 2026
+## 0.16.1
+Jun 23, 2026
 
 - Make sure the to close opened datasets.
   
