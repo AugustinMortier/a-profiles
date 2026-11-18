@@ -501,7 +501,7 @@ class ProfilesData:
         cmap="coolwarm",
         show_fig=True,
         save_fig=None,
-        **kwargs
+        **kwargs,
     ):
         """
         Plotting method.
