@@ -13,52 +13,69 @@ The official documentation is available [here](https://augustinmortier.github.io
 
 ## ✨ Installation
 
-### <img src="docs/assets/images/pip.svg" height="15px"/> via *pip*
-*aprofiles* is directly available on *pip*. This will install the latest released version of *aprofiles* and its depencencies.
+### Install from PyPI
 
-- with *pip*
+Use Python **3.11–3.15**. Install packages in a virtual environment rather than into your system Python; this keeps project dependencies isolated.
 
-```
-pip install aprofiles
-```
+Create an environment in the project directory:
 
-- with *pipx*
-
-```
-pipx install aprofiles
+```shell
+python -m venv .venv
 ```
 
-### <img src="docs/assets/images/github.svg" height="15px"/> from source
-1. clone this repository
+Activate it using the command for your shell:
 
-    ```
-    git clone https://github.com/AugustinMortier/A-Profiles.git
-    ```
-
-2. installation
-   - with *pip* (>21.3)
-
-       ```
-       pip install .
-       ```
-    
-    - with *pipx*
-
-       ```
-       pipx install .
-       ```
-
-   - with *uv*
-  
-       ```
-       uv pip install .
-       ```
-
-
-In order to install directly the package from source with pip, you can also use the combined command
-
+```shell
+# macOS / Linux
+source .venv/bin/activate
 ```
-pip install "git+ssh://git@github.com/AugustinMortier/A-Profiles.git"
+
+```powershell
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+```
+
+Then install A-Profiles:
+
+```shell
+python -m pip install --upgrade pip
+python -m pip install aprofiles
+```
+
+Using `python -m pip` ensures pip installs into the selected environment. If you use [uv](https://docs.astral.sh/uv/), create and activate a virtual environment, then run `uv pip install aprofiles`.
+
+### Install the command-line interface
+
+The `apro` command is an optional extra. To use it in the environment above, install:
+
+```shell
+python -m pip install "aprofiles[cli]"
+```
+
+For a standalone CLI installation, [pipx](https://pipx.pypa.io/) creates and manages an isolated environment for you:
+
+```shell
+pipx install "aprofiles[cli]"
+```
+
+### Install from source
+
+```shell
+git clone https://github.com/AugustinMortier/A-Profiles.git
+cd A-Profiles
+python -m venv .venv
+```
+
+Activate `.venv` using the command for your shell above, then install:
+
+```shell
+python -m pip install .
+```
+
+For development, install the package in editable mode with its development, documentation, and CLI dependencies:
+
+```shell
+python -m pip install -e ".[dev,docs,cli]"
 ```
 
 ## 🚀 Get started
