@@ -27,6 +27,21 @@ def subtime_profiles():
 
 # test class
 class TestProfilesData:
+    def test_get_lowest_clouds_with_zero_one_and_multiple_gates(self):
+        data = xr.Dataset(
+            {"clouds": (("time", "altitude"), [
+                [False, False, False, False],
+                [False, False, True, False],
+                [False, True, False, True],
+                [True, False, False, False],
+            ])},
+            coords={"time": range(4), "altitude": [100., 200., 300., 400.]},
+        )
+        profiles = apro.profiles.ProfilesData(data)
+        np.testing.assert_allclose(
+            profiles._get_lowest_clouds(), [np.nan, 300., 200., 100.], equal_nan=True
+        )
+
     def test_snr(self, subaltitude_profiles):
         subaltitude_profiles.snr()
         snr = subaltitude_profiles.data.snr
@@ -35,6 +50,23 @@ class TestProfilesData:
         assert type(snr.data) is np.ndarray
         # test values
         # assert np.mean(snr.data) == 8.236267199712106
+
+    @pytest.mark.parametrize("step", [0, 1, 4, 10])
+    def test_snr_matches_single_gate_calculation(self, step):
+        data = np.array([
+            [1., 2., 3., 4., 5., 6., 7.],
+            [np.nan, 2., np.nan, 2., 2., np.nan, np.nan],
+            [np.nan] * 7,
+        ])
+        profiles = apro.profiles.ProfilesData(
+            xr.Dataset({"signal": (("time", "altitude"), data)})
+        )
+        profiles.snr(var="signal", step=step)
+        expected = np.array([
+            [apro.utils.snr_at_iz(row, iz, step) for iz in range(len(row))]
+            for row in data
+        ])
+        np.testing.assert_allclose(profiles.data.snr.data, expected, equal_nan=True)
 
     def test_gaussian_filter(self, subaltitude_profiles):
         filter = subaltitude_profiles.gaussian_filter(
@@ -152,6 +184,12 @@ class TestProfilesData:
         # assert np.round(np.nanmean(ext.data),5) == 0.03155
         # assert np.round(np.nanmean(aod.data),5) == 0.17234
         # assert np.round(np.nanmean(lr.data),3) == 50.0
+
+    def test_backward_inversion_without_reference(self, subtime_profiles, monkeypatch):
+        monkeypatch.setattr(apro.retrieval.extinction, "get_iref", lambda *args: None)
+        subtime_profiles.inversion(method="backward")
+        assert np.isnan(subtime_profiles.data.z_ref.data).all()
+        assert np.isnan(subtime_profiles.data.extinction.data).all()
 
     def test_plot(self, subtime_profiles):
         # data processing
