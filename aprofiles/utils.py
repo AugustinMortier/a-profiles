@@ -3,6 +3,7 @@
 
 import numpy as np
 import os
+import operator
 
 def get_true_indexes(mask):
     """
@@ -36,24 +37,66 @@ def file_exists(path):
     """
     return os.path.exists(path)
 
-def snr_at_iz(array, iz, step):
+def _snr_windows(windows):
+    results = np.full(windows.shape[0], np.nan)
+    valid = np.any(~np.isnan(windows), axis=1)
+    if np.any(valid):
+        with np.errstate(invalid="ignore", divide="ignore", over="ignore"):
+            means = np.nanmean(windows[valid], axis=1)
+            stds = np.nanstd(windows[valid], axis=1)
+            results[valid] = np.divide(
+                means, stds, out=np.full(means.shape, np.nan), where=stds != 0
+            )
+    return results
+
+
+def _snr_step(step):
+    step = operator.index(step)
+    if step < 0:
+        raise ValueError("step must be non-negative")
+    return step
+
+
+def snr_profile(array, step):
+    """Return local mean / standard deviation for each gate of a 1D profile.
+
+    The symmetric window contains ``2 * step + 1`` gates. NaNs are ignored;
+    incomplete windows, all-NaN windows and zero standard deviations produce NaN.
+    This local variability includes real signal structure, not only noise.
     """
-    Returns the SNR from an array calculated at iz with step points above and below.
+    step = _snr_step(step)
+    array = np.asarray(array)
+    if array.ndim != 1:
+        raise ValueError("array must be one-dimensional")
+    result = np.full(array.shape, np.nan)
+    width = 2 * step + 1
+    if width <= len(array):
+        windows = np.lib.stride_tricks.sliding_window_view(array, width)
+        result[step:len(array) - step] = _snr_windows(windows)
+    return result
+
+
+def snr_at_iz(array, iz, step):
+    """Return the local mean / standard deviation at one gate.
+
+    Uses the same symmetric window and NaN handling as ``snr_profile``.
+    Incomplete windows, all-NaN windows and zero standard deviations return NaN.
 
     Args:
-        - array (list): data array.
-        - iz (int): index where to calculate SNR.
-        - step (int): number of steps to be used for SNR calculation.
+        array (array-like): One-dimensional signal profile.
+        iz (int): Index where to calculate SNR.
+        step (int): Number of gates on each side of the index.
     """
-    # calculates the snr from array at iz around step points
-    gates = np.arange(iz - step, iz + step)
-    indexes = [i for i in gates if i > 0 and i < len(array)]
-    mean = np.nanmean(array[indexes])
-    std = np.nanstd(array[indexes], ddof=0)
-    if std != 0:
-        return mean / std
-    else:
-        return 0
+    step = _snr_step(step)
+    iz = operator.index(iz)
+    array = np.asarray(array)
+    if array.ndim != 1:
+        raise ValueError("array must be one-dimensional")
+    if iz < 0 or iz >= len(array):
+        raise IndexError("iz is outside the profile")
+    if iz < step or iz + step >= len(array):
+        return np.nan
+    return _snr_windows(array[np.newaxis, iz - step:iz + step + 1])[0]
 
 def gaussian(x, mu, sig, norm):
     """1D Gaussian function

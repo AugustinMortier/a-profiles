@@ -1,35 +1,64 @@
 # Installation
 
-:fontawesome-brands-python:{ style="text-align: center; font-size: xx-large; display: block" }
+A-Profiles supports Python **3.11–3.13**. Install it into a virtual environment to keep its dependencies separate from system Python and other projects.
 
-## :simple-pipx: via *pip/pipx* 
+## Install from PyPI
 
-*aprofiles* is directly available on *pip*. This will install the latest
-released version of *aprofiles* and its depencencies.
+Create and activate a virtual environment in your project directory:
 
+```shell
+python -m venv .venv
 ```
-pip install aprofiles
+
+```shell
+# macOS / Linux
+source .venv/bin/activate
 ```
 
+```powershell
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+```
 
-## :simple-github: via *Github*
+Install the latest release:
 
-1.  clone *aprofiles* repository
+```shell
+python -m pip install --upgrade pip
+python -m pip install aprofiles
+```
 
-    ```
-    git clone https://github.com/AugustinMortier/A-Profiles.git
-    ```
+Use `python -m pip` to make sure pip is associated with the active Python environment. If you use [uv](https://docs.astral.sh/uv/), create and activate a virtual environment first, then run `uv pip install aprofiles`.
 
-2.  installation
+## Install the command-line interface
 
-    :simple-pipx: with *pip/pipx* (>21.3):
-    
-    ```
-    pip install .
-    ```
+The `apro` command is available through the optional `cli` extra:
 
-    :simple-uv: with *uv*:
-    
-    ```
-    uv pip install .
-    ```
+```shell
+python -m pip install "aprofiles[cli]"
+```
+
+To install the CLI in its own managed environment, use [pipx](https://pipx.pypa.io/):
+
+```shell
+pipx install "aprofiles[cli]"
+```
+
+## Install from source
+
+```shell
+git clone https://github.com/AugustinMortier/A-Profiles.git
+cd A-Profiles
+python -m venv .venv
+```
+
+Activate `.venv` using the command for your shell above, then install:
+
+```shell
+python -m pip install .
+```
+
+For development, install in editable mode with the development, documentation, and CLI dependencies:
+
+```shell
+python -m pip install -e ".[dev,docs,cli]"
+```

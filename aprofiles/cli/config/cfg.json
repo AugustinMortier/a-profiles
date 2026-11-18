@@ -12,7 +12,8 @@
                 }
             },
             "cloud": {
-                "method": "dec"
+                "method": "dec",
+                "min_snr": 0.0
             }
         },
         "Mini-MPL": {
@@ -24,7 +25,8 @@
                 }
             },
             "cloud": {
-                "method": "vg"
+                "method": "vg",
+                "min_snr": 3.0
             }
         },
         "CL61": {
@@ -36,7 +38,8 @@
                 }
             },
             "cloud": {
-                "method": "dec"
+                "method": "dec",
+                "min_snr": 0.0
             }
         }
     }

@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.10', '3.11', '3.12', '3.13'] # add '3.14' later when deps allow
+        python: ['3.11', '3.12', '3.13'] # add '3.14' later when tensorflow allow
       fail-fast: false # optional: keep going even if one version fails
 
     steps:
