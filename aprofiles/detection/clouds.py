@@ -8,7 +8,7 @@ import aprofiles.profiles
 from aprofiles import utils
 
 
-def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["dec", "vg"]="dec", time_avg: float=1., zmin: float=0., thr_noise: float=5., thr_clouds: float=4., min_snr: float=0., verbose: bool=False):
+def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["dec", "vg"]="dec", time_avg: float=1., min_snr: float=0., *, zmin: float=0., thr_noise: float=5., thr_clouds: float=4., verbose: bool=False):
     """Module for *clouds detection*.
     Two methods are available: 
     - "dec" (default): Deep Embedded Clustering (see [AI-Profiles](https://github.com/AugustinMortier/ai-profiles)).
@@ -18,10 +18,10 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
         method (Literal["dec", "vg"]): cloud detection method used.
         time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection.
+        min_snr (float, optional): Minimum SNR required at the clouds peak value to consider the cloud as valid. For the 'dec' method, it is applied at the end of the detection to each cloud layer (contiguous cloud gates of a profile), and the filtering is skipped if `min_snr <= 0`.
         zmin (float, optional): altitude AGL, in m, above which we look for clouds. We recommend using the same value as used in the extrapolation_low_layers method (only for 'vg' method).
         thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] data[base(z)] >= thr_noise * noise(z) (only for 'vg' method).
         thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds (only for 'vg' method).
-        min_snr (float, optional): Minimum SNR required at the clouds peak value to consider the cloud as valid (only for 'vg' method).
         verbose (bool, optional): verbose mode. Defaults to `False`.
 
     Returns:
@@ -403,6 +403,26 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         
         return resized_upsampled_pixel_labels
     
+    def _filter_clouds_snr(data, clouds, min_snr):
+        # data: 1D range corrected signal (rcs)
+        # clouds: 1D boolean cloud mask
+        # removes the cloud layers (contiguous True segments) whose SNR at the peak is lower than min_snr
+        clouds = np.asarray(clouds, dtype=bool).copy()
+        if not clouds.any():
+            return clouds
+        edges = np.diff(np.concatenate(([0], clouds.astype(int), [0])))
+        starts = np.where(edges == 1)[0]
+        ends = np.where(edges == -1)[0]
+        for start, end in zip(starts, ends):
+            layer = data[start:end]
+            if np.isnan(layer).all():
+                clouds[start:end] = False
+                continue
+            i_peak = start + np.nanargmax(layer)
+            if utils.snr_at_iz(data, i_peak, step=10) < min_snr:
+                clouds[start:end] = False
+        return clouds
+
     def _split_matrix(matrix, max_size):
         return [matrix[i:i+max_size] for i in range(0, matrix.shape[0], max_size)]
 
@@ -471,11 +491,19 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
             split_ml_clouds.append(_ml_clouds(prepared_data, encoder, cluster, ML['params']['target_size'], output_shape=np.shape(split_rcs)))
         
         # aggregate split_ml_clouds
-        clouds = _combine_matrices(split_ml_clouds)
+        clouds = _combine_matrices(split_ml_clouds).astype(bool)
+
+        # remove clouds layers with low SNR at their peak
+        if min_snr is not None and min_snr > 0:
+            clouds = np.asarray([
+                _filter_clouds_snr(rcs.data[i, :], clouds[i, :], min_snr)
+                for i in track(range(clouds.shape[0]), description="clouds snr", disable=not verbose)
+            ])
         
         options = {
             'encoder': ML['paths']['encoder'],
-            'kmeans': ML['paths']['kmeans']
+            'kmeans': ML['paths']['kmeans'],
+            'min_snr': min_snr
         }
         
     elif method == 'vg':

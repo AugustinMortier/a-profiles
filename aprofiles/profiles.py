@@ -430,17 +430,25 @@ class ProfilesData:
         self,
         method: Literal["dec", "vg"] = "dec",
         time_avg=1,
+        min_snr=0.0,
+        *,
         zmin=0,
         thr_noise=5.0,
         thr_clouds=4.0,
-        min_snr=0.0,
         verbose=False,
     ):
         """
         Calls :meth:`aprofiles.detection.clouds.detect_clouds()`.
         """
         return apro.detection.clouds.detect_clouds(
-            self, method, time_avg, zmin, thr_noise, thr_clouds, min_snr, verbose
+            self,
+            method=method,
+            time_avg=time_avg,
+            min_snr=min_snr,
+            zmin=zmin,
+            thr_noise=thr_noise,
+            thr_clouds=thr_clouds,
+            verbose=verbose,
         )
 
     def pbl(
