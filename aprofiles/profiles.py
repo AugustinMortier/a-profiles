@@ -84,8 +84,8 @@ class ProfilesData:
         lowest_clouds = np.full(np.shape(self.data.time.data), np.nan)
         for i, _ in enumerate(self.data.time.data):
             clouds_profile = self.data.clouds[i, :]
-            i_clouds = np.squeeze(np.where(clouds_profile))
-            if len(i_clouds) > 0:
+            i_clouds = np.flatnonzero(clouds_profile.data)
+            if i_clouds.size > 0:
                 lowest_clouds[i] = self.data.altitude.data[i_clouds[0]]
         return lowest_clouds
 
@@ -99,7 +99,12 @@ class ProfilesData:
 
     def snr(self, var="attenuated_backscatter_0", step=4, verbose=False):
         """
-        Method that calculates the Signal to Noise Ratio.
+        Calculate a local signal-to-noise ratio proxy (mean / standard deviation).
+
+        The symmetric window contains ``2 * step + 1`` altitude gates. NaNs
+        inside the window are ignored. Incomplete windows, all-NaN windows,
+        and windows with zero standard deviation yield NaN. Local variation
+        includes atmospheric structure as well as measurement noise.
 
         Args:
             var (str, optional): Variable of the DataArray to calculate the SNR from.
@@ -131,31 +136,7 @@ class ProfilesData:
 
         # Loop over each time step
         for t in track(range(time_len), description="snr   ", disable=not verbose):
-            # Extract 1D slice for current time step
-            array = self.data[var].data[t, :]
-
-            # Create a sliding window view for the rolling calculation
-            sliding_windows = np.lib.stride_tricks.sliding_window_view(
-                array, window_shape=2 * step + 1, axis=0
-            )
-
-            # Calculate mean and std across the window axis
-            means = np.nanmean(sliding_windows, axis=1)
-            stds = np.nanstd(sliding_windows, axis=1)
-
-            # Handle the edges (where sliding window can't be applied due to boundary)
-            means = np.pad(
-                means, pad_width=(step,), mode="constant", constant_values=np.nan
-            )
-            stds = np.pad(
-                stds, pad_width=(step,), mode="constant", constant_values=np.nan
-            )
-
-            # Avoid division by zero
-            stds = np.where(stds == 0, np.nan, stds)
-
-            # Compute SNR
-            snr_array[t, :] = np.divide(means, stds, where=(stds != 0))
+            snr_array[t, :] = apro.utils.snr_profile(self.data[var].data[t, :], step)
 
         # Add the SNR DataArray to the object's data attribute
         self.data["snr"] = (("time", "altitude"), snr_array)
