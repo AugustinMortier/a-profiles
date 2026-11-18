@@ -1,6 +1,6 @@
 # Installation
 
-A-Profiles supports Python **3.11–3.15**. Install it into a virtual environment to keep its dependencies separate from system Python and other projects.
+A-Profiles supports Python **3.11–3.13**. Install it into a virtual environment to keep its dependencies separate from system Python and other projects.
 
 ## Install from PyPI
 

@@ -15,7 +15,7 @@ The official documentation is available [here](https://augustinmortier.github.io
 
 ### Install from PyPI
 
-Use Python **3.11–3.15**. Install packages in a virtual environment rather than into your system Python; this keeps project dependencies isolated.
+Use Python **3.11–3.13**. Install packages in a virtual environment rather than into your system Python; this keeps project dependencies isolated.
 
 Create an environment in the project directory:
 

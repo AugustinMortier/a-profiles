@@ -5,7 +5,7 @@
 ## 0.17.0
 Nov 18, 2026
 
-- Deprecates python 3.10, and supports python 3.14 and 3.15.
+- Deprecates python 3.10.
 - Enable *min_snr* option in cloud detection with Deep Embedded Clustering technique.
 - Add *snr* computation to workflow.
 
