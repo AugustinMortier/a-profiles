@@ -37,10 +37,10 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
                 ]["method"]
             profiles.clouds(
                 cloud_method,
+                thr_clouds=4.0,
                 time_avg=1,
                 zmin=300.0,
                 thr_noise=5.0,
-                thr_clouds=4.0,
                 verbose=verbose,
             )
 
