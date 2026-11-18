@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: ['3.10', '3.11', '3.12', '3.13'] # add '3.14' later when deps allow
+        python: ['3.11', '3.12', '3.13', '3.14', '3.15'] # add '3.14' later when deps allow
       fail-fast: false # optional: keep going even if one version fails
 
     steps:
@@ -47,10 +47,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install uv and set Python 3.13
+      - name: Install uv and set Python 3.15
         uses: astral-sh/setup-uv@v7
         with:
-          python-version: '3.13'
+          python-version: '3.15'
 
       - name: Install dependencies (docs extra)
         run: uv sync --extra docs # only docs deps + main (faster than --all-extras)
