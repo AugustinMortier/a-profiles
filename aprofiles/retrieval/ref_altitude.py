@@ -20,6 +20,7 @@ def get_iref(data, imin, imax, min_snr):
     # function that returns best index to be used for initializing the Klett backward inversion
 
     # it is important to copy the data not to modify it outside of the function
+    signal = data
     data = data.copy()
 
     # check if imin below imax
@@ -40,17 +41,19 @@ def get_iref(data, imin, imax, min_snr):
 
             # around minimum, get index of closest signal to average signal
             n_around_min = 3
-            iclose = np.nanargmin(
+            start = max(ilow - n_around_min, 0)
+            end = min(ilow + n_around_min, len(data))
+            iclose = start + np.nanargmin(
                 abs(
-                    data[ilow - n_around_min: ilow + n_around_min]
-                    - avg_data[ilow - n_around_min: ilow + n_around_min]
+                    data[start:end] - avg_data[start:end]
                 )
             )
 
-            if utils.snr_at_iz(data, iclose, step=4) < min_snr:
+            snr = utils.snr_at_iz(signal, iclose, step=4)
+            if not np.isfinite(snr) or snr < min_snr:
                 return None
             else:
-                return ilow + iclose
+                return iclose
         else:
             return None
     else:
