@@ -6,8 +6,6 @@ from pathlib import Path
 import json
 import warnings
 
-from tests.io.test_write_profiles import profiles
-
 
 def workflow(path, instruments_types, base_dir, CFG, verbose=False):
     apro_reader = apro.reader.ReadProfiles(path)
