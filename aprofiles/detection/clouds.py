@@ -18,7 +18,7 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.
         method (Literal["dec", "vg"]): cloud detection method used.
         time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection.
-        min_snr (float, optional): Minimum SNR required at the clouds peak value to consider the cloud as valid. For the 'dec' method, it is applied at the end of the detection to each cloud layer (contiguous cloud gates of a profile), and the filtering is skipped if `min_snr <= 0`.
+        min_snr (float, optional): Minimum SNR required for cloud detection. For 'dec', individual cloud pixels with SNR below this threshold are removed after detection; pixels with undefined SNR are retained, and filtering is skipped if `min_snr <= 0` or `None`. For 'vg', the SNR is checked at each cloud layer's peak.
         zmin (float, optional): altitude AGL, in m, above which we look for clouds. We recommend using the same value as used in the extrapolation_low_layers method (only for 'vg' method).
         thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] data[base(z)] >= thr_noise * noise(z) (only for 'vg' method).
         thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] >= thr_clouds (only for 'vg' method).
@@ -406,21 +406,11 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
     def _filter_clouds_snr(data, clouds, min_snr):
         # data: 1D range corrected signal (rcs)
         # clouds: 1D boolean cloud mask
-        # removes the cloud layers (contiguous True segments) whose SNR at the peak is lower than min_snr
+        # removes individual cloud pixels whose SNR is lower than min_snr
         clouds = np.asarray(clouds, dtype=bool).copy()
-        if not clouds.any():
-            return clouds
-        edges = np.diff(np.concatenate(([0], clouds.astype(int), [0])))
-        starts = np.where(edges == 1)[0]
-        ends = np.where(edges == -1)[0]
-        for start, end in zip(starts, ends):
-            layer = data[start:end]
-            if np.isnan(layer).all():
-                clouds[start:end] = False
-                continue
-            i_peak = start + np.nanargmax(layer)
-            if utils.snr_at_iz(data, i_peak, step=10) < min_snr:
-                clouds[start:end] = False
+        for iz in np.flatnonzero(clouds):
+            if utils.snr_at_iz(data, iz, step=10) < min_snr:
+                clouds[iz] = False
         return clouds
 
     def _split_matrix(matrix, max_size):
@@ -493,7 +483,7 @@ def detect_clouds(profiles: aprofiles.profiles.ProfilesData, method: Literal["de
         # aggregate split_ml_clouds
         clouds = _combine_matrices(split_ml_clouds).astype(bool)
 
-        # remove clouds layers with low SNR at their peak
+        # remove cloud pixels with low SNR
         if min_snr is not None and min_snr > 0:
             clouds = np.asarray([
                 _filter_clouds_snr(rcs.data[i, :], clouds[i, :], min_snr)

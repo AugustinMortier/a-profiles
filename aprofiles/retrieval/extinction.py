@@ -273,7 +273,7 @@ def inversion(
             iref = get_iref(rcs.data[i, :], imin, imax, min_snr)
         elif method == "forward":
             iref = imax
-        z_ref.append(altitude_agl[iref])
+        z_ref.append(altitude_agl[iref] if iref is not None else np.nan)
 
         if iref is not None:
             # aerosol inversion
