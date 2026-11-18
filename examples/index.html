@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1006,7 +1006,7 @@ information, check out the <code class="interpreted-text" role="ref">API</code>.
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># path of the NetCDF file to be read</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="c1"># instantiate the ReadProfiles class with the file path</span>
 <span class="n">apro_reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="c1"># call the read method of the instance</span>
@@ -1014,8 +1014,8 @@ information, check out the <code class="interpreted-text" role="ref">API</code>.
 
 <span class="c1"># plot the attenuated backscatter profile</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">zref</span><span class="o">=</span><span class="s2">&quot;agl&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/attenuated_backscatter.png&quot;</span>
+    <span class="n">var</span><span class="o">=</span><span class="s2">"attenuated_backscatter_0"</span><span class="p">,</span> <span class="n">zref</span><span class="o">=</span><span class="s2">"agl"</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/attenuated_backscatter.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Attenuated Backscatter
@@ -1030,7 +1030,7 @@ layers" src="../assets/images/lowest.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># path of the NetCDF file to be read</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1"># extrapolate lowest layers</span>
@@ -1038,8 +1038,8 @@ layers" src="../assets/images/lowest.png" /></p>
 
 <span class="c1"># plot the attenuated backscatter profile up to 1000m of altitude</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">zref</span><span class="o">=</span><span class="s2">&quot;agl&quot;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/lowest_extrap.png&quot;</span>
+    <span class="n">zref</span><span class="o">=</span><span class="s2">"agl"</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">1000.0</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/lowest_extrap.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Extrapolation below 150m of altitude" src="../assets/images/lowest_extrap.png" /></p>
@@ -1049,7 +1049,7 @@ layers" src="../assets/images/lowest.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># path of the NetCDF file to be read</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1"># gaussian filtering</span>
@@ -1058,7 +1058,7 @@ layers" src="../assets/images/lowest.png" /></p>
 <span class="c1"># plot the attenuated backscatter profile</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/gaussian_filter.png&quot;</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/gaussian_filter.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Backscatter profiles with gaussian filter ([sigma=0.5]{.title-ref})" src="../assets/images/gaussian_filter.png" /></p>
@@ -1072,7 +1072,7 @@ layers" src="../assets/images/lowest.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># read some data</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1"># basic corrections</span>
@@ -1084,7 +1084,7 @@ layers" src="../assets/images/lowest.png" /></p>
 <span class="c1"># plot image below 6000m with a highlight on foc</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">show_foc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/foc.png&quot;</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/foc.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Fog or Condensation detection" src="../assets/images/foc.png" /></p>
@@ -1097,7 +1097,7 @@ layers" src="../assets/images/lowest.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># read some data</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1"># basic corrections</span>
@@ -1109,7 +1109,7 @@ layers" src="../assets/images/lowest.png" /></p>
 <span class="c1"># plot image with clouds</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/clouds_dec.png&quot;</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/clouds_dec.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Clouds detection" src="../assets/images/clouds_dec.png" /></p>
@@ -1119,7 +1119,7 @@ strongest vertical gradient of the attenuated backscatter profiles.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># read some data</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1"># basic corrections</span>
@@ -1131,7 +1131,7 @@ strongest vertical gradient of the attenuated backscatter profiles.</p>
 <span class="c1"># plot image with pbl tracking</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">show_pbl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/pbl.png&quot;</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/pbl.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Planetary Boundary Layer height detection" src="../assets/images/pbl.png" /></p>
@@ -1143,7 +1143,7 @@ methods have been implemented and can be used in this module.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># read some data</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1"># basic corrections</span>
@@ -1151,13 +1151,13 @@ methods have been implemented and can be used in this module.</p>
 
 <span class="c1"># aerosol retrievals - forward inversion</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span>
-    <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"forward"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 
 <span class="c1"># plot extinction profiles</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="n">var</span><span class="o">=</span><span class="s2">&quot;extinction&quot;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/forward.png&quot;</span>
+    <span class="n">var</span><span class="o">=</span><span class="s2">"extinction"</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">,</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/forward.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Aerosol extinction profiles retrieved with an iterative forward
@@ -1167,7 +1167,7 @@ approach." src="../assets/images/forward.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 
 <span class="c1"># read some data</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <span class="c1"># basic corrections</span>
@@ -1175,13 +1175,13 @@ approach." src="../assets/images/forward.png" /></p>
 
 <span class="c1"># aerosol retrievals - forward inversion</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span>
-    <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"forward"</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span>
 
 <span class="c1"># plot mass concentration profiles im the case of desert dust</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-    <span class="s1">&#39;mass_concentration:dust&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">100.</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Oranges&#39;</span><span class="p">,</span>
-    <span class="n">save_fig</span><span class="o">=</span><span class="s2">&quot;examples/images/mass_conc-dust.png&quot;</span>
+    <span class="s1">'mass_concentration:dust'</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">100.</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'Oranges'</span><span class="p">,</span>
+    <span class="n">save_fig</span><span class="o">=</span><span class="s2">"examples/images/mass_conc-dust.png"</span>
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="Mass concentration profiles in the case of desert dust
@@ -1295,7 +1295,7 @@ particles." src="../assets/images/mass_conc-dust.png" /></p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../assets/js/custom.js"></script>
       

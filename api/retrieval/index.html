@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1358,7 +1358,7 @@ attenuated backscatter profiles using an a priori.</p>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">backward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Backward (Klett [Klett1985]_ ) inversion method.</span>
 
 <span class="sd">    .. [Klett1985] Klett, J. D. (1985). Lidar inversion with variable backscatter/extinction ratios. Applied optics, 24(11), 1638-1643.</span>
@@ -1376,15 +1376,15 @@ attenuated backscatter profiles using an a priori.</p>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (array_like): Extinction coefficient (in m⁻¹).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">if</span> <span class="s2">&quot;aod&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s2">"aod"</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
         <span class="c1"># search by dichotomy the LR that matches the apriori aod</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;AOD apriori is not implemented yet&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"AOD apriori is not implemented yet"</span><span class="p">)</span>
         <span class="n">lr_aer</span> <span class="o">=</span> <span class="mi">50</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># if we assume the LR, no need to minimize for matching aod</span>
-        <span class="n">lr_aer</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+        <span class="n">lr_aer</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">"lr"</span><span class="p">]</span>
     <span class="n">lr_mol</span> <span class="o">=</span> <span class="mf">8.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">3.0</span>
 
     <span class="c1"># vertical resolution</span>
@@ -1636,7 +1636,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">forward_inversion</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Forward iterative inversion method [#]_.</span>
+<span class="w">    </span><span class="sd">"""Forward iterative inversion method [#]_.</span>
 
 <span class="sd">    .. [#] Li, D., Wu, Y., Gross, B., &amp; Moshary, F. (2021). Capabilities of an Automatic Lidar Ceilometer to Retrieve Aerosol Characteristics within the Planetary Boundary Layer. Remote Sensing, 13(18), 3626.</span>
 
@@ -1658,20 +1658,20 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (array_like): Extinction coefficient (in m⁻¹).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">if</span> <span class="s2">&quot;aod&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s2">"aod"</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
         <span class="c1"># search by dichotomy the LR that matches the apriori aod</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;AOD apriori is not implemented yet&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"AOD apriori is not implemented yet"</span><span class="p">)</span>
         <span class="n">lr_aer</span> <span class="o">=</span> <span class="mi">50</span>
-    <span class="k">elif</span> <span class="s2">&quot;lr&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="s2">"lr"</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
         <span class="c1"># if we assume the LR, no need to minimize for matching aod</span>
-        <span class="n">lr_aer</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+        <span class="n">lr_aer</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">"lr"</span><span class="p">]</span>
     <span class="n">lr_mol</span> <span class="o">=</span> <span class="mf">8.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">3.0</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_get_aer_at_i</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">Tm</span><span class="p">,</span> <span class="n">Bm</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">Ba</span><span class="p">,</span> <span class="n">Ea</span><span class="p">,</span> <span class="n">dz</span><span class="p">,</span> <span class="n">nloop_max</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">diff_ext</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
         <span class="c1"># suppress warnings</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nloop_max</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">Ea</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
@@ -1719,7 +1719,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 
 
 <h2 id="aprofiles.retrieval.extinction.inversion" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">inversion</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.0</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">under_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">apriori</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">},</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">inversion</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">4000.0</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">under_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'forward'</span><span class="p">,</span> <span class="n">apriori</span><span class="o">=</span><span class="p">{</span><span class="s1">'lr'</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">},</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 <a href="#aprofiles.retrieval.extinction.inversion" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1960,7 +1960,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
   <p>Profiles preparation
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 <span class="c1">#read example file</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="c1">#extrapolate lowest layers</span>
@@ -1968,16 +1968,16 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 </code></pre></div></p>
 <p>Backward inversion
 <div class="highlight"><pre><span></span><code><span class="c1">#aerosol inversion</span>
-<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">)</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'backward'</span><span class="p">)</span>
 <span class="c1">#plot extinction profiles</span>
-<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">'extinction'</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
 </code></pre></div></p>
 <p><img alt="Extinction profiles retrieved with the backward method" src="../../assets/images/backward.png" /></p>
 <p>Forward inversion
 <div class="highlight"><pre><span></span><code><span class="c1">#aerosol inversion</span>
-<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">)</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span><span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'forward'</span><span class="p">)</span>
 <span class="c1">#plot extinction profiles</span>
-<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;extinction&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">'extinction'</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">)</span>
 </code></pre></div></p>
 <p><img alt="Extinction profiles retrieved with the forward method" src="../../assets/images/forward.png" /></p>
 </details>
@@ -2186,12 +2186,12 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
     <span class="n">zmax</span><span class="o">=</span><span class="mf">6000.0</span><span class="p">,</span>
     <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="n">under_clouds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">method</span><span class="o">=</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span>
-    <span class="n">apriori</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;lr&quot;</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">},</span>
+    <span class="n">method</span><span class="o">=</span><span class="s2">"forward"</span><span class="p">,</span>
+    <span class="n">apriori</span><span class="o">=</span><span class="p">{</span><span class="s2">"lr"</span><span class="p">:</span> <span class="mf">50.0</span><span class="p">},</span>
     <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Aerosol inversion of the attenuated backscatter profiles using an apriori.</span>
+<span class="w">    </span><span class="sd">"""Aerosol inversion of the attenuated backscatter profiles using an apriori.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
@@ -2201,7 +2201,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="sd">        min_snr (float, optional): Minimum SNR required at the reference altitude to be valid.</span>
 <span class="sd">        under_clouds (bool, optional): If True, and if the `ProfilesData` has a `cloud_base` variable (returned by the `clouds` method), forces the initialization altitude to be found below the first cloud detected in the profile.</span>
 <span class="sd">        method (str, optional): must be in [‘backward’, ‘forward’].</span>
-<span class="sd">        apriori (dict, optional): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr), ‘aod’ (unitless), &#39;cfg&#39; (path of config file).</span>
+<span class="sd">        apriori (dict, optional): A priori value to be used to constrain the inversion. Valid keys: ‘lr’ (Lidar Ratio, in sr), ‘aod’ (unitless), 'cfg' (path of config file).</span>
 <span class="sd">        remove_outliers (bool, optional): Remove profiles considered as outliers based on aod calculation (AOD&lt;0, or AOD&gt;2).</span>
 <span class="sd">        verbose (bool, optional): verbose mode.</span>
 
@@ -2212,16 +2212,16 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="sd">        (aprofiles.profiles.ProfilesData):</span>
 <span class="sd">            object with additional (xarray.DataArray):</span>
 
-<span class="sd">            - `&#39;extinction&#39; (time, altitude)`: 2D array corresponding to the aerosol extinction, in km-1.</span>
-<span class="sd">            - `&#39;aod&#39; (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</span>
-<span class="sd">            - `&#39;lidar_ratio&#39; (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.</span>
+<span class="sd">            - `'extinction' (time, altitude)`: 2D array corresponding to the aerosol extinction, in km-1.</span>
+<span class="sd">            - `'aod' (time)`: 1D array corresponding to the aerosol optical depth associated to the extinction profiles.</span>
+<span class="sd">            - `'lidar_ratio' (time)`: 1D array corresponding to the lidar ratio associated to the extinction profiles.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        Profiles preparation</span>
 <span class="sd">        ```python</span>
 <span class="sd">        import aprofiles as apro</span>
 <span class="sd">        #read example file</span>
-<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        path = "examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">        profiles = reader.read()</span>
 <span class="sd">        #extrapolate lowest layers</span>
@@ -2231,9 +2231,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="sd">        Backward inversion</span>
 <span class="sd">        ```python</span>
 <span class="sd">        #aerosol inversion</span>
-<span class="sd">        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;backward&#39;)</span>
+<span class="sd">        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='backward')</span>
 <span class="sd">        #plot extinction profiles</span>
-<span class="sd">        profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
+<span class="sd">        profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)</span>
 <span class="sd">        ```</span>
 
 <span class="sd">        ![Extinction profiles retrieved with the backward method](../../assets/images/backward.png)</span>
@@ -2241,33 +2241,33 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
 <span class="sd">        Forward inversion</span>
 <span class="sd">        ```python</span>
 <span class="sd">        #aerosol inversion</span>
-<span class="sd">        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method=&#39;forward&#39;)</span>
+<span class="sd">        profiles.inversion(zmin=4000, zmax=6000, remove_outliers=False, method='forward')</span>
 <span class="sd">        #plot extinction profiles</span>
-<span class="sd">        profiles.plot(var=&#39;extinction&#39;, zmax=6000, vmin=0, vmax=5e-2)</span>
+<span class="sd">        profiles.plot(var='extinction', zmax=6000, vmin=0, vmax=5e-2)</span>
 <span class="sd">        ```</span>
 
 <span class="sd">        ![Extinction profiles retrieved with the forward method](../../assets/images/forward.png)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
     <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
-        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">"attenuated_backscatter_0"</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    #if clouds detected, set to nan profiles where cloud is found below 4000m</span>
 <span class="sd">    lowest_clouds = profiles._get_lowest_clouds()</span>
 <span class="sd">    for i in range(len(profiles.data.time.data)):</span>
 <span class="sd">        if lowest_clouds[i]&lt;=4000:</span>
 <span class="sd">            rcs.data[i,:] = [np.nan for _ in rcs.data[i,:]]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># if under_clouds, check if clouds_bases is available</span>
-    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">"clouds"</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
         <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">"clouds"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.&quot;</span>
+            <span class="s2">"under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object."</span>
         <span class="p">)</span>
         <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -2276,9 +2276,9 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
     <span class="c1"># aerosol inversion</span>
     <span class="n">ext</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">aod</span><span class="p">,</span> <span class="n">z_ref</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
     <span class="n">aod_min</span><span class="p">,</span> <span class="n">aod_max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span>
-    <span class="n">vertical_resolution</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_resolution</span><span class="p">(</span><span class="s2">&quot;altitude&quot;</span><span class="p">)</span>
+    <span class="n">vertical_resolution</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_resolution</span><span class="p">(</span><span class="s2">"altitude"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">track</span><span class="p">(</span>
-        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;klett &quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span>
+        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">"klett "</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span>
     <span class="p">):</span>
         <span class="n">altitude_agl</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span>
         <span class="n">altitude_asl</span> <span class="o">=</span> <span class="p">(</span>
@@ -2292,7 +2292,7 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
         <span class="p">)</span>
 
         <span class="c1"># for this inversion, it is important to use the right units</span>
-        <span class="k">if</span> <span class="s2">&quot;Mm&quot;</span> <span class="ow">in</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"Mm"</span> <span class="ow">in</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span><span class="o">.</span><span class="n">units</span><span class="p">:</span>
             <span class="n">calibrated_data</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">*</span> <span class="mf">1e-6</span>
             <span class="p">)</span>  <span class="c1"># conversion from Mm-1.sr-1 to m-1.sr-1</span>
@@ -2304,28 +2304,28 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
         <span class="n">imax</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_index_from_altitude_AGL</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">([</span><span class="n">zmax</span><span class="p">,</span> <span class="n">lowest_clouds</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;backward&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"backward"</span><span class="p">:</span>
             <span class="n">iref</span> <span class="o">=</span> <span class="n">get_iref</span><span class="p">(</span><span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">imin</span><span class="p">,</span> <span class="n">imax</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"forward"</span><span class="p">:</span>
             <span class="n">iref</span> <span class="o">=</span> <span class="n">imax</span>
-        <span class="n">z_ref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">altitude_agl</span><span class="p">[</span><span class="n">iref</span><span class="p">])</span>
+        <span class="n">z_ref</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">altitude_agl</span><span class="p">[</span><span class="n">iref</span><span class="p">]</span> <span class="k">if</span> <span class="n">iref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">iref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># aerosol inversion</span>
-            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;backward&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"backward"</span><span class="p">:</span>
                 <span class="n">_ext</span> <span class="o">=</span> <span class="n">backward_inversion</span><span class="p">(</span><span class="n">calibrated_data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"forward"</span><span class="p">:</span>
                 <span class="n">_ext</span> <span class="o">=</span> <span class="n">forward_inversion</span><span class="p">(</span><span class="n">calibrated_data</span><span class="p">,</span> <span class="n">iref</span><span class="p">,</span> <span class="n">apriori</span><span class="p">,</span> <span class="n">rayleigh</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_ext</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">calibrated_data</span><span class="p">))]</span>
 
         <span class="c1"># add aod and lr</span>
-        <span class="k">if</span> <span class="s2">&quot;aod&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">"aod"</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
             <span class="c1"># search by dichotomy the LR that matches the apriori aod</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;AOD apriori is not implemented yet&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"AOD apriori is not implemented yet"</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># if we assume the LR, no need to minimize for matching aod</span>
-            <span class="n">_lr</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;lr&quot;</span><span class="p">]</span>
+            <span class="n">_lr</span> <span class="o">=</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">"lr"</span><span class="p">]</span>
             <span class="n">_aod</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nancumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_ext</span><span class="p">)</span> <span class="o">*</span> <span class="n">vertical_resolution</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">remove_outliers</span> <span class="ow">and</span> <span class="n">_aod</span> <span class="o">&lt;</span> <span class="n">aod_min</span> <span class="ow">or</span> <span class="n">remove_outliers</span> <span class="ow">and</span> <span class="n">_aod</span> <span class="o">&gt;</span> <span class="n">aod_max</span><span class="p">:</span>
                 <span class="n">lr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
@@ -2337,41 +2337,41 @@ After the convergence, the aerosol extinction is retrieved in the next upper lay
                 <span class="n">ext</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ext</span><span class="p">)</span>
 
     <span class="c1"># creates dataarrays</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"extinction"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"altitude"</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ext</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"extinction"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Extinction Coefficient @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> Klett&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;km-1&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;time_avg&quot;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
-            <span class="s2">&quot;zmin&quot;</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
-            <span class="s2">&quot;zmax&quot;</span><span class="p">:</span> <span class="n">zmax</span><span class="p">,</span>
-            <span class="s2">&quot;apriori_variable&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="s2">&quot;apriori_value&quot;</span><span class="p">:</span> <span class="n">apriori</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="s2">"long_name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Extinction Coefficient @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm"</span><span class="p">,</span>
+            <span class="s2">"method"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">method</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="si">}</span><span class="s2"> Klett"</span><span class="p">,</span>
+            <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"km-1"</span><span class="p">,</span>
+            <span class="s2">"time_avg"</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+            <span class="s2">"zmin"</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
+            <span class="s2">"zmax"</span><span class="p">:</span> <span class="n">zmax</span><span class="p">,</span>
+            <span class="s2">"apriori_variable"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">"apriori_value"</span><span class="p">:</span> <span class="n">apriori</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">apriori</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]],</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">aod</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;aod&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">aod</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Aerosol Optical Depth @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"aod"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">aod</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"aod"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">aod</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">"long_name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Aerosol Optical Depth @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm"</span><span class="p">,</span> <span class="s2">"unit"</span><span class="p">:</span> <span class="s2">""</span><span class="p">}</span>
     <span class="p">)</span>
 
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lidar_ratio</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"lidar_ratio"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"lidar_ratio"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lidar_ratio</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Lidar Ratio @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;sr&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;use_cfg&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;use_cfg&quot;</span><span class="p">]),</span>
+            <span class="s2">"long_name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Lidar Ratio @ </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span><span class="si">}</span><span class="s2"> nm"</span><span class="p">,</span>
+            <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"sr"</span><span class="p">,</span>
+            <span class="s2">"use_cfg"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">apriori</span><span class="p">[</span><span class="s2">"use_cfg"</span><span class="p">]),</span>
         <span class="p">}</span>
     <span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;cfg&quot;</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
-        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;lidar_ratio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lidar_ratio</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
-            <span class="p">{</span><span class="s2">&quot;cfg&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;cfg&quot;</span><span class="p">])}</span>
+    <span class="k">if</span> <span class="s2">"cfg"</span> <span class="ow">in</span> <span class="n">apriori</span><span class="p">:</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"lidar_ratio"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">lidar_ratio</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+            <span class="p">{</span><span class="s2">"cfg"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">apriori</span><span class="p">[</span><span class="s2">"cfg"</span><span class="p">])}</span>
         <span class="p">)</span>
 
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;z_ref&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">z_ref</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;z_ref&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">z_ref</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Reference altitude ASL&quot;</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">}</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"z_ref"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">z_ref</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"z_ref"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">z_ref</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">"long_name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Reference altitude ASL"</span><span class="p">,</span> <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"m"</span><span class="p">}</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">profiles</span>
@@ -2525,7 +2525,7 @@ extinction profiles for given aerosol types.</p>
   <p>Profiles preparation
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 <span class="c1"># read example file</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="c1"># extrapolate lowest layers</span>
@@ -2534,11 +2534,11 @@ extinction profiles for given aerosol types.</p>
 <p>Forward inversion
 <div class="highlight"><pre><span></span><code><span class="c1"># aerosol inversion</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">inversion</span><span class="p">(</span>
-    <span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> 
-    <span class="n">method_mass_conc</span><span class="o">=</span><span class="s1">&#39;mortier_2013&#39;</span>
+    <span class="n">zmin</span><span class="o">=</span><span class="mi">4000</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">remove_outliers</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'forward'</span><span class="p">,</span> 
+    <span class="n">method_mass_conc</span><span class="o">=</span><span class="s1">'mortier_2013'</span>
 <span class="p">)</span>
 <span class="c1"># plot mass concentration profiles for urban particles</span>
-<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">&#39;mass_concentration:urban&#39;</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s1">'mass_concentration:urban'</span><span class="p">,</span> <span class="n">zmax</span><span class="o">=</span><span class="mi">6000</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </code></pre></div></p>
 <p><img alt="Mass concentration profiles in the case of urban particles" src="../../assets/images/mass_conc-urban.png" /></p>
 </details>
@@ -2635,25 +2635,25 @@ extinction profiles for given aerosol types.</p>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
 <span class="normal">100</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">concentration_profiles</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">apriori</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates Mass concentration profiles for different aerosol types</span>
+<span class="w">    </span><span class="sd">"""Calculates Mass concentration profiles for different aerosol types</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
-<span class="sd">        method (str): Method for calculating MEC. Must be one of {&quot;mortier_2013&quot;, &quot;literature&quot;}.</span>
+<span class="sd">        method (str): Method for calculating MEC. Must be one of {"mortier_2013", "literature"}.</span>
 <span class="sd">        apriori (dict): Apriori mec value (m2.g-1).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (aprofiles.profiles.ProfilesData):</span>
 <span class="sd">            object with additional (xarray.Dataset):</span>
 
-<span class="sd">            - `&#39;mass_concentration:&lt;aer_type&gt;&#39;`</span>
+<span class="sd">            - `'mass_concentration:&lt;aer_type&gt;'`</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        Profiles preparation</span>
 <span class="sd">        ```python</span>
 <span class="sd">        import aprofiles as apro</span>
 <span class="sd">        # read example file</span>
-<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        path = "examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">        profiles = reader.read()</span>
 <span class="sd">        # extrapolate lowest layers</span>
@@ -2664,18 +2664,18 @@ extinction profiles for given aerosol types.</p>
 <span class="sd">        ```python</span>
 <span class="sd">        # aerosol inversion</span>
 <span class="sd">        profiles.inversion(</span>
-<span class="sd">            zmin=4000, zmax=6000, remove_outliers=False, method=&#39;forward&#39;, </span>
-<span class="sd">            method_mass_conc=&#39;mortier_2013&#39;</span>
+<span class="sd">            zmin=4000, zmax=6000, remove_outliers=False, method='forward', </span>
+<span class="sd">            method_mass_conc='mortier_2013'</span>
 <span class="sd">        )</span>
 <span class="sd">        # plot mass concentration profiles for urban particles</span>
-<span class="sd">        profiles.plot(var=&#39;mass_concentration:urban&#39;, zmax=6000, vmin=0, vmax=100)</span>
+<span class="sd">        profiles.plot(var='mass_concentration:urban', zmax=6000, vmin=0, vmax=100)</span>
 <span class="sd">        ```</span>
 
 <span class="sd">        ![Mass concentration profiles in the case of urban particles](../../assets/images/mass_conc-urban.png)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># read aer_properties.json files</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;aer_properties.json&#39;</span><span class="p">))</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">'..'</span><span class="p">,</span><span class="s1">'config'</span><span class="p">,</span><span class="s1">'aer_properties.json'</span><span class="p">))</span>
     <span class="n">aer_properties</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="c1"># check if the aer_type exist in the json file</span>
@@ -2683,8 +2683,8 @@ extinction profiles for given aerosol types.</p>
 
     <span class="c1"># get wavelength</span>
     <span class="n">wavelength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="s2">&quot;nm&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;wavelength units is not `nm`.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">units</span> <span class="o">!=</span> <span class="s2">"nm"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"wavelength units is not `nm`."</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">aer_type</span> <span class="ow">in</span> <span class="n">aer_types</span><span class="p">:</span>
         <span class="c1"># calculates mec</span>
@@ -2698,29 +2698,29 @@ extinction profiles for given aerosol types.</p>
         <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="mf">1e6</span>
 
         <span class="c1"># creates dataset with a dataarray for each aer_type</span>
-        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;altitude&#39;</span><span class="p">),</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
-            <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Mass concentration [</span><span class="si">{</span><span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> particles]&quot;</span><span class="p">,</span>
-            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;µg.m-3&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;mec&#39;</span><span class="p">:</span> <span class="n">mec</span><span class="o">.</span><span class="n">mec</span><span class="p">,</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">'time'</span><span class="p">,</span> <span class="s1">'altitude'</span><span class="p">),</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+            <span class="s1">'long_name'</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Mass concentration [</span><span class="si">{</span><span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="si">}</span><span class="s2"> particles]"</span><span class="p">,</span>
+            <span class="s1">'units'</span><span class="p">:</span> <span class="s1">'µg.m-3'</span><span class="p">,</span>
+            <span class="s1">'mec'</span><span class="p">:</span> <span class="n">mec</span><span class="o">.</span><span class="n">mec</span><span class="p">,</span>
         <span class="p">})</span>
 
     <span class="c1"># add ifs mec</span>
-    <span class="k">if</span> <span class="n">apriori</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mec&quot;</span><span class="p">):</span>
-        <span class="n">aer_type</span> <span class="o">=</span> <span class="s2">&quot;ifs&quot;</span>
+    <span class="k">if</span> <span class="n">apriori</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"mec"</span><span class="p">):</span>
+        <span class="n">aer_type</span> <span class="o">=</span> <span class="s2">"ifs"</span>
         <span class="c1"># compute mass_concentration profile. Use extinction as base.</span>
         <span class="n">mass_concentration</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">extinction</span> <span class="o">*</span> <span class="mf">1e-3</span> <span class="c1">#conversion from km-1 to m-1</span>
         <span class="c1"># mass_concentration = copy.deepcopy(profiles.data.extinction)</span>
-        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">mass_concentration</span><span class="p">,</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;mec&quot;</span><span class="p">])</span>
+        <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">mass_concentration</span><span class="p">,</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">"mec"</span><span class="p">])</span>
         <span class="c1"># # conversion from g.m-3 to µg.m-3</span>
         <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="mf">1e6</span>
 
         <span class="c1"># creates dataset with a dataarray for each aer_type</span>
-        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;altitude&#39;</span><span class="p">),</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
-            <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Mass concentration [</span><span class="si">{</span><span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span>
-            <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;µg.m-3&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;mec&#39;</span><span class="p">:</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">&quot;mec&quot;</span><span class="p">],</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s1">'time'</span><span class="p">,</span> <span class="s1">'altitude'</span><span class="p">),</span> <span class="n">mass_concentration</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"mass_concentration:</span><span class="si">{</span><span class="n">aer_type</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+            <span class="s1">'long_name'</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Mass concentration [</span><span class="si">{</span><span class="n">aer_type</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span><span class="w"> </span><span class="s1">' '</span><span class="p">)</span><span class="si">}</span><span class="s2">]"</span><span class="p">,</span>
+            <span class="s1">'units'</span><span class="p">:</span> <span class="s1">'µg.m-3'</span><span class="p">,</span>
+            <span class="s1">'mec'</span><span class="p">:</span> <span class="n">apriori</span><span class="p">[</span><span class="s2">"mec"</span><span class="p">],</span>
         <span class="p">})</span>
 
     <span class="k">return</span> <span class="n">profiles</span>
@@ -2846,7 +2846,7 @@ extinction profiles for given aerosol types.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/js/custom.js"></script>
       

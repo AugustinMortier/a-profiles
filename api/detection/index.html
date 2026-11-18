@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1186,7 +1186,7 @@
 
 
 <h2 id="aprofiles.detection.foc.detect_foc" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">detect_foc</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cloud_base&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">&#39;attenuated_backscatter_0&#39;</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.0</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">detect_foc</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'cloud_base'</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s1">'attenuated_backscatter_0'</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.0</span><span class="p">)</span></code>
 
 <a href="#aprofiles.detection.foc.detect_foc" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1339,7 +1339,7 @@
   <summary>Example</summary>
   <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 <span class="c1"># read example file</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="c1"># foc detection</span>
@@ -1396,30 +1396,30 @@
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect_foc</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;cloud_base&quot;</span><span class="p">,</span> <span class="s2">&quot;snr&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;cloud_base&quot;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Detects fog or condensation. Two methods are available:</span>
+<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect_foc</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"cloud_base"</span><span class="p">,</span> <span class="s2">"snr"</span><span class="p">]</span><span class="o">=</span><span class="s2">"cloud_base"</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">"attenuated_backscatter_0"</span><span class="p">,</span> <span class="n">z_snr</span><span class="o">=</span><span class="mf">2000.</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="o">=</span><span class="mf">200.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Detects fog or condensation. Two methods are available:</span>
 <span class="sd">    - cloud_base (default): uses the minimum cloud base height.</span>
 <span class="sd">    - snr (fallback if no clouds are available): identifies areas under a certain altitude for which snr values lower than the prescribed threshold.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
-<span class="sd">        method ({&#39;cloud_base&#39;, &#39;snr&#39;}, optional): Detection method.</span>
-<span class="sd">        var (str, optional): Used for &#39;snr&#39; method. Variable to calculate SNR from.</span>
-<span class="sd">        z_snr (float, optional): Used for &#39;snr&#39; method. Altitude AGL (in m) at which we calculate the SNR.</span>
-<span class="sd">        min_snr (float, optional): Used for &#39;snr&#39; method. Minimum SNR under which the profile is considered as containing fog or condensation.</span>
-<span class="sd">        zmin_cloud (float, optional): Used for &#39;cloud_base&#39; method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation.</span>
+<span class="sd">        method ({'cloud_base', 'snr'}, optional): Detection method.</span>
+<span class="sd">        var (str, optional): Used for 'snr' method. Variable to calculate SNR from.</span>
+<span class="sd">        z_snr (float, optional): Used for 'snr' method. Altitude AGL (in m) at which we calculate the SNR.</span>
+<span class="sd">        min_snr (float, optional): Used for 'snr' method. Minimum SNR under which the profile is considered as containing fog or condensation.</span>
+<span class="sd">        zmin_cloud (float, optional): Used for 'cloud_base' method. Altitude AGL (in m) below which a cloud base height is considered a fog or condensation situation.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (aprofiles.profiles.ProfilesData): </span>
 <span class="sd">            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</span>
 
-<span class="sd">            - `&#39;foc&#39; (time)`: mask array corresponding to the presence of foc.</span>
+<span class="sd">            - `'foc' (time)`: mask array corresponding to the presence of foc.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        ```python</span>
 <span class="sd">        import aprofiles as apro</span>
 <span class="sd">        # read example file</span>
-<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        path = "examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">        profiles = reader.read()</span>
 <span class="sd">        # foc detection</span>
@@ -1429,16 +1429,16 @@
 <span class="sd">        ```</span>
 
 <span class="sd">        ![Fog or condensation (foc) detection](../../assets/images/foc.png)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;cloud_base&quot;</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">in</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"cloud_base"</span> <span class="ow">and</span> <span class="s2">"clouds"</span> <span class="ow">in</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
         <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_cloud</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">zmin_cloud</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">foc</span> <span class="o">=</span> <span class="n">_detect_fog_from_snr</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">z_snr</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">)</span>
 
     <span class="c1"># creates dataarray</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;foc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">foc</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;foc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">foc</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span><span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Fog or condensation mask&#39;</span><span class="p">})</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"foc"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">foc</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"foc"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">foc</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span><span class="s1">'long_name'</span><span class="p">:</span> <span class="s1">'Fog or condensation mask'</span><span class="p">})</span>
 
     <span class="k">return</span> <span class="n">profiles</span>
 </code></pre></div></td></tr></table></div>
@@ -1486,7 +1486,7 @@
 
 
 <h2 id="aprofiles.detection.clouds.detect_clouds" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">detect_clouds</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;dec&#39;</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">detect_clouds</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'dec'</span><span class="p">,</span> <span class="n">time_avg</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">min_snr</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">thr_noise</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 <a href="#aprofiles.detection.clouds.detect_clouds" class="headerlink" title="Permanent link">&para;</a></h2>
 
@@ -1560,6 +1560,22 @@ Two methods are available:
           </tr>
           <tr class="doc-section-item">
             <td>
+                <code>min_snr</code>
+            </td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum SNR required for cloud detection. For 'dec', individual cloud pixels with SNR below this threshold are removed after detection; pixels with undefined SNR are retained, and filtering is skipped if <code>min_snr &lt;= 0</code> or <code>None</code>. For 'vg', the SNR is checked at each cloud layer's peak.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0.0</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
                 <code>zmin</code>
             </td>
             <td>
@@ -1604,22 +1620,6 @@ Two methods are available:
             </td>
             <td>
                   <code>4.0</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>min_snr</code>
-            </td>
-            <td>
-                  <code><span title="float">float</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Minimum SNR required at the clouds peak value to consider the cloud as valid (only for 'vg' method).</p>
-              </div>
-            </td>
-            <td>
-                  <code>0.0</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -1670,11 +1670,11 @@ Two methods are available:
   <summary>Example 1</summary>
   <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 <span class="c1"># read example file</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="c1"># clouds detection</span>
-<span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;dec&quot;</span><span class="p">)</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"dec"</span><span class="p">)</span>
 <span class="c1"># attenuated backscatter image with clouds</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
@@ -1685,11 +1685,11 @@ Two methods are available:
   <summary>Example 2</summary>
   <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 <span class="c1"># read example file</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="c1"># clouds detection</span>
-<span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;vg&quot;</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">300.</span><span class="p">)</span>
+<span class="n">profiles</span><span class="o">.</span><span class="n">clouds</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"vg"</span><span class="p">,</span> <span class="n">zmin</span><span class="o">=</span><span class="mf">300.</span><span class="p">)</span>
 <span class="c1"># attenuated backscatter image with clouds</span>
 <span class="n">profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">show_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1e1</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
@@ -2198,36 +2198,54 @@ Two methods are available:
 <span class="normal">508</span>
 <span class="normal">509</span>
 <span class="normal">510</span>
-<span class="normal">511</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect_clouds</span><span class="p">(</span><span class="n">profiles</span><span class="p">:</span> <span class="n">aprofiles</span><span class="o">.</span><span class="n">profiles</span><span class="o">.</span><span class="n">ProfilesData</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;dec&quot;</span><span class="p">,</span> <span class="s2">&quot;vg&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;dec&quot;</span><span class="p">,</span> <span class="n">time_avg</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">zmin</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">4.</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Module for *clouds detection*.</span>
+<span class="normal">511</span>
+<span class="normal">512</span>
+<span class="normal">513</span>
+<span class="normal">514</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span>
+<span class="normal">518</span>
+<span class="normal">519</span>
+<span class="normal">520</span>
+<span class="normal">521</span>
+<span class="normal">522</span>
+<span class="normal">523</span>
+<span class="normal">524</span>
+<span class="normal">525</span>
+<span class="normal">526</span>
+<span class="normal">527</span>
+<span class="normal">528</span>
+<span class="normal">529</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">detect_clouds</span><span class="p">(</span><span class="n">profiles</span><span class="p">:</span> <span class="n">aprofiles</span><span class="o">.</span><span class="n">profiles</span><span class="o">.</span><span class="n">ProfilesData</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"dec"</span><span class="p">,</span> <span class="s2">"vg"</span><span class="p">]</span><span class="o">=</span><span class="s2">"dec"</span><span class="p">,</span> <span class="n">time_avg</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">zmin</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">4.</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Module for *clouds detection*.</span>
 <span class="sd">    Two methods are available: </span>
-<span class="sd">    - &quot;dec&quot; (default): Deep Embedded Clustering (see [AI-Profiles](https://github.com/AugustinMortier/ai-profiles)).</span>
-<span class="sd">    - &quot;vg&quot;: Vertical Gradient.</span>
+<span class="sd">    - "dec" (default): Deep Embedded Clustering (see [AI-Profiles](https://github.com/AugustinMortier/ai-profiles)).</span>
+<span class="sd">    - "vg": Vertical Gradient.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profiles (aprofiles.profiles.ProfilesData): `ProfilesData` instance.</span>
-<span class="sd">        method (Literal[&quot;dec&quot;, &quot;vg&quot;]): cloud detection method used.</span>
+<span class="sd">        method (Literal["dec", "vg"]): cloud detection method used.</span>
 <span class="sd">        time_avg (float, optional): in minutes, the time during which we aggregates the profiles prior to the clouds detection.</span>
-<span class="sd">        zmin (float, optional): altitude AGL, in m, above which we look for clouds. We recommend using the same value as used in the extrapolation_low_layers method (only for &#39;vg&#39; method).</span>
-<span class="sd">        thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] data[base(z)] &gt;= thr_noise * noise(z) (only for &#39;vg&#39; method).</span>
-<span class="sd">        thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds (only for &#39;vg&#39; method).</span>
-<span class="sd">        min_snr (float, optional): Minimum SNR required at the clouds peak value to consider the cloud as valid (only for &#39;vg&#39; method).</span>
+<span class="sd">        min_snr (float, optional): Minimum SNR required for cloud detection. For 'dec', individual cloud pixels with SNR below this threshold are removed after detection; pixels with undefined SNR are retained, and filtering is skipped if `min_snr &lt;= 0` or `None`. For 'vg', the SNR is checked at each cloud layer's peak.</span>
+<span class="sd">        zmin (float, optional): altitude AGL, in m, above which we look for clouds. We recommend using the same value as used in the extrapolation_low_layers method (only for 'vg' method).</span>
+<span class="sd">        thr_noise (float, optional): threshold used in the test to determine if a couple (base,peak) is significant: data[peak(z)] data[base(z)] &gt;= thr_noise * noise(z) (only for 'vg' method).</span>
+<span class="sd">        thr_clouds (float, optional): threshold used to discriminate aerosol from clouds: data[peak(z)] / data[base(z)] &gt;= thr_clouds (only for 'vg' method).</span>
 <span class="sd">        verbose (bool, optional): verbose mode. Defaults to `False`.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (aprofiles.profiles.ProfilesData): </span>
 <span class="sd">            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</span>
-<span class="sd">            - `&#39;clouds&#39; (time, altitude)`: Mask array corresponding to data flagged as a cloud.</span>
+<span class="sd">            - `'clouds' (time, altitude)`: Mask array corresponding to data flagged as a cloud.</span>
 
 <span class="sd">    Example 1:</span>
 <span class="sd">        ```python</span>
 <span class="sd">        import aprofiles as apro</span>
 <span class="sd">        # read example file</span>
-<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        path = "examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">        profiles = reader.read()</span>
 <span class="sd">        # clouds detection</span>
-<span class="sd">        profiles.clouds(method=&quot;dec&quot;)</span>
+<span class="sd">        profiles.clouds(method="dec")</span>
 <span class="sd">        # attenuated backscatter image with clouds</span>
 <span class="sd">        profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)</span>
 <span class="sd">        ```</span>
@@ -2238,17 +2256,17 @@ Two methods are available:
 <span class="sd">        ```python</span>
 <span class="sd">        import aprofiles as apro</span>
 <span class="sd">        # read example file</span>
-<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        path = "examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">        profiles = reader.read()</span>
 <span class="sd">        # clouds detection</span>
-<span class="sd">        profiles.clouds(method=&quot;vg&quot;, zmin=300.)</span>
+<span class="sd">        profiles.clouds(method="vg", zmin=300.)</span>
 <span class="sd">        # attenuated backscatter image with clouds</span>
 <span class="sd">        profiles.plot(show_clouds=True, vmin=1e-2, vmax=1e1, log=True)</span>
 <span class="sd">        ```</span>
 
 <span class="sd">        ![Clouds detection](../../assets/images/clouds_vg.png)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_vg_clouds</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
         <span class="c1"># data: 1D range corrected signal (rcs)</span>
@@ -2336,7 +2354,7 @@ Two methods are available:
             <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">),</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_true_indexes</span><span class="p">(</span><span class="n">peaks</span><span class="p">),</span> <span class="n">i_tops</span>
 
         <span class="k">def</span><span class="w"> </span><span class="nf">_mask_cloud</span><span class="p">(</span><span class="n">profile</span><span class="p">:</span> <span class="n">aprofiles</span><span class="o">.</span><span class="n">profiles</span><span class="p">,</span> <span class="n">bases</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">tops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Generate a boolean mask for cloud presence in a given profile.</span>
+<span class="w">            </span><span class="sd">"""Generate a boolean mask for cloud presence in a given profile.</span>
 
 <span class="sd">            Args:</span>
 <span class="sd">                profile (aprofiles.profiles): 1D array representing a single atmospheric profile.</span>
@@ -2345,7 +2363,7 @@ Two methods are available:
 
 <span class="sd">            Returns:</span>
 <span class="sd">                np.ndarray: Boolean mask of the same length as profile, where cloud regions are True.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">profile</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">base</span><span class="p">,</span> <span class="n">top</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bases</span><span class="p">,</span> <span class="n">tops</span><span class="p">):</span>
@@ -2357,9 +2375,9 @@ Two methods are available:
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
             <span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span> <span class="o">=</span> <span class="n">_make_all_masks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[])</span>
             <span class="k">return</span> <span class="p">{</span>
-                <span class="s2">&quot;bases&quot;</span><span class="p">:</span> <span class="n">bases</span><span class="p">,</span>
-                <span class="s2">&quot;peaks&quot;</span><span class="p">:</span> <span class="n">peaks</span><span class="p">,</span>
-                <span class="s2">&quot;tops&quot;</span><span class="p">:</span> <span class="n">tops</span><span class="p">,</span>
+                <span class="s2">"bases"</span><span class="p">:</span> <span class="n">bases</span><span class="p">,</span>
+                <span class="s2">"peaks"</span><span class="p">:</span> <span class="n">peaks</span><span class="p">,</span>
+                <span class="s2">"tops"</span><span class="p">:</span> <span class="n">tops</span><span class="p">,</span>
             <span class="p">}</span>
 
         <span class="c1"># 0. rolling average</span>
@@ -2399,7 +2417,7 @@ Two methods are available:
         <span class="c1"># 4. keeps significant couples (base,peak)</span>
         <span class="c1"># a layer can be considered as a proper layer if the difference of signal between the peak and the base is significant (larger than the noise level)</span>
         <span class="c1"># noise evaluation (using a high passing frequency filter)</span>
-        <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s2">&quot;high&quot;</span><span class="p">)</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s2">"high"</span><span class="p">)</span>
         <span class="n">noise</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="c1"># rolling average of the noise</span>
         <span class="n">avg_abs_noise</span> <span class="o">=</span> <span class="n">uniform_filter1d</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">noise</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
@@ -2455,7 +2473,7 @@ Two methods are available:
         <span class="c1"># get indexes</span>
         <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_peaks</span><span class="p">,</span> <span class="n">i_tops</span> <span class="o">=</span> <span class="n">_get_all_indexes</span><span class="p">(</span><span class="n">bases</span><span class="p">,</span> <span class="n">peaks</span><span class="p">,</span> <span class="n">tops</span><span class="p">)</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        #10. set base a closest index</span>
 <span class="sd">        for i, _ in enumerate(i_peaks):</span>
 <span class="sd">            mask_value = np.asarray([True if gradient[j]&lt;0 else False for j in range(len(data))])</span>
@@ -2464,7 +2482,7 @@ Two methods are available:
 <span class="sd">            cross_mask = np.logical_and(mask_value, mask_altitude)</span>
 <span class="sd">            i_cross_mask = utils.get_true_indexes(cross_mask)</span>
 <span class="sd">            i_bases[i] = i_cross_mask[-1]</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1"># 11. check snr at peak levels</span>
         <span class="n">remove_bases</span><span class="p">,</span> <span class="n">remove_peaks</span><span class="p">,</span> <span class="n">remove_tops</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -2481,7 +2499,7 @@ Two methods are available:
         <span class="c1"># 11. build cloud mask from indexes</span>
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">_mask_cloud</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">i_bases</span><span class="p">,</span> <span class="n">i_tops</span><span class="p">)</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        #some plotting</span>
 <span class="sd">        fig, axs = plt.subplots(1,2,figsize=(10,10))</span>
 
@@ -2489,13 +2507,13 @@ Two methods are available:
 <span class="sd">        altitude_agl = profiles.data.altitude.data - profiles.data.station_altitude.data</span>
 
 <span class="sd">        #signal on the left</span>
-<span class="sd">        axs[0].plot(data, altitude_agl, &#39;b&#39;, label=&#39;rcs&#39;)</span>
-<span class="sd">        axs[0].plot(avg_data, altitude_agl, &#39;c&#39;, label=&#39;rcs&#39;)</span>
-<span class="sd">        axs[0].plot(avg_abs_noise,altitude_agl,&#39;:b&#39;, label=&#39;noise level&#39;)</span>
-<span class="sd">        axs[0].plot(avg_abs_noise*thr_noise,altitude_agl,&#39;:b&#39;, label=f&#39;noise level * {thr_noise}&#39;)</span>
-<span class="sd">        axs[0].plot(data[bases], altitude_agl[bases], &#39;&lt;g&#39;, label=&#39;bases&#39;)</span>
-<span class="sd">        axs[0].plot(data[peaks], altitude_agl[peaks], &#39;&gt;r&#39;, label=&#39;peaks&#39;)</span>
-<span class="sd">        axs[0].plot(data[tops], altitude_agl[tops], &#39;^k&#39;, label=&#39;tops&#39;)</span>
+<span class="sd">        axs[0].plot(data, altitude_agl, 'b', label='rcs')</span>
+<span class="sd">        axs[0].plot(avg_data, altitude_agl, 'c', label='rcs')</span>
+<span class="sd">        axs[0].plot(avg_abs_noise,altitude_agl,':b', label='noise level')</span>
+<span class="sd">        axs[0].plot(avg_abs_noise*thr_noise,altitude_agl,':b', label=f'noise level * {thr_noise}')</span>
+<span class="sd">        axs[0].plot(data[bases], altitude_agl[bases], '&lt;g', label='bases')</span>
+<span class="sd">        axs[0].plot(data[peaks], altitude_agl[peaks], '&gt;r', label='peaks')</span>
+<span class="sd">        axs[0].plot(data[tops], altitude_agl[tops], '^k', label='tops')</span>
 
 <span class="sd">        #set axis</span>
 <span class="sd">        axs[0].set_ylim([ymin, ymax])</span>
@@ -2503,15 +2521,15 @@ Two methods are available:
 <span class="sd">        axs[0].legend()</span>
 
 <span class="sd">        #derivative on the right</span>
-<span class="sd">        axs[1].plot(ddata_dz, altitude_agl, &#39;b&#39;, label=&#39;first derivative&#39;)</span>
-<span class="sd">        axs[1].plot(ddata_dz[bases], altitude_agl[bases], &#39;&lt;g&#39;, label=&#39;bases&#39;)</span>
-<span class="sd">        axs[1].plot(ddata_dz[peaks], altitude_agl[peaks], &#39;&gt;r&#39;, label=&#39;peaks&#39;)</span>
+<span class="sd">        axs[1].plot(ddata_dz, altitude_agl, 'b', label='first derivative')</span>
+<span class="sd">        axs[1].plot(ddata_dz[bases], altitude_agl[bases], '&lt;g', label='bases')</span>
+<span class="sd">        axs[1].plot(ddata_dz[peaks], altitude_agl[peaks], '&gt;r', label='peaks')</span>
 
 <span class="sd">        axs[1].set_ylim([ymin, ymax])</span>
 <span class="sd">        axs[1].legend()</span>
 <span class="sd">        #set title</span>
-<span class="sd">        fig.suptitle(t,weight=&#39;bold&#39;)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        fig.suptitle(t,weight='bold')</span>
+<span class="sd">        """</span>
 
         <span class="k">return</span> <span class="n">clouds</span>
 
@@ -2526,7 +2544,7 @@ Two methods are available:
         <span class="c1"># Replace NaNs with minimum values</span>
         <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">data_clipped</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="n">vmin</span><span class="p">)</span>
 
-        <span class="c1"># Invert the normalized data to reflect the &#39;gray_r&#39; colormap</span>
+        <span class="c1"># Invert the normalized data to reflect the 'gray_r' colormap</span>
         <span class="n">data_normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_clipped</span> <span class="o">-</span> <span class="n">vmin</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">vmax</span> <span class="o">-</span> <span class="n">vmin</span><span class="p">)</span>
         <span class="n">data_inverted</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">data_normalized</span>  <span class="c1"># Invert the grayscale values</span>
 
@@ -2593,6 +2611,16 @@ Two methods are available:
 
         <span class="k">return</span> <span class="n">resized_upsampled_pixel_labels</span>
 
+    <span class="k">def</span><span class="w"> </span><span class="nf">_filter_clouds_snr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
+        <span class="c1"># data: 1D range corrected signal (rcs)</span>
+        <span class="c1"># clouds: 1D boolean cloud mask</span>
+        <span class="c1"># removes individual cloud pixels whose SNR is lower than min_snr</span>
+        <span class="n">clouds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">clouds</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">iz</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">clouds</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">snr_at_iz</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">iz</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_snr</span><span class="p">:</span>
+                <span class="n">clouds</span><span class="p">[</span><span class="n">iz</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">clouds</span>
+
     <span class="k">def</span><span class="w"> </span><span class="nf">_split_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">max_size</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">max_size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">max_size</span><span class="p">)]</span>
 
@@ -2602,27 +2630,27 @@ Two methods are available:
 
     <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
     <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
-        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span>
+        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">"attenuated_backscatter_0"</span>
     <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
 
     <span class="c1"># imports and check options</span>
-    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;dec&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'dec'</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">absl.logging</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">InconsistentVersionWarning</span>
 
         <span class="c1"># Suppress TensorFlow CUDA messages</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;3&#39;</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CUDA_VISIBLE_DEVICES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-1&quot;</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;XLA_FLAGS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;--xla_gpu_cuda_data_dir=&#39;</span>  <span class="c1"># Prevents unnecessary CUDA checks</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TF_FORCE_GPU_ALLOW_GROWTH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;false&quot;</span>  <span class="c1"># Avoids some GPU-related logs</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'TF_CPP_MIN_LOG_LEVEL'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'3'</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"CUDA_VISIBLE_DEVICES"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"-1"</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'XLA_FLAGS'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'--xla_gpu_cuda_data_dir='</span>  <span class="c1"># Prevents unnecessary CUDA checks</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"TF_FORCE_GPU_ALLOW_GROWTH"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"false"</span>  <span class="c1"># Avoids some GPU-related logs</span>
 
         <span class="c1"># Suppress Abseil warnings</span>
         <span class="n">absl</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">set_verbosity</span><span class="p">(</span><span class="n">absl</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
 
         <span class="c1"># Suppress scikit-learn version warnings</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">InconsistentVersionWarning</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">InconsistentVersionWarning</span><span class="p">)</span>
 
         <span class="c1"># Suppress TensorFlow progress bar</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
@@ -2636,14 +2664,14 @@ Two methods are available:
 
         <span class="c1"># ML parameters</span>
         <span class="n">ML</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;paths&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;encoder&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">&#39;ml_models&#39;</span><span class="p">,</span><span class="s1">&#39;encoder.keras&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;kmeans&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">&#39;ml_models&#39;</span><span class="p">,</span><span class="s1">&#39;kmeans.pkl&#39;</span><span class="p">)</span>    
+            <span class="s1">'paths'</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">'encoder'</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">'ml_models'</span><span class="p">,</span><span class="s1">'encoder.keras'</span><span class="p">),</span>
+                <span class="s1">'kmeans'</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span><span class="s1">'ml_models'</span><span class="p">,</span><span class="s1">'kmeans.pkl'</span><span class="p">)</span>    
             <span class="p">},</span>
-            <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;vmin&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
-                <span class="s1">&#39;vmax&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-                <span class="s1">&#39;target_size&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>    
+            <span class="s1">'params'</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">'vmin'</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
+                <span class="s1">'vmax'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s1">'target_size'</span><span class="p">:</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>    
             <span class="p">}</span>
         <span class="p">}</span>
 
@@ -2651,30 +2679,38 @@ Two methods are available:
         <span class="n">split_rcs_list</span> <span class="o">=</span> <span class="n">_split_matrix</span><span class="p">(</span><span class="n">rcs</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
         <span class="c1"># Load the encoder and kmeans model</span>
-        <span class="n">encoder</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;encoder&#39;</span><span class="p">])</span>
-        <span class="n">cluster</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;kmeans&#39;</span><span class="p">])</span>
+        <span class="n">encoder</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">ML</span><span class="p">[</span><span class="s1">'paths'</span><span class="p">][</span><span class="s1">'encoder'</span><span class="p">])</span>
+        <span class="n">cluster</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ML</span><span class="p">[</span><span class="s1">'paths'</span><span class="p">][</span><span class="s1">'kmeans'</span><span class="p">])</span>
 
         <span class="c1"># prepare data</span>
         <span class="n">split_ml_clouds</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">split_rcs</span> <span class="ow">in</span> <span class="n">split_rcs_list</span><span class="p">:</span>
-            <span class="n">prepared_data</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">split_rcs</span><span class="p">,</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;vmin&#39;</span><span class="p">],</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;vmax&#39;</span><span class="p">],</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;target_size&#39;</span><span class="p">])</span>
-            <span class="n">split_ml_clouds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ml_clouds</span><span class="p">(</span><span class="n">prepared_data</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;target_size&#39;</span><span class="p">],</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">split_rcs</span><span class="p">)))</span>
+            <span class="n">prepared_data</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">split_rcs</span><span class="p">,</span> <span class="n">ML</span><span class="p">[</span><span class="s1">'params'</span><span class="p">][</span><span class="s1">'vmin'</span><span class="p">],</span> <span class="n">ML</span><span class="p">[</span><span class="s1">'params'</span><span class="p">][</span><span class="s1">'vmax'</span><span class="p">],</span> <span class="n">ML</span><span class="p">[</span><span class="s1">'params'</span><span class="p">][</span><span class="s1">'target_size'</span><span class="p">])</span>
+            <span class="n">split_ml_clouds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_ml_clouds</span><span class="p">(</span><span class="n">prepared_data</span><span class="p">,</span> <span class="n">encoder</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">ML</span><span class="p">[</span><span class="s1">'params'</span><span class="p">][</span><span class="s1">'target_size'</span><span class="p">],</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">split_rcs</span><span class="p">)))</span>
 
         <span class="c1"># aggregate split_ml_clouds</span>
-        <span class="n">clouds</span> <span class="o">=</span> <span class="n">_combine_matrices</span><span class="p">(</span><span class="n">split_ml_clouds</span><span class="p">)</span>
+        <span class="n">clouds</span> <span class="o">=</span> <span class="n">_combine_matrices</span><span class="p">(</span><span class="n">split_ml_clouds</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+
+        <span class="c1"># remove cloud pixels with low SNR</span>
+        <span class="k">if</span> <span class="n">min_snr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">min_snr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">clouds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span>
+                <span class="n">_filter_clouds_snr</span><span class="p">(</span><span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">clouds</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">min_snr</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">track</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">clouds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">description</span><span class="o">=</span><span class="s2">"clouds snr"</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)</span>
+            <span class="p">])</span>
 
         <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;encoder&#39;</span><span class="p">:</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;encoder&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;kmeans&#39;</span><span class="p">:</span> <span class="n">ML</span><span class="p">[</span><span class="s1">&#39;paths&#39;</span><span class="p">][</span><span class="s1">&#39;kmeans&#39;</span><span class="p">]</span>
+            <span class="s1">'encoder'</span><span class="p">:</span> <span class="n">ML</span><span class="p">[</span><span class="s1">'paths'</span><span class="p">][</span><span class="s1">'encoder'</span><span class="p">],</span>
+            <span class="s1">'kmeans'</span><span class="p">:</span> <span class="n">ML</span><span class="p">[</span><span class="s1">'paths'</span><span class="p">][</span><span class="s1">'kmeans'</span><span class="p">],</span>
+            <span class="s1">'min_snr'</span><span class="p">:</span> <span class="n">min_snr</span>
         <span class="p">}</span>
 
-    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;vg&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">'vg'</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
         <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="p">(</span><span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;For method &#39;vg&#39;, zmin, thr_noise, thr_clouds, and min_snr must be provided.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"For method 'vg', zmin, thr_noise, thr_clouds, and min_snr must be provided."</span><span class="p">)</span>
 
         <span class="n">clouds</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">track</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;clouds&quot;</span><span class="p">,</span><span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">track</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">"clouds"</span><span class="p">,</span><span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span><span class="p">)):</span>
             <span class="n">i_clouds</span> <span class="o">=</span> <span class="n">_vg_clouds</span><span class="p">(</span>
                 <span class="n">rcs</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">thr_noise</span><span class="p">,</span> <span class="n">thr_clouds</span><span class="p">,</span> <span class="n">min_snr</span>
             <span class="p">)</span>
@@ -2683,20 +2719,20 @@ Two methods are available:
             <span class="n">clouds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_clouds</span><span class="p">)</span>
 
         <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;zmin&#39;</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
-            <span class="s1">&#39;thr_noise&#39;</span><span class="p">:</span> <span class="n">thr_noise</span><span class="p">,</span>
-            <span class="s1">&#39;thr_clouds&#39;</span><span class="p">:</span> <span class="n">thr_clouds</span><span class="p">,</span>
-            <span class="s1">&#39;min_snr&#39;</span><span class="p">:</span> <span class="n">min_snr</span>
+            <span class="s1">'zmin'</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
+            <span class="s1">'thr_noise'</span><span class="p">:</span> <span class="n">thr_noise</span><span class="p">,</span>
+            <span class="s1">'thr_clouds'</span><span class="p">:</span> <span class="n">thr_clouds</span><span class="p">,</span>
+            <span class="s1">'min_snr'</span><span class="p">:</span> <span class="n">min_snr</span>
         <span class="p">}</span>
 
     <span class="c1"># creates dataarrays</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">),</span> <span class="n">clouds</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clouds</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
-        <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Clouds mask&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;time_avg&#39;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
-        <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
-        <span class="s1">&#39;options&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"clouds"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"altitude"</span><span class="p">),</span> <span class="n">clouds</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"clouds"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">clouds</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span>
+        <span class="s1">'long_name'</span><span class="p">:</span> <span class="s1">'Clouds mask'</span><span class="p">,</span>
+        <span class="s1">'units'</span><span class="p">:</span> <span class="s1">'bool'</span><span class="p">,</span>
+        <span class="s1">'time_avg'</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+        <span class="s1">'method'</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
+        <span class="s1">'options'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
     <span class="p">})</span>
     <span class="k">return</span> <span class="n">profiles</span>
 </code></pre></div></td></tr></table></div>
@@ -2928,7 +2964,7 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
   <summary>Example</summary>
   <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 <span class="c1"># read example file</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="n">profiles</span> <span class="o">=</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="c1"># pbl detection</span>
@@ -3088,7 +3124,7 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
     <span class="n">min_snr</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
     <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Module for *Planetary Boundary Layer Height* detection.</span>
+<span class="w">    </span><span class="sd">"""Module for *Planetary Boundary Layer Height* detection.</span>
 <span class="sd">    Detects Planetary Boundary Layer Height between zmin and zmax by looking at the maximum vertical gradient in each individual profiles.</span>
 
 <span class="sd">    Args:</span>
@@ -3105,13 +3141,13 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 <span class="sd">        (aprofiles.profiles.ProfilesData):</span>
 <span class="sd">            adds the following (xarray.DataArray) to existing (aprofiles.profiles.ProfilesData):</span>
 
-<span class="sd">            - `&#39;pbl&#39; (time, altitude)`: mask array corresponding to the pbl height.</span>
+<span class="sd">            - `'pbl' (time, altitude)`: mask array corresponding to the pbl height.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        ```python</span>
 <span class="sd">        import aprofiles as apro</span>
 <span class="sd">        # read example file</span>
-<span class="sd">        path = &quot;examples/data/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        path = "examples/data/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">        profiles = reader.read()</span>
 <span class="sd">        # pbl detection</span>
@@ -3121,29 +3157,29 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 <span class="sd">        ```</span>
 
 <span class="sd">        ![Planetary Boundary Layer Height detection](../../assets/images/pbl.png)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">uniform_filter1d</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_detect_pbl</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span><span class="p">,</span> <span class="n">wav_width</span><span class="p">,</span> <span class="n">min_snr</span><span class="p">):</span>
         <span class="c1"># detect pbl from range corrected signal between zmin and zmax using convolution with a wavelet..</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        from scipy import signal</span>
 
 <span class="sd">        #define wavelet with constant width</span>
 <span class="sd">        npoints = len(data)</span>
 <span class="sd">        width = wav_width #in meter</span>
-<span class="sd">        wav = signal.ricker(npoints, width/profiles._get_resolution(&#39;altitude&#39;))</span>
+<span class="sd">        wav = signal.ricker(npoints, width/profiles._get_resolution('altitude'))</span>
 
 <span class="sd">        #simple convolution</span>
-<span class="sd">        convolution = signal.convolve(data, wav, mode=&#39;same&#39;)</span>
+<span class="sd">        convolution = signal.convolve(data, wav, mode='same')</span>
 
 <span class="sd">        #the PBL is the maximum of the convolution</span>
 <span class="sd">        #sets to nan outside of PBL search range</span>
 <span class="sd">        convolution[0:profiles._get_index_from_altitude_AGL(zmin):] = np.nan</span>
 <span class="sd">        convolution[profiles._get_index_from_altitude_AGL(zmax):] = np.nan</span>
 <span class="sd">        i_pbl = np.nanargmax(abs(convolution))</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># -1. check if any valid data</span>
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -3172,17 +3208,17 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 
     <span class="c1"># we work on profiles averaged in time to reduce the noise</span>
     <span class="n">rcs</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">time_avg</span><span class="p">(</span>
-        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">time_avg</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s2">"attenuated_backscatter_0"</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">attenuated_backscatter_0</span>
 
     <span class="c1"># if under_clouds, check if clouds_bases is available</span>
-    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">"clouds"</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
         <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">&quot;clouds&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">under_clouds</span> <span class="ow">and</span> <span class="s2">"clouds"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-            <span class="s2">&quot;under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object.&quot;</span>
+            <span class="s2">"under_clouds parameter sets to True (defaults value) when the clouds detection has not been applied to ProfileData object."</span>
         <span class="p">)</span>
         <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="p">))]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -3190,7 +3226,7 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
 
     <span class="n">pbl</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">track</span><span class="p">(</span>
-        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;pbl   &quot;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span>
+        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span> <span class="n">description</span><span class="o">=</span><span class="s2">"pbl   "</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="ow">not</span> <span class="n">verbose</span>
     <span class="p">):</span>
         <span class="n">lowest_cloud_agl</span> <span class="o">=</span> <span class="n">lowest_clouds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">station_altitude</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">_zmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">([</span><span class="n">zmax</span><span class="p">,</span> <span class="n">lowest_cloud_agl</span><span class="p">])</span>
@@ -3205,14 +3241,14 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
         <span class="p">)</span>
 
     <span class="c1"># creates dataarrays</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pbl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">pbl</span><span class="p">)</span>
-    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pbl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pbl</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"pbl"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">pbl</span><span class="p">)</span>
+    <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">"pbl"</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pbl</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Planetary Boundary Layer Height, ASL&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;time_avg&quot;</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
-            <span class="s2">&quot;zmin&quot;</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
-            <span class="s2">&quot;zmax&quot;</span><span class="p">:</span> <span class="n">zmax</span><span class="p">,</span>
+            <span class="s2">"long_name"</span><span class="p">:</span> <span class="s2">"Planetary Boundary Layer Height, ASL"</span><span class="p">,</span>
+            <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"m"</span><span class="p">,</span>
+            <span class="s2">"time_avg"</span><span class="p">:</span> <span class="n">time_avg</span><span class="p">,</span>
+            <span class="s2">"zmin"</span><span class="p">:</span> <span class="n">zmin</span><span class="p">,</span>
+            <span class="s2">"zmax"</span><span class="p">:</span> <span class="n">zmax</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">profiles</span>
@@ -3338,7 +3374,7 @@ Detects Planetary Boundary Layer Height between zmin and zmax by looking at the 
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/js/custom.js"></script>
       

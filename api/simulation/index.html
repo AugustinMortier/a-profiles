@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1107,12 +1107,12 @@ extinction profiles given a predefined atmospheric model.</p>
 <span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
 <span class="c1"># simulate rayleigh profiles with a random noise</span>
 <span class="n">simulator</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">ExtinctionToAttenuatedBackscatter</span><span class="p">(</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;step&#39;</span><span class="p">,</span> <span class="n">wavelength</span> <span class="o">=</span> <span class="mf">1064.</span><span class="p">,</span> <span class="n">lidar_ratio</span> <span class="o">=</span> <span class="mf">50.</span><span class="p">,</span> <span class="n">noise</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="s1">'step'</span><span class="p">,</span> <span class="n">wavelength</span> <span class="o">=</span> <span class="mf">1064.</span><span class="p">,</span> <span class="n">lidar_ratio</span> <span class="o">=</span> <span class="mf">50.</span><span class="p">,</span> <span class="n">noise</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="p">);</span>
 <span class="c1"># calls the to_profiles_data method</span>
 <span class="n">sim_profiles</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">to_profiles_data</span><span class="p">()</span>
 <span class="c1"># plot modelled extinction</span>
-<span class="n">sim_profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;extinction_model&#39;</span><span class="p">)</span>
+<span class="n">sim_profiles</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">'extinction_model'</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="Simulation of aerosol extinction using a step model" src="../../assets/images/simulation_step-model.png" /></p>
 </details>
@@ -1256,10 +1256,10 @@ extinction profiles given a predefined atmospheric model.</p>
 <span class="normal">144</span>
 <span class="normal">145</span>
 <span class="normal">146</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ExtinctionToAttenuatedBackscatter</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for simulating measurements (attenuated backscatter profiles) for different models.</span>
+<span class="w">    </span><span class="sd">"""Class for simulating measurements (attenuated backscatter profiles) for different models.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        `model` ({&#39;null&#39;, &#39;step&#39;}): atmospheric model to be simulated.</span>
+<span class="sd">        `model` ({'null', 'step'}): atmospheric model to be simulated.</span>
 <span class="sd">        `wavelength` (float): Wavelength of the Rayleigh profile to be computed, in nm.</span>
 <span class="sd">        `lidar_ratio` (float): Lidar Ratio, in sr.</span>
 <span class="sd">        `noise` (float): Noise level. The noise is normalized to the maximum extinction value in the profile.</span>
@@ -1270,16 +1270,16 @@ extinction profiles given a predefined atmospheric model.</p>
 <span class="sd">        import aprofiles as apro</span>
 <span class="sd">        # simulate rayleigh profiles with a random noise</span>
 <span class="sd">        simulator = apro.simulator.ExtinctionToAttenuatedBackscatter(</span>
-<span class="sd">            model = &#39;step&#39;, wavelength = 1064., lidar_ratio = 50., noise = 0.5</span>
+<span class="sd">            model = 'step', wavelength = 1064., lidar_ratio = 50., noise = 0.5</span>
 <span class="sd">        );</span>
 <span class="sd">        # calls the to_profiles_data method</span>
 <span class="sd">        sim_profiles = simulator.to_profiles_data()</span>
 <span class="sd">        # plot modelled extinction</span>
-<span class="sd">        sim_profiles.plot(&#39;extinction_model&#39;)</span>
+<span class="sd">        sim_profiles.plot('extinction_model')</span>
 <span class="sd">        ```</span>
 
 <span class="sd">        ![Simulation of aerosol extinction using a step model](../../assets/images/simulation_step-model.png)</span>
-<span class="sd">    &quot;&quot;&quot;</span>    
+<span class="sd">    """</span>    
     <span class="c1"># get the right reading class</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">wavelength</span><span class="p">,</span> <span class="n">lidar_ratio</span><span class="p">,</span> <span class="n">noise</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
@@ -1293,20 +1293,20 @@ extinction profiles given a predefined atmospheric model.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">ds</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">to_profiles_data</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Method which returns an instance of the (aprofiles.profiles.ProfilesData) class.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            (aprofiles.profiles.ProfilesData):</span>
-<span class="sd">        &quot;&quot;&quot;</span>  
+<span class="sd">        """</span>  
         <span class="k">return</span> <span class="n">ProfilesData</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_model_extinction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the extinction coefficient profiles for a given aerosol model (vertical distribution, lidar ratio) at a given wavelength and with a random noise.</span>
+<span class="w">        </span><span class="sd">"""Calculates the extinction coefficient profiles for a given aerosol model (vertical distribution, lidar ratio) at a given wavelength and with a random noise.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            (xr.Dataset):</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        """</span>        
         <span class="n">_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span>
             <span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
             <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">time</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">59</span><span class="p">)),</span>
@@ -1317,11 +1317,11 @@ extinction profiles given a predefined atmospheric model.</p>
         <span class="c1"># extinction models</span>
         <span class="n">extinction_model</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># model clear: twice the molecular</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;null&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">"null"</span><span class="p">:</span>
             <span class="n">extinction_profile</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">0</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">altitude</span><span class="p">])</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;step&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">"step"</span><span class="p">:</span>
             <span class="n">extinction_profile</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mf">0.1</span> <span class="k">if</span> <span class="n">z</span><span class="o">&lt;</span><span class="mi">3000</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">altitude</span><span class="p">])</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;aloft&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="s2">"aloft"</span><span class="p">:</span>
             <span class="c1">#TODO: gaussian in altitude (3 km)</span>
             <span class="k">pass</span>
 
@@ -1333,33 +1333,33 @@ extinction profiles given a predefined atmospheric model.</p>
 
         <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span>
             <span class="n">data_vars</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-                <span class="n">extinction_model</span><span class="o">=</span><span class="p">([</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span> <span class="n">extinction_model</span><span class="p">),</span>
+                <span class="n">extinction_model</span><span class="o">=</span><span class="p">([</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"altitude"</span><span class="p">],</span> <span class="n">extinction_model</span><span class="p">),</span>
                 <span class="n">station_altitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span>
                 <span class="n">station_latitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span>
                 <span class="n">station_longitude</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span>
                 <span class="n">l0_wavelength</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
             <span class="p">),</span>
             <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">_time</span><span class="p">,</span> <span class="n">altitude</span><span class="o">=</span><span class="n">altitude</span><span class="p">),</span>
-            <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">site_location</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Simulation - [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">),</span>
+            <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">site_location</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Simulation - [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">]"</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="n">ds</span><span class="o">.</span><span class="n">extinction_model</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Extinction Coefficient (model) @ </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="si">}</span><span class="s2"> nm&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;km-1&quot;</span><span class="p">,</span>
+            <span class="s2">"long_name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Extinction Coefficient (model) @ </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="si">}</span><span class="s2"> nm"</span><span class="p">,</span>
+            <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"km-1"</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">ds</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;nm&quot;</span>
+            <span class="s2">"units"</span><span class="p">:</span> <span class="s2">"nm"</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">ds</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_simulate_attenuated_backscatter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the attenuated backscatter measurements for given extinction profiles</span>
+<span class="w">        </span><span class="sd">"""Calculates the attenuated backscatter measurements for given extinction profiles</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            ds (xr.Dataset): Dataset which contains extinction profiles (`time`, `altitude`)</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            (xr.Dataset):</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="c1"># frequently used variables</span>
         <span class="n">altitude</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">altitude</span><span class="o">.</span><span class="n">data</span>
         <span class="n">time</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span>
@@ -1381,10 +1381,10 @@ extinction profiles given a predefined atmospheric model.</p>
         <span class="n">attenuated_backscatter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">attenuated_backscatter</span><span class="p">)</span>
 
         <span class="c1"># add attenuated_backscatter as new dataarray</span>
-        <span class="n">ds</span><span class="p">[</span><span class="s2">&quot;attenuated_backscatter_0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+        <span class="n">ds</span><span class="p">[</span><span class="s2">"attenuated_backscatter_0"</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
             <span class="n">data</span><span class="o">=</span><span class="n">attenuated_backscatter</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="c1">#conversion from m-1.sr-1 to Mm-1.sr-1</span>
-            <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;altitude&quot;</span><span class="p">],</span>
-            <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Attenuated Backscatter @ </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="si">}</span><span class="s2">nm&quot;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;Mm-1.sr-1&#39;</span><span class="p">),</span>
+            <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">"time"</span><span class="p">,</span> <span class="s2">"altitude"</span><span class="p">],</span>
+            <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">long_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Attenuated Backscatter @ </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="si">}</span><span class="s2">nm"</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">'Mm-1.sr-1'</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">ds</span>
 </code></pre></div></td></tr></table></div>
@@ -1449,12 +1449,12 @@ extinction profiles given a predefined atmospheric model.</p>
 <span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">to_profiles_data</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Method which returns an instance of the (aprofiles.profiles.ProfilesData) class.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (aprofiles.profiles.ProfilesData):</span>
-<span class="sd">    &quot;&quot;&quot;</span>  
+<span class="sd">    """</span>  
     <span class="k">return</span> <span class="n">ProfilesData</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
@@ -1587,7 +1587,7 @@ extinction profiles given a predefined atmospheric model.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/js/custom.js"></script>
       

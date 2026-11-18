@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1107,16 +1107,16 @@
 <span class="normal">103</span>
 <span class="normal">104</span>
 <span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ReadAeronet</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Base class for reading Aeronet data.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        path (str): path of the file to be read.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;ReadAeronet class is not implemented yet&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">"ReadAeronet class is not implemented yet"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
               </details>
 
@@ -1274,18 +1274,18 @@
 <span class="normal">90</span>
 <span class="normal">91</span>
 <span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ReadProfiles</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Base class for reading profiles data.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        path (str): path of the file to be read.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Method which calls the relevant reading class based on the file name.</span>
 
 <span class="sd">        Returns:</span>
@@ -1295,7 +1295,7 @@
 <span class="sd">            ```python</span>
 <span class="sd">            # import library</span>
 <span class="sd">            import aprofiles as apro</span>
-<span class="sd">            path = &quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">            path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">            # initialize reading class with file path</span>
 <span class="sd">            reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">            # calls the read method</span>
@@ -1305,7 +1305,7 @@
 <span class="sd">            &lt;aprofiles.profiles.ProfilesData object at 0x7f011055fad0&gt;</span>
 <span class="sd">            # print the content of this ProfilesData object</span>
 <span class="sd">            profiles.__dict__</span>
-<span class="sd">            {&#39;_data&#39;: &lt;xarray.Dataset&gt;</span>
+<span class="sd">            {'_data': &lt;xarray.Dataset&gt;</span>
 <span class="sd">            Dimensions:                          (altitude: 511, layer: 3, time: 273)</span>
 <span class="sd">            Coordinates:</span>
 <span class="sd">            * time                             (time) datetime64[ns] 2021-09-09T00:00:04 ... 2021-09-09T23:55:06</span>
@@ -1349,7 +1349,7 @@
 <span class="sd">                history:                      Thu Sep  9 00:30:28 2021: ncpdq -O -a time,...</span>
 <span class="sd">                NCO:                          netCDF Operators version 4.9.1 (Homepage = ...}</span>
 <span class="sd">            ```</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1"># get the right reading class</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">read_eprofile</span><span class="o">.</span><span class="n">ReadEPROFILE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -1414,7 +1414,7 @@
   <summary>Example</summary>
   <div class="highlight"><pre><span></span><code><span class="c1"># import library</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">aprofiles</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">apro</span>
-<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s2">"examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="c1"># initialize reading class with file path</span>
 <span class="n">reader</span> <span class="o">=</span> <span class="n">apro</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">ReadProfiles</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="c1"># calls the read method</span>
@@ -1424,7 +1424,7 @@
 <span class="o">&lt;</span><span class="n">aprofiles</span><span class="o">.</span><span class="n">profiles</span><span class="o">.</span><span class="n">ProfilesData</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7f011055fad0</span><span class="o">&gt;</span>
 <span class="c1"># print the content of this ProfilesData object</span>
 <span class="n">profiles</span><span class="o">.</span><span class="vm">__dict__</span>
-<span class="p">{</span><span class="s1">&#39;_data&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="s1">'_data'</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">xarray</span><span class="o">.</span><span class="n">Dataset</span><span class="o">&gt;</span>
 <span class="n">Dimensions</span><span class="p">:</span>                          <span class="p">(</span><span class="n">altitude</span><span class="p">:</span> <span class="mi">511</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="mi">273</span><span class="p">)</span>
 <span class="n">Coordinates</span><span class="p">:</span>
 <span class="o">*</span> <span class="n">time</span>                             <span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="n">datetime64</span><span class="p">[</span><span class="n">ns</span><span class="p">]</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">04</span> <span class="o">...</span> <span class="mi">2021</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">09</span><span class="n">T23</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">06</span>
@@ -1546,7 +1546,7 @@
 <span class="normal">90</span>
 <span class="normal">91</span>
 <span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Method which calls the relevant reading class based on the file name.</span>
 
 <span class="sd">    Returns:</span>
@@ -1556,7 +1556,7 @@
 <span class="sd">        ```python</span>
 <span class="sd">        # import library</span>
 <span class="sd">        import aprofiles as apro</span>
-<span class="sd">        path = &quot;examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc&quot;</span>
+<span class="sd">        path = "examples/data/E-PROFILE/L2_0-20000-001492_A20210909.nc"</span>
 <span class="sd">        # initialize reading class with file path</span>
 <span class="sd">        reader = apro.reader.ReadProfiles(path)</span>
 <span class="sd">        # calls the read method</span>
@@ -1566,7 +1566,7 @@
 <span class="sd">        &lt;aprofiles.profiles.ProfilesData object at 0x7f011055fad0&gt;</span>
 <span class="sd">        # print the content of this ProfilesData object</span>
 <span class="sd">        profiles.__dict__</span>
-<span class="sd">        {&#39;_data&#39;: &lt;xarray.Dataset&gt;</span>
+<span class="sd">        {'_data': &lt;xarray.Dataset&gt;</span>
 <span class="sd">        Dimensions:                          (altitude: 511, layer: 3, time: 273)</span>
 <span class="sd">        Coordinates:</span>
 <span class="sd">        * time                             (time) datetime64[ns] 2021-09-09T00:00:04 ... 2021-09-09T23:55:06</span>
@@ -1610,7 +1610,7 @@
 <span class="sd">            history:                      Thu Sep  9 00:30:28 2021: ncpdq -O -a time,...</span>
 <span class="sd">            NCO:                          netCDF Operators version 4.9.1 (Homepage = ...}</span>
 <span class="sd">        ```</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="c1"># get the right reading class</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">read_eprofile</span><span class="o">.</span><span class="n">ReadEPROFILE</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -1750,7 +1750,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/js/custom.js"></script>
       

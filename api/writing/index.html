@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -997,7 +997,7 @@
 
 
 <h1 id="writing">Writing<a class="headerlink" href="#writing" title="Permanent link">&para;</a></h1>
-<p><span block_="block;" center_="center;" class="twemoji" display:="display:" font-size:="font-size:" style="&quot;text-align:" xx-large_="xx-large;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm-1.46 17.37v-2h-4v-1.99h4v-2l3 3zM13 9V3.5L18.5 9z"/></svg></span></p>
+<p><span block_ center_ class="twemoji" display: font-size: style="&quot;text-align:" xx-large_><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.11 0-2 .89-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm-1.46 17.37v-2h-4v-1.99h4v-2l3 3zM13 9V3.5L18.5 9z"/></svg></span></p>
 <p>This module is used to write data from an instance of the <a href="../data_classes/#profilesdata"><code>ProfilesData</code></a> class as a NetCDF file.</p>
 
 
@@ -1270,14 +1270,14 @@
 <span class="normal">176</span>
 <span class="normal">177</span>
 <span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">base_dir</span><span class="p">,</span> <span class="n">verbose</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Writing method for an instance of a (aprofiles.profiles.ProfilesData): class.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        profiles (aprofiles.profiles.ProfilesData): Object to be written.</span>
 <span class="sd">        base_dir (str): Base path of the file should be written.</span>
 <span class="sd">        verbose (bool): Verbose mode.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_classify_scene</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
         <span class="n">lowest_clouds</span> <span class="o">=</span> <span class="n">profiles</span><span class="o">.</span><span class="n">_get_lowest_clouds</span><span class="p">()</span>
@@ -1321,11 +1321,11 @@
     <span class="n">yyyy</span> <span class="o">=</span> <span class="n">str_date</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
     <span class="n">mm</span> <span class="o">=</span> <span class="n">str_date</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
     <span class="n">dd</span> <span class="o">=</span> <span class="n">str_date</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;AP_</span><span class="si">{</span><span class="n">ds</span><span class="o">.</span><span class="n">wigos_station_id</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">ds</span><span class="o">.</span><span class="n">instrument_id</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">str_date</span><span class="si">}</span><span class="s2">.nc&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"AP_</span><span class="si">{</span><span class="n">ds</span><span class="o">.</span><span class="n">wigos_station_id</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">ds</span><span class="o">.</span><span class="n">instrument_id</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">str_date</span><span class="si">}</span><span class="s2">.nc"</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">yyyy</span><span class="p">,</span> <span class="n">mm</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">utils</span><span class="o">.</span><span class="n">file_exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> already exists and will be overwritten.&quot;</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> already exists and will be overwritten."</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
@@ -1337,103 +1337,103 @@
     <span class="c1"># for the mass concentration, we just need the mec.</span>
     <span class="n">mec</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">data_var</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds_towrite</span><span class="o">.</span><span class="n">data_vars</span><span class="p">):</span>
-        <span class="k">if</span> <span class="s2">&quot;mass_concentration:&quot;</span> <span class="ow">in</span> <span class="n">data_var</span><span class="p">:</span>
-            <span class="n">mec</span><span class="p">[</span><span class="n">data_var</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">data_var</span><span class="p">]</span><span class="o">.</span><span class="n">mec</span>
+        <span class="k">if</span> <span class="s2">"mass_concentration:"</span> <span class="ow">in</span> <span class="n">data_var</span><span class="p">:</span>
+            <span class="n">mec</span><span class="p">[</span><span class="n">data_var</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">":"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">data_var</span><span class="p">]</span><span class="o">.</span><span class="n">mec</span>
             <span class="n">ds_towrite</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">data_var</span><span class="p">)</span>
 
     <span class="c1"># add mec as new dataarray</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;mec&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"mec"</span><span class="p">]</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">mec</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span>
-        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;aer_type&quot;</span><span class="p">],</span>
+        <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s2">"aer_type"</span><span class="p">],</span>
         <span class="n">coords</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
             <span class="n">aer_type</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">mec</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
         <span class="p">),</span>
         <span class="n">attrs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">long_name</span><span class="o">=</span><span class="s2">&quot;Mass to Extinction Coefficient&quot;</span><span class="p">,</span>
-            <span class="n">units</span><span class="o">=</span><span class="s2">&quot;m2.g-1&quot;</span><span class="p">,</span>
+            <span class="n">long_name</span><span class="o">=</span><span class="s2">"Mass to Extinction Coefficient"</span><span class="p">,</span>
+            <span class="n">units</span><span class="o">=</span><span class="s2">"m2.g-1"</span><span class="p">,</span>
             <span class="n">wavelength</span><span class="o">=</span><span class="n">ds</span><span class="o">.</span><span class="n">l0_wavelength</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
         <span class="p">),</span>
     <span class="p">)</span>
     <span class="c1"># add attributes to aer_type</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;aer_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;aer_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Aerosol type&quot;</span><span class="p">}</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"aer_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"aer_type"</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">"long_name"</span><span class="p">:</span> <span class="s2">"Aerosol type"</span><span class="p">}</span>
     <span class="p">)</span>
 
     <span class="c1"># determines the scene classification for each profile</span>
     <span class="n">scene</span> <span class="o">=</span> <span class="n">_classify_scene</span><span class="p">(</span><span class="n">ds_towrite</span><span class="p">)</span>
     <span class="c1"># add scene as new dataarray</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;scene&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;scene&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;scene&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"scene"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">scene</span><span class="p">)</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"scene"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"scene"</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Scene classification&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;definition&quot;</span><span class="p">:</span> <span class="s2">&quot;0: aer (aerosols only) / 1: high_cloud (base cloud above 6096 m) / 2: mid_cloud (base cloud between 1981 m and 6096 m) / 3: low-cloud (base cloud below 1981 m) - 4: foc (fog or condensation)&quot;</span><span class="p">,</span>
+            <span class="s2">"long_name"</span><span class="p">:</span> <span class="s2">"Scene classification"</span><span class="p">,</span>
+            <span class="s2">"definition"</span><span class="p">:</span> <span class="s2">"0: aer (aerosols only) / 1: high_cloud (base cloud above 6096 m) / 2: mid_cloud (base cloud between 1981 m and 6096 m) / 3: low-cloud (base cloud below 1981 m) - 4: foc (fog or condensation)"</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
     <span class="c1"># add scene for extinction profile: cloud_above, cloud_below</span>
     <span class="n">retrieval_scene</span> <span class="o">=</span> <span class="n">_classify_retrieval_scene</span><span class="p">(</span><span class="n">ds_towrite</span><span class="p">)</span>
     <span class="c1"># add scene as new dataarray</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;retrieval_scene&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">retrieval_scene</span><span class="p">)</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;retrieval_scene&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;retrieval_scene&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"retrieval_scene"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"time"</span><span class="p">,</span> <span class="n">retrieval_scene</span><span class="p">)</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"retrieval_scene"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"retrieval_scene"</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">&quot;long_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Retrieval scene classification&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;definition&quot;</span><span class="p">:</span> <span class="s2">&quot;0: aer (aerosols only) / 1: cloud_above (cloud above reference altitude) / 3: cloud_below (cloud below reference point) / 4: foc (fog or condensation)&quot;</span><span class="p">,</span>
+            <span class="s2">"long_name"</span><span class="p">:</span> <span class="s2">"Retrieval scene classification"</span><span class="p">,</span>
+            <span class="s2">"definition"</span><span class="p">:</span> <span class="s2">"0: aer (aerosols only) / 1: cloud_above (cloud above reference altitude) / 3: cloud_below (cloud below reference point) / 4: foc (fog or condensation)"</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">)</span>
 
     <span class="c1"># drop other variables</span>
     <span class="n">drop_variables</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s2">&quot;start_time&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;vertical_visibility&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;cbh_uncertainties&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;uncertainties_att_backscatter_0&quot;</span><span class="p">,</span>
+        <span class="s2">"start_time"</span><span class="p">,</span>
+        <span class="s2">"vertical_visibility"</span><span class="p">,</span>
+        <span class="s2">"cbh_uncertainties"</span><span class="p">,</span>
+        <span class="s2">"uncertainties_att_backscatter_0"</span><span class="p">,</span>
     <span class="p">]</span>
     <span class="k">for</span> <span class="n">drop_var</span> <span class="ow">in</span> <span class="n">drop_variables</span><span class="p">:</span>
         <span class="n">ds_towrite</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">drop_var</span><span class="p">)</span>
 
     <span class="c1"># some variables have no dimension. Set it as attribute and drop the variable.</span>
-    <span class="n">nodim_variables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;l0_wavelength&quot;</span><span class="p">]</span>
+    <span class="n">nodim_variables</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"l0_wavelength"</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">nodim_var</span> <span class="ow">in</span> <span class="n">nodim_variables</span><span class="p">:</span>
         <span class="n">ds_towrite</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="n">nodim_var</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="n">nodim_var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
         <span class="n">ds_towrite</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">nodim_var</span><span class="p">)</span>
 
     <span class="c1"># for convenience, add initial coordinates of station</span>
-    <span class="n">coordinates_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;station_altitude&quot;</span><span class="p">,</span> <span class="s2">&quot;station_latitude&quot;</span><span class="p">,</span> <span class="s2">&quot;station_longitude&quot;</span><span class="p">]</span>
+    <span class="n">coordinates_vars</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"station_altitude"</span><span class="p">,</span> <span class="s2">"station_latitude"</span><span class="p">,</span> <span class="s2">"station_longitude"</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">coordinate_var</span> <span class="ow">in</span> <span class="n">coordinates_vars</span><span class="p">:</span>
-        <span class="n">ds_towrite</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">coordinate_var</span><span class="si">}</span><span class="s2">_t0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="n">coordinate_var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ds_towrite</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">coordinate_var</span><span class="si">}</span><span class="s2">_t0"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="n">coordinate_var</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="c1"># add altitude direction</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;altitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span><span class="s2">&quot;positive&quot;</span><span class="p">:</span> <span class="s2">&quot;up&quot;</span><span class="p">})</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"altitude"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"altitude"</span><span class="p">]</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">({</span><span class="s2">"positive"</span><span class="p">:</span> <span class="s2">"up"</span><span class="p">})</span>
 
     <span class="c1"># encoding with compression</span>
     <span class="n">encoding</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">varname</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">varname</span> <span class="o">==</span> <span class="s2">&quot;time&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">varname</span> <span class="o">==</span> <span class="s2">"time"</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">:</span>
             <span class="n">encoding</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
-                <span class="s2">&quot;zlib&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;chunksizes&quot;</span><span class="p">:</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="s2">"dtype"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span>
+                <span class="s2">"zlib"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">"chunksizes"</span><span class="p">:</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
             <span class="p">}</span>
-        <span class="k">if</span> <span class="n">varname</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;extinction&quot;</span><span class="p">,</span> <span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
-            <span class="n">encoding</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;zlib&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;chunksizes&quot;</span><span class="p">:</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">varname</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"extinction"</span><span class="p">,</span> <span class="s2">"clouds"</span><span class="p">]:</span>
+            <span class="n">encoding</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"zlib"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"chunksizes"</span><span class="p">:</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">}</span>
 
-    <span class="c1"># convert also the quality_flag&#39;s variable flag_values attribute also to NC_INT instead of NC_INT64</span>
-    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">&quot;quality_flag&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">quality_flag</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
-        <span class="p">{</span><span class="s2">&quot;flag_values&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)}</span>
+    <span class="c1"># convert also the quality_flag's variable flag_values attribute also to NC_INT instead of NC_INT64</span>
+    <span class="n">ds_towrite</span><span class="p">[</span><span class="s2">"quality_flag"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">quality_flag</span><span class="o">.</span><span class="n">assign_attrs</span><span class="p">(</span>
+        <span class="p">{</span><span class="s2">"flag_values"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)}</span>
     <span class="p">)</span>
 
     <span class="c1"># add some metadata</span>
-    <span class="n">ds_towrite</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;aprofiles&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">version</span><span class="p">(</span><span class="s2">&quot;aprofiles&quot;</span><span class="p">)</span>
+    <span class="n">ds_towrite</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">"aprofiles"</span><span class="p">]</span> <span class="o">=</span> <span class="n">version</span><span class="p">(</span><span class="s2">"aprofiles"</span><span class="p">)</span>
 
     <span class="c1"># sort to ensure monotonicity</span>
-    <span class="n">ds_towrite</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">sortby</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
-    <span class="n">ds_towrite</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">sortby</span><span class="p">(</span><span class="s2">&quot;aer_type&quot;</span><span class="p">)</span>
+    <span class="n">ds_towrite</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">sortby</span><span class="p">(</span><span class="s2">"time"</span><span class="p">)</span>
+    <span class="n">ds_towrite</span> <span class="o">=</span> <span class="n">ds_towrite</span><span class="o">.</span><span class="n">sortby</span><span class="p">(</span><span class="s2">"aer_type"</span><span class="p">)</span>
 
     <span class="c1"># writes to netcdf</span>
-    <span class="c1"># ds_towrite.to_netcdf(path, mode=&quot;w&quot;, encoding=encoding)</span>
-    <span class="n">ds_towrite</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="c1"># ds_towrite.to_netcdf(path, mode="w", encoding=encoding)</span>
+    <span class="n">ds_towrite</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"w"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1556,7 +1556,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "navigation.tracking", "navigation.expand", "navigation.sections", "navigation.footer", "content.code.copy", "content.code.select", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../assets/js/custom.js"></script>
       
