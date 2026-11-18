@@ -6,6 +6,8 @@ from pathlib import Path
 import json
 import warnings
 
+from tests.io.test_write_profiles import profiles
+
 
 def workflow(path, instruments_types, base_dir, CFG, verbose=False):
     apro_reader = apro.reader.ReadProfiles(path)
@@ -28,6 +30,9 @@ def workflow(path, instruments_types, base_dir, CFG, verbose=False):
 
         # extrapolation lowest layers
         profiles.extrapolate_below(z=260.0, inplace=True)
+
+        # signal to noise ratio
+        profiles.snr(verbose=False)
 
         # cloud detection
         if "cloud" in CFG["parameters"][profiles.data.instrument_type]:
